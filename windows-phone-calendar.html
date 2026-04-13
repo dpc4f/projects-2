@@ -43,7 +43,7 @@
             transform: scale(0.95);
         }
 
-                .button_2 {
+        .buttonCalculate {
             width: 100%;
             padding: 10px;
             background: #667eea;
@@ -55,7 +55,8 @@
             margin-top: 10px;
             margin-bottom: 10px;
         }
-        .button_2:hover {
+
+        .buttonCalculate:hover {
             background: #764ba2;
         }
 
@@ -108,7 +109,7 @@
             font-weight: bold;
         }
 
-                .container {
+        .container {
             background: white;
             padding: 30px;
             border-radius: 10px;
@@ -121,9 +122,9 @@
         }
 
         #reference {
-    
+
             font-size: 12px;
-     
+
         }
 
         /* Mobile optimization */
@@ -148,7 +149,7 @@
 
     <div class="calendar-container">
 
-  <h1 class="center" id="monthYear"></h1>
+        <h1 class="center" id="monthYear"></h1>
 
         <table>
             <thead>
@@ -165,23 +166,20 @@
             <tbody id="calendarBody"></tbody>
         </table>
 
-                <div class="nav">
+        <div class="nav">
             <button onclick="changeMonth(-1)">◀</button>
-          
+
             <button onclick="changeMonth(1)">▶</button>
         </div>
 
     </div>
 
-        <div class="container">
+    <div class="container">
         <h1>Age Calculator</h1>
-        <input type="text" id="birthDate" placeholder="Select your birth date">
-        <button class="button_2" onclick="calculateAge()">Calculate Age</button>
+        <input type="text" id="birthDate" placeholder="Input your birth date">
+        <button class="buttonCalculate" onclick="calculateAge()">Calculate Age</button>
         <div id="result"></div>
-        <h4 id="reference">Reference:
-            
-
-        </h4>
+        <h4 id="reference">Reference:</h4>
     </div>
 
     <script>
@@ -198,29 +196,25 @@
         }
 
         function convertReversedCurrentYear(yearStr) {
-            let year = yearStr.split('+')[1];
-            if (year === undefined) year = '-' + yearStr.split('-')[1];  
-
-            return CURRENT_YEAR + Number(year);
+            const match = yearStr.match(/^current_year([+-]\d+)$/);
+            return CURRENT_YEAR + Number(match?.[1] ?? 0);
         }
 
         function toTuesdayFirst(day) {
             return (day + 5) % 7;
         }
 
-                    const monthNames = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
 
-            const monthNames_2 = [
-                "M11", "M12", "M1", "M2", "M3", "M4",
-                "M5", "M6", "M7", "M8", "M9", "M10"
-            ];
+        const monthNames_2 = [
+            "M11", "M12", "M1", "M2", "M3", "M4",
+            "M5", "M6", "M7", "M8", "M9", "M10"
+        ];
 
         function renderCalendar(year, month) {
-
-
             document.getElementById("monthYear").textContent =
                 monthNames_2[month] + " " + convertCurrentYear(year);
 
@@ -288,23 +282,25 @@
                 return;
             }
 
-            let arr = birthDate.split(' ');
-            let m = -1;
-            for (let i = 0; i < monthNames_2.length; i++) {
-                if (arr[0] === monthNames_2[i]) {
-                    m = i;
-                    break;
-                }
+            const arr = birthDate.trim().split(/\s+/);
+            const m = monthNames_2.indexOf(arr[0]);
+
+            if (m === -1 || arr.length < 3) {
+                resultDiv.textContent = 'Please use the format "M11 1 current_year+0"';
+                return;
             }
-            let birthMonth = monthNames[m];
-            let birthYear = convertReversedCurrentYear(arr[2]); 
-            let convertedBirthDate = birthDate.replace(arr[0], birthMonth);
-            convertedBirthDate = convertedBirthDate.replace(arr[2], birthYear.toString());
+
+            const birthMonthName = monthNames[m];
+            const birthYear = convertReversedCurrentYear(arr[2]);
+            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
             const TODAY = new Date();
             const birth = new Date(convertedBirthDate);
-            // let age = TODAY.getFullYear() - birth.getFullYear();
-            // const monthDiff = TODAY.getMonth() - birth.getMonth();
+            if (isNaN(birth.getTime())) {
+                resultDiv.textContent = 'Invalid birth date format';
+                return;
+            }
+
             let dayDiff = Math.floor((TODAY.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
 
 
@@ -316,7 +312,7 @@
             document.getElementById('reference').textContent = '~' + (dayDiff / DAYS_IN_YEAR).toFixed(2) + ' years old';
         }
     </script>
-    
+
 </body>
 
 </html>
