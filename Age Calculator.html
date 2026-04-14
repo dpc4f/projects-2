@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator</title>
+    <title>Elte Calendar</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 10px;
+            background: #f9f9f9;
         }
-        .container {
+
+        .calendar-container {
+            max-width: 780px;
+            margin: auto;
             background: white;
-            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            width: 300px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        input {
-            width: 100%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
         }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
         button {
+            padding: 6px 10px;
+            font-size: 36px;
+            border: none;
+            border-radius: 6px;
+            background: darkgoldenrod;
+            color: lightblue;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .buttonCalculate {
             width: 100%;
             padding: 10px;
             background: #667eea;
@@ -41,47 +51,204 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
-        button:hover {
+
+        .buttonCalculate:hover {
             background: #764ba2;
         }
-        #result {
-            margin-top: 20px;
-            text-align: center;
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
             font-size: 18px;
+        }
+
+        h2 {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 24px;
+            width: 14.28%;
+            color: darkgoldenrod;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        td {
+            height: 40px;
+        }
+
+        .TODAY {
+            background: lightblue;
+            border-radius: 0%;
+            font-weight: bold;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 480px;
+            margin: auto;
+        }
+
+        #monthYear {
+            color: darkgoldenrod;
+        }
+
+        #reference {
+
+            font-size: 17px;
+
+        }
+
+        #result {
+            font-size: 22px;
             color: #333;
+            margin-top: 10px;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 580px) {
+
+            th,
+            td {
+                font-size: 12px;
+                padding: 4px 0;
+                height: 34px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 5px 8px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Age Calculator</h1>
-        <input type="date" id="birthDate" placeholder="Select your birth date">
-        <button onclick="calculateAge()">Calculate Age</button>
+        <input type="text" id="birthDate" placeholder="Input your birth date">
+        <button class="buttonCalculate" onclick="calculateAge()">Calculate Age</button>
         <div id="result"></div>
+        <h4 id="reference">Reference:</h4>
     </div>
 
     <script>
-            /*
-M9 27 current_year-38
-thang M9 co' 30 ngay; thang M3 co' 31 ngay ..
-3 ngay cua thang M9
-gia su them 30 ngay cua thang M3
---> 3 ngay thang M9 && 30 ngay thang M3
---> .1 thang M9 && 0.9+0.067741935483871 thang M3
---> 1 thang && { 0.067741935483871 thang M3 = 2.1 ngay }
+        const CURRENT_YEAR = 2020;
+        const TODAY = new Date();
+        const DAYS_IN_YEAR = 365.25;
 
+        let currentMonth = TODAY.getMonth();
+        let currentYear = TODAY.getFullYear();
 
-*/
+        function convertCurrentYear() {
+            let subtract = currentYear - CURRENT_YEAR;
+            return 'current_year+' + subtract.toString();
+        }
 
-            const monthNames_2 = [
-                "M11", "M12", "M1", "M2", "M3", "M4",
-                "M5", "M6", "M7", "M8", "M9", "M10"
-            ];
+        function convertReversedCurrentYear(yearStr) {
+            const match = yearStr.match(/^current_year([+-]\d+)$/);
+            return CURRENT_YEAR + Number(match?.[1] ?? 0);
+        }
 
+        function toTuesdayFirst(day) {
+            return (day + 5) % 7;
+        }
 
-            
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const monthNames_2 = [
+            "M11", "M12", "M1", "M2", "M3", "M4",
+            "M5", "M6", "M7", "M8", "M9", "M10"
+        ];
+
+        function renderCalendar(year, month) {
+            document.getElementById("monthYear").textContent =
+                monthNames_2[month] + " " + convertCurrentYear(year);
+
+            const firstDay = new Date(year, month, 1);
+            const startIndex = toTuesdayFirst(firstDay.getDay());
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            const body = document.getElementById("calendarBody");
+            body.innerHTML = "";
+
+            let date = 1;
+
+            for (let r = 0; r < 6; r++) {
+                const row = document.createElement("tr");
+
+                for (let c = 0; c < 7; c++) {
+                    const cell = document.createElement("td");
+
+                    if (r === 0 && c < startIndex || date > daysInMonth) {
+                        cell.textContent = "";
+                    } else {
+                        cell.textContent = date;
+
+                        if (
+                            date === TODAY.getDate() &&
+                            month === TODAY.getMonth() &&
+                            year === TODAY.getFullYear()
+                        ) {
+                            cell.classList.add("TODAY");
+                        }
+
+                        date++;
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                body.appendChild(row);
+                if (date > daysInMonth) break;
+            }
+        }
+
+        function changeMonth(step) {
+            currentMonth += step;
+
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+
+            renderCalendar(currentYear, currentMonth);
+        }
 
 
         function calculateAge() {
@@ -89,30 +256,36 @@ gia su them 30 ngay cua thang M3
             const resultDiv = document.getElementById('result');
 
             if (!birthDate) {
-                resultDiv.textContent = 'Please select a birth date';
+                resultDiv.textContent = 'Please enter a birth date';
                 return;
             }
 
+            const arr = birthDate.trim().split(/\s+/);
+            const m = monthNames_2.indexOf(arr[0]);
 
+            if (m === -1 || arr.length < 3) {
+                resultDiv.textContent = 'Please use the format "M11 1 current_year+0"';
+                return;
+            }
 
-            const today = new Date();
-            const birth = new Date(birthDate);
-            // let age = today.getFullYear() - birth.getFullYear();
-            // const monthDiff = today.getMonth() - birth.getMonth();
-            let dayDiff = Math.floor((today.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
+            const birthMonthName = monthNames[m];
+            const birthYear = convertReversedCurrentYear(arr[2]);
+            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
+            const TODAY = new Date();
+            const birth = new Date(convertedBirthDate);
+            if (isNaN(birth.getTime())) {
+                resultDiv.textContent = 'Invalid birth date format';
+                return;
+            }
 
-            // if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-            //     age--;
-            // }
+            let dayDiff = Math.floor((TODAY.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
 
             resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
+            document.getElementById('reference').textContent = '~' + (dayDiff / DAYS_IN_YEAR).toFixed(2) + ' years old';
         }
     </script>
 
-
 </body>
+
 </html>
-
-
-
