@@ -173,13 +173,7 @@
 
     </div>
 
-    <div class="container">
-        <h1>Age Calculator</h1>
-        <input type="text" id="birthDate" placeholder="Input your birth date">
-        <button class="buttonCalculate" onclick="calculateAge()">Calculate Age</button>
-        <div id="result"></div>
-        <h4 id="reference">Reference:</h4>
-    </div>
+
 
     <script>
         const CURRENT_YEAR = 2020;
@@ -272,44 +266,7 @@
 
         renderCalendar(currentYear, currentMonth);
 
-        function calculateAge() {
-            const birthDate = document.getElementById('birthDate').value;
-            const resultDiv = document.getElementById('result');
-
-            if (!birthDate) {
-                resultDiv.textContent = 'Please enter a birth date';
-                return;
-            }
-
-            const arr = birthDate.trim().split(/\s+/);
-            const m = monthNames_2.indexOf(arr[0]);
-
-            if (m === -1 || arr.length < 3) {
-                resultDiv.textContent = 'Please use the format "M11 1 current_year+0"';
-                return;
-            }
-
-            const birthMonthName = monthNames[m];
-            const birthYear = convertReversedCurrentYear(arr[2]);
-            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
-
-            const TODAY = new Date();
-            const birth = new Date(convertedBirthDate);
-            if (isNaN(birth.getTime())) {
-                resultDiv.textContent = 'Invalid birth date format';
-                return;
-            }
-
-            let dayDiff = Math.floor((TODAY.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-
-
-            // if (monthDiff < 0 || (monthDiff === 0 && TODAY.getDate() < birth.getDate())) {
-            //     age--;
-            // }
-
-            resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
-            document.getElementById('reference').textContent = '~' + (dayDiff / DAYS_IN_YEAR).toFixed(2) + ' years old';
-        }
+      
     </script>
 
 </body>

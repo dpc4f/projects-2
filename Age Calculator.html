@@ -56,6 +56,18 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             max-width: 480px;
             margin: auto;
+            margin-top: 140px;
+        }
+
+        .convertToElte {
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
         }
 
         #reference {
@@ -66,6 +78,18 @@
             font-size: 22px;
             color: #333;
             margin-top: 10px;
+        }
+
+        #gregorianDOB {
+            width: 200px;
+            left: 200px;
+            position: relative;
+        }
+
+        .convertToElte {
+            left: 200px;
+            position: relative;
+            text-align: center;
         }
     </style>
 </head>
@@ -78,6 +102,8 @@
         <div id="result"></div>
         <h4 id="reference"></h4>
     </div>
+
+    <input id="gregorianDOB" value="Dec 13 2011"><button class="convertToElte" onclick="convertToElte()">Copy / Paste</button>
 
     <script>
         const CURRENT_YEAR = 2020;
@@ -201,6 +227,26 @@
 
             resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
             document.getElementById('reference').textContent = '~' + (dayDiff / DAYS_IN_YEAR).toFixed(2) + ' years old';
+        }
+    
+        function convertToElte() {
+            const gregorianDOB = document.getElementById('gregorianDOB').value;
+            const date = new Date(gregorianDOB);
+
+            if (isNaN(date.getTime())) {
+                alert('Invalid date format. Please use a format like "Dec 13 2011".');
+                return;
+            }
+
+            const month = date.getMonth();
+            const day = date.getDate();
+            const year = date.getFullYear();
+
+            const elteMonth = monthNames_2[month];
+            const elteYear = 'current_year' + (year - CURRENT_YEAR).toString();
+
+            const elteDOB = `${elteMonth} ${day} ${elteYear}`;
+            document.getElementById('birthDate').value = elteDOB;
         }
     </script>
 
