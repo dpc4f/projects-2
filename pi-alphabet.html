@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>π Alphabet Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            align-items: center;
+            align-content: center;
+        }
+        h1 {
+            text-align: left;
+            padding-left: 140px;
+        }
+        #alphabet {
+            display: inline-grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            justify-items: center;
+            align-self: center;
+            align-content: center;
+        }
+        .letter {
+            background-color: #e7dfdf;
+            border: 1px solid #1dc72b;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            min-width: 60px;
+            font-size: 22px;
+        }
+
+        .box {
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 14%);
+    border-radius: 5px;
+    padding: 10px 5px;
+    margin: 5px;
+}
+.symbol {
+    font-size: 2.5em;
+    font-family: -webkit-pictograph;
+}
+    </style>
+</head>
+<body>
+    <h1><span class="symbol">π</span> Alphabet</h1>
+    <div id="alphabet"></div>
+
+    <script>
+        // The π Alphabet starts with 'D' at position 1
+        const letters = 'DEFGHIJKLMNOPQRSTUVWXYZABC';
+        
+        const container = document.getElementById('alphabet');
+        
+        for (let i = 0; i < letters.length; i++) {
+            const div = document.createElement('div');
+            div.className = 'letter';
+            div.innerHTML = `${letters[i]}<br>${i + 1}`;
+            container.appendChild(div);
+        }
+    </script>
+</body>
+</html>
