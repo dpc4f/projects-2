@@ -93,7 +93,6 @@
 </head>
 
 <body>
-
     <input type="text" id="gregorianDOB" placeholder="Dec 13 2011">
     <button class="inputElte" onclick="convertToElte()">Copy / Passte</button>
 
@@ -101,7 +100,7 @@
     <input type="text" id="birthYear" placeholder="current_year+6">
     <button class="inputElte" onclick="fromElte()">Copy / Paste from Elte</button>
 
-    <input id="birthYear-2" value="current_year, 2020">
+    <input id="birthYear-2" placeholder="2020">
     <input id="animal" value="Mouse">
     <button class="convertToElte" onclick="exchange2Animal()">Exchange 2 Animal</button>
 
@@ -252,7 +251,7 @@
             const elteYear = 'current_year' + (year - CURRENT_YEAR).toString();
 
             const elteDOB = `${elteMonth} ${day} ${elteYear}`;
-            document.getElementById('birthDate').value = elteDOB;
+            document.getElementById('birthYear').value = elteDOB;
         }
 
         function fromElte() {
@@ -260,20 +259,21 @@
             const arr = elteDOB.trim().split(/\s+/);
             const m = monthNames_2.indexOf(arr[0]);
 
-            // if (m === -1 || arr.length < 3) {
-            //     alert('Please use the format "M11 1 current_year+0"');
-            //     return;
-            // }
+            if (m === -1 || arr.length < 3) {
+                alert('Please use the format "M11 1 current_year+0"');
+                return;
+            }
 
-            // const birthMonthName = monthNames[m];
-            const birthYear = convertReversedCurrentYear(arr[0]);
-            //const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
+            const birthMonthName = monthNames[m];
+            const birthYear = convertReversedCurrentYear(arr[2]);
+            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
-            document.getElementById('gregorianDOB').value = birthYear;
+            document.getElementById('birthYear-2').value = birthYear;
+            exchange2Animal();
         }
 
         function exchange2Animal() {
-            let yearOfBirth = parseInt(document.getElementById('birthYear').value);
+            let yearOfBirth = parseInt(document.getElementById('birthYear-2').value);
             // const animalInput = document.getElementById('animal').value;
 
             // Here you would implement the logic to convert between age and animal
