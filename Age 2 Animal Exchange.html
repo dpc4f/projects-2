@@ -278,8 +278,10 @@
             return elteDOB;
         }
 
+window.onload = function() {
         document.getElementById('birthYear-2').value = convertToElte(new Date());
-        exchange2Animal();
+        fromElte();
+}
         
         function copypaste2BirthYear(aDate)
         {
