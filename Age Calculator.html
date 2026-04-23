@@ -47,6 +47,12 @@
 
         .center {
             text-align: center;
+            margin-top: 40px;
+
+        }
+
+        h1 {
+            margin: 20px;
         }
 
         .container {
@@ -54,9 +60,8 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            max-width: 480px;
+            max-width: 500px;
             margin: auto;
-            margin-top: 140px;
         }
 
         .convertToElte {
@@ -68,6 +73,7 @@
             cursor: pointer;
             font-size: 14px;
             margin-left: 10px;
+            margin-bottom: 50px;
         }
 
         #reference {
@@ -91,19 +97,31 @@
             position: relative;
             text-align: center;
         }
+
+        h3 {
+            margin-bottom: 0px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1 class="center">Age Calculator</h1>
+
+        <div>
+            <h3 class="center">Date Of Birth In Gregorian Calendar</h3>
+            <input id="gregorianDOB" value="Dec 13 2011">
+            <button class="convertToElte" onclick="convertToElte()">COPYpaste</button>
+        </div>
+
         <input type="text" id="birthDate" placeholder="Input your birth date">
         <button class="buttonCalculate" onclick="calculateAge()">Calculate Age</button>
+
         <div id="result"></div>
         <h4 id="reference"></h4>
     </div>
 
-    <input id="gregorianDOB" value="Dec 13 2011"><button class="convertToElte" onclick="convertToElte()">Copy / Paste</button>
+
 
     <script>
         const CURRENT_YEAR = 2020;
@@ -208,7 +226,7 @@
             const m = monthNames_2.indexOf(arr[0]);
 
             if (m === -1 || arr.length < 3) {
-                resultDiv.textContent = 'Please use the format "M11 1 current_year+0"';
+                resultDiv.textContent = 'Please use the format "M11 1 current_year±N"';
                 return;
             }
 
@@ -228,7 +246,7 @@
             resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
             document.getElementById('reference').textContent = '~' + (dayDiff / DAYS_IN_YEAR).toFixed(2) + ' years old';
         }
-    
+
         function convertToElte() {
             const gregorianDOB = document.getElementById('gregorianDOB').value;
             const date = new Date(gregorianDOB);
@@ -238,14 +256,22 @@
                 return;
             }
 
-            const month = date.getMonth();
-            const day = date.getDate();
-            const year = date.getFullYear();
+            let month = date.getMonth();
+            let day = date.getDate();
+            let year = date.getFullYear();
 
-            const elteMonth = monthNames_2[month];
-            const elteYear = 'current_year' + (year - CURRENT_YEAR).toString();
+            let elteMonth = monthNames_2[month];
 
-            const elteDOB = `${elteMonth} ${day} ${elteYear}`;
+            if (month <= 2)
+                year--;
+            if (year > CURRENT_YEAR)
+                elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
+            else if (year < CURRENT_YEAR)
+                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+            else
+                elteYear = 'current_year';
+
+            let elteDOB = `${elteMonth} ${day} ${elteYear}`;
             document.getElementById('birthDate').value = elteDOB;
         }
     </script>

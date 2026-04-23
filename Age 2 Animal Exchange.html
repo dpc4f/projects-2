@@ -223,7 +223,7 @@
             const m = monthNames_2.indexOf(arr[0]);
 
             if (m === -1 || arr.length < 3) {
-                resultDiv.textContent = 'Please use the format "M11 1 current_year+0"';
+                resultDiv.textContent = 'Please use the format "M11 1 current_year±N"';
                 return;
             }
 
@@ -266,14 +266,16 @@
 
             
             
-            let elteYear;
-            if (month <= 2) year--;
-            if (year >= CURRENT_YEAR)
-            elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
-            else 
-                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
-            
+            if (month <= 2) 
+                year--;
 
+            if (year > CURRENT_YEAR)
+                elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
+            else if (year < CURRENT_YEAR)
+                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+            else
+                elteYear = 'current_year';
+            
             const elteDOB = `${elteMonth} ${day} ${elteYear}`;
             return elteDOB;
         }

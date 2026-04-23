@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beloved Women In Souls Of ð Favourite Animals</title>
+    <title>Beloved Women In Souls Of ð Animals</title>
 
     <style>
         body {
@@ -335,11 +335,16 @@
 
 
             let elteYear;
-            if (month <= 2) year--;
-            if (year >= CURRENT_YEAR)
+
+            if (month <= 2) 
+                year--;
+
+            if (year > CURRENT_YEAR)
                 elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
-            else
+            else if (year < CURRENT_YEAR)
                 elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+            else
+                elteYear = 'current_year';
 
 
             const elteDOB = `${elteMonth} ${day} ${elteYear}`;
@@ -359,7 +364,7 @@
             const m = monthNames_2.indexOf(arr[0]);
 
             if (m === -1 || arr.length < 3) {
-                alert('Please use the format "M11 1 current_year+0"');
+                alert('Please use the format "M11 1 current_year±N"');
                 return;
             }
 
