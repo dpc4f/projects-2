@@ -98,6 +98,10 @@
             background-color: green;
         }
 
+        .beloved {
+            margin: 40px;
+        }
+
         .currentYear {
             font-size: 10px;
         }
@@ -107,24 +111,28 @@
 <body>
     <h1 class="center">Beloved Women && Favourite Animals</h1>
 
-    <div>
+    <div class="beloved">
         <div type="text" disabled>Thoa Nguyen</div>
         <div type="text" id="DOB-1" disabled>May 10 1987</div>
+        <div type="text" id="ANI-1"></div>
     </div>
 
-    <div>
+    <div class="beloved">
         <div type="text" disabled>Annabel Yao</div>
-        <div type="text" id="DOB-2" disabled value="Jan 14 1998"></div>
+        <div type="text" id="DOB-2" disabled>Jan 14 1998</div>
+        <div type="text" id="ANI-2"></div>
     </div>
 
-    <div>
+    <div class="beloved">
         <div type="text" disabled>Tomoka Miyazaki</div>
-        <div type="text" disabled value="Aug 17 2006"></div>
+        <div type="text" id="DOB-3" disabled>Aug 17 2006</div>
+        <div type="text" id="ANI-3"></div>
     </div>
 
-    <div>
-        <div type="text" disabled>Wu Jinyan (Ngô Cẩn Ngôn)</div>
-        <div type="text" disabled value="Aug 16 1990"></div>
+    <div class="beloved">
+        <div type="text" disabled>Wu Jinyan (Ngô Cẩn Ngôn / Ngụy Anh Lạc)</div>
+        <div type="text" id="DOB-4" disabled>Aug 16 1990</div>
+        <div type="text" id="ANI-4"></div>
     </div>
 
 
@@ -139,22 +147,31 @@
 
     <script>
 
-        window.onload = function() {
+        window.onload = function () {
             document.getElementById('DOB-1').innerHTML = convertToElte(document.getElementById('DOB-1').innerHTML);
+            document.getElementById('DOB-2').innerHTML = convertToElte(document.getElementById('DOB-2').innerHTML);
+            document.getElementById('DOB-3').innerHTML = convertToElte(document.getElementById('DOB-3').innerHTML);
+            document.getElementById('DOB-4').innerHTML = convertToElte(document.getElementById('DOB-4').innerHTML);
+
+
+            document.getElementById('ANI-1').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-2').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-3').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-4').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
         }
 
-    
 
 
-   
+
+
         const TODAY = new Date();
         const DAYS_IN_YEAR = 365.25;
-                           const monthNames_2 = [
+        const monthNames_2 = [
             "M11", "M12", "M1", "M2", "M3", "M4",
             "M5", "M6", "M7", "M8", "M9", "M10"
         ];
 
-             const CURRENT_YEAR = 2020;
+        const CURRENT_YEAR = 2020;
 
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
@@ -179,7 +196,7 @@
             "July", "August", "September", "October", "November", "December"
         ];
 
- 
+
 
         const animalNames = [
             "Mouse / Rat", "Ox / Bull / Buffalo / Bison / Gayal / Cow", "Tiger / Leopard", "Rabbit / Rapoo", "Long Dragon", "Snake Family",
@@ -344,7 +361,7 @@
             while (birthYear < CURRENT_YEAR) {
                 birthYear += 12;
             }
-            document.getElementById('animal').value = animalNames[(birthYear - CURRENT_YEAR) % 12];
+            return animalNames[(birthYear - CURRENT_YEAR) % 12];
         }
 
 
