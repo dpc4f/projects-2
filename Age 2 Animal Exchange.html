@@ -78,12 +78,6 @@
             font-size: 17px;
         }
 
-        #result {
-            font-size: 22px;
-            color: #333;
-            margin-top: 10px;
-        }
-
         #gregorianDOB {
             position: relative;
         }
@@ -108,14 +102,15 @@
 
 <body>
     <h1 class="center">Exchange 2 Animal</h1>
-    <input type="text" id="gregorianDOB" value="Dec 13 2011">
-    <button class="inputElte" onclick="convertToElte()">COPYpaste</button>
+    <input type="text" id="gregorianDOB" placeholder="Dec 13 2011">
+    <button class="inputElte" onclick="copypaste2BirthYear(document.getElementById('gregorianDOB').value)">COPYpaste</button>
 
 
-    <input type="text" id="birthYear" value="current_year+6">
+    <input type="text" id="birthYear" value="current_year, 2020" disabled>
+    
+    <input id="birthYear-2" value="">
     <button class="inputElte" onclick="fromElte()">COPYpaste From Elte</button>
 
-    <input id="birthYear-2" disabled value="">
     <input id="animal" disabled value="">
 
 
@@ -154,7 +149,7 @@
 
         const animalNames = [
             "Mouse / Rat", "Ox / Bull / Buffalo / Bison / Gayal / Cow", "Tiger / Leopard", "Rabbit / Rapoo", "Long Dragon", "Snake Family",
-            "Horse", "Goat", "Monkey", "Rooster / Chicken", "Dodge / Deer", "Pig"
+            "Horse / Sea Horse", "Goat / Maggot", "Monkey / Ape", "Rooster / Chicken", "Dodge / Deer / Duck", "Pig"
         ];
 
         function renderCalendar(year, month) {
@@ -250,34 +245,49 @@
         }
 
         function convertToElte(aDate) {
-
-            const date = new Date();
+            let date;
+            if (aDate.isNaN) {
+                date = new Date();
+            }
+            else {
+                date = new Date(aDate);
+            }
 
             if (isNaN(date.getTime())) {
-                alert('Invalid date format. Please use a format like "Dec 13 2011".');
+                alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
                 return;
             }
 
-            const month = date.getMonth();
-            const day = date.getDate();
-            const year = date.getFullYear();
+            let month = date.getMonth();
+            let day = date.getDate();
+            let year = date.getFullYear();
 
             const elteMonth = monthNames_2[month];
+
+            
             
             let elteYear;
+            if (month <= 2) year--;
             if (year >= CURRENT_YEAR)
             elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
             else 
                 elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+            
 
             const elteDOB = `${elteMonth} ${day} ${elteYear}`;
-            document.getElementById('birthYear-2').value = elteDOB;
+            return elteDOB;
         }
 
-        convertToElte(new Date());
+        document.getElementById('birthYear-2').value = convertToElte(new Date());
+        exchange2Animal();
+        
+        function copypaste2BirthYear(aDate)
+        {
+            document.getElementById('birthYear-2').value = convertToElte(new Date(aDate));
+        }
         
         function fromElte() {
-            const elteDOB = document.getElementById('birthYear').value;
+            const elteDOB = document.getElementById('birthYear-2').value;
             const arr = elteDOB.trim().split(/\s+/);
             const m = monthNames_2.indexOf(arr[0]);
 
@@ -290,23 +300,16 @@
             const birthYear = convertReversedCurrentYear(arr[2]);
             const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
-            document.getElementById('birthYear-2').value = birthYear;
-            exchange2Animal();
+            // document.getElementById('birthYear-2').value = birthYear;
+            exchange2Animal(birthYear);
         }
 
-        function exchange2Animal() {
-            let yearOfBirth = parseInt(document.getElementById('birthYear-2').value);
-            // const animalInput = document.getElementById('animal').value;
-
-            // Here you would implement the logic to convert between age and animal
-            // For demonstration, let's just swap the values
-            // document.getElementById('birthYear').value = animalInput;
-
-            while (yearOfBirth < CURRENT_YEAR) {
-                yearOfBirth += 12;
+        function exchange2Animal(birthYear) {
+            while (birthYear < CURRENT_YEAR) {
+                birthYear += 12;
             }
 
-            document.getElementById('animal').value = animalNames[(yearOfBirth - CURRENT_YEAR) % 12];
+            document.getElementById('animal').value = animalNames[(birthYear - CURRENT_YEAR) % 12];
         }
     </script>
 
