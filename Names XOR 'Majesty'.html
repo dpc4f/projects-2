@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Names XOR /ma yeti/</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            background: #f9f9f9;
+            width: 50%;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        .buttonCalculate {
+            width: 100%;
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .buttonCalculate:hover {
+            background: #764ba2;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+
+        h2 {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 480px;
+            margin: auto;
+            margin-top: 140px;
+        }
+
+        .inputElte {
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            margin-bottom: 40px;
+        }
+
+        #reference {
+            font-size: 17px;
+        }
+
+        #gregorianDOB {
+            position: relative;
+        }
+
+        .convertToElte {
+            left: 200px;
+            position: relative;
+            text-align: center;
+            font-size: 27px;
+            margin: 20px;
+
+
+        }
+
+        .center {
+            text-align: center;
+            color: darkgoldenrod;
+            background-color: lightyellow;
+        }
+
+        .beloved {
+            margin: 40px;
+        }
+
+        .currentYear {
+            font-size: 10px;
+        }
+
+        .名前 {
+            font-weight: 900;
+        }
+
+        .colourAnimal {
+            color: brown;
+     
+        }
+
+        .infor {
+            width: auto;
+            margin: 10px;
+            font: italic 16px/1.5 "Tahoma", serif;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="center">xor MA-YETI</h1>
+
+    <div class="beloved">
+        <div type="text" class="名前" disabled>Nguyen Thi Kim Thoa</div>
+        <dic>M 1; A 1</dic>
+        <div>Y 1; E 1; T 1; I 1</div>
+    </div>
+
+    <div class="beloved">
+        <div type="text" class="名前" disabled>Annabel Yao</div>
+   
+
+    </div>
+
+    <div class="beloved">
+        <div type="text" class="名前" disabled>Tomoka Miyazaki</div>
+        <dic>M 2; A 2</dic>
+        <div>Y 1; E 1 <-- A [a/e]; T 1; I 2</div>
+
+    </div>
+
+    <div class="beloved">
+        <div type="text" class="名前" disabled>吴謹言 /wu jinyan/ (Ngô Cẩn Ngôn / Ngụy Anh Lạc)</div>
+   
+    </div>
+
+
+    <script>
+
+        window.onload = function () {
+            document.getElementById('DOB-1').innerHTML = convertToElte(document.getElementById('DOB-1').innerHTML);
+            document.getElementById('DOB-2').innerHTML = convertToElte(document.getElementById('DOB-2').innerHTML);
+            document.getElementById('DOB-3').innerHTML = convertToElte(document.getElementById('DOB-3').innerHTML);
+            document.getElementById('DOB-4').innerHTML = convertToElte(document.getElementById('DOB-4').innerHTML);
+
+
+            document.getElementById('ANI-1').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-2').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-3').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-4').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
+        }
+
+
+
+
+
+        const TODAY = new Date();
+        const DAYS_IN_YEAR = 365.25;
+        const monthNames_2 = [
+            "M11", "M12", "M1", "M2", "M3", "M4",
+            "M5", "M6", "M7", "M8", "M9", "M10"
+        ];
+
+        const CURRENT_YEAR = 2020;
+
+        let currentMonth = TODAY.getMonth();
+        let currentYear = TODAY.getFullYear();
+
+        function convertCurrentYear() {
+            let subtract = currentYear - CURRENT_YEAR;
+            return 'current_year+' + subtract.toString();
+        }
+
+        function convertReversedCurrentYear(yearStr) {
+            const match = yearStr.match(/^current_year([+-]\d+)$/);
+            return CURRENT_YEAR + Number(match?.[1] ?? 0);
+        }
+
+
+        function toTuesdayFirst(day) {
+            return (day + 5) % 7;
+        }
+
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+
+
+        const animalNames = [
+            "Mouse / Rat", "Ox / Bull / Buffalo / Cow / Bison / Gayal", "Tiger / Leopard", "Rabbit / Rapoo", "Long Dragon / Ant", "Snake Family / Centipede",
+            "Horse / Sea Horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape", "Rooster / Chicken", "Dodge / Deer / Duck", "Pig / Boar"
+        ];
+
+        function renderCalendar(year, month) {
+            document.getElementById("monthYear").textContent =
+                monthNames_2[month] + " " + convertCurrentYear(year);
+
+            const firstDay = new Date(year, month, 1);
+            const startIndex = toTuesdayFirst(firstDay.getDay());
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            const body = document.getElementById("calendarBody");
+            body.innerHTML = "";
+
+            let date = 1;
+
+            for (let r = 0; r < 6; r++) {
+                const row = document.createElement("tr");
+
+                for (let c = 0; c < 7; c++) {
+                    const cell = document.createElement("td");
+
+                    if (r === 0 && c < startIndex || date > daysInMonth) {
+                        cell.textContent = "";
+                    } else {
+                        cell.textContent = date;
+
+                        if (
+                            date === TODAY.getDate() &&
+                            month === TODAY.getMonth() &&
+                            year === TODAY.getFullYear()
+                        ) {
+                            cell.classList.add("TODAY");
+                        }
+
+                        date++;
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                body.appendChild(row);
+                if (date > daysInMonth) break;
+            }
+        }
+
+        function changeMonth(step) {
+            currentMonth += step;
+
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+
+            renderCalendar(currentYear, currentMonth);
+        }
+
+
+        function calculateAge() {
+            const birthDate = document.getElementById('birthDate').value;
+            const resultDiv = document.getElementById('result');
+
+            if (!birthDate) {
+                resultDiv.textContent = 'Please enter a birth date';
+                return;
+            }
+
+            const arr = birthDate.trim().split(/\s+/);
+            const m = monthNames_2.indexOf(arr[0]);
+
+            if (m === -1 || arr.length < 3) {
+                resultDiv.textContent = 'Please use the format "M11 1 current_year+0"';
+                return;
+            }
+
+            const birthMonthName = monthNames[m];
+            const birthYear = convertReversedCurrentYear(arr[2]);
+            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
+
+            const TODAY = new Date();
+            const birth = new Date(convertedBirthDate);
+            if (isNaN(birth.getTime())) {
+                resultDiv.textContent = 'Invalid birth date format';
+                return;
+            }
+
+            let dayDiff = Math.floor((TODAY.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
+
+            resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
+            document.getElementById('reference').textContent = '~' + (dayDiff / DAYS_IN_YEAR).toFixed(2) + ' years old';
+        }
+
+        function convertToElte(aDate) {
+
+
+
+            let date;
+            if (aDate.isNaN) {
+                date = new Date();
+            }
+            else {
+                date = new Date(aDate);
+            }
+
+            if (isNaN(date.getTime())) {
+                alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
+                return;
+            }
+
+            let month = date.getMonth();
+            let day = date.getDate();
+            let year = date.getFullYear();
+
+            const elteMonth = monthNames_2[month];
+
+
+
+            let elteYear;
+
+            if (month <= 2) 
+                year--;
+
+            if (year > CURRENT_YEAR)
+                elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
+            else if (year < CURRENT_YEAR)
+                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+            else
+                elteYear = 'current_year';
+
+
+            const elteDOB = `${elteMonth} ${day} ${elteYear}`;
+            return elteDOB;
+        }
+
+        document.getElementById('birthYear-2').innerHTML = convertToElte(new Date());
+        exchange2Animal();
+
+        function copypaste2BirthYear(aDate) {
+            document.getElementById('birthYear-2').value = convertToElte(new Date(aDate));
+        }
+
+        function fromElte() {
+            const elteDOB = document.getElementById('birthYear-2').value;
+            const arr = elteDOB.trim().split(/\s+/);
+            const m = monthNames_2.indexOf(arr[0]);
+
+            if (m === -1 || arr.length < 3) {
+                alert('Please use the format "M11 1 current_year±N"');
+                return;
+            }
+
+            const birthMonthName = monthNames[m];
+            const birthYear = convertReversedCurrentYear(arr[2]);
+            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
+
+            // document.getElementById('birthYear-2').value = birthYear;
+            exchange2Animal(birthYear);
+        }
+
+        function exchange2Animal(birthYear) {
+            while (birthYear < CURRENT_YEAR) {
+                birthYear += 12;
+            }
+            return animalNames[(birthYear - CURRENT_YEAR) % 12];
+        }
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
