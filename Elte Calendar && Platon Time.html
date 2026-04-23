@@ -115,7 +115,7 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            width: 300px;
+
         }
 
         #monthYear {
@@ -143,37 +143,110 @@
                 padding: 5px 8px;
             }
         }
+
+        .flex-container {
+            display: flex;
+            min-height: 100vh;
+            /* optional: full viewport height */
+            width: auto;
+        }
+
+        .left-panel,
+        .right-panel {
+            flex: 1;
+            /* each side takes equal width */
+            padding: 20px;
+        }
+
+        .left-panel {
+            background: #f2f2f2;
+        }
+
+        .right-panel {
+            background: #e0e0ff;
+        }
+
+        .left-panel {
+            flex: 0 0 70%;
+            /* fixed 300px width */
+        }
+
+        .right-panel {
+            flex: 1;
+            /* fills remaining space */
+            padding: 50px;
+        }
+
+        .platon-time {
+            width: auto;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .local-current-time {
+            width: auto;
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            margin-bottom: 80px;
+        }
+
+        em {
+            font-size: large;
+            font-weight: 900;
+            margin-right: 22px;
+        }
+
+
     </style>
 </head>
 
 <body>
 
-    <div class="calendar-container">
+    <div class="flex-container">
+        <div class="left-panel">
+            <div class="calendar-container">
+                <h1 class="center" id="monthYear"></h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thaw</th>
+                            <th>Wan</th>
+                            <th>Uth</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                            <th>Hie</th>
+                            <th>Dak</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendarBody"></tbody>
+                </table>
 
-        <h1 class="center" id="monthYear"></h1>
+                <div class="nav">
+                    <button onclick="changeMonth(-1)">Prev Month</button>
+                    <button onclick="changeMonth(1)">Next Month</button>
+                </div>
+            </div>
+        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Thaw</th>
-                    <th>Wan</th>
-                    <th>Uth</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                    <th>Hie</th>
-                    <th>Dak</th>
-                </tr>
-            </thead>
-            <tbody id="calendarBody"></tbody>
-        </table>
+        <div class="right-panel">
+            <div class="platon-time"><em>Osaka</em> GMT+7+2</div>
+            <div id="oxaka" class="local-current-time"></div>
 
-        <div class="nav">
-            <button onclick="changeMonth(-1)">Prev Month</button>
-            <button onclick="changeMonth(1)">Next Month</button>
+            <div class="platon-time"><em>Beijing</em> GMT+7+1</div>
+            <div id="beijing" class="local-current-time"></div>
+
+            <div class="platon-time"><em>Rachael</em> GMT+7-7</div>
+            <div id="rachael" class="local-current-time"></div>
+
+            <div class="platon-time"><em>Long Xuy^en</em> GMT+7</div>
+            <div id="longxuyen" class="local-current-time"></div>
+
         </div>
 
     </div>
-
+    </div>
 
 
     <script>
@@ -183,6 +256,38 @@
 
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
+
+
+function formatTime(date, hours = 0) {
+  const h = String(date.getHours()+hours).padStart(2, '0');
+  const m = String(date.getMinutes()).padStart(2, '0');
+  const s = String(date.getSeconds()).padStart(2, '0');
+  return `${h}:${m}:${s}`;
+}
+
+function updateTimes() {
+  const now = new Date();
+ 
+  
+  const oxakaTime = formatTime(now, additionalHours = 2); // GMT+7+2
+  const beijingTime = formatTime(now, additionalHours = 1); // GMT+7+1
+  const rachaelTime = formatTime(now, additionalHours = -7); // GMT+7-7
+  const longxuyenTime = formatTime(now, additionalHours = 0); // GMT+7
+
+  document.getElementById('oxaka').textContent = `${oxakaTime}`;
+  document.getElementById('beijing').textContent = `${beijingTime}`;
+  document.getElementById('rachael').textContent = `${rachaelTime}`;
+  document.getElementById('longxuyen').textContent = `${longxuyenTime}`;
+}
+
+// initial render
+updateTimes();
+
+// refresh every second
+setInterval(updateTimes, 1000);
+
+
+
 
         function convertCurrentYear() {
             let subtract = currentYear - CURRENT_YEAR;
@@ -267,7 +372,7 @@
 
         renderCalendar(currentYear, currentMonth);
 
-      
+
     </script>
 
 </body>
