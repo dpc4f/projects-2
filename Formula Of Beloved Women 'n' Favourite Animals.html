@@ -105,6 +105,22 @@
         .currentYear {
             font-size: 10px;
         }
+
+        .名前 {
+            font-weight: 900;
+        }
+
+        .colourAnimal {
+            color: brown;
+     
+        }
+
+        .infor {
+            width: auto;
+            margin: 10px;
+            font: italic 16px/1.5 "Tahoma", serif;
+
+        }
     </style>
 </head>
 
@@ -112,38 +128,36 @@
     <h1 class="center">Beloved Women && Favourite Animals</h1>
 
     <div class="beloved">
-        <div type="text" disabled>Thoa Nguyen</div>
+        <div type="text" class="名前" disabled>Thoa Nguyen</div>
         <div type="text" id="DOB-1" disabled>May 10 1987</div>
-        <div type="text" id="ANI-1"></div>
+        <div type="text" id="ANI-1" class="colourAnimal"></div>
     </div>
 
     <div class="beloved">
-        <div type="text" disabled>Annabel Yao</div>
+        <div type="text" class="名前" disabled>Annabel Yao</div>
         <div type="text" id="DOB-2" disabled>Jan 14 1998</div>
-        <div type="text" id="ANI-2"></div>
+        <div type="text" id="ANI-2" class="colourAnimal"></div>
     </div>
 
     <div class="beloved">
-        <div type="text" disabled>Tomoka Miyazaki</div>
+        <div type="text" class="名前" disabled>Tomoka Miyazaki</div>
         <div type="text" id="DOB-3" disabled>Aug 17 2006</div>
-        <div type="text" id="ANI-3"></div>
+        <div type="text" id="ANI-3" class="colourAnimal"></div>
     </div>
 
     <div class="beloved">
-        <div type="text" disabled>Wu Jinyan (Ngô Cẩn Ngôn / Ngụy Anh Lạc)</div>
+        <div type="text" class="名前" disabled>吴謹言 /wu jinyan/ (Ngô Cẩn Ngôn / Ngụy Anh Lạc)</div>
         <div type="text" id="DOB-4" disabled>Aug 16 1990</div>
-        <div type="text" id="ANI-4"></div>
+        <div type="text" id="ANI-4" class="colourAnimal"></div>
     </div>
 
 
 
-    <input id="birthYear-2" value="">
-    <button class="inputElte" onclick="fromElte()">COPYpaste From Elte</button>
-
-    <input id="animal" disabled value="">
+    <div class="infor" id="birthYear-2" disabled></div>
 
 
-    <input type="text" class="currentYear" value="current_year, 2020" disabled>
+
+    <div class="infor currentYear" disabled>current_year, 2020</div>
 
     <script>
 
@@ -199,7 +213,7 @@
 
 
         const animalNames = [
-            "Mouse / Rat", "Ox / Bull / Buffalo / Bison / Gayal / Cow", "Tiger / Leopard", "Rabbit / Rapoo", "Long Dragon", "Snake Family",
+            "Mouse / Rat", "Ox / Bull / Buffalo / Cow / Bison / Gayal", "Tiger / Leopard", "Rabbit / Rapoo", "Long Dragon", "Snake Family",
             "Horse / Sea Horse", "Goat / Maggot", "Monkey / Ape", "Rooster / Chicken", "Dodge / Deer / Duck", "Pig"
         ];
 
@@ -332,7 +346,7 @@
             return elteDOB;
         }
 
-        document.getElementById('birthYear-2').value = convertToElte(new Date());
+        document.getElementById('birthYear-2').innerHTML = convertToElte(new Date());
         exchange2Animal();
 
         function copypaste2BirthYear(aDate) {
