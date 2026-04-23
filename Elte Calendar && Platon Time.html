@@ -259,7 +259,8 @@
 
 
 function formatTime(date, hours = 0) {
-  const h = String(date.getHours()+hours).padStart(2, '0');
+    let hr;
+  const h = String((hr = date.getHours()+hours) >= 0 ? hr : 24+hr).padStart(2, '0');
   const m = String(date.getMinutes()).padStart(2, '0');
   const s = String(date.getSeconds()).padStart(2, '0');
   return `${h}:${m}:${s}`;
