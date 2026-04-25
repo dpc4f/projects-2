@@ -238,8 +238,8 @@
             <div class="platon-time"><em>Rachael</em> GMT+7-7</div>
             <div id="rachael" class="local-current-time"></div>
 
-            <div class="platon-time"><em class="forestry">大阪</em> GMT+7+2</div>
-            <div id="oxaka" class="local-current-time"></div>
+            <div class="platon-time"><em class="forestry">서울</em><em>    Osaka</em> GMT+7+2</div>
+            <div id="oxaka-seoul" class="local-current-time"></div>
 
             <div class="platon-time"><em class="forestry">北京</em> GMT+7+1</div>
             <div id="beijing" class="local-current-time"></div>
@@ -274,12 +274,12 @@ function updateTimes() {
   const now = new Date();
  
   
-  const oxakaTime = formatTime(now, additionalHours = 2); // GMT+7+2
+  const oxakaSeoulTime = formatTime(now, additionalHours = 2); // GMT+7+2
   const beijingTime = formatTime(now, additionalHours = 1); // GMT+7+1
   const rachaelTime = formatTime(now, additionalHours = -7); // GMT+7-7
   const longxuyenTime = formatTime(now, additionalHours = 0); // GMT+7
 
-  document.getElementById('oxaka').textContent = `${oxakaTime}`;
+  document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
   document.getElementById('beijing').textContent = `${beijingTime}`;
   document.getElementById('rachael').textContent = `${rachaelTime}`;
   document.getElementById('longxuyen').textContent = `${longxuyenTime}`;
