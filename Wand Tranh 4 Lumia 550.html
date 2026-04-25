@@ -37,8 +37,17 @@
     <textarea id="note"></textarea>
     <br>
 
-    <button onclick="saveNote()">Save</button>
-    <button onclick="exportTEX()">Export TEX</button>
+    <!--
+Source - https://stackoverflow.com/a/23332116
+Posted by sites, modified by community. See post 'Timeline' for change history
+Retrieved 2026-04-25, License - CC BY-SA 4.0
+-->
+
+    <input type="file" name="file" id="file">
+
+    <br>
+
+    <button onclick="exportText()">Export TEX</button>
     <button onclick="clearNote()">Clear</button>
 
     <script>
@@ -50,10 +59,26 @@
         }
 
         function loadNote() {
-            var text = localStorage.getItem("my_note");
-            if (text) {
-                document.getElementById("note").value = text;
-            }
+
+
+            const $output = document.getElementById('note')
+            document.getElementById('file').onchange = function () {
+                var file = this.files[0];
+
+                var reader = new FileReader();
+                reader.onload = function (progressEvent) {
+                    // Entire file
+                    const text = this.result;
+                    $output.innerText = text
+
+                    // By lines
+                    var lines = text.split('\n');
+                    for (var line = 0; line < lines.length; line++) {
+                        console.log(lines[line]);
+                    }
+                };
+                reader.readAsText(file);
+            };
         }
 
         function clearNote() {
@@ -61,7 +86,7 @@
             document.getElementById("note").value = "";
         }
 
-        function exportTEX() {
+        function exportText() {
 
             var text = document.getElementById("note").value;
 
@@ -69,7 +94,7 @@
             var link = document.createElement("a");
 
             link.href = URL.createObjectURL(blob);
-            link.download = "note.tex";
+            link.download = "wand-tranh-note.tex";
 
             document.body.appendChild(link);
             link.click();
