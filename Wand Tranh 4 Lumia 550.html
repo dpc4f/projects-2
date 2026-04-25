@@ -13,10 +13,9 @@
         }
 
         textarea {
-            width: 100%;
-            height: 250px;
+            width: 80%;
+            height: 540px;
             font-size: 17px;
-            max-width: 420px;
             margin: auto;
         }
 
@@ -51,7 +50,6 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
     <button onclick="clearNote()">Clear</button>
 
     <script>
-
         function saveNote() {
             var text = document.getElementById("note").value;
             localStorage.setItem("my_note", text);
@@ -59,13 +57,12 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
         }
 
         function loadNote() {
-
-
             const $output = document.getElementById('note')
             document.getElementById('file').onchange = function () {
                 var file = this.files[0];
 
                 var reader = new FileReader();
+
                 reader.onload = function (progressEvent) {
                     // Entire file
                     const text = this.result;
@@ -77,6 +74,7 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
                         console.log(lines[line]);
                     }
                 };
+
                 reader.readAsText(file);
             };
         }
@@ -87,15 +85,12 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
         }
 
         function exportText() {
-
             var text = document.getElementById("note").value;
-
             var blob = new Blob([text], { type: "text/plain" });
             var link = document.createElement("a");
 
             link.href = URL.createObjectURL(blob);
             link.download = "wand-tranh-note.tex";
-
             document.body.appendChild(link);
             link.click();
 
@@ -107,5 +102,4 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
     </script>
 
 </body>
-
 </html>
