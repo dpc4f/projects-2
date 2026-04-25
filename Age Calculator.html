@@ -262,16 +262,17 @@
 
             let elteMonth = monthNames_2[month];
 
-            if (month <= 2)
+            if (month < 2) // month is Jan or Feb
                 year--;
+
             if (year > CURRENT_YEAR)
                 elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
             else if (year < CURRENT_YEAR)
                 elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
             else
                 elteYear = 'current_year';
-
             let elteDOB = `${elteMonth} ${day} ${elteYear}`;
+            
             document.getElementById('birthDate').value = elteDOB;
         }
     </script>

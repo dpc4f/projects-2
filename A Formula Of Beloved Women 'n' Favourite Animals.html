@@ -313,7 +313,7 @@
             let elteYear;
             let elteDOB;
 
-            if (month <= 2) 
+            if (month < 2) // month is Jan or Feb
                 year--;
             if (year > CURRENT_YEAR)
                 elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();

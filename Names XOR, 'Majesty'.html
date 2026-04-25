@@ -330,11 +330,8 @@
 
             const elteMonth = monthNames_2[month];
 
-
-
             let elteYear;
-
-            if (month <= 2) 
+            if (month < 2) // month is Jan or Feb
                 year--;
 
             if (year > CURRENT_YEAR)
@@ -344,8 +341,8 @@
             else
                 elteYear = 'current_year';
 
-
             const elteDOB = `${elteMonth} ${day} ${elteYear}`;
+
             return elteDOB;
         }
 
