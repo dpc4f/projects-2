@@ -13,7 +13,7 @@
         }
 
         textarea {
-            width: 80%;
+            width: 50%;
             height: 540px;
             font-size: 17px;
             margin: auto;
@@ -21,7 +21,11 @@
 
         button {
             margin-top: 10px;
-            padding: 10px;
+            padding: 4px;
+            font-size: 17px;
+        }
+
+        input {
             font-size: 17px;
         }
     </style>
@@ -50,12 +54,6 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
     <button onclick="clearNote()">Clear</button>
 
     <script>
-        function saveNote() {
-            var text = document.getElementById("note").value;
-            localStorage.setItem("my_note", text);
-            alert("Saved into local storage successfully");
-        }
-
         function loadNote() {
             const $output = document.getElementById('note')
             document.getElementById('file').onchange = function () {
@@ -80,7 +78,6 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
         }
 
         function clearNote() {
-            localStorage.removeItem("my_note");
             document.getElementById("note").value = "";
         }
 
@@ -90,7 +87,7 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
             var link = document.createElement("a");
 
             link.href = URL.createObjectURL(blob);
-            link.download = "wand-tranh-note.tex";
+            link.download = "wand tranh's note.tex";
             document.body.appendChild(link);
             link.click();
 
@@ -98,8 +95,8 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
         }
 
         window.onload = loadNote;
-
     </script>
 
 </body>
+
 </html>
