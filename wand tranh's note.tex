@@ -20,32 +20,38 @@
         const DAYS_IN_YEAR = 365.25;
 
 
-        const THE_NAMES = [
+        // The π Alphabet starts with 'D' at position 1
+        const letters = 'DEFGHIJKLMNOPQRSTUVWXYZABC';
+
+
+
+ const THE_NAMES = [
             "Locke Laton / Chojin hiệu là Đông Bách",
             "Nguyễn Ánh hiệu là Gia Long",
             "Phan David Davis / Davik Pham",
-            "S(h)iva Désert",
+            "S(h)iva Désert hiệu là Thái Tổ Nguỵ Võ Hoàng Đế",
             "[thanh, blue] Huỳnh Thanh Đức",
 
-  
+            // [{ Brown; Green; Pink } --> Daffodil][3, koc]
             "Clayman Daffodil / Kreator Dickingson",
 
             "Càn Long hiệu là Hiệu Trưởng Rồng",
             "Vu Ngươn / Chau Trúa",
-            "Phan Công / { Cang; Kuang } C{ ườ; uồ }ng Phong",
+            "Phan Công / { Cang; Kuang } C{ ườ; uồ }ng Phong ",
             "Lư Nai / Lộc Vương",
+
             "Dịch Tín Võ [Dịch Vọng; Huỳnh Dịch][vịt Tín Võ]",
             "Kinh Hữu Đức / Davios",
+            "Ru Feng (Rư_Phùng) [after Rufus]",
 
-            "Ru Feng (Rư_Phùng)",
             "Davis Pan / Escapa",
             "Dany Ban",
-
-            "Chu Nhẫn",
+            // "Taranis_Trương <-- deprecated",
+            "Chu Nhẫn aka Chủ Nhân Các Vũ Trụ",
             "Bao Kim Tinh",
             "Đái A Mân / Tào Quang Vạn",
 
-   
+            // "[tuyền đài; huyền âm; tuyền tiến, tiền tuyến]",
             "Bạch Hữu Đức",
             "Lục Văn Ngữ",
             "Hắc / Hoắc Đức",
@@ -53,69 +59,85 @@
             "Alan PoinT / TirnaNo",
             "Aizón Five",
             "Mao Xơ Bun Đức",
-            "Nhâm Hữu Đức",
+            "Nhâm Hữu Đức [Đức Đinh, a DEK c++ developer]",
             "Davod Dice",
-  
+
+            // "[[David] Rule, Project Manager]",
             "Lure (Ngụy / Xão) Hữu Đức",
             "Nguyễn Cới Hưng hiệu là Hưng Kời",
-  
-            "Bành Hữu Đức (voi chúa [umswtcc])",
 
+            // "[Bành, elephant clan]",
+            "Bành Hữu Đức (voi chúa [umswtcc])",
             "Diadora_Lâm <-- deprecated",
             "Đinh Tuất / Nguyễn Tức / Phạm Xí",
             "Lí Brah { Ray --> Rice }",
-            "Ban / Fire Arvi{ s; c }",
-
+            "Ban / Fire Arvi{ s; c } [after 반기문 ‘n’ Ban Daisuke]",
             "Đái No S(h)au / Cổ Long hiệu là Nhất Ai",
-            "Ai Côn Du",
-  
+            "[3:1][{ Nguyễn; Đào; Hoàng } --> Ai] Ai Côn Du",
+            "Vị Bá Gia hiệu là Thi Dung",
+
+            // "[deprecated [deprecated]]",
             "SParkle Darf",
-            "Davis Page / Trang Gia Vích",
+            "Davis Page / Trang Gia Vích [caro, calo, karo]",
             "Deer Park hiệu là Vườn Nai",
- 
+            "Vị Bá Ja aka Gia Vị / Gja Nhò Đỉnh",
+
+            // "Tiết Đĩnh Phàn Hương <-- deprecated",
             "Donald Kim / Phan",
             "Davod Mix / David Myth",
-   
+
+            // "[{ Cáp; Káp; Giáp; [David] Harp } --> Láp]",
             "[Rook] Láp Văn Thành, chồng Láp Tốp",
+
             "Dave Fenig",
             "Nhâm Đinh Văn Nam",
-        
+            "Bưu Chi So-me <-- deprecated",
+
             "Đồng Văn Hết",
             "Đồng Chấm Tư Ly",
+
             "Thắng Chiến Đấu hiệu là Lãi Phạm",
-            "Vân Võ Văn",
+            "Vân Văn",
             "Buội_Đinh, cha Bạm Đin",
+
             "Công Xứng",
             "Na Ba",
             "Ki Kim Cang",
             "Hoa Vũ Tuyến",
-            "Tiên Zión Gates",
-     
-            "sa mạc & { SaLe; HongNguyen; MayTruong }",
+
+            // "[umswtcc][[umswtcc] desert.desert; Fedora]",
+            "sa mạc & { SaLe; AnhDang; ThanhNguyen }",
+
             "한고상 (Hàn Tâm Thượng)",
             "Bổn Văn Khoa",
             "Phàn Ba Lan / Phàn Bưu Tờ",
             "Thái Văn Lang",
             "조문성 (Triều Văn Tánh)",
             "Lăng Di Tân",
+
             "Châu Nguyên Thành",
-            "Koo Tu (KOOTU / KOTU)",
+            "Koo Tu (KOOTU / KOTU) --> MOTU /mâu tư/",
             "Tưởng Triều Đông",
             "Đoàn Huế",
-       
+
+            // "[đào 1 vườn có 3 người nguyện làm a/e kết nghĩa]",
             "Đào Văn Nghĩa",
             "Đàm Chiến Thắng ([841] ð victory)",
+
             "Tô Hoắc Cẩn / Cổ Hắc Tân / Tổ Hắc Cân",
             "Xa Sim Ah",
             "[i <> y] Mai Quý Hoa",
             "Liên Hồng { Mai --> Mice }",
-            "Chế Đăng",
-            "Trần Văn Giang",
-            "Mã Thày Cung / Mã Văn Sơn",
+
+            "Chế Đăng [ko phải chê đắng mà là Chân Đế]",
+            "Trần Văn Giang [family-name inherited]",
+
+            "Mã Thày Cung / [after Alan Turing] Mã Văn Sơn",
             "Cao Nhân",
             "Thích Nhất Hữu Đức Hạnh",
             "Hắc-gja-mã Thuỷ",
-            "Văn Gốc",
+            "Mountain Ma",
+
             "Cà Dus Hi /cà dzú hai/, chồng Cà Tha",
             "Shau Mạnh Đức",
             "Ya-Sho-ða-Rha Gotama hiệu là Phạn Q /ku/",
@@ -123,109 +145,130 @@
             "Pan Ka Li",
             "Phan Kiến Long",
             "Chí Nhẫn Lực aka Tuệ Tri",
-     
-      
+
+            // "[Dương_Vương, Vương Trùng Dương][long no-use]",
+            // "Vương Trùng Dương <-- deprecated",
+
             "Châu Đình Lộc",
             "Phan Tài “Anh”",
-     
+
+            //"[i <> y][Chiêu Thị Sally, hot ‘Chiêu Li’]",
             "Chiêu Bạch Hóa OR Hỏa, [hot] Chiêu_li’s husband",
+
             "Phan Hữu Đức / David_Phạm",
             "Phan Huu Duc",
             "Duc { Phan; Pham } / Duc Pan / Duc Ban",
             "Grand / Gotama Duke",
             "Lý Tư Duy / Lý Dần",
-            "Vị Bá Gja / Vị Bá Ja / Thi Dung / Gia Nhò Đỉnh",
             "Phan Hai (High) Đức",
             "{ Ái Thăng, Thái Ân }",
- 
 
+            "Liễu Tế Nam <-- deprecated",
+
+            "Tào Tiểu Vũ <-- temporarily unused",
+            "David Park / 데이비드박 <-- temporarily unused",
             "Double Parks",
             "Trát Văn Đo",
-            "Byakuya Kuchiki",
+
+            "Byakuya Kuchiki, chồng của Mi quý phi",
+            // "{ Phan Thị Đây Rây, Deidrei Phạm } [deprecated]",
+            // >>>>
+            "Byakuya Kuchiki --> Yamamoto Genrjusai",
+
             "QUẠT MÁY Hữu Đức",
             "CHƠI Hữu Đức",
             "Ái Mộ Hữu Đức",
             "CẤM Hữu Đức",
+
             "Ja Rư",
             "Nguyễn Văn Sujāta [Magha, tên gọi ở nhà]",
             "Chấm Văn Quân",
             "Davie Ban",
 
+            // "[{ blue, bleu }; { Blue; Bleu }, last name]",
             "[cút, chim] Maha Cút / { Lơ Voi, Blue Whale }",
+
             "Phan Vị T(h)a",
-            "New Smith / Mr. Anderson",
+            // "New Smith / Mr. Anderson [deprecated]",
             "Denis Gautama / Gotama [after Dennis Ritchie]",
-            "Lữ-khách / Pan-tha-ka [firstname; no-lastname]",
-            "Reasoning Li aka Reasoningly",
+            "Lữ-khách ̉  / Pan-tha-ka [firstname; no-lastname]",
+            "Reasoning Li / Reasoningly",
+
             "Phương Huỳnh Dương",
             "Phần Văn Lan",
             "Phùng Minh Chiến",
             "Bàng Thanh Quan / Bao Thanh Cao",
             "Phan Ben",
-            "Beng Văn Đạt <— deprecated",
+            "Beng Văn Đạt <-- deprecated",
             "Khương Văn Quân hiệu là Gia Cảng",
+
             "Bạc Ly Hai",
             "Kim Ba Ly",
+
             "Tư Mã Thức",
             "Ngũ Đồng",
             "Lục Văn Ngữ",
             "Tất (Thất) Thành Công",
             "[Đát; Trát; Tát; Cát] Bát Viên Công Đức",
+
             "Võ Vô Khí",
             "Vủ Văn Thảo",
+
             "Dương Văn Sơn / Stephen Duong",
             "Trì Văn Chí",
             "Hoàng Nghĩa Đức",
+
             "Mạnh Chí Tuyền (Meng True Black)",
-            "Giã Tâm",
+            "Mã Dã Nhân hiệu là Giã Tâm",
             "Sa Tun",
-            "Mặc Tắng",
+            "Mặc Tắng aka Tăng Sáng",
+
             "Dalton Davidson / Davis David",
             "Lê Đặng",
             "[841] Hải Kế Hoạch",
-  
+
+            // "Duch_Trần <-- no-use [back tick 4 ‘Xa Thi Mạn’]",
             "Net King",
             "Phan Vi Ta / Vita",
             "Dwayne Pitt / Daniel Chen",
+
             "Thời Thiên Lễ",
             "Dmitry Webb [after Dumitru [TopCoder]]",
             "Tiền Clo Nabbana",
             "Kreator Atkinson",
             "Vị Văn { Chua; Khai }",
             "Mai Cồ Đay / Michael Day",
-            "Trình Văn Lập",
+            "Trình Văn Lập aka Lập Trình",
+
             "Pal Hữu Đức / Bao Kim Tinh",
             "Ko Bi Phát",
             "Re Phốc / Léon Park",
             "Vĩnh Ngọc",
             "Vũ Xà Đê",
             "한고상",
-  
+
+            // "[a/e][i’m a { fic, 4ever in code } coder]",
             "Diac Formica",
             "Tạ Huỳnh Sinh",
-            "Nguyễn Hai Đức",
+            // "Nguyễn Hai Đức <-- no-use [reserved]",
             "Võ Thành Nhân",
+
             "確立する / 확립하다",
             "Thang Hôi",
             "[thanh, green] Phạm Huỳnh Thanh",
             "Trần Thông Lẫm",
+
             "Phạm Chí Sỹ / Moral hidden Pham",
             "Phạm Chĩ Xí",
             "Chí Phạm Sĩ",
             "Sĩ Phạm Chí",
+
             "{ David / Davis Philips, Philips David }",
             "Dijkstra Philips",
             "Tuấn Văn Thụ",
             "Hàm Hữu Đức",
             "Foren David",
+
             "Mễ Che Tah",
             "Văn Gốc"
         ];
-
-
-
-        // The π Alphabet starts with 'D' at position 1
-        const letters = 'DEFGHIJKLMNOPQRSTUVWXYZABC';
-
-
-
