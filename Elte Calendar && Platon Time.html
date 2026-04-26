@@ -245,7 +245,7 @@
             <div id="beijing" class="local-current-time"></div>
 
             <div class="platon-time"><em>Bangkok</em> GMT+7</div>
-            <div id="longxuyen" class="local-current-time"></div>
+            <div id="bangkok" class="local-current-time"></div>
 
         </div>
 
@@ -277,12 +277,12 @@ function updateTimes() {
   const oxakaSeoulTime = formatTime(now, additionalHours = 2); // GMT+7+2
   const beijingTime = formatTime(now, additionalHours = 1); // GMT+7+1
   const rachaelTime = formatTime(now, additionalHours = -7); // GMT+7-7
-  const longxuyenTime = formatTime(now, additionalHours = 0); // GMT+7
+  const bangkokTime = formatTime(now, additionalHours = 0); // GMT+7
 
   document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
   document.getElementById('beijing').textContent = `${beijingTime}`;
   document.getElementById('rachael').textContent = `${rachaelTime}`;
-  document.getElementById('longxuyen').textContent = `${longxuyenTime}`;
+  document.getElementById('bangkok').textContent = `${bangkokTime}`;
 }
 
 // initial render
