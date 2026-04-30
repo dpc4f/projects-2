@@ -22,7 +22,10 @@
         button {
             margin-top: 40px;
             margin-right: 10px;
-            padding: 4px;
+            padding-left: 14px; 
+            padding-right: 14px;
+            padding-top: 7px;
+            padding-bottom: 7px;
             font-size: 17px;
         }
 
@@ -34,7 +37,7 @@
 </head>
 
 <body>
-    <h2>White Notes</h2>
+    <h2>Ayss' Notes</h2>
 
     <!-- think of a way to re-use this application -->
 
@@ -80,6 +83,7 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
 
         function clearNote() {
             document.getElementById("note").value = "";
+            document.getElementById("file").value = "";
         }
 
         function exportText() {
