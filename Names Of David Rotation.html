@@ -17,8 +17,14 @@
 
         }
 
-        h1 {
+        h2 {
             color: orange;
+        }
+
+        .davis-name {
+            font-size: 22px;
+            color: pink; /* after Pitchamon */
+            margin-left: 70px;
         }
     </style>
 
@@ -26,15 +32,48 @@
 </head>
 
 <body>
-    <h1>today name is,</h1><br />
-    <input type="text" id="name" disabled></input>
+    <h2>today name is,</h2><br />
+    <div id="name" disabled></div>
 
     <script>
+        function getRandomName(names) {
+            if (!Array.isArray(names) || names.length === 0) {
+                throw new Error("Please provide a non-empty array.");
+            }
+
+            const validNames = names.filter(name =>
+                typeof name === "string" && name.trim().length > 0
+            );
+
+            if (validNames.length === 0) {
+                throw new Error("Array contains no valid names.");
+            }
+
+            const randomIndex = Math.floor(Math.random() * validNames.length);
+            return validNames[randomIndex];
+        }
+
+        window.onload = function () {
+            let val = getRandomName(THE_NAMES);
+
+            // 1. Create <div> element
+            let div = document.createElement('div');
+
+            // 2. Set its class to "alert"
+            div.className = "davis-name";
+
+            // 3. Fill it with the content
+            // div.innerHTML = "Diac Formica as known as, H<sub>2</sub>CO<sub>2</sub>";
+            div.innerHTML= val;
+
+            document.getElementById('name').append(div);
+        }
+
         const THE_NAMES = [
             "Locke Laton / Chojin hiệu là Đông Bách",
             "Nguyễn Ánh hiệu là Gia Long",
             "Phan David Davis / Davik Pham",
-            "S(h)iva Désert hiệu là Thái Tổ Nguỵ Võ Hoàng Đế",
+            "S(h)iva Désert hiệu là Thái Tổ Ngụy Võ Hoàng Đế",
             "[thanh, blue] Huỳnh Thanh Đức",
 
             // [{ Brown; Green; Pink } --> Daffodil][3, koc]
@@ -52,7 +91,7 @@
             "Davis Pan / Escapa",
             "Dany Ban",
             // "Taranis_Trương <-- deprecated",
-            "Chu Nhẩn aka Chủ Nhân Các Vũ Trụ hiệu là Formic Acid",
+            "Chu Nhẩn aka Chủ Nhân Các Vũ Trụ hiệu, 'Formic Acid'",
             "Bao Kim Tinh",
             "Đái A Mân / Tào Quang Vạn",
 
@@ -65,7 +104,7 @@
             "Aizón Five",
             "Mao Xơ Bun Đức",
             "Nhâm Hữu Đức [Đức Đinh, a DEK c++ developer]",
-            "Davod Dice",
+            "Davod Dice ð Programmer",
 
             // "[[David] Rule, Project Manager]",
             "Lure (Ngụy / Xão) Hữu Đức",
@@ -252,7 +291,7 @@
             "Vũ Xà Đê",
 
             // "[a/e][i’m a { fic, 4ever in code } coder]",
-            "Diac Formica",
+            "Diac Formica as known as, H<sub>2</sub>CO<sub>2</sub>",
             "Tạ Huỳnh Sinh",
             // "Nguyễn Hai Đức <-- no-use [reserved]",
             "Võ Thành Nhân",
@@ -277,30 +316,7 @@
             "Văn Gốc"
         ];
 
-        function getRandomName(names) {
-            if (!Array.isArray(names) || names.length === 0) {
-                throw new Error("Please provide a non-empty array.");
-            }
-
-            const validNames = names.filter(name =>
-                typeof name === "string" && name.trim().length > 0
-            );
-
-            if (validNames.length === 0) {
-                throw new Error("Array contains no valid names.");
-            }
-
-            const randomIndex = Math.floor(Math.random() * validNames.length);
-            return validNames[randomIndex];
-        }
-
-        window.onload = function () {
-            let val = getRandomName(THE_NAMES);
-            document.getElementById('name').value = val;
-        }
-
     </script>
-
 </body>
 
 </html>
