@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SZRSnFsEnKI=",
+  "dgSpecHash": "uZ7BZsfCMXM=",
   "success": true,
-  "projectFilePath": "D:\\projects_02\\MvcMovie\\MvcMovie.csproj",
+  "projectFilePath": "D:\\projects-2\\MvcMovie\\MvcMovie.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\david\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
@@ -136,5 +136,30 @@
     "C:\\Users\\david\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.4\\system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.6\\system.security.cryptography.protecteddata.9.0.6.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "message": "Package 'NuGet.Packaging' 6.12.1 has a known low severity vulnerability, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "projectPath": "D:\\projects-2\\MvcMovie\\MvcMovie.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\projects-2\\MvcMovie\\MvcMovie.csproj",
+      "libraryId": "NuGet.Packaging",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "message": "Package 'NuGet.Protocol' 6.12.1 has a known low severity vulnerability, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "projectPath": "D:\\projects-2\\MvcMovie\\MvcMovie.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\projects-2\\MvcMovie\\MvcMovie.csproj",
+      "libraryId": "NuGet.Protocol",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

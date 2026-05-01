@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\projects_02\\MvcMovie\\MvcMovie.csproj": {}
+    "D:\\projects-2\\MvcMovie\\MvcMovie.csproj": {}
   },
   "projects": {
-    "D:\\projects_02\\MvcMovie\\MvcMovie.csproj": {
+    "D:\\projects-2\\MvcMovie\\MvcMovie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projects_02\\MvcMovie\\MvcMovie.csproj",
+        "projectUniqueName": "D:\\projects-2\\MvcMovie\\MvcMovie.csproj",
         "projectName": "MvcMovie",
-        "projectPath": "D:\\projects_02\\MvcMovie\\MvcMovie.csproj",
+        "projectPath": "D:\\projects-2\\MvcMovie\\MvcMovie.csproj",
         "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-        "outputPath": "D:\\projects_02\\MvcMovie\\obj\\",
+        "outputPath": "D:\\projects-2\\MvcMovie\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config"
