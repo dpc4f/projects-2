@@ -128,6 +128,11 @@
         .dob {
             font-size: 20px;
         }
+
+        .invisible {
+            display:none;
+        }
+
     </style>
 </head>
 
@@ -138,7 +143,7 @@
         <div type="text" id="DOB-1" class="dob" disabled>Oct 5 1987</div>
         <div type="text" id="ANI-1" class="colourAnimal"></div>
     </div>
-    <div class="beloved">
+    <div class="beloved invisible">
         <div type="text" class="名前" disabled>Annabel Yao</div>
         <div type="text" id="DOB-2" class="dob" disabled>Jan 14 1998</div>
         <div type="text" id="ANI-2" class="colourAnimal"></div>
@@ -153,6 +158,11 @@
         <div type="text" id="DOB-4" class="dob" disabled>Aug 16 1990</div>
         <div type="text" id="ANI-4" class="colourAnimal"></div>
     </div>
+        <div class="beloved">
+        <div type="text" class="名前" disabled>Pitchamon Opatniputh</div>
+        <div type="text" id="DOB-5" class="dob" disabled>Jan 4 2007</div>
+        <div type="text" id="ANI-5" class="colourAnimal"></div>
+    </div>
     <div class="infor" id="birthYear-2" disabled></div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
 
@@ -162,11 +172,12 @@
             document.getElementById('DOB-2').innerHTML = convertToElte(document.getElementById('DOB-2').innerHTML);
             document.getElementById('DOB-3').innerHTML = convertToElte(document.getElementById('DOB-3').innerHTML);
             document.getElementById('DOB-4').innerHTML = convertToElte(document.getElementById('DOB-4').innerHTML);
-
+            document.getElementById('DOB-5').innerHTML = convertToElte(document.getElementById('DOB-5').innerHTML);
             document.getElementById('ANI-1').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
             document.getElementById('ANI-2').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2]));
             document.getElementById('ANI-3').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
             document.getElementById('ANI-4').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-5').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
         
             document.getElementById('birthYear-2').innerHTML = convertToElte(new Date());
             exchange2Animal();
