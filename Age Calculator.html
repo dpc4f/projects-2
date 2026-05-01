@@ -137,9 +137,10 @@
             return 'current_year+' + subtract.toString();
         }
 
-        function convertReversedCurrentYear(yearStr) {
+        function convertReversedCurrentYear(yearStr, addOneYear = false) {
             const match = yearStr.match(/^current_year([+-]\d+)$/);
-            return CURRENT_YEAR + Number(match?.[1] ?? 0);
+            
+            return CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
         }
 
         function toTuesdayFirst(day) {
@@ -231,8 +232,8 @@
                 return;
             }
 
-            const birthMonthName = monthNames[m];
-            const birthYear = convertReversedCurrentYear(arr[2]);
+            const birthMonthName = monthNames[m];     
+            const birthYear = convertReversedCurrentYear(arr[2], m < 2);
             const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
             const TODAY = new Date();
