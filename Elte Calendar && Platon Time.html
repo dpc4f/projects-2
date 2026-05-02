@@ -201,8 +201,6 @@
         .forestry {
             font-size: 30px;
         }
-
-
     </style>
 </head>
 
@@ -238,7 +236,7 @@
             <div class="platon-time"><em>Rachael</em> GMT+7-7</div>
             <div id="rachael" class="local-current-time"></div>
 
-            <div class="platon-time"><em class="forestry">서울</em><em>    Osaka</em> GMT+7+2</div>
+            <div class="platon-time"><em class="forestry">서울</em><em> Osaka</em> GMT+7+2</div>
             <div id="oxaka-seoul" class="local-current-time"></div>
 
             <div class="platon-time"><em class="forestry">北京</em> GMT+7+1</div>
@@ -262,34 +260,34 @@
         let currentYear = TODAY.getFullYear();
 
 
-function formatTime(date, hours = 0) {
-    let hr;
-  const h = String((hr = date.getHours()+hours) >= 0 ? hr : 24+hr).padStart(2, '0');
-  const m = String(date.getMinutes()).padStart(2, '0');
-  const s = String(date.getSeconds()).padStart(2, '0');
-  return `${h}:${m}:${s}`;
-}
+        function formatTime(date, hours = 0) {
+            let hr;
+            const h = String((hr = date.getHours() + hours) >= 0 ? hr : 24 + hr).padStart(2, '0');
+            const m = String(date.getMinutes()).padStart(2, '0');
+            const s = String(date.getSeconds()).padStart(2, '0');
+            return `${h}:${m}:${s}`;
+        }
 
-function updateTimes() {
-  const now = new Date();
- 
-  
-  const oxakaSeoulTime = formatTime(now, additionalHours = 2); // GMT+7+2
-  const beijingTime = formatTime(now, additionalHours = 1); // GMT+7+1
-  const rachaelTime = formatTime(now, additionalHours = -7); // GMT+7-7
-  const bangkokTime = formatTime(now, additionalHours = 0); // GMT+7
+        function updateTimes() {
+            const now = new Date();
 
-  document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
-  document.getElementById('beijing').textContent = `${beijingTime}`;
-  document.getElementById('rachael').textContent = `${rachaelTime}`;
-  document.getElementById('bangkok').textContent = `${bangkokTime}`;
-}
 
-// initial render
-updateTimes();
+            const oxakaSeoulTime = formatTime(now, additionalHours = 2); // GMT+7+2
+            const beijingTime = formatTime(now, additionalHours = 1); // GMT+7+1
+            const rachaelTime = formatTime(now, additionalHours = -7); // GMT+7-7
+            const bangkokTime = formatTime(now, additionalHours = 0); // GMT+7
 
-// refresh every second
-setInterval(updateTimes, 1000);
+            document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
+            document.getElementById('beijing').textContent = `${beijingTime}`;
+            document.getElementById('rachael').textContent = `${rachaelTime}`;
+            document.getElementById('bangkok').textContent = `${bangkokTime}`;
+        }
+
+        // initial render
+        updateTimes();
+
+        // refresh every second
+        setInterval(updateTimes, 1000);
 
 
 
