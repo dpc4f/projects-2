@@ -115,7 +115,7 @@
             color: brown;
             margin-top: 10px;
             font-size: 18px;
-     
+
         }
 
         .infor {
@@ -130,9 +130,8 @@
         }
 
         .invisible {
-            display:none;
+            display: none;
         }
-
     </style>
 </head>
 
@@ -158,11 +157,17 @@
         <div type="text" id="DOB-4" class="dob" disabled>Aug 16 1990</div>
         <div type="text" id="ANI-4" class="colourAnimal"></div>
     </div>
-        <div class="beloved">
+    <div class="beloved">
         <div type="text" class="名前" disabled>Pitchamon Opatniputh</div>
         <div type="text" id="DOB-5" class="dob" disabled>Jan 4 2007</div>
         <div type="text" id="ANI-5" class="colourAnimal"></div>
     </div>
+    <div class="beloved">
+        <div type="text" class="名前" disabled>Miao Yiwen</div>
+        <div type="text" id="DOB-6" class="dob" disabled>Jul 26 2000</div>
+        <div type="text" id="ANI-6" class="colourAnimal"></div>
+    </div>
+
     <div class="infor" id="birthYear-2" disabled></div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
 
@@ -173,12 +178,14 @@
             document.getElementById('DOB-3').innerHTML = convertToElte(document.getElementById('DOB-3').innerHTML);
             document.getElementById('DOB-4').innerHTML = convertToElte(document.getElementById('DOB-4').innerHTML);
             document.getElementById('DOB-5').innerHTML = convertToElte(document.getElementById('DOB-5').innerHTML);
+            document.getElementById('DOB-6').innerHTML = convertToElte(document.getElementById('DOB-6').innerHTML);
             document.getElementById('ANI-1').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
             document.getElementById('ANI-2').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2]));
             document.getElementById('ANI-3').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
             document.getElementById('ANI-4').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
             document.getElementById('ANI-5').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
-        
+            document.getElementById('ANI-6').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
+
             document.getElementById('birthYear-2').innerHTML = convertToElte(new Date());
             exchange2Animal();
         }
@@ -186,7 +193,7 @@
         const CURRENT_YEAR = 2020;
         const TODAY = new Date();
         const DAYS_IN_YEAR = 365.25;
-        
+
         const monthNames = [
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
@@ -195,7 +202,7 @@
             "M11", "M12", "M1", "M2", "M3", "M4",
             "M5", "M6", "M7", "M8", "M9", "M10"
         ];
-        
+
         const animalNames = [
             "Mouse / Rat / Capybara", "Ox / Bull / Buffalo / Cow / Bison / Gayal", "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant", "Snake Family / Centipede",
             "Horse / Sea Horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape", "Rooster / Chicken", "Dodge / Deer / Duck", "Pig / Boar"
@@ -238,12 +245,11 @@
 
                     if (r === 0 && c < startIndex || date > daysInMonth) {
                         cell.textContent = "";
-                    }  else {
+                    } else {
                         cell.textContent = date;
                         if (date === TODAY.getDate() &&
                             month === TODAY.getMonth() &&
-                            year === TODAY.getFullYear()) 
-                        {
+                            year === TODAY.getFullYear()) {
                             cell.classList.add("TODAY");
                         }
 
@@ -304,7 +310,7 @@
 
         function convertToElte(aDate) {
             let date;
-            
+
             if (aDate.isNaN) {
                 date = new Date();
             }
@@ -333,7 +339,7 @@
             else
                 elteYear = 'current_year';
             elteDOB = `${elteMonth} ${day} ${elteYear}`;
-            
+
             return elteDOB;
         }
 
@@ -368,4 +374,5 @@
     </script>
 
 </body>
+
 </html>
