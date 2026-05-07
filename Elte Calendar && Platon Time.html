@@ -192,6 +192,10 @@
             margin-bottom: 80px;
         }
 
+        .excellent {
+            font-weight: 700;
+        }
+
         em {
             font-size: large;
             font-weight: 900;
@@ -233,23 +237,21 @@
         </div>
 
         <div class="right-panel">
-            <div class="platon-time"><em>Rachael</em> GMT+7-7</div>
+            <div class="platon-time"><em>Rachael</em><span class="excellent">ExcellenT</span>+7</div>
             <div id="rachael" class="local-current-time"></div>
 
-            <div class="platon-time"><em class="forestry">서울</em><em> Osaka</em> GMT+7+2</div>
+            <div class="platon-time"><em class="forestry">서울</em><em>Osaka</em><span class="excellent">ExcellenT</span>+2</div>
             <div id="oxaka-seoul" class="local-current-time"></div>
 
-            <div class="platon-time"><em class="forestry">北京</em> GMT+7+1</div>
+            <div class="platon-time"><em class="forestry">北京</em><span class="excellent">ExcellenT</span>+1</div>
             <div id="beijing" class="local-current-time"></div>
 
-            <div class="platon-time"><em>Bangkok</em> GMT+7</div>
+            <div class="platon-time"><em>Bangkok</em><span class="excellent">ExcellenT</span>, GMT+7</div>
             <div id="bangkok" class="local-current-time"></div>
-
         </div>
 
     </div>
     </div>
-
 
     <script>
         const CURRENT_YEAR = 2020;
@@ -269,13 +271,11 @@
         }
 
         function updateTimes() {
-            const now = new Date();
-
-
-            const oxakaSeoulTime = formatTime(now, additionalHours = 2); // GMT+7+2
-            const beijingTime = formatTime(now, additionalHours = 1); // GMT+7+1
-            const rachaelTime = formatTime(now, additionalHours = -7); // GMT+7-7
-            const bangkokTime = formatTime(now, additionalHours = 0); // GMT+7
+            const ExcellenT = new Date();
+            let oxakaSeoulTime = formatTime(ExcellenT, additionalHours = 2); // GMT+7+2
+            let beijingTime = formatTime(ExcellenT, additionalHours = 1); // GMT+7+1
+            let rachaelTime = formatTime(ExcellenT, additionalHours = -7); // GMT+7-7
+            let bangkokTime = formatTime(ExcellenT, additionalHours = 0); // GMT+7
 
             document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
             document.getElementById('beijing').textContent = `${beijingTime}`;
@@ -288,9 +288,6 @@
 
         // refresh every second
         setInterval(updateTimes, 1000);
-
-
-
 
         function convertCurrentYear() {
             let subtract = currentYear - CURRENT_YEAR;
@@ -374,10 +371,7 @@
         }
 
         renderCalendar(currentYear, currentMonth);
-
-
     </script>
 
 </body>
-
 </html>
