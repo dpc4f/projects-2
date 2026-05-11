@@ -243,7 +243,7 @@
         </div>
 
         <div class="right-panel">
-            <div class="platon-time"><em>Galway</em><span class="excellent">GMT+7</span>-7</div>
+            <div class="platon-time"><em>Galway</em><span class="excellent">GMT+7</span>-6</div>
             <div id="rachael" class="local-current-time"></div>
 
             <div class="platon-time"><em class="forestry">서울</em><em>Osaka</em><span class="excellent">GMT+7</span>+2</div>
@@ -280,7 +280,7 @@
             const ExcellenT = new Date();
             let oxakaSeoulTime = formatTime(ExcellenT, additionalHours = 2); // GMT+7+2
             let beijingTime = formatTime(ExcellenT, additionalHours = 1); // GMT+7+1
-            let rachaelTime = formatTime(ExcellenT, additionalHours = -7); // GMT+7-7
+            let rachaelTime = formatTime(ExcellenT, additionalHours = -6); // GMT+7-7
             let bangkokTime = formatTime(ExcellenT, additionalHours = 0); // GMT+7
 
             document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
