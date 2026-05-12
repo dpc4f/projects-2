@@ -68,6 +68,11 @@ body{
 
 /* FIXED LETTERS */
 
+.char {
+    font-size: 140px;
+
+}
+
 .u{
     left:120px;
     top:0;
@@ -91,7 +96,7 @@ body{
 
     z-index:2;
 
-    animation:lSwap 4s ease-in-out infinite;
+    animation:lSwap 20s ease-in-out infinite;
 }
 
 .r{
@@ -100,7 +105,7 @@ body{
 
     z-index:1;
 
-    animation:rSwap 4s ease-in-out infinite;
+    animation:rSwap 20s ease-in-out infinite;
 }
 
 /* L ANIMATION */
@@ -204,7 +209,7 @@ body{
 /* FLOATING */
 
 .word{
-    animation:floating 5s ease-in-out infinite;
+    animation:floating 125000000s ease-in-out infinite;
 }
 
 @keyframes floating{
@@ -232,7 +237,7 @@ body{
 
     filter:blur(60px);
 
-    animation:pulse 4s ease-in-out infinite;
+    animation:pulse 41s ease-in-out infinite;
 }
 
 @keyframes pulse{
@@ -292,10 +297,10 @@ body{
 
     <div class="word">
 
-        <span class="letter l">L</span>
-        <span class="letter u">u</span>
-        <span class="letter r">r</span>
-        <span class="letter e">e</span>
+        <span class="letter l char">L</span>
+        <span class="letter u char">u</span>
+        <span class="letter r char">R</span>
+        <span class="letter e char">e</span>
 
     </div>
 
@@ -320,13 +325,13 @@ function createParticle(){
     p.style.top = window.innerHeight + "px";
 
     p.style.animationDuration =
-        (Math.random() * 4 + 3) + "s";
+        (Math.random() * 410 + 132) + "s";
 
     document.body.appendChild(p);
 
     setTimeout(() => {
         p.remove();
-    }, 7000);
+    }, 197000);
 }
 
 setInterval(createParticle, 120);
