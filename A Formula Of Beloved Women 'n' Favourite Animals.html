@@ -165,7 +165,7 @@
         <div type="text" id="DOB-4" class="dob" disabled>Aug 16 1990</div>
         <div type="text" id="ANI-4" class="colourAnimal"></div>
     </div>
-    <div class="beloved old-db-record">
+    <div class="beloved">
         <div type="text" class="名前" disabled>Pitchamon Opatniputh</div>
         <div type="text" id="DOB-5" class="dob" disabled>Jan 4 2007</div>
         <div type="text" id="ANI-5" class="colourAnimal"></div>
@@ -175,6 +175,13 @@
         <div type="text" id="DOB-6" class="dob" disabled>Jul 26 2000</div>
         <div type="text" id="ANI-6" class="colourAnimal"></div>
     </div>
+
+    <div class="beloved">
+        <div type="text" class="名前" disabled>Sofía de Todos los Santos de Borbón y Ortiz</div>
+        <div type="text" id="DOB-7" class="dob" disabled>Apr 29 2007</div>
+        <div type="text" id="ANI-7" class="colourAnimal"></div>
+    </div>
+    
 
     <div class="infor" id="birthYear-2" disabled></div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
@@ -187,12 +194,15 @@
             document.getElementById('DOB-4').innerHTML = convertToElte(document.getElementById('DOB-4').innerHTML);
             document.getElementById('DOB-5').innerHTML = convertToElte(document.getElementById('DOB-5').innerHTML);
             document.getElementById('DOB-6').innerHTML = convertToElte(document.getElementById('DOB-6').innerHTML);
+            document.getElementById('DOB-7').innerHTML = convertToElte(document.getElementById('DOB-7').innerHTML);
+
             document.getElementById('ANI-1').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
             document.getElementById('ANI-2').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2]));
             document.getElementById('ANI-3').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
             document.getElementById('ANI-4').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
             document.getElementById('ANI-5').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
             document.getElementById('ANI-6').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-7').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]));
 
             document.getElementById('birthYear-2').innerHTML = convertToElte(new Date());
             exchange2Animal();
@@ -216,7 +226,7 @@
             "Mouse / Rat / Capybara / Tomoka M", "Ox / Bull / Buffalo / Cow / Bison / Gayal", 
             "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant", "Snake Family / Centipede",
             "Horse / Sea-horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape", 
-            "Rooster / Chicken", "Dodge / Deer / Duck", "Pig / Boar"
+            "Rooster / Chicken", "Dodge / Deer / Duck", "Pig / Wild Boar / Bear"
         ]; /* { dragon; Dragon }, 'Lý Dần' ð Snake */
 
         let currentMonth = TODAY.getMonth();
