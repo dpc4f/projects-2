@@ -278,7 +278,7 @@
             <div class="platon-time"><em class="forestry">서울</em><em>Kyoto</em><span class="excellent">GMT+7</span>+2</div>
             <div id="oxaka-seoul" class="local-current-time"></div>
 
-            <div class="platon-time"><em class="forestry">北京</em><span class="excellent">GMT+7</span>+1</div>
+            <div class="platon-time"><em>北京 == madrid+6</em><em>Madrid</em><span class="excellent">GMT+7</span>-5</div>
             <div id="beijing" class="local-current-time"></div>
 
             <div class="platon-time"><em class="Pali">กรุงเทพมหานคร</em><em>Dacet</em><span class="excellent-def">GMT+7</span></div>
@@ -308,7 +308,7 @@
         function updateTimes() {
             const ExcellenT = new Date();
             let oxakaSeoulTime = formatTime(ExcellenT, additionalHours = 2); // GMT+7+2
-            let beijingTime = formatTime(ExcellenT, additionalHours = 1); // GMT+7+1
+            let beijingTime = formatTime(ExcellenT, additionalHours = -5); // GMT+7+1 --> GMT+7-5
             let rachaelTime = formatTime(ExcellenT, additionalHours = -6); // GMT+7-7
             let bangkokTime = formatTime(ExcellenT, additionalHours = 0); // GMT+7
 
