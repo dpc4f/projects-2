@@ -179,7 +179,7 @@
 
         /* Using the ::after pseudo-element to handle the text swap */
         .letter-L::after {
-            content: 'L';
+            content: 'R';
             animation: textSwap 10s linear infinite alternate;
         }
 
@@ -187,12 +187,12 @@
 
             0%,
             50% {
-                content: 'L';
+                content: 'R';
             }
 
             51%,
             100% {
-                content: 'l';
+                content: 'r';
             }
         }
 
@@ -277,7 +277,7 @@
 
                 /* Using the ::after pseudo-element to handle the text swap */
         .letter-r::after {
-            content: 'r';
+            content: 'l';
             animation: textSwap-2 10s linear infinite alternate;
         }
 
@@ -285,12 +285,12 @@
 
             0%,
             50% {
-                content: 'r';
+                content: 'l';
             }
 
             51%,
             100% {
-                content: 'R';
+                content: 'L';
             }
         }
 
