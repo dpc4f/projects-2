@@ -151,30 +151,40 @@
             width: auto;
         }
 
+
+
+        .flex-months,
         .left-panel,
         .right-panel {
-            flex: 1;
+           
             /* each side takes equal width */
-            padding: 20px;
+            padding: 10px;
+             background: #f2f2f2;
         }
+
+        .flex-months {
+            flex: 0 0 10%;
+            padding-top: 120px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .month {
+            font: bold 31px "Arial", monospace;
+            color: brown;
+        }
+
+
 
         .left-panel {
-            background: #f2f2f2;
-        }
-
-        .right-panel {
-            background: #e0e0ff;
-        }
-
-        .left-panel {
-            flex: 0 0 70%;
+            flex: 1 0 50%;
             /* fixed 300px width */
         }
 
         .right-panel {
-            flex: 1;
+            flex: 2;
             /* fills remaining space */
-            padding: 50px;
+            padding: 20px;
         }
 
         .platon-time {
@@ -221,6 +231,21 @@
 <body>
 
     <div class="flex-container">
+
+        <div class="flex-months month" id="monthNames">
+            <div class="center">Ispa</div>
+            <div class="center">Duo</div>
+            <div class="center">Magha</div>
+            <div class="center">Qaru</div>
+            <div class="center">Felle</div>
+            <div class="center">Yune</div>
+            <div class="center">Sept</div>
+            <div class="center">Oct</div>
+            <div class="center">Nov</div>
+            <div class="center">Dec</div>
+            <div class="center">Palm</div>
+            <div class="center">Hose</div>
+        </div>
         <div class="left-panel">
             <div class="calendar-container">
                 <h1 class="center" id="monthYear"></h1>
@@ -319,13 +344,21 @@
         ];
 
          const monthNames_2 = [
-            "Isa", "Duo", "Magha", "Quaru", "Felle", "Yune",
+            "Ispa", "Duo", "Magha", "Qaru", "Felle", "Yune",
             "Sept", "Oct", "Nov", "Dec", "Palm", "Hose"
         ];
 
         function renderCalendar(year, month) {
             document.getElementById("monthYear").textContent =
                 monthNames_2[month] + " " + convertCurrentYear(year);
+
+               let mt = document.getElementById("monthNames").children;
+
+                for (let i = 0; i < mt.length; i++) {
+                    mt[i].style.color = "brown";
+                }
+               
+                mt[month].style.color = "purple";
 
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
