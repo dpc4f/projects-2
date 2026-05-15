@@ -13,7 +13,7 @@
             background: #f9f9f9;
             width: 50%;
             margin: auto;
-            margin-top: 100px;
+            margin-top: 20px;
         }
 
         .buttonCalculate {
@@ -140,6 +140,12 @@
         .old-db-record {
             color: lightblue;
         }
+
+        .small-text {
+            font-size: 17px;
+            margin: 10px;
+            color: pink;
+        }
     </style>
 </head>
 
@@ -158,22 +164,24 @@
     <div class="beloved old-db-record">
         <div type="text" class="名前" disabled>Tomoka Miyazaki</div>
         <div type="text" id="DOB-3" class="dob" disabled>Aug 17 2006</div>
-        <div type="text" id="ANI-3" class="colourAnimal"></div>
+        <div type="text" id="ANI-3" class="colourAnimal invisible"></div>
     </div>
     <div class="relative old-db-record">
         <div type="text" class="名前">吴謹言 /wu jinyan/ [con bé họ Ngô]</div>
         <div type="text" id="DOB-4" class="dob" disabled>Aug 16 1990</div>
-        <div type="text" id="ANI-4" class="colourAnimal"></div>
+        <div type="text" id="ANI-4" class="colourAnimal invisible"></div>
     </div>
     <div class="beloved">
-        <div type="text" class="名前" disabled>Pitchamon Opatniputh</div>
+        <div type="text" class="名前" disabled>พิชฌามลณ์ โอภาสนิพัทธ์ (Pitchamon Opatniputh)
+            <span class="small-text" class="colourAnimal">Cow</span>
+        </div>
         <div type="text" id="DOB-5" class="dob" disabled>Jan 4 2007</div>
-        <div type="text" id="ANI-5" class="colourAnimal"></div>
+        <div type="text" id="ANI-5" class="colourAnimal old-db-record"></div>
     </div>
     <div class="beloved old-db-record">
         <div type="text" class="名前" disabled>缪伊雯 (Miao Yiwen)</div>
         <div type="text" id="DOB-6" class="dob" disabled>Jul 26 2000</div>
-        <div type="text" id="ANI-6" class="colourAnimal"></div>
+        <div type="text" id="ANI-6" class="colourAnimal invisible"></div>
     </div>
 
     <div class="beloved">
@@ -196,13 +204,20 @@
             document.getElementById('DOB-6').innerHTML = convertToElte(document.getElementById('DOB-6').innerHTML);
             document.getElementById('DOB-7').innerHTML = convertToElte(document.getElementById('DOB-7').innerHTML);
 
-            document.getElementById('ANI-1').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-2').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-3').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-4').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-5').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-6').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-7').innerHTML = exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-1').innerHTML = 
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-2').innerHTML = 
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-3').innerHTML = 
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-4').innerHTML = 
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-5').innerHTML = 
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-6').innerHTML = 
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
+            document.getElementById('ANI-7').innerHTML = 
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]));
 
             document.getElementById('birthYear-2').innerHTML = convertToElte(new Date());
             exchange2Animal();
@@ -218,7 +233,7 @@
         ];
 
         const monthNames_2 = [
-            "Uni", "Duo", "Magha", "Quaru", "Felle", "Yune",
+            "Isa", "Duo", "Magha", "Qaru", "Felle", "Yune",
             "Sept", "Oct", "Nov", "Dec", "Palm", "Hela"
         ];
 
