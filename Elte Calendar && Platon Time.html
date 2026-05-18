@@ -362,7 +362,7 @@
                     mt[i].style.color = "brown";
                 }
                
-                mt[month].style.color = "purple";
+                mt[month < 2 ? month+10 : month-2 ].style.color = "purple";
 
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
