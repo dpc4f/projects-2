@@ -354,7 +354,7 @@
 
         function renderCalendar(year, month) {
             document.getElementById("monthYear").textContent =
-                monthNames_2[month] + " " + convertCurrentYear(year);
+                monthNames_2[month < 2 ? month+10 : month-2] + " " + convertCurrentYear(year);
 
                let mt = document.getElementById("monthNames").children;
 
