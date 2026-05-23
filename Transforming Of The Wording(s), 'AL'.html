@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Word Transformation</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            font-size: 70px;
+            letter-spacing: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px) scale(0.8);
+            transition: all 0.5s ease;
+            color: #ccc;
+        }
+
+        .letter.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .letter.exit {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.8);
+        }
+
+        /* ✨ Anchor letter "a" */
+        .anchor {
+            opacity: 1 !important;
+            transform: none !important;
+            color: #ffd166;
+            text-shadow: 0 0 10px rgba(255, 209, 102, 0.6);
+        }
+
+        /* 🎨 Color palette for other letters */
+        .c1 {
+            color: #72efdd;
+        }
+
+        .c2 {
+            color: #80ffdb;
+        }
+
+        .c3 {
+            color: #64dfdf;
+        }
+
+        .c4 {
+            color: #90dbf4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="word"></div>
+
+    <script>
+        const steps = ["al", "ar", "bar", "ba"];
+        const container = document.getElementById("word");
+
+        let currentIndex = 0;
+
+        // soft color rotation
+        const colors = ["c1", "c2", "c3", "c4"];
+        let colorIndex = 0;
+
+        function getColor() {
+            const c = colors[colorIndex % colors.length];
+            colorIndex++;
+            return c;
+        }
+
+        // Render word
+        function renderWord(word) {
+            container.innerHTML = "";
+
+            word.split("").forEach((char, i) => {
+                const span = document.createElement("span");
+                span.textContent = char;
+                span.classList.add("letter");
+
+                if (char === "a") {
+                    span.classList.add("anchor"); // 👈 stays still
+                } else {
+                    span.classList.add(getColor());
+                }
+
+                container.appendChild(span);
+
+                if (char !== "a") {
+                    setTimeout(() => {
+                        span.classList.add("show");
+                    }, i * 120);
+                }
+            });
+        }
+
+        // Transition
+        function transitionTo(nextWord) {
+            const oldLetters = container.querySelectorAll(".letter");
+
+            oldLetters.forEach((letter, i) => {
+                if (!letter.classList.contains("anchor")) {
+                    setTimeout(() => {
+                        letter.classList.add("exit");
+                    }, i * 80);
+                }
+            });
+
+            setTimeout(() => {
+                renderWord(nextWord);
+            }, 500);
+        }
+
+        // Loop
+        function startAnimation() {
+            renderWord(steps[currentIndex]);
+
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % steps.length;
+                transitionTo(steps[currentIndex]);
+            }, 2200);
+        }
+
+        startAnimation();
+    </script>
+
+</body>
+
+</html>
