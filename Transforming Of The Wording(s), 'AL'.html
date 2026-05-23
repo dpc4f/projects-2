@@ -73,7 +73,7 @@
     <div class="container" id="word"></div>
 
     <script>
-        const FOUR = 4;
+  
         const steps = ["al", "ar", "bar", "ba", "ba, { 3, time }"];
         const container = document.getElementById("word");
 
@@ -99,7 +99,7 @@
                 span.classList.add("letter");
 
                 if (char === "a") {
-                    span.classList.add("anchor"); // 👈 stays still
+                    span.classList.add("anchor");
                 } else {
                     span.classList.add(getColor());
                 }
@@ -115,30 +115,40 @@
         }
 
         let duration = 0;
+        let bExit = true;
         // Transition
-        function transitionTo(nextWord) {
+        function transitionTo(oldWord, nextWord) {
             const oldLetters = container.querySelectorAll(".letter");
 
             oldLetters.forEach((letter, i) => {
                 if (!letter.classList.contains("anchor")) {
-                    setTimeout(() => {
-                        letter.classList.add("exit");
-                    }, i * 80);
+                    if (bExit == true) {
+                        setTimeout(() => {
+                            letter.classList.add("exit");
+                        }, i * 80);
+                    }
+                }
+
+                 if (oldWord === 'bar') {
+                    bExit = false;
+                }
+                else {
+                    bExit = true;
                 }
             });
 
 
             if (nextWord === "ba, { 3, time }") {
-                // Special case: show "ba" immediately, then transition to full text
-                duration = 100;
+                // Special case; cause it to display longer
+                duration = 500;
             }
             else {
-                duration = 2800;
+                duration = 3800;
             }
 
             setTimeout(() => {
                 renderWord(nextWord);
-            }, duration);
+            }, duration); // wait a duration 4b doing presentation the next wording
         }
 
         // Loop
@@ -146,9 +156,10 @@
             renderWord(steps[currentIndex]);
 
             setInterval(() => {
+                let oldWord = steps[currentIndex];
                 currentIndex = (currentIndex + 1) % steps.length;
-                transitionTo(steps[currentIndex]);
-            }, 5200);
+                transitionTo(oldWord, steps[currentIndex]);
+            }, 8200);
         }
 
         startAnimation();
