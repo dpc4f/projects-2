@@ -46,23 +46,24 @@
             transform: none !important;
             color: #ffd166;
             text-shadow: 0 0 10px rgba(255, 209, 102, 0.6);
+            font-size: 52px;
         }
 
         /* 🎨 Color palette for other letters */
         .c1 {
-            color: #72efdd;
+            color: #df3d14;
         }
 
         .c2 {
-            color: #80ffdb;
+            color: #8880ff;
         }
 
         .c3 {
-            color: #64dfdf;
+            color: #6470df;
         }
 
         .c4 {
-            color: #90dbf4;
+            color: #f4c990;
         }
     </style>
 </head>
@@ -72,7 +73,8 @@
     <div class="container" id="word"></div>
 
     <script>
-        const steps = ["al", "ar", "bar", "ba"];
+        const FOUR = 4;
+        const steps = ["al", "ar", "bar", "ba", "ba, { 3, time }"];
         const container = document.getElementById("word");
 
         let currentIndex = 0;
@@ -112,6 +114,7 @@
             });
         }
 
+        let duration = 0;
         // Transition
         function transitionTo(nextWord) {
             const oldLetters = container.querySelectorAll(".letter");
@@ -124,9 +127,18 @@
                 }
             });
 
+
+            if (nextWord === "ba, { 3, time }") {
+                // Special case: show "ba" immediately, then transition to full text
+                duration = 1100;
+            }
+            else {
+                duration = 2800;
+            }
+
             setTimeout(() => {
                 renderWord(nextWord);
-            }, 500);
+            }, duration);
         }
 
         // Loop
@@ -136,7 +148,7 @@
             setInterval(() => {
                 currentIndex = (currentIndex + 1) % steps.length;
                 transitionTo(steps[currentIndex]);
-            }, 2200);
+            }, 5200);
         }
 
         startAnimation();
