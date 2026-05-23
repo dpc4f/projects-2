@@ -28,11 +28,12 @@
             transform: translateY(30px) scale(0.8);
             transition: all 0.5s ease;
             color: #ccc;
+            margin-right: 20px;
         }
 
         .letter.show {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: scale(1);
         }
 
         .letter.exit {
@@ -46,10 +47,14 @@
             transform: none !important;
             color: #ffd166;
             text-shadow: 0 0 10px rgba(255, 209, 102, 0.6);
-            font-size: 52px;
+            font-size: 64px;
         }
 
         /* 🎨 Color palette for other letters */
+        .c0 {
+            color: #4153f9;
+        }
+
         .c1 {
             color: #df3d14;
         }
@@ -59,11 +64,31 @@
         }
 
         .c3 {
-            color: #6470df;
+            color: #d7df64;
         }
 
         .c4 {
             color: #f4c990;
+        }
+
+        .c5 {
+            color: #6a9fb5;
+        }
+
+        .c6 {
+            color: #e07a5f;
+        }
+
+        .c7 {
+            color: #81b29a;
+        }
+
+        .c8 {
+            color: #f2cc8f;
+        }
+
+        .c9 {
+            color: #3d405b;
         }
     </style>
 </head>
@@ -73,17 +98,52 @@
     <div class="container" id="word"></div>
 
     <script>
-  
+
         const steps = ["al", "ar", "bar", "ba", "ba, { 3, time }"];
         const container = document.getElementById("word");
 
         let currentIndex = 0;
 
         // soft color rotation
-        const colors = ["c1", "c2", "c3", "c4"];
+        const colors = ["c0", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9"];
         let colorIndex = 0;
 
-        function getColor() {
+        function getColor(coChar) {
+            let colorIndex = 0;
+            switch (coChar) {
+                case "a":
+                    colorIndex = 1;
+                    break;
+                case "l":
+                    colorIndex = 2;
+                    break;
+                case "r":
+                    colorIndex = 3;
+                    break;
+                case "b":
+                    colorIndex = 4;
+                    break;
+                case ",":
+                    colorIndex = 5;
+                    break;
+                case "t":
+                    colorIndex = 6;
+                    break;
+                case "i":
+                    colorIndex = 7;
+                    break;
+                case "3":
+                    colorIndex = 8;
+                    break;
+                case "{":   
+                case "}":
+                    colorIndex = 9;
+                    break;
+                default:
+                    colorIndex = 0;
+                    break;
+            }
+
             const c = colors[colorIndex % colors.length];
             colorIndex++;
             return c;
@@ -101,7 +161,7 @@
                 if (char === "a") {
                     span.classList.add("anchor");
                 } else {
-                    span.classList.add(getColor());
+                    span.classList.add(getColor(char));
                 }
 
                 container.appendChild(span);
@@ -116,24 +176,19 @@
 
         let duration = 0;
         let bExit = true;
+        let bExtended = false;
         // Transition
-        function transitionTo(oldWord, nextWord) {
+        function transitionTo(curWord, nextWord) {
             const oldLetters = container.querySelectorAll(".letter");
 
             oldLetters.forEach((letter, i) => {
-                if (!letter.classList.contains("anchor")) {
-                    if (bExit == true) {
+
+                if (letter.textContent === "r") {
+                    if (!letter.classList.contains("anchor")) {
                         setTimeout(() => {
                             letter.classList.add("exit");
-                        }, i * 80);
+                        }, i * 80 + bExtended == true ? 3400 : 0);
                     }
-                }
-
-                 if (oldWord === 'bar') {
-                    bExit = false;
-                }
-                else {
-                    bExit = true;
                 }
             });
 
@@ -153,13 +208,14 @@
 
         // Loop
         function startAnimation() {
-            renderWord(steps[currentIndex]);
+            let curWord= steps[currentIndex];
+            renderWord(curWord);
 
             setInterval(() => {
-                let oldWord = steps[currentIndex];
+                curWord = steps[currentIndex];
                 currentIndex = (currentIndex + 1) % steps.length;
-                transitionTo(oldWord, steps[currentIndex]);
-            }, 8200);
+                transitionTo(curWord, steps[currentIndex]);
+            }, 5000);
         }
 
         startAnimation();
