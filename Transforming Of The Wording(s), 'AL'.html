@@ -99,7 +99,7 @@
 
     <script>
 
-        const steps = ["al", "ar", "bar", "ba", "ba, { 3, time }"];
+        const steps = ["al", "ar", "bar", "ba", "ba, time"];
         const container = document.getElementById("word");
 
         let currentIndex = 0;
@@ -150,7 +150,7 @@
         }
 
         // Render word
-        function renderWord(word) {
+        function renderWord(curWord, word) { // word is next word to be rendered
             container.innerHTML = "";
 
             word.split("").forEach((char, i) => {
@@ -164,13 +164,22 @@
                     span.classList.add(getColor(char));
                 }
 
-                container.appendChild(span);
+                
 
+                
                 if (char !== "a") {
-                    setTimeout(() => {
-                        span.classList.add("show");
-                    }, i * 120);
+                    if (curWord.includes(char)) {
+                        //setTimeout(() => {
+                            span.classList.add("show");
+                        //}, i * 10);
+                    } else {
+                        setTimeout(() => {
+                            span.classList.add("show");
+                        }, i * 340);
+                    }
                 }
+
+                container.appendChild(span);
             });
         }
 
@@ -178,18 +187,24 @@
         let bExit = true;
         let bExtended = false;
         // Transition
-        function transitionTo(curWord, nextWord) {
+        function transitionTo(nextWord) {
             const oldLetters = container.querySelectorAll(".letter");
+            let currentWord = '';
 
             oldLetters.forEach((letter, i) => {
-
-                if (letter.textContent === "r") {
+                currentWord += letter.textContent;
+                let duration;
                     if (!letter.classList.contains("anchor")) {
+                        duration = 0; // default exit duration
+                        if (nextWord.includes(letter.textContent)) {
+                            duration = 4800; // extend duration for letters that will be reused
+                        }
+
                         setTimeout(() => {
                             letter.classList.add("exit");
-                        }, i * 80 + bExtended == true ? 3400 : 0);
+                        }, i * 80 + duration); // stagger exit with a base delay and additional duration for reused letters
                     }
-                }
+
             });
 
 
@@ -198,24 +213,24 @@
                 duration = 500;
             }
             else {
-                duration = 1800;
+                duration = 1100;
             }
 
             setTimeout(() => {
-                renderWord(nextWord);
+                renderWord(currentWord, nextWord);
             }, duration); // wait a duration 4b doing presentation the next wording
         }
 
         // Loop
         function startAnimation() {
             let curWord= steps[currentIndex];
-            renderWord(curWord);
+            renderWord('', curWord);
 
             setInterval(() => {
                 curWord = steps[currentIndex];
                 currentIndex = (currentIndex + 1) % steps.length;
-                transitionTo(curWord, steps[currentIndex]);
-            }, 5000);
+                transitionTo(steps[currentIndex]);
+            }, 5700);
         }
 
         startAnimation();
