@@ -183,13 +183,11 @@
         <div type="text" id="DOB-6" class="dob" disabled>Jul 26 2000</div>
         <div type="text" id="ANI-6" class="colourAnimal invisible"></div>
     </div>
-
     <div class="beloved">
         <div type="text" class="名前" disabled>Infanta Sofía</div>
         <div type="text" id="DOB-7" class="dob" disabled>Apr 29 2007</div>
         <div type="text" id="ANI-7" class="colourAnimal"></div>
     </div>
-    
 
     <div class="infor" id="birthYear-2" disabled></div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
@@ -204,19 +202,19 @@
             document.getElementById('DOB-6').innerHTML = convertToElte(document.getElementById('DOB-6').innerHTML);
             document.getElementById('DOB-7').innerHTML = convertToElte(document.getElementById('DOB-7').innerHTML);
 
-            document.getElementById('ANI-1').innerHTML = 
+            document.getElementById('ANI-1').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-2').innerHTML = 
+            document.getElementById('ANI-2').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-3').innerHTML = 
+            document.getElementById('ANI-3').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-4').innerHTML = 
+            document.getElementById('ANI-4').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-5').innerHTML = 
+            document.getElementById('ANI-5').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-6').innerHTML = 
+            document.getElementById('ANI-6').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-7').innerHTML = 
+            document.getElementById('ANI-7').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]));
 
             document.getElementById('birthYear-2').innerHTML = convertToElte(new Date());
@@ -232,120 +230,26 @@
             "July", "August", "September", "October", "November", "December"
         ];
 
-         const monthNames_2 = [
+        const monthNames_2 = [
             "Ispa", "Duo", "Magha", "Qaru", "Felle", "Yune",
             "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
         ];
 
-       const animalNames = [
-            "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow", 
+        const animalNames = [
+            "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
             "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant / Bee / Peacock", "Snake Family / Centipede",
-            "Horse / Sea-horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape / Kong", 
+            "Horse / Sea-horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape / Kong",
             "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness / Bear"
         ]; /* { dragon; Dragon }, 'Lý Dần' ð Snake */ /* Reindeer <> Goat && 'Con Nai Sơn Dương (Linh Dương)' là ko tồn tại */
-
-
 
         // Pig --> Mouse --> Rabbit --> Dodge
 
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
 
-        function convertCurrentYear() {
-            let subtract = currentYear - CURRENT_YEAR;
-            return 'current_year+' + subtract.toString();
-        }
-
         function convertReversedCurrentYear(yearStr) {
             const match = yearStr.match(/^current_year([+-]\d+)$/);
             return CURRENT_YEAR + Number(match?.[1] ?? 0);
-        }
-
-        function toTuesdayFirst(day) {
-            return (day + 5) % 7;
-        }
-
-        function renderCalendar(year, month) {
-            document.getElementById("monthYear").textContent =
-                monthNames_2[month] + " " + convertCurrentYear(year);
-
-            const firstDay = new Date(year, month, 1);
-            const startIndex = toTuesdayFirst(firstDay.getDay());
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            const body = document.getElementById("calendarBody");
-            body.innerHTML = "";
-
-            let date = 1;
-            for (let r = 0; r < 6; r++) {
-                const row = document.createElement("tr");
-
-                for (let c = 0; c < 7; c++) {
-                    const cell = document.createElement("td");
-
-                    if (r === 0 && c < startIndex || date > daysInMonth) {
-                        cell.textContent = "";
-                    } else {
-                        cell.textContent = date;
-                        if (date === TODAY.getDate() &&
-                            month === TODAY.getMonth() &&
-                            year === TODAY.getFullYear()) {
-                            cell.classList.add("TODAY");
-                        }
-
-                        date++;
-                    }
-                    row.appendChild(cell);
-                }
-                body.appendChild(row);
-
-                if (date > daysInMonth) break;
-            }
-        }
-
-        function changeMonth(step) {
-            currentMonth += step;
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            } else if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            }
-
-            renderCalendar(currentYear, currentMonth);
-        }
-
-        function calculateAge() {
-            const birthDate = document.getElementById('birthDate').value;
-            const resultDiv = document.getElementById('result');
-
-            if (!birthDate) {
-                resultDiv.textContent = 'Please enter a birth date';
-                return;
-            }
-
-            const arr = birthDate.trim().split(/\s+/);
-            const m = monthNames_2.indexOf(arr[0]);
-            if (m === -1 || arr.length < 3) {
-                resultDiv.textContent = "Please use the format, 'M11 1 current_year±N'";
-                return;
-            }
-
-            const birthMonthName = monthNames[m];
-            const birthYear = convertReversedCurrentYear(arr[2]);
-            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
-            const TODAY = new Date();
-            const birth = new Date(convertedBirthDate);
-
-            if (isNaN(birth.getTime())) {
-                resultDiv.textContent = 'Invalid date of birth format';
-                return;
-            }
-
-            let dayDiff = Math.floor((TODAY.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-            resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
-            document.getElementById('reference').textContent = '~' + (dayDiff / DAYS_IN_YEAR).toFixed(2) + ' years old';
         }
 
         function convertToElte(aDate) {
@@ -381,10 +285,6 @@
             elteDOB = `${elteMonth} ${day} ${elteYear}`;
 
             return elteDOB;
-        }
-
-        function copypaste2BirthYear(aDate) {
-            document.getElementById('birthYear-2').value = convertToElte(new Date(aDate));
         }
 
         function fromElte() {
