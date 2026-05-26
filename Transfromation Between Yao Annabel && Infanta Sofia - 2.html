@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Magical Name Transformation</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        height:100vh;
+        overflow:hidden;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:
+            radial-gradient(circle at top left,#ffb6d9 0%,transparent 35%),
+            radial-gradient(circle at bottom right,#a78bfa 0%,transparent 35%),
+            linear-gradient(135deg,#12061f,#1e0b38,#090112);
+        font-family:Segoe UI,Tahoma,sans-serif;
+    }
+
+    .scene{
+        position:relative;
+        width:1000px;
+        height:400px;
+    }
+
+    .panel{
+        position:absolute;
+        width:420px;
+        height:240px;
+        top:80px;
+
+        border:1px solid rgba(255,255,255,.12);
+        border-radius:28px;
+
+        background:rgba(255,255,255,.06);
+        backdrop-filter:blur(16px);
+
+        box-shadow:
+            0 0 40px rgba(255,255,255,.08),
+            inset 0 0 20px rgba(255,255,255,.03);
+
+        overflow:hidden;
+    }
+
+    .left{
+        left:20px;
+    }
+
+    .right{
+        right:20px;
+    }
+
+    .title{
+        position:absolute;
+        top:20px;
+        width:100%;
+        text-align:center;
+        color:white;
+        letter-spacing:3px;
+        font-size:18px;
+        opacity:.7;
+    }
+
+    .word{
+        position:absolute;
+        top:105px;
+        left:50%;
+        transform:translateX(-50%);
+        white-space:nowrap;
+    }
+
+    .char{
+        position:relative;
+        display:inline-block;
+        min-width:26px;
+        text-align:center;
+
+        color:white;
+        font-size:48px;
+        font-weight:700;
+
+        text-shadow:
+            0 0 12px rgba(255,255,255,.8),
+            0 0 24px rgba(255,255,255,.35);
+
+        transition:
+            transform 2.4s cubic-bezier(.2,.8,.2,1),
+            opacity 2.4s ease,
+            filter 2.4s ease,
+            color 2.4s ease;
+    }
+
+    .ghost{
+        opacity:0;
+        filter:blur(14px);
+        transform:translateY(60px) scale(.4) rotate(30deg);
+    }
+
+    .anchor{
+        color:#ffe98a;
+        text-shadow:
+            0 0 10px #fff2ae,
+            0 0 30px #ffd500,
+            0 0 60px #ffd500;
+    }
+
+    .spark{
+        position:absolute;
+        width:5px;
+        height:5px;
+        border-radius:50%;
+        background:white;
+        pointer-events:none;
+        animation:float 6s linear infinite;
+        opacity:.7;
+    }
+
+    @keyframes float{
+        from{
+            transform:translateY(0) translateX(0);
+            opacity:0;
+        }
+        10%{
+            opacity:1;
+        }
+        to{
+            transform:translateY(-500px) translateX(120px);
+            opacity:0;
+        }
+    }
+
+    .beam{
+        position:absolute;
+        top:50%;
+        left:50%;
+        width:420px;
+        height:2px;
+
+        background:
+            linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,.9),
+                transparent
+            );
+
+        transform:translate(-50%,-50%);
+        filter:blur(1px);
+
+        animation:pulse 2s infinite;
+    }
+
+    @keyframes pulse{
+        0%,100%{
+            opacity:.25;
+            transform:translate(-50%,-50%) scaleX(.8);
+        }
+        50%{
+            opacity:1;
+            transform:translate(-50%,-50%) scaleX(1.2);
+        }
+    }
+
+    .hint{
+        position:absolute;
+        bottom:20px;
+        width:100%;
+        text-align:center;
+        color:rgba(255,255,255,.65);
+        letter-spacing:2px;
+        font-size:14px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <div class="beam"></div>
+
+    <div class="panel left">
+        <div class="title">
+            Sofía ➜ Annabel
+        </div>
+
+        <div class="word" id="sofiaWord"></div>
+    </div>
+
+    <div class="panel right">
+        <div class="title">
+            Yao ➜ Infanta
+        </div>
+
+        <div class="word" id="yaoWord"></div>
+    </div>
+
+    <div class="hint">
+        Magical dual transformation powered by anchor letters ✨
+    </div>
+
+</div>
+
+<script>
+
+const sofiaSequence = [
+    "S","o","f","í","a"
+];
+
+const annabelSequence = [
+    "A","n","n","a","b","e","l"
+];
+
+const yaoSequence = [
+    "Y","a","o"
+];
+
+const infantaSequence = [
+    "I","n","f","a","n","t","a"
+];
+
+const sofiaContainer = document.getElementById("sofiaWord");
+const yaoContainer = document.getElementById("yaoWord");
+
+function buildCharacters(container, chars, anchorIndex){
+    container.innerHTML = "";
+
+    chars.forEach((c,index)=>{
+        const span = document.createElement("span");
+
+        span.className = "char";
+        span.textContent = c;
+
+        if(index === anchorIndex){
+            span.classList.add("anchor");
+        }
+
+        container.appendChild(span);
+    });
+}
+
+buildCharacters(sofiaContainer, sofiaSequence, 4);
+buildCharacters(yaoContainer, yaoSequence, 0);
+
+function morphSofiaToAnnabel(){
+
+    const current = sofiaContainer.querySelectorAll(".char");
+
+    current.forEach((char,index)=>{
+
+        if(index !== 4){
+            char.classList.add("ghost");
+        }
+    });
+
+    setTimeout(()=>{
+
+        sofiaContainer.innerHTML = "";
+
+        annabelSequence.forEach((c,index)=>{
+
+            const span = document.createElement("span");
+
+            span.className = "char ghost";
+            span.textContent = c;
+
+            /*
+                anchor:
+                'a' in Sofía
+                transforms into
+                'A' in Annabel
+            */
+
+            if(index === 0){
+                span.classList.add("anchor");
+
+                span.style.opacity = "1";
+                span.style.filter = "blur(0)";
+                span.style.transform = "translateY(0) scale(1)";
+            }
+
+            sofiaContainer.appendChild(span);
+
+            setTimeout(()=>{
+
+                span.classList.remove("ghost");
+
+            },120 + index * 130);
+
+        });
+
+    },1400);
+}
+
+function morphYaoToInfanta(){
+
+    const current = yaoContainer.querySelectorAll(".char");
+
+    current.forEach((char,index)=>{
+
+        if(index !== 0){
+            char.classList.add("ghost");
+        }
+    });
+
+    setTimeout(()=>{
+
+        yaoContainer.innerHTML = "";
+
+        infantaSequence.forEach((c,index)=>{
+
+            const span = document.createElement("span");
+
+            span.className = "char ghost";
+            span.textContent = c;
+
+            /*
+                anchor:
+                'Y' in Yao
+                transforms into
+                'I' in Infanta
+            */
+
+            if(index === 0){
+                span.classList.add("anchor");
+
+                span.textContent = "I";
+
+                span.style.opacity = "1";
+                span.style.filter = "blur(0)";
+                span.style.transform = "translateY(0) scale(1)";
+            }
+
+            yaoContainer.appendChild(span);
+
+            setTimeout(()=>{
+
+                span.classList.remove("ghost");
+
+            },120 + index * 140);
+
+        });
+
+    },1400);
+}
+
+function createSpark(){
+
+    const spark = document.createElement("div");
+
+    spark.className = "spark";
+
+    spark.style.left = Math.random() * window.innerWidth + "px";
+    spark.style.top = window.innerHeight + "px";
+
+    spark.style.animationDuration =
+        (4 + Math.random() * 4) + "s";
+
+    spark.style.transform =
+        `scale(${0.5 + Math.random() * 2})`;
+
+    document.body.appendChild(spark);
+
+    setTimeout(()=>{
+        spark.remove();
+    },7000);
+}
+
+setInterval(createSpark,120);
+
+setTimeout(()=>{
+
+    morphSofiaToAnnabel();
+    morphYaoToInfanta();
+
+},1200);
+
+setInterval(()=>{
+
+    buildCharacters(sofiaContainer, sofiaSequence, 4);
+    buildCharacters(yaoContainer, yaoSequence, 0);
+
+    setTimeout(()=>{
+
+        morphSofiaToAnnabel();
+        morphYaoToInfanta();
+
+    },900);
+
+},9000);
+
+</script>
+
+</body>
+</html>

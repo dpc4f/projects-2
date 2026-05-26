@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Magnetic Wives Transformation</title>
+  <style>
+    body {
+      background: radial-gradient(circle at center, #1a1a2e, #16213e);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+    }
+    .name {
+      font-size: 3em;
+      letter-spacing: 0.1em;
+      display: inline-block;
+      position: relative;
+    }
+    .char {
+      display: inline-block;
+      transition: all 1.5s ease-in-out;
+      position: relative;
+    }
+    .highlight {
+      color: #ff6ec7;
+      text-shadow: 0 0 15px #ff6ec7, 0 0 30px #ff6ec7;
+    }
+    .button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #ff6ec7, #6ec6ff);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .button:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="name1" class="name">
+      <span class="char">I</span>
+      <span class="char">n</span>
+      <span class="char">f</span>
+      <span class="char">a</span>
+      <span class="char">n</span>
+      <span class="char">t</span>
+      <span class="char">a</span>
+      <span class="char"> </span>
+      <span class="char highlight">S</span>
+      <span class="char">o</span>
+      <span class="char">f</span>
+      <span class="char highlight">í</span>
+      <span class="char">a</span>
+    </div>
+    <div id="name2" class="name" style="margin-top:20px;">
+      <span class="char highlight">A</span>
+      <span class="char">n</span>
+      <span class="char">n</span>
+      <span class="char">a</span>
+      <span class="char">b</span>
+      <span class="char">e</span>
+      <span class="char">l</span>
+      <span class="char"> </span>
+      <span class="char highlight">Y</span>
+      <span class="char">a</span>
+      <span class="char">o</span>
+    </div>
+    <button class="button" onclick="transformNames()">✨ Transform ✨</button>
+  </div>
+
+  <script>
+    function transformNames() {
+      const name1Chars = document.querySelectorAll('#name1 .char');
+      const name2Chars = document.querySelectorAll('#name2 .char');
+
+      // Sofía's "a" → Annabel's "A"
+      name1Chars[3].textContent = 'A';
+      name1Chars[3].classList.add('highlight');
+      name2Chars[0].textContent = 'a';
+      name2Chars[0].classList.add('highlight');
+
+      // Yao's "Y" → Sofía's "S"
+      name2Chars[8].textContent = 'S';
+      name2Chars[8].classList.add('highlight');
+      name1Chars[8].textContent = 'Y';
+      name1Chars[8].classList.add('highlight');
+    }
+  </script>
+</body>
+</html>
