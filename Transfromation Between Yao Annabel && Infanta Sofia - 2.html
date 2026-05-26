@@ -251,9 +251,41 @@ function buildCharacters(container, chars, anchorIndex){
 buildCharacters(sofiaContainer, sofiaSequence, 4);
 buildCharacters(yaoContainer, yaoSequence, 0);
 
+<!-- Replace ONLY the two morph functions below -->
+
+
+
 function morphSofiaToAnnabel(){
 
     const current = sofiaContainer.querySelectorAll(".char");
+
+    /*
+        anchor:
+        'a' in Sofía
+        morphs into
+        'A' in Annabel
+    */
+
+    const anchor = current[4];
+
+    anchor.style.transition =
+        "all 2.4s cubic-bezier(.2,.8,.2,1)";
+
+    anchor.style.transform =
+        "translateY(-10px) scale(1.25) rotate(-8deg)";
+
+    anchor.style.letterSpacing = "3px";
+
+    anchor.style.color = "#fff6bf";
+
+    setTimeout(()=>{
+
+        anchor.textContent = "A";
+
+        anchor.style.transform =
+            "translateY(0px) scale(1.05) rotate(0deg)";
+
+    },850);
 
     current.forEach((char,index)=>{
 
@@ -273,19 +305,14 @@ function morphSofiaToAnnabel(){
             span.className = "char ghost";
             span.textContent = c;
 
-            /*
-                anchor:
-                'a' in Sofía
-                transforms into
-                'A' in Annabel
-            */
-
             if(index === 0){
+
                 span.classList.add("anchor");
 
                 span.style.opacity = "1";
                 span.style.filter = "blur(0)";
-                span.style.transform = "translateY(0) scale(1)";
+                span.style.transform =
+                    "translateY(0) scale(1)";
             }
 
             sofiaContainer.appendChild(span);
@@ -294,16 +321,44 @@ function morphSofiaToAnnabel(){
 
                 span.classList.remove("ghost");
 
-            },120 + index * 130);
+            },120 + index * 120);
 
         });
 
-    },1400);
+    },1700);
 }
+
+
 
 function morphYaoToInfanta(){
 
     const current = yaoContainer.querySelectorAll(".char");
+
+    /*
+        anchor:
+        'Y' in Yao
+        morphs into
+        'I' in Infanta
+    */
+
+    const anchor = current[0];
+
+    anchor.style.transition =
+        "all 2.4s cubic-bezier(.2,.8,.2,1)";
+
+    anchor.style.transform =
+        "translateY(-12px) scale(1.35) rotate(10deg)";
+
+    anchor.style.color = "#ffe38f";
+
+    setTimeout(()=>{
+
+        anchor.textContent = "I";
+
+        anchor.style.transform =
+            "translateY(0px) scale(1.05) rotate(0deg)";
+
+    },850);
 
     current.forEach((char,index)=>{
 
@@ -323,21 +378,14 @@ function morphYaoToInfanta(){
             span.className = "char ghost";
             span.textContent = c;
 
-            /*
-                anchor:
-                'Y' in Yao
-                transforms into
-                'I' in Infanta
-            */
-
             if(index === 0){
-                span.classList.add("anchor");
 
-                span.textContent = "I";
+                span.classList.add("anchor");
 
                 span.style.opacity = "1";
                 span.style.filter = "blur(0)";
-                span.style.transform = "translateY(0) scale(1)";
+                span.style.transform =
+                    "translateY(0) scale(1)";
             }
 
             yaoContainer.appendChild(span);
@@ -346,12 +394,13 @@ function morphYaoToInfanta(){
 
                 span.classList.remove("ghost");
 
-            },120 + index * 140);
+            },120 + index * 130);
 
         });
 
-    },1400);
+    },1700);
 }
+
 
 function createSpark(){
 
