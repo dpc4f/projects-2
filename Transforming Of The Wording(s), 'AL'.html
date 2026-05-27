@@ -95,6 +95,12 @@
         .c9 {
             color: #3d5b42;
         }
+
+        .font-time {
+            font-size: 40px;
+            align-self: flex-center;
+            align-content: center;
+        }
     </style>
 </head>
 
@@ -171,6 +177,10 @@
 
                 if (char === 'b') {
                     span.classList.add("b-character");
+                }
+
+                if (char === "t" || char === "i" || char === "m" || char === "e") {
+                    span.classList.add("font-time");
                 }
 
                 if (char !== "a") {
