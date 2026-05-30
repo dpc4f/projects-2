@@ -125,7 +125,7 @@
             // Interpolate rotation speed smoothly
             currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 0.05;
             if (!isDragging) {
-                angle += currentRotationSpeed;
+                angle -= currentRotationSpeed;
             }
 
             const centerX = canvas.width / 2;
