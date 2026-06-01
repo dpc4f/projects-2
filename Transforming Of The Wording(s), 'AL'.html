@@ -26,7 +26,7 @@
         .letter {
             display: inline-block;
             opacity: 0;
-            transform: translateY(30px) scale(0.8);
+            transform: translateY(40px) scale(1.8);
             transition: all 0.5s ease;
             color: #ccc;
             margin-right: 20px;
@@ -34,7 +34,7 @@
 
         .letter.show {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1.8);
         }
 
         .letter.exit {
@@ -48,12 +48,16 @@
             transform: none !important;
             color: #ffd166;
             text-shadow: 0 0 10px rgba(255, 209, 102, 0.6);
-            font-size: 64px;
+            /* font-size: 94px; */
             margin-left: 60px;
         }
 
         .b-character {
-            margin-right: -47px;
+            margin-left: -67px;
+        }
+
+        .l-character {
+            font-weight: bold;
         }
 
         /* 🎨 Color palette for other letters */
@@ -171,13 +175,19 @@
                 span.classList.add("letter");
 
                 if (char === "a") {
-                    span.classList.add("anchor");
+                    // span.classList.add("anchor");
+                    // span.classList.add("l-character");
+                    span.classList.add("show");
                 } else {
                     span.classList.add(getColor(char));
                 }
 
                 if (char === 'b') {
                     span.classList.add("b-character");
+                }
+
+                if (char === 'l') {
+                    span.classList.add("l-character");
                 }
 
                 if (char === "t" || char === "i" || char === "m" || char === "e") {
@@ -192,7 +202,7 @@
                     } else {
                         setTimeout(() => {
                             span.classList.add("show");
-                        }, i * 340);
+                        }, (i+1) * 420);
                     }
                 }
 
@@ -214,7 +224,7 @@
                     if (!letter.classList.contains("anchor")) {
                         duration = 0; // default exit duration
                         if (nextWord.includes(letter.textContent)) {
-                            duration = 4800; // extend duration for letters that will be reused
+                            duration = 4100; // extend duration for letters that will be reused
                         }
 
                         setTimeout(() => {
