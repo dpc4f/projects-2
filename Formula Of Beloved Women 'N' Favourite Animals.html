@@ -200,7 +200,7 @@
         <div type="text" id="ANI-7" class="colourAnimal"></div>
     </div>
 
-    <div class="infor" id="birthYear-2" disabled></div>
+    <div class="infor" id="dateTime" disabled></div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
 
     <script>
@@ -210,7 +210,7 @@
             document.getElementById('DOB-3').innerHTML = convertToElte(document.getElementById('DOB-3').innerHTML);
             document.getElementById('DOB-4').innerHTML = convertToElte(document.getElementById('DOB-4').innerHTML);
             document.getElementById('DOB-5').innerHTML = convertToElte(document.getElementById('DOB-5').innerHTML);
-            document.getElementById('DOB-6').innerHTML = convertToElte(document.getElementById('DOB-6').innerHTML);
+            // document.getElementById('DOB-6').innerHTML = convertToElte(document.getElementById('DOB-6').innerHTML);
             document.getElementById('DOB-7').innerHTML = convertToElte(document.getElementById('DOB-7').innerHTML);
 
             document.getElementById('ANI-1').innerHTML =
@@ -223,12 +223,12 @@
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
             document.getElementById('ANI-5').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
-            document.getElementById('ANI-6').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
+            // document.getElementById('ANI-6').innerHTML =
+            //     exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
             document.getElementById('ANI-7').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]));
 
-            document.getElementById('birthYear-2').innerHTML = convertToElte(new Date());
+            document.getElementById('dateTime').innerHTML = convertToElte();
             exchange2Animal();
         }
 
@@ -266,7 +266,7 @@
         function convertToElte(aDate) {
             let date;
 
-            if (aDate.isNaN) {
+            if (isNaN(aDate)) {
                 date = new Date();
             }
             else {
@@ -281,7 +281,7 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-            let elteMonth = monthNames_2[month];
+            let elteMonth = monthNames_2[month < 2 ? month+10 : month-2];
             let elteYear;
             let elteDOB;
 
