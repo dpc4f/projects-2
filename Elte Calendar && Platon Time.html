@@ -238,7 +238,11 @@
         }
 
 .raining-season {
-color: #1ad123e8 !important;
+color: #1ad123e8;
+}
+
+.dry-season {
+    color:orange;
 }
 
     </style>
@@ -249,18 +253,18 @@ color: #1ad123e8 !important;
     <div class="flex-container">
 
         <div class="flex-months month" id="monthNames">
-            <div class="center">Athen</div>
-            <div class="center">Duo</div>
-            <div class="center">Magha</div>
+            <div class="center dry-season">Athen</div>
+            <div class="center dry-season">Duo</div>
+            <div class="center dry-season">Magha</div>
             <div class="center raining-season">Qaru</div>
             <div class="center raining-season">Felle</div>
             <div class="center raining-season">Yune</div>
             <div class="center raining-season">SEPT</div>
             <div class="center raining-season">OCT</div>
             <div class="center raining-season">NOV</div>
-            <div class="center">DEC</div>
-            <div class="center">Palm</div>
-            <div class="center">Hose</div>
+            <div class="center dry-season">DEC</div>
+            <div class="center dry-season">Palm</div>
+            <div class="center dry-season">Hose</div>
         </div>
         <div class="left-panel">
             <div class="calendar-container">
@@ -370,11 +374,8 @@ color: #1ad123e8 !important;
 
                let mt = document.getElementById("monthNames").children;
 
-                for (let i = 0; i < mt.length; i++) {
-                    mt[i].style.color = "brown";
-                }
                
-                mt[month < 2 ? month+10 : month-2 ].style.color = "purple";
+                mt[month < 2 ? month+10 : month-2].style.color = "purple";
 
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
