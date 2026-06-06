@@ -247,12 +247,12 @@
         }
 
         function convertToElte(aDate) {
-            let date;
-            if (aDate.isNaN) {
-                date = new Date();
-            }
-            else {
+            let date = '';
+
+            if (aDate !== '' && aDate !== undefined) {
                 date = new Date(aDate);
+            } else {
+                date = new Date();
             }
 
             if (isNaN(date.getTime())) {
