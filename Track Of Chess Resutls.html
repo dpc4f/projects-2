@@ -7,38 +7,57 @@
     <title>Track Status Of Queens 'N' ð Results</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #eef5ff;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #edf4ff;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 4fr 1fr;
+            min-height: 100vh;
+        }
+
+        .side {
+            background: #dbe8ff;
+        }
+
+        .main {
             padding: 20px;
         }
 
         h1 {
             text-align: center;
-            color: #244;
+            color: #23395d;
         }
 
-        .controls {
-            text-align: center;
-            margin-bottom: 20px;
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
         }
 
         button {
-            padding: 12px 20px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
+            padding: 8px 14px;
             cursor: pointer;
-            font-size: 16px;
             font-weight: bold;
-            margin: 5px;
         }
 
-        #addQueenRow {
+        #createRowBtn {
             background: #4caf50;
             color: white;
         }
 
-        #kingChecked {
+        #kingBtn {
             background: #d32f2f;
             color: white;
         }
@@ -46,24 +65,19 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
         }
 
         th {
-            background: #283593;
+            background: #304ffe;
             color: white;
             padding: 10px;
         }
 
         td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: center;
-        }
-
-        .queen {
-            font-weight: bold;
+            vertical-align: top;
         }
 
         .thoa {
@@ -78,76 +92,130 @@
             background: #f3e5f5;
         }
 
-        .result {
+        .history {
+            margin-top: 8px;
+            min-height: 24px;
             font-weight: bold;
-            color: #1565c0;
+            color: #0d47a1;
+            word-break: break-word;
+        }
+
+        .controlRow {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        select {
+            padding: 5px;
+        }
+
+        .addResultBtn {
+            background: #1976d2;
+            color: white;
         }
 
         .locked {
-            opacity: .55;
+            opacity: .5;
             pointer-events: none;
         }
 
-        .kingRow {
-            background: #ffebee;
+        #kingStatus {
+            margin-top: 10px;
             font-weight: bold;
+            color: #c62828;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>♔ Davios Chess Tracker ♔</h1>
+    <div class="layout">
+        <div class="side"></div>
+        <div class="main">
+            <h1>♔ Queens' Status 'N' Ending Result Tracker ♔</h1>
 
-    <div class="controls">
-        <button id="addQueenRow">Add Queen Row</button>
-        <button id="kingChecked">King Endly Checked</button>
+            <div class="section">
+                <button id="createRowBtn">
+                    Add Queen Row
+                </button>
+            </div>
+            <div class="section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Queen #1</th>
+                            <th>Queen #2</th>
+                            <th>Queen #3</th>
+                        </tr>
+                    </thead>
+                    <tbody id="queenBody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="section">
+                <button id="kingBtn">
+                    King Endly Checked
+                </button>
+                <div id="kingStatus"></div>
+            </div>
+        </div>
+        <div class="side"></div>
     </div>
 
-    <table id="queenTable">
-        <thead>
-            <tr>
-                <th>Queen</th>
-                <th>Fight 1</th>
-                <th>Fight 2</th>
-                <th>Fight 3</th>
-                <th>Fight 4</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
     <script>
+        let rowCounter = 0;
+        const queenBody =
+            document.getElementById("queenBody");
 
-        const tbody = document.querySelector("#queenTable tbody");
-
-        let swapFlag = false;
-
-        function saveData() {
+        function saveState() {
             localStorage.setItem(
-                "daviosChessTable",
-                tbody.innerHTML
+                "davios_rows",
+                queenBody.innerHTML
+            );
+            localStorage.setItem(
+                "davios_counter",
+                rowCounter
+            );
+            localStorage.setItem(
+                "davios_king_status",
+                document.getElementById(
+                    "kingStatus"
+                ).innerHTML
             );
         }
 
-        function loadData() {
-            const data =
-                localStorage.getItem("daviosChessTable");
+        function loadState() {
+            const rows =
+                localStorage.getItem(
+                    "davios_rows"
+                );
 
-            if (data) {
-                tbody.innerHTML = data;
-
-                attachEvents();
-
-                checkResumeLock();
+            if (rows) {
+                queenBody.innerHTML = rows;
             }
+            rowCounter =
+                parseInt(
+                    localStorage.getItem(
+                        "davios_counter"
+                    ) || "0"
+                );
+            document.getElementById(
+                "kingStatus"
+            ).innerHTML =
+                localStorage.getItem(
+                    "davios_king_status"
+                ) || "";
+
+            rebindButtons();
+            checkLock();
         }
 
-        function queenOrder() {
+        function getQueenOrder() {
+            rowCounter++;
 
-            swapFlag = !swapFlag;
-
-            if (swapFlag) {
+            if (rowCounter % 2) {
                 return [
                     ["Thoa Nguyen", "thoa"],
                     ["Annabel Yao", "yao"],
@@ -162,182 +230,212 @@
             ];
         }
 
-        function createQueenRow(name, cls) {
+        function createQueenCell(
+            name,
+            cssClass
+        ) {
 
-            const tr = document.createElement("tr");
-            tr.className = cls;
-
-            let html =
-                `<td class="queen">${name}</td>`;
-
-            for (let i = 1; i <= 4; i++) {
-
-                html += `
-        <td>
-            <input
-                type="checkbox"
-                class="fightCheck"
-                data-fight="${i}">
-            <select class="fightResult">
+            return `
+    <td class="${cssClass}">
+        <strong>${name}</strong>
+        <div class="history"></div>
+        <div class="controlRow">
+            <select>
                 <option value="loss">
                     Loss
                 </option>
                 <option value="koe">
-                    Win/Draw
+                    Win
+                </option>
+                <option value="koe">
+                    Draw
                 </option>
             </select>
-            <div class="result"></div>
-        </td>`;
-            }
-
-            tr.innerHTML = html;
-
-            return tr;
+            <button
+                class="addResultBtn">
+                Add
+            </button>
+        </div>
+    </td>`;
         }
 
-        function addQueenGroup() {
-
-            const queens = queenOrder();
-
-            queens.forEach(q => {
-                tbody.appendChild(
-                    createQueenRow(q[0], q[1])
-                );
-            });
-
-            attachEvents();
-
-            saveData();
-        }
-
-        function attachEvents() {
-
-            document
-                .querySelectorAll(".fightCheck")
-                .forEach(box => {
-
-                    if (box.dataset.bound) return;
-
-                    box.dataset.bound = "1";
-
-                    box.addEventListener("change", () => {
-
-                        if (!box.checked) return;
-
-                        const td =
-                            box.parentElement;
-
-                        const fightNo =
-                            box.dataset.fight;
-
-                        const result =
-                            td.querySelector(
-                                ".fightResult"
-                            ).value;
-
-                        td.querySelector(
-                            ".result"
-                        ).textContent =
-                            result === "koe"
-                                ? "koe"
-                                : fightNo;
-
-                        saveData();
-                    });
-                });
-        }
-
-        function addKingChecked() {
-
-            const now = new Date();
-
-            const resume =
-                new Date(
-                    now.getTime()
-                    + 4 * 24 * 60 * 60 * 1000
-                );
-
-            localStorage.setItem(
-                "resumeDate",
-                resume.toISOString()
-            );
-
+        function addRow() {
+            const order =
+                getQueenOrder();
             const tr =
                 document.createElement("tr");
 
-            tr.className = "kingRow";
-
             tr.innerHTML =
-                `<td colspan="5">
-        ♚ KING ENDLY CHECKED —
-        ${now.toLocaleString()}
-        —
-        Resume:
-        ${resume.toLocaleDateString()}
-        </td>`;
-
-            tbody.appendChild(tr);
-
-            lockTable();
-
-            saveData();
+                createQueenCell(
+                    order[0][0],
+                    order[0][1]
+                ) +
+                createQueenCell(
+                    order[1][0],
+                    order[1][1]
+                ) +
+                createQueenCell(
+                    order[2][0],
+                    order[2][1]
+                );
+            queenBody.appendChild(tr);
+            rebindButtons();
+            saveState();
         }
 
-        function lockTable() {
+        function rebindButtons() {
+            document
+                .querySelectorAll(
+                    ".addResultBtn"
+                )
+                .forEach(btn => {
+                    if (btn.dataset.bound)
+                        return;
 
-            tbody.classList.add("locked");
+                    btn.dataset.bound = "1";
+                    btn.addEventListener(
+                        "click",
+                        () => {
+                            const td =
+                                btn.closest("td");
+                            const history =
+                                td.querySelector(
+                                    ".history"
+                                );
+                            const select =
+                                td.querySelector(
+                                    "select"
+                                );
+                            const current =
+                                history.textContent
+                                    .trim();
+                            let items =
+                                current
+                                    ? current.split(" ")
+                                    : [];
+
+                            if (
+                                select.value === "koe"
+                            ) {
+                                items.push(
+                                    "koe"
+                                );
+                            } else {
+                                let maxLoss = 0;
+
+                                items.forEach(x => {
+                                    const n =
+                                        parseInt(x);
+
+                                    if (
+                                        !isNaN(n)
+                                    ) {
+                                        maxLoss =
+                                            Math.max(
+                                                maxLoss,
+                                                n
+                                            );
+                                    }
+                                });
+                                items.push(
+                                    maxLoss + 1
+                                );
+                            }
+                            history.textContent =
+                                items.join(" ");
+                            saveState();
+                        });
+                });
         }
 
-        function unlockTable() {
-
-            tbody.classList.remove("locked");
+        function lockControls() {
+            queenBody.classList.add(
+                "locked"
+            );
         }
 
-        function checkResumeLock() {
+        function unlockControls() {
+            queenBody.classList.remove(
+                "locked"
+            );
+        }
 
-            const saved =
+        function checkLock() {
+            const resume =
                 localStorage.getItem(
-                    "resumeDate"
+                    "davios_resume"
                 );
 
-            if (!saved) {
-                unlockTable();
+            if (!resume) {
+                unlockControls();
                 return;
             }
 
-            const resume =
-                new Date(saved);
-
             const now =
                 new Date();
+            const resumeDate =
+                new Date(resume);
 
-            if (now < resume) {
-                lockTable();
+            if (now < resumeDate) {
+                lockControls();
             } else {
-                unlockTable();
+                unlockControls();
                 localStorage.removeItem(
-                    "resumeDate"
+                    "davios_resume"
                 );
             }
         }
 
         document
-            .getElementById("addQueenRow")
+            .getElementById(
+                "createRowBtn"
+            )
             .addEventListener(
                 "click",
-                addQueenGroup
+                addRow
             );
 
         document
-            .getElementById("kingChecked")
+            .getElementById(
+                "kingBtn"
+            )
             .addEventListener(
                 "click",
-                addKingChecked
+                () => {
+                    const now =
+                        new Date();
+                    const resume =
+                        new Date(
+                            now.getTime()
+                            +
+                            4 * 24 * 60 * 60 * 1000
+                        );
+
+                    localStorage.setItem(
+                        "davios_resume",
+                        resume.toISOString()
+                    );
+                    document
+                        .getElementById(
+                            "kingStatus"
+                        )
+                        .innerHTML =
+                        `
+        Checked:
+        ${now.toLocaleString()}
+        <br><br>
+        Resume:
+        ${resume.toLocaleDateString()}
+        `;
+
+                    lockControls();
+                    saveState();
+                }
             );
 
-        loadData();
-
+        loadState();
     </script>
+
 </body>
 
 </html>
