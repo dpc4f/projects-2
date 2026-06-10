@@ -240,150 +240,78 @@
         }
 
         function rebindButtons() {
-            document
-                .querySelectorAll(
-                    ".addResultBtn"
-                )
-                .forEach(btn => {
+            document.querySelectorAll(".addResultBtn").forEach(btn => {
                     if (btn.dataset.bound)
                         return;
 
                     btn.dataset.bound = "1";
-                    btn.addEventListener(
-                        "click",
-                        () => {
-                            const td =
-                                btn.closest("td");
-                            const history =
-                                td.querySelector(
-                                    ".history"
-                                );
-                            const select =
-                                td.querySelector(
-                                    "select"
-                                );
-                            const current =
-                                history.textContent
-                                    .trim();
-                            let items =
-                                current
-                                    ? current.split(" ")
-                                    : [];
+                    btn.addEventListener("click",() => {
+                            const td = btn.closest("td");
+                            const history = td.querySelector(".history");
+                            const select = td.querySelector("select");
+                            const current = history.textContent.trim();
+                            let items = current ? current.split(" ") : [];
 
-                            if (
-                                select.value === "koe"
-                            ) {
-                                items.push(
-                                    "koe"
-                                );
+                            if (select.value === "koe") {
+                                items.push("koe");
                             } else {
                                 let maxLoss = 0;
 
                                 items.forEach(x => {
-                                    const n =
-                                        parseInt(x);
+                                    const n = parseInt(x);
 
-                                    if (
-                                        !isNaN(n)
-                                    ) {
-                                        maxLoss =
-                                            Math.max(
-                                                maxLoss,
-                                                n
-                                            );
-                                    }
+                                    if (!isNaN(n)) maxLoss = Math.max(maxLoss,n);
                                 });
-                                items.push(
-                                    maxLoss + 1
-                                );
+                                items.push(maxLoss + 1);
                             }
-                            history.textContent =
-                                items.join(" ");
+
+                            history.textContent = items.join(" ");
                             saveState();
                         });
                 });
         }
 
         function lockControls() {
-            queenBody.classList.add(
-                "locked"
-            );
+            queenBody.classList.add("locked");
         }
 
         function unlockControls() {
-            queenBody.classList.remove(
-                "locked"
-            );
+            queenBody.classList.remove("locked");
         }
 
         function checkLock() {
-            const resume =
-                localStorage.getItem(
-                    "davios_resume"
-                );
+            const resume = localStorage.getItem("davios_resume");
 
             if (!resume) {
                 unlockControls();
                 return;
             }
 
-            const now =
-                new Date();
-            const resumeDate =
-                new Date(resume);
+            const now = new Date();
+            const resumeDate = new Date(resume);
 
             if (now < resumeDate) {
                 lockControls();
             } else {
                 unlockControls();
-                localStorage.removeItem(
-                    "davios_resume"
-                );
+                localStorage.removeItem("davios_resume");
             }
         }
 
-        document
-            .getElementById(
-                "createRowBtn"
-            )
-            .addEventListener(
-                "click",
-                addRow
-            );
+        document.getElementById("createRowBtn").addEventListener("click", addRow);
+        document.getElementById("kingBtn").addEventListener("click", () => {
+                    const now = new Date();
+                    const resume = new Date(now.getTime()+4*24*60*60*1000);
 
-        document
-            .getElementById(
-                "kingBtn"
-            )
-            .addEventListener(
-                "click",
-                () => {
-                    const now =
-                        new Date();
-                    const resume =
-                        new Date(
-                            now.getTime()
-                            +
-                            4 * 24 * 60 * 60 * 1000
-                        );
-
-                    localStorage.setItem(
-                        "davios_resume",
-                        resume.toISOString()
-                    );
-                    document
-                        .getElementById(
-                            "kingStatus"
-                        )
-                        .innerHTML =
+                    localStorage.setItem("davios_resume", resume.toISOString());
+                    document.getElementById("kingStatus").innerHTML =
                         `
-        Checked:
-        ${now.toLocaleString()}
-        <br><br>
-        Resume:
-        ${resume.toLocaleDateString()}
-        `;
-
+                            Checked:
+                            ${now.toLocaleString()}
+                            <br><br>
+                            Resume:
+                            ${resume.toLocaleDateString()}
+                        `;
                     lockControls();
                     saveState();
                 }
