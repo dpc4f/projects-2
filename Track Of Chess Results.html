@@ -208,6 +208,9 @@
                     <div class="history"></div>
                     <div class="controlRow">
                         <select>
+                            <option value="default">
+                                Select Result
+                            </option>
                             <option value="loss">
                                 Loss
                             </option>
@@ -252,17 +255,22 @@
                             const current = history.textContent.trim();
                             let items = current ? current.split(" ") : [];
 
+                            if (select.value === "default") {
+                                // alert("Please select a valid result.");
+                                return;
+                            }
+
                             if (select.value === "koe") {
                                 items.push("koe");
                             } else {
-                                let maxLoss = 0;
+                                // let maxLoss = 0;
 
-                                items.forEach(x => {
-                                    const n = parseInt(x);
+                                // items.forEach(x => {
+                                //     const n = parseInt(x);
 
-                                    if (!isNaN(n)) maxLoss = Math.max(maxLoss,n);
-                                });
-                                items.push(maxLoss + 1);
+                                //     if (!isNaN(n)) maxLoss = Math.max(maxLoss, n);
+                                // });
+                                items.push(items.length+1);
                             }
 
                             history.textContent = items.join(" ");
