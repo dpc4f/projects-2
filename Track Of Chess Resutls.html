@@ -7,15 +7,337 @@
     <title>Track Status Of Queens 'N' ð Results</title>
 
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef5ff;
+            padding: 20px;
+        }
 
+        h1 {
+            text-align: center;
+            color: #244;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        #addQueenRow {
+            background: #4caf50;
+            color: white;
+        }
+
+        #kingChecked {
+            background: #d32f2f;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        }
+
+        th {
+            background: #283593;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .queen {
+            font-weight: bold;
+        }
+
+        .thoa {
+            background: #fff8e1;
+        }
+
+        .yao {
+            background: #e8f5e9;
+        }
+
+        .sofia {
+            background: #f3e5f5;
+        }
+
+        .result {
+            font-weight: bold;
+            color: #1565c0;
+        }
+
+        .locked {
+            opacity: .55;
+            pointer-events: none;
+        }
+
+        .kingRow {
+            background: #ffebee;
+            font-weight: bold;
+        }
     </style>
-
 </head>
+
 <body>
- 
 
+    <h1>♔ Davios Chess Tracker ♔</h1>
 
+    <div class="controls">
+        <button id="addQueenRow">Add Queen Row</button>
+        <button id="kingChecked">King Endly Checked</button>
+    </div>
 
+    <table id="queenTable">
+        <thead>
+            <tr>
+                <th>Queen</th>
+                <th>Fight 1</th>
+                <th>Fight 2</th>
+                <th>Fight 3</th>
+                <th>Fight 4</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+
+        const tbody = document.querySelector("#queenTable tbody");
+
+        let swapFlag = false;
+
+        function saveData() {
+            localStorage.setItem(
+                "daviosChessTable",
+                tbody.innerHTML
+            );
+        }
+
+        function loadData() {
+            const data =
+                localStorage.getItem("daviosChessTable");
+
+            if (data) {
+                tbody.innerHTML = data;
+
+                attachEvents();
+
+                checkResumeLock();
+            }
+        }
+
+        function queenOrder() {
+
+            swapFlag = !swapFlag;
+
+            if (swapFlag) {
+                return [
+                    ["Thoa Nguyen", "thoa"],
+                    ["Annabel Yao", "yao"],
+                    ["Infanta Sofia", "sofia"]
+                ];
+            }
+
+            return [
+                ["Thoa Nguyen", "thoa"],
+                ["Infanta Sofia", "sofia"],
+                ["Annabel Yao", "yao"]
+            ];
+        }
+
+        function createQueenRow(name, cls) {
+
+            const tr = document.createElement("tr");
+            tr.className = cls;
+
+            let html =
+                `<td class="queen">${name}</td>`;
+
+            for (let i = 1; i <= 4; i++) {
+
+                html += `
+        <td>
+            <input
+                type="checkbox"
+                class="fightCheck"
+                data-fight="${i}">
+            <select class="fightResult">
+                <option value="loss">
+                    Loss
+                </option>
+                <option value="koe">
+                    Win/Draw
+                </option>
+            </select>
+            <div class="result"></div>
+        </td>`;
+            }
+
+            tr.innerHTML = html;
+
+            return tr;
+        }
+
+        function addQueenGroup() {
+
+            const queens = queenOrder();
+
+            queens.forEach(q => {
+                tbody.appendChild(
+                    createQueenRow(q[0], q[1])
+                );
+            });
+
+            attachEvents();
+
+            saveData();
+        }
+
+        function attachEvents() {
+
+            document
+                .querySelectorAll(".fightCheck")
+                .forEach(box => {
+
+                    if (box.dataset.bound) return;
+
+                    box.dataset.bound = "1";
+
+                    box.addEventListener("change", () => {
+
+                        if (!box.checked) return;
+
+                        const td =
+                            box.parentElement;
+
+                        const fightNo =
+                            box.dataset.fight;
+
+                        const result =
+                            td.querySelector(
+                                ".fightResult"
+                            ).value;
+
+                        td.querySelector(
+                            ".result"
+                        ).textContent =
+                            result === "koe"
+                                ? "koe"
+                                : fightNo;
+
+                        saveData();
+                    });
+                });
+        }
+
+        function addKingChecked() {
+
+            const now = new Date();
+
+            const resume =
+                new Date(
+                    now.getTime()
+                    + 4 * 24 * 60 * 60 * 1000
+                );
+
+            localStorage.setItem(
+                "resumeDate",
+                resume.toISOString()
+            );
+
+            const tr =
+                document.createElement("tr");
+
+            tr.className = "kingRow";
+
+            tr.innerHTML =
+                `<td colspan="5">
+        ♚ KING ENDLY CHECKED —
+        ${now.toLocaleString()}
+        —
+        Resume:
+        ${resume.toLocaleDateString()}
+        </td>`;
+
+            tbody.appendChild(tr);
+
+            lockTable();
+
+            saveData();
+        }
+
+        function lockTable() {
+
+            tbody.classList.add("locked");
+        }
+
+        function unlockTable() {
+
+            tbody.classList.remove("locked");
+        }
+
+        function checkResumeLock() {
+
+            const saved =
+                localStorage.getItem(
+                    "resumeDate"
+                );
+
+            if (!saved) {
+                unlockTable();
+                return;
+            }
+
+            const resume =
+                new Date(saved);
+
+            const now =
+                new Date();
+
+            if (now < resume) {
+                lockTable();
+            } else {
+                unlockTable();
+                localStorage.removeItem(
+                    "resumeDate"
+                );
+            }
+        }
+
+        document
+            .getElementById("addQueenRow")
+            .addEventListener(
+                "click",
+                addQueenGroup
+            );
+
+        document
+            .getElementById("kingChecked")
+            .addEventListener(
+                "click",
+                addKingChecked
+            );
+
+        loadData();
+
+    </script>
 </body>
 
 </html>
