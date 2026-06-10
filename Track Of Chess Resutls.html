@@ -170,44 +170,19 @@
             document.getElementById("queenBody");
 
         function saveState() {
-            localStorage.setItem(
-                "davios_rows",
-                queenBody.innerHTML
-            );
-            localStorage.setItem(
-                "davios_counter",
-                rowCounter
-            );
-            localStorage.setItem(
-                "davios_king_status",
-                document.getElementById(
-                    "kingStatus"
-                ).innerHTML
+            localStorage.setItem("davios_rows", queenBody.innerHTML);
+            localStorage.setItem("davios_counter", rowCounter);
+            localStorage.setItem("davios_king_status",
+                document.getElementById("kingStatus").innerHTML
             );
         }
 
         function loadState() {
-            const rows =
-                localStorage.getItem(
-                    "davios_rows"
-                );
-
-            if (rows) {
-                queenBody.innerHTML = rows;
-            }
-            rowCounter =
-                parseInt(
-                    localStorage.getItem(
-                        "davios_counter"
-                    ) || "0"
-                );
-            document.getElementById(
-                "kingStatus"
-            ).innerHTML =
-                localStorage.getItem(
-                    "davios_king_status"
-                ) || "";
-
+            const rows = localStorage.getItem("davios_rows");
+            if (rows) queenBody.innerHTML = rows;
+  
+            rowCounter = parseInt(localStorage.getItem("davios_counter") || "0");
+            document.getElementById("kingStatus").innerHTML = localStorage.getItem("davios_king_status") || "";
             rebindButtons();
             checkLock();
         }
@@ -217,69 +192,50 @@
 
             if (rowCounter % 2) {
                 return [
-                    ["Thoa Nguyen", "thoa"],
-                    ["Annabel Yao", "yao"],
-                    ["Infanta Sofía", "sofia"]
+                    ["Thoa Nguyen", "thoa"], ["Annabel Yao", "yao"], ["Infanta Sofía", "sofia"]
                 ];
             }
 
             return [
-                ["Thoa Nguyen", "thoa"],
-                ["Infanta Sofía", "sofia"],
-                ["Annabel Yao", "yao"]
+                ["Thoa Nguyen", "thoa"], ["Infanta Sofía", "sofia"], ["Annabel Yao", "yao"]
             ];
         }
 
-        function createQueenCell(
-            name,
-            cssClass
-        ) {
-
+        function createQueenCell(name, cssClass) {
             return `
-    <td class="${cssClass}">
-        <strong>${name}</strong>
-        <div class="history"></div>
-        <div class="controlRow">
-            <select>
-                <option value="loss">
-                    Loss
-                </option>
-                <option value="koe">
-                    Win
-                </option>
-                <option value="koe">
-                    Draw
-                </option>
-            </select>
-            <button
-                class="addResultBtn">
-                Add
-            </button>
-        </div>
-    </td>`;
+                <td class="${cssClass}">
+                    <strong>${name}</strong>
+                    <div class="history"></div>
+                    <div class="controlRow">
+                        <select>
+                            <option value="loss">
+                                Loss
+                            </option>
+                            <option value="koe">
+                                Win
+                            </option>
+                            <option value="koe">
+                                Draw
+                            </option>
+                        </select>
+                        <button
+                            class="addResultBtn">
+                            Add
+                        </button>
+                    </div>
+                </td>`;
         }
 
         function addRow() {
-            const order =
-                getQueenOrder();
-            const tr =
-                document.createElement("tr");
+            const order = getQueenOrder();
+            const tr = document.createElement("tr");
 
-            tr.innerHTML =
-                createQueenCell(
-                    order[0][0],
-                    order[0][1]
-                ) +
-                createQueenCell(
-                    order[1][0],
-                    order[1][1]
-                ) +
-                createQueenCell(
-                    order[2][0],
-                    order[2][1]
-                );
+            tr.innerHTML = createQueenCell(order[0][0],order[0][1]) +
+                            createQueenCell(order[1][0],order[1][1]) +
+                            createQueenCell(order[2][0],order[2][1]);
             queenBody.appendChild(tr);
             rebindButtons();
+            
             saveState();
         }
 
