@@ -158,10 +158,10 @@
         .flex-months,
         .left-panel,
         .right-panel {
-           
+
             /* each side takes equal width */
             padding: 10px;
-             background: #f2f2f2;
+            background: #f2f2f2;
         }
 
         .flex-months {
@@ -237,19 +237,23 @@
             font-size: 17px;
         }
 
-.raining-season {
-color: #1ad123e8;
-}
+        .raining-season {
+            color: #1ad123e8;
+        }
 
-.dry-season {
-    color:orange;
-}
+        .dry-season {
+            color: orange;
+        }
+
+        .faded-tomato {
+            color: #D46A6A;
+            font-weight: bold;
+        }
 
     </style>
 </head>
 
 <body>
-
     <div class="flex-container">
 
         <div class="flex-months month" id="monthNames">
@@ -274,7 +278,7 @@ color: #1ad123e8;
                         <tr>
                             <th>Thaw</th>
                             <th>Wan</th>
-                            <th>Uth</th>
+                            <th>U<span class="faded-tomato">t</span>h</th>
                             <th>Fri</th>
                             <th>Sat</th>
                             <th>Hie</th>
@@ -295,10 +299,12 @@ color: #1ad123e8;
             <div class="platon-time"><em>Galway</em><span class="excellent">GMT+7</span>-6</div>
             <div id="rachael" class="local-current-time"></div>
 
-            <div class="platon-time old-db-record"><em class="forestry">서울</em><em>Kyoto</em><span class="excellent">GMT+7</span>+2</div>
+            <div class="platon-time old-db-record"><em class="forestry">서울</em><em>Kyoto</em><span
+                    class="excellent">GMT+7</span>+2</div>
             <div id="oxaka-seoul" class="local-current-time"></div>
 
-            <div class="platon-time"><em class="forestry-b">广东</em><em>== madrid+6</em><em>Madrid</em><span class="excellent">GMT+7</span>-5</div>
+            <div class="platon-time"><em class="forestry-b">广东</em><em>== madrid+6</em><em>Madrid</em><span
+                    class="excellent">GMT+7</span>-5</div>
             <div id="beijing" class="local-current-time"></div>
 
             <div class="platon-time"><em>Dacet</em><span class="excellent-def">GMT+7</span></div>
@@ -363,19 +369,19 @@ color: #1ad123e8;
             "July", "August", "September", "October", "November", "December"
         ];
 
-         const monthNames_2 = [
+        const monthNames_2 = [
             "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
             "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
         ]; // Athen is { Infanta Sofía, a goddess }, wife of Zeus
 
         function renderCalendar(year, month) {
             document.getElementById("monthYear").textContent =
-                monthNames_2[month < 2 ? month+10 : month-2] + " " + convertCurrentYear(year);
+                monthNames_2[month < 2 ? month + 10 : month - 2] + " " + convertCurrentYear(year);
 
-               let mt = document.getElementById("monthNames").children;
+            let mt = document.getElementById("monthNames").children;
 
-               
-                mt[month < 2 ? month+10 : month-2].style.color = "purple";
+
+            mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
 
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
@@ -432,6 +438,6 @@ color: #1ad123e8;
 
         renderCalendar(currentYear, currentMonth);
     </script>
-
 </body>
+
 </html>
