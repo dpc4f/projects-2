@@ -94,7 +94,7 @@
 
         .note {
             font-size: 12px;
-            color: darkgreen    ;
+            color: darkgreen;
             margin-left: 28px;
         }
 
@@ -132,10 +132,10 @@
             font-weight: bold;
             color: #c62828;
         }
-.right-align {
-   margin-left: 1000px;
-}
 
+        .right-align {
+            margin-left: 1000px;
+        }
     </style>
 </head>
 
@@ -191,7 +191,7 @@
         function loadState() {
             const rows = localStorage.getItem("davios_rows");
             if (rows) queenBody.innerHTML = rows;
-  
+
             rowCounter = parseInt(localStorage.getItem("davios_counter") || "0");
             document.getElementById("kingStatus").innerHTML = localStorage.getItem("davios_king_status") || "";
             rebindButtons();
@@ -244,50 +244,56 @@
             const order = getQueenOrder();
             const tr = document.createElement("tr");
 
-            tr.innerHTML = createQueenCell(order[0][0],order[0][1]) +
-                            createQueenCell(order[1][0],order[1][1]) +
-                            createQueenCell(order[2][0],order[2][1]);
+            tr.innerHTML = createQueenCell(order[0][0], order[0][1]) +
+                createQueenCell(order[1][0], order[1][1]) +
+                createQueenCell(order[2][0], order[2][1]);
             queenBody.appendChild(tr);
             rebindButtons();
-            
+
             saveState();
         }
 
         function rebindButtons() {
             document.querySelectorAll(".addResultBtn").forEach(btn => {
-                    if (btn.dataset.bound)
+                if (btn.dataset.bound)
+                    return;
+
+                btn.dataset.bound = "1";
+                btn.addEventListener("click", () => {
+                    const td = btn.closest("td");
+                    const history = td.querySelector(".history");
+                    const select = td.querySelector("select");
+                    const current = history.textContent.trim();
+                    let items = current ? current.split(" ") : [];
+
+                    
+                    if (select.value === "default") {
+                        // alert("Please select a valid result.");
                         return;
+                    }
 
-                    btn.dataset.bound = "1";
-                    btn.addEventListener("click",() => {
-                            const td = btn.closest("td");
-                            const history = td.querySelector(".history");
-                            const select = td.querySelector("select");
-                            const current = history.textContent.trim();
-                            let items = current ? current.split(" ") : [];
+                    if (select.value === "koe") {
+                        items.push("kỏe");
+                    } else {
+                        // let maxLoss = 0;
 
-                            if (select.value === "default") {
-                                // alert("Please select a valid result.");
-                                return;
-                            }
+                        // items.forEach(x => {
+                        //     const n = parseInt(x);
 
-                            if (select.value === "koe") {
-                                items.push("koe");
-                            } else {
-                                // let maxLoss = 0;
+                        //     if (!isNaN(n)) maxLoss = Math.max(maxLoss, n);
+                        // });
+                        items.push(items.length + 1);
+                    }
 
-                                // items.forEach(x => {
-                                //     const n = parseInt(x);
+                    history.textContent = items.join(" ");
 
-                                //     if (!isNaN(n)) maxLoss = Math.max(maxLoss, n);
-                                // });
-                                items.push(items.length+1);
-                            }
+                    if (items.length == 4) {
+                        td.classList.add("locked");
+                    }
 
-                            history.textContent = items.join(" ");
-                            saveState();
-                        });
+                    saveState();
                 });
+            });
         }
 
         function lockControls() {
@@ -319,22 +325,22 @@
 
         document.getElementById("createRowBtn").addEventListener("click", addRow);
         document.getElementById("kingBtn").addEventListener("click", () => {
-                    const now = new Date();
-                    const resume = new Date(now.getTime()+4*24*60*60*1000);
+            const now = new Date();
+            const resume = new Date(now.getTime() + 4 * 24 * 60 * 60 * 1000);
 
-                    localStorage.setItem("davios_resume", resume.toISOString());
-                    document.getElementById("kingStatus").innerHTML =
-                        `
+            localStorage.setItem("davios_resume", resume.toISOString());
+            document.getElementById("kingStatus").innerHTML =
+                `
                             Checked:
                             ${now.toLocaleString()}
                             <br><br>
                             Resume:
                             ${resume.toLocaleDateString()}
                         `;
-                    lockControls();
-                    saveState();
-                }
-            );
+            lockControls();
+            saveState();
+        }
+        );
 
         loadState();
     </script>
