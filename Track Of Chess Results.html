@@ -92,6 +92,10 @@
             background: #f3e5f5;
         }
 
+        .blank {
+            background: darkorange;
+        }
+
         .note {
             font-size: 12px;
             color: darkgreen;
@@ -159,6 +163,7 @@
                             <th>Nam Cung Hoàng Hậu</th>
                             <th>Đông Cung Hoàng Hậu</th>
                             <th>Tây Cung Hoàng Hậu</th>
+                            <th>Bắc Cung Hoàng Hậu</th>
                         </tr>
                     </thead>
                     <tbody id="queenBody">
@@ -203,20 +208,22 @@
 
             if (rowCounter % 2) {
                 return [
-                    ["Thoa Nguyen", "thoa"], ["Annabel Yao", "yao"], ["Infanta Sofía", "sofia"]
+                    ["Thoa Nguyen", "thoa"], ["Annabel Yao", "yao"], ["Infanta Sofía", "sofia"], ["", "blank"]
                 ];
             }
 
             return [
-                ["Thoa Nguyen", "thoa"], ["Infanta Sofía", "sofia"], ["Annabel Yao", "yao"]
+                ["Thoa Nguyen", "thoa"], ["Infanta Sofía", "sofia"], ["Annabel Yao", "yao"], ["", "blank"]
             ];
         }
 
-        function createQueenCell(name, cssClass) {
+        function createQueenCell(name, cssClass, isPeopleHere = true) {
+            if (isPeopleHere) {
+                
             return `
                 <td class="${cssClass}">
                     <strong>${name}</strong>
-                    <div class="history"></div>
+                    <div class="history"></div>            
                     <div class="controlRow">
                         <select>
                             <option value="default">
@@ -238,6 +245,11 @@
                         </button>
                     </div>
                 </td>`;
+            }
+            else
+            {
+                return `<td class="${cssClass}"></td>`;
+            }
         }
 
         function addRow() {
@@ -246,7 +258,8 @@
 
             tr.innerHTML = createQueenCell(order[0][0], order[0][1]) +
                 createQueenCell(order[1][0], order[1][1]) +
-                createQueenCell(order[2][0], order[2][1]);
+                createQueenCell(order[2][0], order[2][1]) +
+                createQueenCell(order[3][0], order[3][1], false);
             queenBody.appendChild(tr);
             rebindButtons();
 
