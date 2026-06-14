@@ -256,6 +256,13 @@
      
         }
 
+        .note {
+            font-size: 17px;
+            color: darkgreen;
+            margin-left: 483px;
+            margin-top: 14px;
+        }
+
     </style>
 </head>
 
@@ -293,7 +300,7 @@
                     </thead>
                     <tbody id="calendarBody"></tbody>
                 </table>
-
+                <div class="note">days have a peer-2-peer relationship.</div>
                 <div class="nav">
                     <button onclick="changeMonth(-1)">Prev Month</button>
                     <button onclick="changeMonth(1)">Next Month</button>
@@ -426,6 +433,7 @@
                 body.appendChild(row);
                 if (date > daysInMonth) break;
             }
+           
         }
 
         function changeMonth(step) {
