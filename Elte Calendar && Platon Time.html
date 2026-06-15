@@ -387,15 +387,22 @@
             "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
         ]; // Athen is { Infanta Sofía, a goddess }, wife of Zeus
 
+
+        function removePurple4Months() {
+            let mt = document.getElementById("monthNames").children;
+            mt.forEach(m => m.style.color = ""); // remove Purple the current month colour
+        }
+
         function renderCalendar(year, month) {
             document.getElementById("monthYear").textContent =
                 monthNames_2[month < 2 ? month + 10 : month - 2] + " " + convertCurrentYear(year);
 
             let mt = document.getElementById("monthNames").children;
 
+            removePurple4Months();
 
             mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
-
+            
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
             const daysInMonth = new Date(year, month + 1, 0).getDate();
