@@ -321,11 +321,14 @@ function morphSofiaToAnnabel(){
 
                 span.classList.remove("ghost");
 
-            },120 + index * 120);
+            }, 120 + index * 120);
 
         });
 
-    },1700);
+        setTimeout(()=>{
+            morphYaoToInfanta();
+        }, 1700);
+    }, 1700);
 }
 
 
@@ -429,9 +432,9 @@ setInterval(createSpark,120);
 setTimeout(()=>{
 
     morphSofiaToAnnabel();
-    morphYaoToInfanta();
+    
 
-},1200);
+}, 1200);
 
 setInterval(()=>{
 
@@ -441,9 +444,9 @@ setInterval(()=>{
     setTimeout(()=>{
 
         morphSofiaToAnnabel();
-        morphYaoToInfanta();
+        // morphYaoToInfanta();
 
-    },900);
+    }, 900);
 
 },9000);
 
