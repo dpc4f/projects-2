@@ -36,7 +36,7 @@
             border-radius: 5px;
             padding: 20px;
             text-align: center;
-            min-width: 60px;
+            min-width: 80px;
             font-size: 26px;
         }
 
@@ -75,6 +75,16 @@
             color: #C8A2C8;
             font-size: 17px;
         }
+
+        .mini-creature {
+            font-size: 12px;
+            color: rgb(20, 33, 220);
+            /*font-weight: normal;*/
+            margin-left: -14px;
+            margin-top: -12px;
+            
+            position: absolute;
+        }
     </style>
 </head>
 
@@ -88,6 +98,7 @@
     <script>
         // The π Alphabet starts w/ character, 'D' @position 1
         const letters = 'DEFGHIJKLMNÑOPQRSTUVWXYZABC';
+        const dw = 'D́ d́';
 
         const container = document.getElementById('alphabet');
 
@@ -96,8 +107,13 @@
             div.className = 'letter';
             if (i == 11) {
                 // div.classList.add('censored');
+                let dwElement = document.createElement('div');
+                dwElement.className = 'mini-creature';
+                dwElement.innerHTML = dw;
+                div.appendChild(dwElement);
             }
-            div.innerHTML = `${letters[i]}`;
+            
+            div.innerHTML += `${letters[i]}`;
             let divNum = document.createElement('div');
             divNum.className = 'number';
             divNum.innerHTML = i + 1;
