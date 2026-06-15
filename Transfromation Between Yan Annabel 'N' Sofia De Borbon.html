@@ -338,7 +338,13 @@
 
                 });
 
-            }, 1700);
+              
+
+            }, 1250);
+
+            setTimeout(() => {
+                morphYaoToInfanta();
+            }, 3300);
         }
 
 
@@ -423,10 +429,10 @@
 
         setInterval(createSpark, 120);
 
-        setTimeout(() => {
-            morphSofiaToAnnabel();
-            morphYaoToInfanta();
-        }, 1200);
+        // setTimeout(() => {
+        //     morphSofiaToAnnabel();
+            
+        // }, 4200);
 
         setInterval(() => {
             buildCharacters(sofiaContainer, sofiaSequence, 4);
@@ -435,10 +441,10 @@
             setTimeout(() => {
 
                 morphSofiaToAnnabel();
-                morphYaoToInfanta();
+                
 
-            }, 900);
-        }, 9000);
+            }, 10);
+        }, 12000);
 
     </script>
 </body>
