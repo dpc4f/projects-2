@@ -390,7 +390,10 @@
 
         function removePurple4Months() {
             let mt = document.getElementById("monthNames").children;
-            mt.forEach(m => m.style.color = ""); // remove Purple the current month colour
+            let i = 0;
+            for (; i<mt.length; i++) {
+                mt[i].style.color = "";
+            } // remove Purple the current month colour
         }
 
         function renderCalendar(year, month) {
