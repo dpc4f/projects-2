@@ -144,6 +144,7 @@
             "cá chim", "chim chuột", "chuột bạch", "bạch kim", "kim tiền", "tiền chợ", "chợ cá"
         ];
         const finalPhrase = "{ cá --> chim --> cá }";
+        // const dewColor = "#E7F2E9"; // Dew color for the final phrase #E7F2E9
 
         // A vivid palette of neon color pairs to make it astonishing
         const colorPalettes = [
@@ -221,7 +222,9 @@
                 Array.from(container.children).forEach(child => child.classList.add('fade-out'));
 
                 setTimeout(() => {
-                    container.innerHTML = `<span class="word-part fade-in" style="color: #00FF87; font-size: 2.8rem;">${finalPhrase}</span>`;
+                    container.innerHTML = `<span class="word-part fade-in" style="color: #00FF87; font-size: 2.8rem;">
+                        { cá --> <span style="color: #E7F2E9;">chim</span> --> cá }
+                         </span>`;
                     container.offsetHeight;
                     container.children[0].classList.remove('fade-in');
 
