@@ -3,88 +3,263 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Word Chain Visualization</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Word Chain Loop</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
             text-align: center;
-            margin-top: 100px;
-            background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+            background: rgba(42, 42, 42, 0.65);
+            padding: 4rem 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 450px;
         }
 
-        #display {
-            font-size: 2.5em;
-            font-weight: bold;
-            transition: all 1s ease-in-out;
+        /* Container holding the words to manage their layout */
+        .word-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 6rem;
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            gap: 15px;
+            margin-bottom: 2rem;
         }
 
-        .fade {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-
-        .show {
+        /* Individual word block styling with smooth position/opacity animations */
+        .word-part {
+            display: inline-block;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
 
-        .highlight {
-            color: #ff4500;
+        /* State classes for the custom transformation effects */
+        .word-part.fade-out {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .word-part.fade-in {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        /* Controls Panel */
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.2rem;
+            border-radius: 16px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        label {
+            font-size: 0.95rem;
+            color: #e0e0e0;
+            font-weight: 500;
+        }
+
+        input[type=range] {
+            width: 160px;
+            accent-color: #00f2fe;
+            cursor: pointer;
+        }
+
+        /* Quick Action Buttons (+ and -) */
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 1.2rem;
             font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #00f2fe;
+            color: #0f2027;
+            box-shadow: 0 0 10px #00f2fe;
+            transform: scale(1.1);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
 
 <body>
-    <div id="display"></div>
 
-    <div id="display"></div>
+    <div class="container">
+        <div class="word-wrapper" id="display-box">
+        </div>
+
+        <div class="controls">
+            <label>Interval Speed: <b id="speed-val">1.8</b>s</label>
+            <div class="slider-container">
+                <button class="btn" id="btn-minus">−</button>
+                <input type="range" id="speed" min="0.8" max="4.0" step="0.1" value="1.8">
+                <button class="btn" id="btn-plus">+</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        const words = [
-            ["cá", "chim"],
-            ["chim", "chuột"],
-            ["chuột", "bạch"],
-            ["bạch", "kim"],
-            ["kim", "tiền"],
-            ["tiền", "chợ"],
-            ["chợ", "cá"]
+        // Full sequence loop
+        const phrases = [
+            "cá chim", "chim chuột", "chuột bạch", "bạch kim", "kim tiền", "tiền chợ", "chợ cá"
+        ];
+        const finalPhrase = "{ cá --> chim --> cá }";
+
+        // A vivid palette of neon color pairs to make it astonishing
+        const colorPalettes = [
+            ["#FF416C", "#FF4B2B"], // Vibrant Pink-Red
+            ["#00F2FE", "#4FACFE"], // Cyan-Blue
+            ["#00FF87", "#60EFFF"], // Mint-Bright Cyan
+            ["#F9D423", "#FF4E50"], // Gold-Coral
+            ["#9626EC", "#4A00E0"], // Neon Purple-Deep Blue
+            ["#FA709A", "#FEE140"], // Cotton Candy Pink-Yellow
+            ["#00E5FF", "#7122FA"]  // Electric Cyan-Violet
         ];
 
-        const finalPhrase = "{ cá --> chim --> cá }";
-        const colors = ["#ff6f61", "#6b5b95", "#88b04b", "#f7cac9", "#92a8d1", "#955251", "#b565a7"];
-        const display = document.getElementById("display");
-        let index = 0;
+        const container = document.getElementById('display-box');
+        const speedInput = document.getElementById('speed');
+        const speedVal = document.getElementById('speed-val');
+        const btnPlus = document.getElementById('btn-plus');
+        const btnMinus = document.getElementById('btn-minus');
 
-        function showNext() {
-            if (index < words.length) {
-                const [left, right] = words[index];
-                display.innerHTML = `<span style="color:${colors[index % colors.length]}">${left}</span> 
-                         <span style="color:${colors[(index + 1) % colors.length]}">${right}</span>`;
-                index++;
-            } else {
-                display.textContent = finalPhrase;
-                display.style.color = "#2e8b57";
-                index++;
-            }
-        }
+        let step = 0; // Tracks the state of our sequence execution loop
+        let timeoutId = null;
 
-        function cycle() {
-            index = 0;
-            function loop() {
-                showNext();
-                if (index <= words.length) {
-                    setTimeout(loop, 2500);
+        function runSequence() {
+            // Determine custom speed interval dynamically
+            const intervalDuration = parseFloat(speedInput.value) * 1000;
+
+            // --- CASE 1: Processing the standard 7 phrases ---
+            if (step < phrases.length) {
+                const currentTokens = phrases[step].split(" ");
+                const currentColors = colorPalettes[step % colorPalettes.length];
+
+                if (step === 0) {
+                    // First iteration: Simply fade both initial components into view
+                    container.innerHTML = `
+                        <span class="word-part fade-in" style="color: ${currentColors[0]}">${currentTokens[0]}</span>
+                        <span class="word-part fade-in" style="color: ${currentColors[1]}">${currentTokens[1]}</span>
+                    `;
+                    // Trigger reflow to initialize entry animation smoothly
+                    container.offsetHeight;
+                    container.children[0].classList.remove('fade-in');
+                    container.children[1].classList.remove('fade-in');
+
+                    step++;
+                    timeoutId = setTimeout(runSequence, intervalDuration);
                 } else {
-                    setTimeout(cycle, 3500);
+                    // Subsequent words: Shift & transform elements logically
+                    const oldLeftNode = container.children[0];
+                    const oldRightNode = container.children[1];
+
+                    // Step A: Fade out old leading word
+                    oldLeftNode.classList.add('fade-out');
+
+                    // Step B: Smoothly swap colors of the shared overlapping word
+                    oldRightNode.style.color = currentColors[0];
+
+                    // Step C: Create and inject the incoming word hidden out of frame
+                    const newRightNode = document.createElement('span');
+                    newRightNode.className = 'word-part fade-in';
+                    newRightNode.style.color = currentColors[1];
+                    newRightNode.innerText = currentTokens[1];
+                    container.appendChild(newRightNode);
+
+                    // Step D: Animate the transition frame
+                    setTimeout(() => {
+                        oldLeftNode.remove(); // Drop the expired component
+                        newRightNode.classList.remove('fade-in'); // Slides/fades the new token in
+
+                        step++;
+                        timeoutId = setTimeout(runSequence, intervalDuration);
+                    }, 500); // Wait for CSS transition timing budget
                 }
             }
-            loop();
+            // --- CASE 2: Displaying the Final Summary Chain ---
+            else if (step === phrases.length) {
+                // Fade out the entire last pair ('chợ cá') together
+                Array.from(container.children).forEach(child => child.classList.add('fade-out'));
+
+                setTimeout(() => {
+                    container.innerHTML = `<span class="word-part fade-in" style="color: #00FF87; font-size: 2.8rem;">${finalPhrase}</span>`;
+                    container.offsetHeight;
+                    container.children[0].classList.remove('fade-in');
+
+                    step++;
+                    timeoutId = setTimeout(runSequence, intervalDuration + 500); // Give the final phrase a tad longer
+                }, 500);
+            }
+            // --- CASE 3: Reset and Restart Loop Automatically ---
+            else {
+                container.children[0].classList.add('fade-out');
+                setTimeout(() => {
+                    step = 0;
+                    runSequence();
+                }, 3100);
+            }
         }
 
-        cycle();
-    </script>
+        // Speed Manipulation Controls logic
+        function updateSpeedDisplay(value) {
+            // Keep value bounded inside bounds [0.8, 4.0]
+            const boundedVal = Math.max(0.8, Math.min(4.0, parseFloat(value))).toFixed(1);
+            speedInput.value = boundedVal;
+            speedVal.innerText = boundedVal;
+        }
 
+        speedInput.addEventListener('input', (e) => updateSpeedDisplay(e.target.value));
+
+        btnPlus.addEventListener('click', () => {
+            updateSpeedDisplay(parseFloat(speedInput.value) + 0.1);
+        });
+
+        btnMinus.addEventListener('click', () => {
+            updateSpeedDisplay(parseFloat(speedInput.value) - 0.1);
+        });
+
+        // Initialize App Loop on Load
+        runSequence();
+    </script>
 </body>
 
 </html>
