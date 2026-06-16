@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Word Chain Visualization</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+        }
+
+        #display {
+            font-size: 2.5em;
+            font-weight: bold;
+            transition: all 1s ease-in-out;
+        }
+
+        .fade {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight {
+            color: #ff4500;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="display"></div>
+
+    <div id="display"></div>
+
+    <script>
+        const words = [
+            ["cá", "chim"],
+            ["chim", "chuột"],
+            ["chuột", "bạch"],
+            ["bạch", "kim"],
+            ["kim", "tiền"],
+            ["tiền", "chợ"],
+            ["chợ", "cá"]
+        ];
+
+        const finalPhrase = "cá --> chim --> cá";
+        const colors = ["#ff6f61", "#6b5b95", "#88b04b", "#f7cac9", "#92a8d1", "#955251", "#b565a7"];
+        const display = document.getElementById("display");
+        let index = 0;
+
+        function showNext() {
+            if (index < words.length) {
+                const [left, right] = words[index];
+                display.innerHTML = `<span style="color:${colors[index % colors.length]}">${left}</span> 
+                         <span style="color:${colors[(index + 1) % colors.length]}">${right}</span>`;
+                index++;
+            } else {
+                display.textContent = finalPhrase;
+                display.style.color = "#2e8b57";
+                index++;
+            }
+        }
+
+        function cycle() {
+            index = 0;
+            function loop() {
+                showNext();
+                if (index <= words.length) {
+                    setTimeout(loop, 2500);
+                } else {
+                    setTimeout(cycle, 3500);
+                }
+            }
+            loop();
+        }
+
+        cycle();
+    </script>
+
+</body>
+
+</html>
