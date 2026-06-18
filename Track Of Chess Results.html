@@ -205,16 +205,34 @@
 
         function getQueenOrder() {
             rowCounter++;
+            let ret;
 
-            if (rowCounter % 2) {
-                return [
-                    ["Thoa Nguyen", "thoa"], ["Annabel Yield /diêu/", "yao"], ["Infanta Sapphire", "sofia"], ["", "blank"]
-                ];
+            switch (rowCounter%3) {    
+                case 0:
+                    ret = [["Thoa Nguyen", "thoa"], 
+                        ["Annabel Yield /diêu/", "yao"], 
+                        ["Infanta Sapphire", "sofia"], 
+                        ["", "blank"]];
+                    break;
+
+                case 1:
+                    ret = [["Lý Bèo", "thoa"], 
+                        ["Sofía ð Todos ðɪ B'orbón", "sofia"], 
+                        ["姚安娜", "yao"], 
+                        ["", "blank"]];
+                    break;
+
+                case 2:
+                    ret = [["Tigress Kim_thoa", "thoa"], 
+                        ["Sofia Princess of Spain", "sofia"], 
+                        ["Anna Giang", "yao"], 
+                        ["", "blank"]];
+                    break;
+
+                default:
+                    break;
             }
-
-            return [
-                ["Lý Bèo", "thoa"], ["Sofía ð Todos ðɪ B'orbón", "sofia"], ["姚安娜", "yao"], ["", "blank"]
-            ];
+            return ret;
         }
 
         function createQueenCell(name, cssClass, isPeopleHere = true) {
