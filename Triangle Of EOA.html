@@ -38,7 +38,7 @@
 <body>
 
     <canvas id="diyCanvas"></canvas>
-    <div class="instructions">w/ this triangle character 'I' can be converted to, 'Y' && vice versa</div>
+    <div class="instructions">Eliteness Of Axes</div>
 
     <script>
         const canvas = document.getElementById('diyCanvas');
@@ -54,9 +54,9 @@
 
         // Color definitions
         const colors = {
-            D: '#E7F2E9', // Daffodil Yellow --> Dew
-            I: '#4B0082', // Indigo
-            Y: '#FFEF00'  // True Yellow
+            D: '#FFBF00', // Amber
+            I: '#50C878', // Emerald
+            Y: '#4B0082'  // Opaced Indigo
         };
 
         // Animation and interaction state
@@ -134,9 +134,9 @@
 
             // Calculate Vertex Positions in 2D space
             const vertices = [
-                { label: 'D', color: colors.D, x: centerX + radius * Math.cos(angle), y: centerY + radius * Math.sin(angle) },
-                { label: 'I', color: colors.I, x: centerX + radius * Math.cos(angle + (2 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (2 * Math.PI / 3)) },
-                { label: 'Y', color: colors.Y, x: centerX + radius * Math.cos(angle + (4 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (4 * Math.PI / 3)) }
+                { label: 'E', color: colors.D, x: centerX + radius * Math.cos(angle), y: centerY + radius * Math.sin(angle) },
+                { label: 'O', color: colors.I, x: centerX + radius * Math.cos(angle + (2 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (2 * Math.PI / 3)) },
+                { label: 'A', color: colors.Y, x: centerX + radius * Math.cos(angle + (4 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (4 * Math.PI / 3)) }
             ];
 
             // 1. Emit Particles from vertices
