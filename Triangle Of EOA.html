@@ -74,8 +74,8 @@
                 this.y = y;
                 this.color = color;
                 this.size = Math.random() * 3 + 6;
-                this.speedX = (Math.random() - 0.5) * 1.5;
-                this.speedY = (Math.random() - 0.5) * 1.5;
+                this.speedX = (Math.random() - 0.5) * 2.5;
+                this.speedY = (Math.random() - 0.5) * 7.5;
                 this.alpha = 1;
                 this.decay = Math.random() * 0.015 + 0.005;
             }
@@ -134,9 +134,9 @@
 
             // Calculate Vertex Positions in 2D space
             const vertices = [
-                { label: 'E', color: colors.D, x: centerX + radius * Math.cos(angle), y: centerY + radius * Math.sin(angle) },
-                { label: 'O', color: colors.I, x: centerX + radius * Math.cos(angle + (2 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (2 * Math.PI / 3)) },
-                { label: 'A', color: colors.Y, x: centerX + radius * Math.cos(angle + (4 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (4 * Math.PI / 3)) }
+                { label: 'A', color: colors.D, x: centerX + radius * Math.cos(angle), y: centerY + radius * Math.sin(angle) },
+                { label: 'E', color: colors.I, x: centerX + radius * Math.cos(angle + (2 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (2 * Math.PI / 3)) },
+                { label: 'O', color: colors.Y, x: centerX + radius * Math.cos(angle + (4 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (4 * Math.PI / 3)) }
             ];
 
             // 1. Emit Particles from vertices
