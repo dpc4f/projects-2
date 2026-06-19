@@ -61,8 +61,8 @@
 
         // Animation and interaction state
         let angle = 0;
-        let targetRotationSpeed = 0.005;
-        let currentRotationSpeed = 0.005;
+        let targetRotationSpeed = 0.015;
+        let currentRotationSpeed = 0.105;
         let isDragging = false;
         let previousMousePosition = { x: 0, y: 0 };
         let particles = [];
@@ -74,8 +74,8 @@
                 this.y = y;
                 this.color = color;
                 this.size = Math.random() * 3 + 6;
-                this.speedX = (Math.random() - 0.5) * 2.5;
-                this.speedY = (Math.random() - 0.5) * 7.5;
+                this.speedX = (Math.random() - 0.5) * 1.15;
+                this.speedY = (Math.random() - 0.5) * 1.35;
                 this.alpha = 1;
                 this.decay = Math.random() * 0.015 + 0.005;
             }
