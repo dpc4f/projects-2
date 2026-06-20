@@ -207,25 +207,32 @@
             rowCounter++;
             let ret;
 
-            switch (rowCounter%3) {    
-                case 0:
+            switch (rowCounter%4) {    
+                case 1:
                     ret = [["Thoa Nguyen", "thoa"], 
                         ["Annabel Yield /diêu/", "yao"], 
                         ["Infanta Sapphire", "sofia"], 
                         ["", "blank"]];
                     break;
 
-                case 1:
+                case 2:
                     ret = [["Lý Bèo", "thoa"], 
                         ["Sofía ð Todos ðɪ B'orbón", "sofia"], 
                         ["姚安娜", "yao"], 
                         ["", "blank"]];
                     break;
 
-                case 2:
+                case 0:
                     ret = [["Tigress Kim_thoa", "thoa"], 
                         ["Sofia Princess of Spain", "sofia"], 
                         ["Anna Giang", "yao"], 
+                        ["", "blank"]];
+                    break;
+
+                case 3:
+                    ret = [["Xà Yêu", "thoa"], 
+                        ["Công Chúa Bong Bóng", "sofia"], 
+                        ["Beo 'Anna Yao'", "yao"], 
                         ["", "blank"]];
                     break;
 
