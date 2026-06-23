@@ -219,8 +219,10 @@
             let divs = document.getElementsByClassName("名前");
 
             let j = 0;
-            for (; j < divs.length && !divs[j].classList.contains("opaced"); j++) {
+            for (; j < divs.length; j++) {
                 let div = divs[j];
+                if (div.classList.contains("opaced")) continue; 
+                
                 let wifeName = div.textContent;
                 const arr = wifeName.trim().split(/\s+/); // part wife's name by spaces
                 // set the div to be empty
