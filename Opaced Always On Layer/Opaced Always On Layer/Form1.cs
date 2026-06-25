@@ -10,26 +10,8 @@ using System.Windows.Forms;
 
 namespace Opaced_Always_On_Layer
 {
-    //using System;
-    //using System.Windows.Forms;
-
-    //public partial class TopForm : Form
-    //{
- 
-
-        //public TopForm()
-        //{
-        //    InitializeComponent();
-
-        //    // Optional: Make the form semi-transparent so you can see what's underneath
-        //    this.Opacity = 0.75;
-
-        //    // Ensure the form stays on top if needed
-        //    this.TopMost = true;
-        //}
 
 
-    //}
 
     public partial class Form1 : Form
     {
@@ -39,24 +21,31 @@ namespace Opaced_Always_On_Layer
 
         public Form1()
         {
-            InitializeComponent();
-         
+            InitializeComponent();      
         }
 
-    protected override CreateParams CreateParams
-    {
-        get
+        protected override CreateParams CreateParams
         {
-            CreateParams cp = base.CreateParams;
-            // Use bitwise OR to append the transparent and layered styles
-            cp.ExStyle |= WS_EX_TRANSPARENT | WS_EX_LAYERED;
-            return cp;
-        }
-    }
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                // Use bitwise OR to append the transparent and layered styles
+                cp.ExStyle |= WS_EX_TRANSPARENT | WS_EX_LAYERED;
 
-    private void Form1_MouseDown(object sender, MouseEventArgs e)
+                return cp;
+            }
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             return;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.StartPosition = FormStartPosition.Manual;
+            this.Left = 455;
+            this.Top = 137;
         }
     }
 }

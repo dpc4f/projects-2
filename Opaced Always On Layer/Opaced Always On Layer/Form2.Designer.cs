@@ -1,6 +1,6 @@
 ﻿namespace Opaced_Always_On_Layer
 {
-    partial class Form1
+    partial class Form2
     {
         /// <summary>
         /// Required designer variable.
@@ -28,30 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnAlwaysOn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // btnAlwaysOn
+            // 
+            this.btnAlwaysOn.Location = new System.Drawing.Point(406, 176);
+            this.btnAlwaysOn.Name = "btnAlwaysOn";
+            this.btnAlwaysOn.Size = new System.Drawing.Size(75, 23);
+            this.btnAlwaysOn.TabIndex = 0;
+            this.btnAlwaysOn.Text = "Always On";
+            this.btnAlwaysOn.UseVisualStyleBackColor = true;
+            this.btnAlwaysOn.Click += new System.EventHandler(this.btnAlwaysOn_Click);
+            // 
+            // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkGreen;
-            this.ClientSize = new System.Drawing.Size(838, 529);
-            this.ForeColor = System.Drawing.Color.Chocolate;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Form1";
-            this.Opacity = 0.31D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Form1";
-            this.TopMost = true;
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnAlwaysOn);
+            this.Name = "Form2";
+            this.Text = "Form2";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnAlwaysOn;
     }
 }
-

@@ -9,14 +9,14 @@ namespace Opaced_Always_On_Layer
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Opace is set to 31 percent
         /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form2());
         }
     }
 }
