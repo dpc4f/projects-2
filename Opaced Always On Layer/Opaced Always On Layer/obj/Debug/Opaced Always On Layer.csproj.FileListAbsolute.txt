@@ -1,0 +1,10 @@
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\bin\Debug\Opaced Always On Layer.exe.config
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\bin\Debug\Opaced Always On Layer.exe
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\bin\Debug\Opaced Always On Layer.pdb
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Always On Layer.csprojAssemblyReference.cache
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced_Always_On_Layer.Form1.resources
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced_Always_On_Layer.Properties.Resources.resources
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Always On Layer.csproj.GenerateResource.cache
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Always On Layer.csproj.CoreCompileInputs.cache
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Always On Layer.exe
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Always On Layer.pdb
