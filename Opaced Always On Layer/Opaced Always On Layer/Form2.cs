@@ -12,6 +12,9 @@ namespace Opaced_Always_On_Layer
 {
     public partial class Form2 : Form
     {
+        const int N_DEFAULT = 80;
+        Form1 f; // by default f is null
+
         public Form2()
         {
             InitializeComponent();
@@ -19,9 +22,25 @@ namespace Opaced_Always_On_Layer
 
         private void btnAlwaysOn_Click(object sender, EventArgs e)
         {
-            Form1 f = new Form1();
-            this.Hide();
-            f.ShowDialog();
+            this.Hide();  
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            f = new Form1();
+            f.Show();
+        }
+
+        private void btnApplyVal_Click(object sender, EventArgs e)
+        {
+            int nLeft = N_DEFAULT;
+            int nTop = N_DEFAULT;
+
+            Int32.TryParse(txtLeft.Text, out nLeft);
+            Int32.TryParse(txtTop.Text, out nTop);
+            f.Left = nLeft;
+            f.Top = nTop;
+            f.ResumeLayout();
         }
     }
 }
