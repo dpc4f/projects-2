@@ -8,3 +8,4 @@ D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Alw
 D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Always On Layer.exe
 D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Always On Layer.pdb
 D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced_Always_On_Layer.Form2.resources
+D:\projects-2\Opaced Always On Layer\Opaced Always On Layer\obj\Debug\Opaced Always On Layer.csprojAssemblyReference.cache

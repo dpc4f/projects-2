@@ -13,6 +13,9 @@ namespace Opaced_Always_On_Layer
     public partial class Form2 : Form
     {
         const int N_DEFAULT = 80;
+        const int N_STEP_DEFAULT = 7;
+        const int N_WIDTH_DEFAULT = 838;
+        const int N_HEIGHT_DEFAULT = 539;
         Form1 f; // by default f is null
 
         public Form2()
@@ -31,18 +34,6 @@ namespace Opaced_Always_On_Layer
             f.Show();
         }
 
-        //private void btnApplyVal_Click(object sender, EventArgs e)
-        //{
-        //    int nLeft = N_DEFAULT;
-        //    int nTop = N_DEFAULT;
-
-        //    Int32.TryParse(txtLeft.Text, out nLeft);
-        //    Int32.TryParse(txtTop.Text, out nTop);
-        //    f.Left = nLeft;
-        //    f.Top = nTop;
-        //    f.ResumeLayout();
-        //}
-
         private void Form2_KeyDown(object sender, KeyEventArgs e)
         {
         }
@@ -59,19 +50,23 @@ namespace Opaced_Always_On_Layer
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
+            int nStep = -1;
+
+            Int32.TryParse(txtStep.Text, out nStep);
+            if (nStep == 0) nStep = N_STEP_DEFAULT;
             switch (e.KeyCode)
             {
                 case Keys.Left:
-                    f.Left -= 2;
+                    f.Left -= nStep;
                     break;
                 case Keys.Right:
-                    f.Left += 2;
+                    f.Left += nStep;
                     break;
                 case Keys.Up:
-                    f.Top -= 2;
+                    f.Top -= nStep;
                     break;
                 case Keys.Down:
-                    f.Top += 2;
+                    f.Top += nStep;
                     break;
                 default:
                     break;
@@ -83,6 +78,41 @@ namespace Opaced_Always_On_Layer
         private void button1_Click(object sender, EventArgs e)
         {
             btnAlwaysOn_Click(sender, e);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtControlBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSetSize_Click(object sender, EventArgs e)
+        {
+            int nWidth = 0;
+            int nHeight = 0;
+
+            Int32.TryParse(txtWidth.Text, out nWidth);
+            Int32.TryParse(txtHeight.Text, out nHeight);
+
+            if (nWidth == 0 || nHeight == 0)
+            {
+                nWidth = N_WIDTH_DEFAULT;
+                nHeight = N_HEIGHT_DEFAULT;
+            }
+            f.Hide();
+            f.Width = nWidth;
+            f.Height = nHeight;
+            f.Show();
+            f.ResumeLayout();
         }
     }
 }
