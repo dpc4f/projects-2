@@ -31,16 +31,58 @@ namespace Opaced_Always_On_Layer
             f.Show();
         }
 
-        private void btnApplyVal_Click(object sender, EventArgs e)
-        {
-            int nLeft = N_DEFAULT;
-            int nTop = N_DEFAULT;
+        //private void btnApplyVal_Click(object sender, EventArgs e)
+        //{
+        //    int nLeft = N_DEFAULT;
+        //    int nTop = N_DEFAULT;
 
-            Int32.TryParse(txtLeft.Text, out nLeft);
-            Int32.TryParse(txtTop.Text, out nTop);
-            f.Left = nLeft;
-            f.Top = nTop;
+        //    Int32.TryParse(txtLeft.Text, out nLeft);
+        //    Int32.TryParse(txtTop.Text, out nTop);
+        //    f.Left = nLeft;
+        //    f.Top = nTop;
+        //    f.ResumeLayout();
+        //}
+
+        private void Form2_KeyDown(object sender, KeyEventArgs e)
+        {
+        }
+
+        private void btnMovements_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void btnMovements_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            MessageBox.Show("A key has been pressed.");
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    f.Left -= 2;
+                    break;
+                case Keys.Right:
+                    f.Left += 2;
+                    break;
+                case Keys.Up:
+                    f.Top -= 2;
+                    break;
+                case Keys.Down:
+                    f.Top += 2;
+                    break;
+                default:
+                    break;
+            }
+
             f.ResumeLayout();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            btnAlwaysOn_Click(sender, e);
         }
     }
 }
