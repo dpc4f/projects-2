@@ -34,15 +34,6 @@ namespace Opaced_Always_On_Layer
             f.Show();
         }
 
-        private void Form2_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
-        private void btnMovements_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
         private void btnMovements_KeyPress(object sender, KeyPressEventArgs e)
         {
             MessageBox.Show("A key has been pressed.");
@@ -78,21 +69,6 @@ namespace Opaced_Always_On_Layer
         private void button1_Click(object sender, EventArgs e)
         {
             btnAlwaysOn_Click(sender, e);
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtControlBox_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnSetSize_Click(object sender, EventArgs e)

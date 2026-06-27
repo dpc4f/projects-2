@@ -51,7 +51,6 @@
             this.txtControlBox.Text = "Press The Arrow Keys";
             this.txtControlBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtControlBox.UseWaitCursor = true;
-            this.txtControlBox.TextChanged += new System.EventHandler(this.txtControlBox_TextChanged);
             this.txtControlBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // btnApply
@@ -72,7 +71,6 @@
             this.txtWidth.Size = new System.Drawing.Size(100, 20);
             this.txtWidth.TabIndex = 3;
             this.txtWidth.Text = "838";
-            this.txtWidth.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // txtHeight
             // 
@@ -81,7 +79,6 @@
             this.txtHeight.Size = new System.Drawing.Size(100, 20);
             this.txtHeight.TabIndex = 4;
             this.txtHeight.Text = "529";
-            this.txtHeight.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // txtStep
             // 
@@ -137,7 +134,6 @@
             this.Name = "Form2";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.Form2_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form2_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
