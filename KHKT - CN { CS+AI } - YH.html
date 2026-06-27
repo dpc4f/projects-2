@@ -32,6 +32,14 @@
             pointer-events: none;
             text-align: center;
         }
+
+        .note {
+            font-size: 17px;
+            color: darkgreen;
+            margin-left: 1280px;
+            bottom: 60px;
+            position: absolute;
+        }
     </style>
 </head>
 
@@ -41,6 +49,8 @@
     <div class="instructions">Khoa Học Kỹ Thuật<br>
     Công Nghệ<br>
     Y Học</div>
+
+    <div class="note">Tech area will focus on, Khoa Học Máy Tính 'N' Trí Tuệ Nhân Tạo</div>
 
     <script>
         const canvas = document.getElementById('diyCanvas');
@@ -143,16 +153,16 @@ Y Học - Yellow
 
             // Calculate Vertex Positions in 2D space
             const vertices = [
-                { label: 'A', color: colors.D, 
+                { label: 'KHKT', color: colors.D, 
                     x: centerX + radius * Math.cos(angle), 
                     y: centerY + radius * Math.sin(angle) },
-                { label: 'E', color: colors.I, 
+                { label: 'Technology', color: colors.I, 
                     x: centerX + radius * Math.cos(angle + (2 * Math.PI / NUM_VERTEX)), 
                     y: centerY + radius * Math.sin(angle + (2 * Math.PI / NUM_VERTEX)) },
-                { label: 'O', color: colors.Y, 
+                { label: 'KHMT+AI', color: colors.Y, 
                     x: centerX + radius * Math.cos(angle + (4 * Math.PI / NUM_VERTEX)), 
                     y: centerY + radius * Math.sin(angle + (4 * Math.PI / NUM_VERTEX)) },
-                { label: 'T', color: colors.T, 
+                { label: 'YH', color: colors.T, 
                     x: centerX + radius * Math.cos(angle + (6 * Math.PI / NUM_VERTEX)), 
                     y: centerY + radius * Math.sin(angle + (6 * Math.PI / NUM_VERTEX)) }       
             ];
