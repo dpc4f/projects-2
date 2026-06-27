@@ -92,9 +92,9 @@ Y Học - Yellow
                 this.y = y;
                 this.color = color;
                 this.size = Math.random() * 3 + 6;
-                this.speedX = (Math.random() - 0.5) * 1.15;
+                this.speedX = (Math.random() - 0.5) * 1.85;
                 this.speedY = (Math.random() - 0.5) * 1.35;
-                this.alpha = 1;
+                this.alpha = .8;
                 this.decay = Math.random() * 0.015 + 0.005;
             }
 
@@ -131,7 +131,7 @@ Y Học - Yellow
 
         window.addEventListener('mouseup', () => {
             isDragging = false;
-            targetRotationSpeed = 0.005; // Return to slow spin
+            targetRotationSpeed = 0.0015; // Return to slow spin
         });
 
         // Main Animation Loop
@@ -142,14 +142,14 @@ Y Học - Yellow
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Interpolate rotation speed smoothly
-            currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 0.05;
+            currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 1.9;
             if (!isDragging) {
                 angle -= currentRotationSpeed;
             }
 
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
-            const radius = Math.min(canvas.width, canvas.height) * 0.38;
+            const radius = Math.min(canvas.width, canvas.height) * 0.48;
 
             // Calculate Vertex Positions in 2D space
             const vertices = [
@@ -169,7 +169,7 @@ Y Học - Yellow
 
             // 1. Emit Particles from vertices
             vertices.forEach(v => {
-                if (Math.random() < 0.4) {
+                if (Math.random() < 0.5) {
                     particles.push(new Particle(v.x, v.y, v.color));
                 }
             });
