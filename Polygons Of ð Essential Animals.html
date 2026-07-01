@@ -139,7 +139,7 @@
                 <div class="point">Lion; Tiger; Dragon</div>
                 <div class="point">Deer; Horse; Vulture</div>
                 <div class="point">Rhino; Elephant; Cetipede; { Ant, Bee }</div>
-                <div class="point">Mouse; Bear; Bat; { Whale, Shark }; { Chicken; Duck }; etc.</div>
+                <div class="point">Mouse; Bear; Bat; { Whale, Shark }; { Chicken / Duck }; etc.</div>
             </div>
         </div>
     </div>
@@ -167,7 +167,7 @@
 
         <div id="data-display">
             <h3>Node Information</h3>
-            <div id="node-content">Loading elements...</div>
+            <div id="node-content">Loading elements ...</div>
         </div>
     </div>
 
@@ -209,7 +209,7 @@
         let lastStateTime = Date.now();
         let cycleProgress = 0; // Ranges 0 to 1 for visual loading timers
 
-        // --- CANVAS ARTWORK & MATH ---
+        // --- CANVAS ARTWORK 'N' MATH ---
         const canvas = document.getElementById('stage');
         const ctx = canvas.getContext('2d');
         let width, height, cx, cy;
@@ -253,7 +253,7 @@
 
                 ctx.shadowBlur = 0;
                 ctx.fillStyle = '#cbd5e1';
-                ctx.font = 'bold 13px "Segoe UI", sans-serif';
+                ctx.font = 'bold 15px "Segoe UI", sans-serif';
                 ctx.textAlign = 'center';
                 
                 const textChunks = this.label.split('; ');
