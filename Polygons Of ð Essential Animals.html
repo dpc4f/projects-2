@@ -1,249 +1,442 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polygon Of Essential Animals</title>
-    
+    <title>Automated Geometric Morphing Elements</title>
     <style>
+        :root {
+            --bg-color: #0f172a;
+            --panel-bg: rgba(30, 41, 59, 0.7);
+            --accent-color: #38bdf8;
+            --text-color: #f8fafc;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background-color: #0b0c10;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #canvas-container {
+            flex: 1;
+            position: relative;
+            height: 100%;
         }
 
         canvas {
+            width: 100%;
+            height: 100%;
             display: block;
-            cursor: pointer;
         }
 
-        .instructions {
-            position: absolute;
-            bottom: 20px;
-            color: rgba(212, 160, 160, 0.877);
-            font-size: 24px;
+        #control-panel {
+            width: 320px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
             letter-spacing: 1px;
-            pointer-events: none;
-            text-align: center;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: left;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn:hover, .btn.active {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            font-weight: 700;
+        }
+
+        /* Styling for the Auto Cycle state controller toggle */
+        #play-pause-btn {
+            background: #10b981;
+            color: #fff;
+            border: none;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+        }
+        #play-pause-btn.paused {
+            background: #ef4444;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+        }
+
+        #data-display {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 0.9rem;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #data-display h3 {
+            margin: 0 0 10px 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            line-height: 1.4;
         }
     </style>
 </head>
-
 <body>
-    <canvas id="diyCanvas"></canvas>
-    <div class="instructions">
-        <div class="point">Lion</div>
-        <div class="line">
-            <div class="point">Lion; Tiger</div>
-            <div class="point">Antelope; Horse</div>
-        </div>
-        <div class="circle triangle">
-            <div class="point">Lion; Tiger; Dragon</div>`
-            <div class="point">Reindeer; Horse</div>
-            <div class="point">Rhinoceros; Elephant; Cetipede; Ant</div>
-        </div>
-        <div class="rectangle">
-            <div class="point">Lion; Tiger; Dragon</div>
-            <div class="point">Deer; Horse; Vulture</div>
-            <div class="point">Rhino; Elephant; Cetipede; { Ant, Bee }</div>
-            <div class="point">Mouse; Bear; Bat; { Whale, Shark }; { Chicken; Duck }; etc.</div>
+
+    <div id="raw-data" style="display:none;">
+        <div class="instructions">
+            <div class="point">Lion</div>
+            <div class="line">
+                <div class="point">Lion; Tiger</div>
+                <div class="point">Antelope; Horse</div>
+            </div>
+            <div class="circle triangle">
+                <div class="point">Lion; Tiger; Dragon</div>
+                <div class="point">Reindeer; Horse</div>
+                <div class="point">Rhinoceros; Elephant; Cetipede; Ant</div>
+            </div>
+            <div class="rectangle">
+                <div class="point">Lion; Tiger; Dragon</div>
+                <div class="point">Deer; Horse; Vulture</div>
+                <div class="point">Rhino; Elephant; Cetipede; { Ant, Bee }</div>
+                <div class="point">Mouse; Bear; Bat; { Whale, Shark }; { Chicken; Duck }; etc.</div>
+            </div>
         </div>
     </div>
 
-    <!-- <script>
-        const canvas = document.getElementById('diyCanvas');
-        const ctx = canvas.getContext('2d');
+    <div id="canvas-container">
+        <canvas id="stage"></canvas>
+    </div>
 
-        // Resize canvas to fit window
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+    <div id="control-panel">
+        <div>
+            <h2>Shapes</h2>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin: 0 0 15px 0;">Shapes shift automatically. Click any option to pause and inspect manually.</p>
+        </div>
+        
+        <button id="play-pause-btn" class="btn" onclick="toggleAutoCycle()">⏸ Auto-Shifting ON</button>
+        
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button class="btn active" onclick="manualStateChange(0)">1. Point (Isolated)</button>
+            <button class="btn" onclick="manualStateChange(1)">2. Line (Linear Pairs)</button>
+            <button class="btn" onclick="manualStateChange(2)">3. Circle / Triangle Triad</button>
+            <button class="btn" onclick="manualStateChange(3)">4. Rectangle Quad</button>
+        </div>
 
-        // Color definitions
-        const colors = {
-            D: '#FFBF00', // Amber
-            I: '#50C878', // Emerald
-            Y: '#4B0082'  // Opaced Indigo
+        <div id="data-display">
+            <h3>Node Information</h3>
+            <div id="node-content">Loading elements...</div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA PARSING ---
+        const parseHTMLData = () => {
+            const root = document.querySelector('#raw-data .instructions');
+            const states = [];
+
+            const isolatedPoint = root.querySelector(':scope > .point');
+            if (isolatedPoint) {
+                states.push({ name: "Isolated Point", labels: [isolatedPoint.textContent.trim()] });
+            }
+
+            const lineDiv = root.querySelector('.line');
+            if (lineDiv) {
+                states.push({ name: "Line Segments", labels: Array.from(lineDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
+
+            const circleTriangleDiv = root.querySelector('.circle.triangle');
+            if (circleTriangleDiv) {
+                states.push({ name: "Circle / Triangle Blended Array", labels: Array.from(circleTriangleDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
+
+            const rectDiv = root.querySelector('.rectangle');
+            if (rectDiv) {
+                states.push({ name: "Rectangle Matrix", labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
+
+            return states;
         };
 
-        // Animation and interaction state
-        let angle = 0;
-        let targetRotationSpeed = 0.015;
-        let currentRotationSpeed = 0.105;
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-        let particles = [];
+        const statesData = parseHTMLData();
+        let currentStateIndex = 0;
 
-        // Particle Class for sophisticated ambient effects
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.size = Math.random() * 3 + 6;
-                this.speedX = (Math.random() - 0.5) * 1.15;
-                this.speedY = (Math.random() - 0.5) * 1.35;
-                this.alpha = 1;
-                this.decay = Math.random() * 0.015 + 0.005;
+        // --- AUTOMATION CONTROL CONFIGURATION ---
+        let isAutoCycling = true;
+        const cycleDuration = 4000; // Time (in ms) to spend on each layout state
+        let lastStateTime = Date.now();
+        let cycleProgress = 0; // Ranges 0 to 1 for visual loading timers
+
+        // --- CANVAS ARTWORK & MATH ---
+        const canvas = document.getElementById('stage');
+        const ctx = canvas.getContext('2d');
+        let width, height, cx, cy;
+
+        class NodeParticle {
+            constructor() {
+                this.x = window.innerWidth / 2;
+                this.y = window.innerHeight / 2;
+                this.targetX = this.x;
+                this.targetY = this.y;
+                this.radius = 8;
+                this.color = '#38bdf8';
+                this.label = '';
+                this.alpha = 0;
+                this.targetAlpha = 0;
             }
 
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.alpha -= this.decay;
+                this.x += (this.targetX - this.x) * 0.08;
+                this.y += (this.targetY - this.y) * 0.08;
+                this.alpha += (this.targetAlpha - this.alpha) * 0.1;
             }
 
             draw() {
+                if (this.alpha <= 0.01) return;
+
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
+
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(56, 189, 248, 0.15)';
                 ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = '#cbd5e1';
+                ctx.font = 'bold 13px "Segoe UI", sans-serif';
+                ctx.textAlign = 'center';
+                
+                const textChunks = this.label.split('; ');
+                textChunks.forEach((chunk, idx) => {
+                    ctx.fillText(chunk, this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                });
+
                 ctx.restore();
             }
         }
 
-        // Mouse interactions
-        window.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-            targetRotationSpeed = 0;
-        });
+        const particles = Array.from({ length: 4 }, () => new NodeParticle());
 
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const deltaX = e.clientX - previousMousePosition.x;
-            angle += deltaX * 0.01;
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
+        function resize() {
+            width = canvas.width = canvas.parentElement.clientWidth;
+            height = canvas.height = canvas.parentElement.clientHeight;
+            cx = width / 2;
+            cy = height / 2;
+            calculateLayout();
+        }
 
-        window.addEventListener('mouseup', () => {
-            isDragging = false;
-            targetRotationSpeed = 0.005; // Return to slow spin
-        });
+        function calculateLayout() {
+            const state = statesData[currentStateIndex];
+            const totalNodes = state.labels.length;
+            const size = Math.min(width, height) * 0.25;
 
-        // Main Animation Loop
-        function animate() {
-            // Clear screen with a slight trail effect for smoothness
-            ctx.fillStyle = 'rgba(11, 12, 16, 0.3)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => p.targetAlpha = 0);
 
-            // Interpolate rotation speed smoothly
-            currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 0.05;
-            if (!isDragging) {
-                angle -= currentRotationSpeed;
-            }
+            for (let i = 0; i < totalNodes; i++) {
+                const p = particles[i];
+                p.label = state.labels[i];
+                p.targetAlpha = 1;
 
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const radius = Math.min(canvas.width, canvas.height) * 0.38;
-
-            // Calculate Vertex Positions in 2D space
-            const vertices = [
-                { label: 'A', color: colors.D, x: centerX + radius * Math.cos(angle), y: centerY + radius * Math.sin(angle) },
-                { label: 'E', color: colors.I, x: centerX + radius * Math.cos(angle + (2 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (2 * Math.PI / 3)) },
-                { label: 'O', color: colors.Y, x: centerX + radius * Math.cos(angle + (4 * Math.PI / 3)), y: centerY + radius * Math.sin(angle + (4 * Math.PI / 3)) }
-            ];
-
-            // 1. Emit Particles from vertices
-            vertices.forEach(v => {
-                if (Math.random() < 0.4) {
-                    particles.push(new Particle(v.x, v.y, v.color));
+                if (currentStateIndex === 0) {
+                    p.targetX = cx; p.targetY = cy;
+                } 
+                else if (currentStateIndex === 1) {
+                    const startX = cx - size;
+                    const deltaX = (size * 2) / (totalNodes - 1);
+                    p.targetX = startX + i * deltaX;
+                    p.targetY = cy;
+                } 
+                else if (currentStateIndex === 2) {
+                    const angle = (i * (2 * Math.PI / 3)) - Math.PI / 2;
+                    p.targetX = cx + size * Math.cos(angle);
+                    p.targetY = cy + size * Math.sin(angle);
+                } 
+                else if (currentStateIndex === 3) {
+                    const offsets = [
+                        [-size, -size * 0.7], [size, -size * 0.7],
+                        [size, size * 0.7], [-size, size * 0.7]
+                    ];
+                    p.targetX = cx + offsets[i][0];
+                    p.targetY = cy + offsets[i][1];
                 }
+            }
+        }
+
+        function drawGeometricBackbone() {
+            const state = statesData[currentStateIndex];
+            const totalNodes = state.labels.length;
+
+            if (totalNodes < 2) return;
+
+            ctx.save();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.2)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6, 4]);
+
+            ctx.beginPath();
+            if (currentStateIndex === 1) {
+                ctx.moveTo(particles[0].x, particles[0].y);
+                ctx.lineTo(particles[1].x, particles[1].y);
+            } 
+            else if (currentStateIndex === 2 || currentStateIndex === 3) {
+                ctx.moveTo(particles[0].x, particles[0].y);
+                for(let i = 1; i < totalNodes; i++) {
+                    ctx.lineTo(particles[i].x, particles[i].y);
+                }
+                ctx.closePath();
+            }
+            ctx.stroke();
+
+            if (currentStateIndex === 2) {
+                ctx.beginPath();
+                const radius = Math.hypot(particles[0].x - cx, particles[0].y - cy);
+                ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(244, 63, 94, 0.15)';
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // Decorative UI element to show time remaining until next automated layout shift
+        function drawProgressIndicator() {
+            if (!isAutoCycling) return;
+            
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, Math.min(width, height) * 0.4, -Math.PI / 2, (-Math.PI / 2) + (Math.PI * 2 * cycleProgress));
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.04)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Internal State Swapper
+        function applyState(index) {
+            currentStateIndex = index;
+            
+            document.querySelectorAll('#control-panel .btn:not(#play-pause-btn)').forEach((btn, idx) => {
+                if(idx === index) btn.classList.add('active');
+                else btn.classList.remove('active');
             });
 
-            // Update and draw particles
-            particles = particles.filter(p => p.alpha > 0);
+            const state = statesData[index];
+            let htmlContent = `<h3>${state.name} Elements:</h3><ul>`;
+            state.labels.forEach(label => {
+                htmlContent += `<li>${label}</li>`;
+            });
+            htmlContent += `</ul>`;
+            document.getElementById('node-content').innerHTML = htmlContent;
+
+            calculateLayout();
+        }
+
+        // Triggered by manual sidebar navigation clicks
+        function manualStateChange(index) {
+            setAutoCycle(false); // Pause auto shifting so user can look at selected item
+            applyState(index);
+        }
+
+        // Toggle engine automated cycles 
+        function toggleAutoCycle() {
+            setAutoCycle(!isAutoCycling);
+        }
+
+        function setAutoCycle(runState) {
+            isAutoCycling = runState;
+            const btn = document.getElementById('play-pause-btn');
+            if (isAutoCycling) {
+                btn.innerHTML = "⏸ Auto-Shifting ON";
+                btn.classList.remove('paused');
+                lastStateTime = Date.now(); // Reset timeframe reference
+            } else {
+                btn.innerHTML = "▶ Auto-Shifting PAUSED";
+                btn.classList.add('paused');
+            }
+        }
+
+        // Primary animation loop frame execution
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Handle Timing Cycles
+            if (isAutoCycling) {
+                const now = Date.now();
+                const elapsed = now - lastStateTime;
+                cycleProgress = Math.min(elapsed / cycleDuration, 1);
+
+                if (elapsed >= cycleDuration) {
+                    let nextState = (currentStateIndex + 1) % statesData.length;
+                    applyState(nextState);
+                    lastStateTime = now;
+                    cycleProgress = 0;
+                }
+            }
+
+            drawProgressIndicator();
+            drawGeometricBackbone();
+            
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
 
-            // 2. Draw sophisticated blended glow gradients inside the triangle
-            // We use multiple overlapping gradients to simulate multi-color vertex blending
-            vertices.forEach((v, index) => {
-                const nextV = vertices[(index + 1) % 3];
-                const grad = ctx.createLinearGradient(v.x, v.y, nextV.x, nextV.y);
-                grad.addColorStop(0, v.color);
-                grad.addColorStop(1, 'transparent');
-
-                ctx.beginPath();
-                ctx.moveTo(vertices[0].x, vertices[0].y);
-                ctx.lineTo(vertices[1].x, vertices[1].y);
-                ctx.lineTo(vertices[2].x, vertices[2].y);
-                ctx.closePath();
-
-                ctx.save();
-                ctx.globalCompositeOperation = 'screen';
-                ctx.fillStyle = grad;
-                ctx.fill();
-                ctx.restore();
-            });
-
-            // 3. Draw outer elegant white stroke line
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(vertices[0].x, vertices[0].y);
-            ctx.lineTo(vertices[1].x, vertices[1].y);
-            ctx.lineTo(vertices[2].x, vertices[2].y);
-            ctx.closePath();
-            ctx.stroke();
-
-            // 4. Draw sophisticated node typography and glowing vertices
-            vertices.forEach(v => {
-                // Outer glow aura for vertex
-                ctx.save();
-                ctx.shadowBlur = 30;
-                ctx.shadowColor = v.color;
-                ctx.fillStyle = v.color;
-                ctx.beginPath();
-                ctx.arc(v.x, v.y, 16, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-
-                // Core inner white dot
-                // ctx.fillStyle = '#ffffff';
-                // ctx.beginPath();
-                // ctx.arc(v.x, v.y, 2, 0, Math.PI * 2);
-                // ctx.fill();
-
-                // Label Typography
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 34px "Segoe UI", sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-
-                // Offset labels slightly outwards from center
-                const offsetFactor = 1.25;
-                const labelX = centerX + (v.x - centerX) * offsetFactor;
-                const labelY = centerY + (v.y - centerY) * offsetFactor;
-
-                // Subtle text shadow for the letters
-                ctx.save();
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-                ctx.shadowBlur = 4;
-                ctx.fillText(v.label, labelX, labelY);
-                ctx.restore();
-            });
-
             requestAnimationFrame(animate);
         }
 
-        // Kick off the loop
-        animate();
-    </script> -->
+        window.addEventListener('resize', resize);
+        window.addEventListener('DOMContentLoaded', () => {
+            resize();
+            applyState(0); 
+            animate();
+        });
+    </script>
 </body>
-
 </html>
