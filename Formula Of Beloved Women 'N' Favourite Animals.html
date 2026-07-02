@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beloved Women In Souls Of ð Animals</title>
+    <title>Beloved Women In ð Soul(s) Of Elemental Animals</title>
 
     <style>
         body {
@@ -262,7 +262,7 @@
             document.getElementById('ANI-8').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-8').innerHTML.split(' ')[2]));
 
-            document.getElementById('dateTime').innerHTML = convertToElte();
+            document.getElementById('dateTime').innerHTML = convertToElteWithDayName();
             exchange2Animal();
         }
 
@@ -318,7 +318,7 @@
             let elteYear;
             let elteDOB;
 
-            if (month < 2) // month is Jan or Feb
+            if (month < 2) // month is Jan OR Feb
                 year--;
             if (year > CURRENT_YEAR)
                 elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
@@ -331,6 +331,18 @@
             return elteDOB;
         }
 
+        function toTuesdayFirst(day) {
+            return (day + 5) % 7;
+        }
+
+        function convertToElteWithDayName(aDate) {     
+            const DAY = [ "TH", "WA", "UT", "FR", "SA", "HI", "DA" ];      
+            let elteDOB = convertToElte(aDate);
+            let dayNameInAWeek = DAY[TODAY.getDate()];
+                            
+            return elteDOB + ' ' + dayNameInAWeek;    
+        }
+        
         function fromElte() {
             const elteDOB = document.getElementById('birthYear-2').value;
             const arr = elteDOB.trim().split(/\s+/);
