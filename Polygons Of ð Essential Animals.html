@@ -355,11 +355,12 @@
             }
             ctx.stroke();
 
+            // Draw the circle
             if (currentStateIndex === 2) {
                 ctx.beginPath();
                 const radius = Math.hypot(particles[0].x - cx, particles[0].y - cy);
                 ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(244, 63, 94, 0.15)';
+                ctx.strokeStyle = 'rgba(244, 63, 94, 1.15)';
                 ctx.stroke();
             }
             ctx.restore();
