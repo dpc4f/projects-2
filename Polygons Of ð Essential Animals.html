@@ -139,7 +139,8 @@
         <div class="instructions">
             <div class="point">Lion</div>
             <div class="line">
-                <div class="point">Lion; Tiger</div>
+                <div class="note">King happens first. After that Emperor appears.</div>
+                <div class="point">Lion, King of Animals; Tiger, Emperor of Mountains 'n' Forests</div>
                 <div class="point">Antelope; Horse</div>
             </div>
             <div class="circle triangle">
@@ -197,22 +198,31 @@
 
             const isolatedPoint = root.querySelector(':scope > .point');
             if (isolatedPoint) {
-                states.push({ name: "Isolated Point", labels: [isolatedPoint.textContent.trim()] });
+                states.push({ name: "Isolated Point",
+                notes: null,
+                labels: [isolatedPoint.textContent.trim()] });
             }
 
             const lineDiv = root.querySelector('.line');
+            //const lineNoteDiv = root.querySelector('.line.note');
             if (lineDiv) {
-                states.push({ name: "Line Segments", labels: Array.from(lineDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                states.push({ name: "Line Segments", 
+                notes: Array.from(lineDiv.querySelectorAll('.note')).map(p => p.textContent.trim()), 
+                labels: Array.from(lineDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const circleTriangleDiv = root.querySelector('.circle.triangle');
             if (circleTriangleDiv) {
-                states.push({ name: "Circle / Triangle Blended Array", labels: Array.from(circleTriangleDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                states.push({ name: "Circle / Triangle Blended Array",
+                notes: null,
+                labels: Array.from(circleTriangleDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const rectDiv = root.querySelector('.rectangle');
             if (rectDiv) {
-                states.push({ name: "Rectangle Matrix", labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                states.push({ name: "Rectangle Matrix",
+                notes: null,
+                labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             return states;
@@ -384,12 +394,17 @@
             currentStateIndex = index;
             
             document.querySelectorAll('#control-panel .btn:not(#play-pause-btn)').forEach((btn, idx) => {
-                if(idx === index) btn.classList.add('active');
+                if (idx === index) btn.classList.add('active');
                 else btn.classList.remove('active');
             });
 
             const state = statesData[index];
             let htmlContent = `<h3>${state.name} Elements:</h3><ul>`;
+            if (state.notes !== null) {
+                state.notes.forEach(note => {
+                    htmlContent += `<li class='note'>${note}</li>`;
+                });
+            }
             state.labels.forEach(label => {
                 htmlContent += `<li>${label}</li>`;
             });
