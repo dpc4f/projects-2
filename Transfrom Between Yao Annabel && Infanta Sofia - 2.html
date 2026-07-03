@@ -7,13 +7,13 @@
 <title>Magical / Miraclic Names' Transform</title>
 
 <style>
-    *{
+    * {
         margin:0;
         padding:0;
         box-sizing:border-box;
     }
 
-    body{
+    body {
         height:100vh;
         overflow:hidden;
         display:flex;
@@ -26,13 +26,13 @@
         font-family:Segoe UI,Tahoma,sans-serif;
     }
 
-    .scene{
+    .scene {
         position:relative;
         width:1000px;
         height:400px;
     }
 
-    .panel{
+    .panel {
         position:absolute;
         width:420px;
         height:240px;
@@ -51,15 +51,15 @@
         overflow:hidden;
     }
 
-    .left{
+    .left {
         left:20px;
     }
 
-    .right{
+    .right {
         right:20px;
     }
 
-    .title{
+    .title {
         position:absolute;
         top:20px;
         width:100%;
@@ -70,7 +70,7 @@
         opacity:.7;
     }
 
-    .word{
+    .word {
         position:absolute;
         top:105px;
         left:50%;
@@ -78,7 +78,7 @@
         white-space:nowrap;
     }
 
-    .char{
+    .char {
         position:relative;
         display:inline-block;
         min-width:26px;
@@ -99,13 +99,13 @@
             color 2.4s ease;
     }
 
-    .ghost{
+    .ghost {
         opacity:0;
         filter:blur(14px);
         transform:translateY(60px) scale(.4) rotate(30deg);
     }
 
-    .anchor{
+    .anchor {
         color:#ffe98a;
         text-shadow:
             0 0 10px #fff2ae,
@@ -113,7 +113,7 @@
             0 0 60px #ffd500;
     }
 
-    .spark{
+    .spark {
         position:absolute;
         width:5px;
         height:5px;
@@ -124,21 +124,21 @@
         opacity:.7;
     }
 
-    @keyframes float{
-        from{
+    @keyframes float {
+        from {
             transform:translateY(0) translateX(0);
             opacity:0;
         }
-        10%{
+        10% {
             opacity:1;
         }
-        to{
+        to {
             transform:translateY(-500px) translateX(120px);
             opacity:0;
         }
     }
 
-    .beam{
+    .beam {
         position:absolute;
         top:50%;
         left:50%;
@@ -159,7 +159,7 @@
         animation:pulse 2s infinite;
     }
 
-    @keyframes pulse{
+    @keyframes pulse {
         0%,100%{
             opacity:.25;
             transform:translate(-50%,-50%) scaleX(.8);
@@ -170,7 +170,7 @@
         }
     }
 
-    .hint{
+    .hint {
         position:absolute;
         bottom:20px;
         width:100%;
@@ -185,14 +185,12 @@
 <body>
 
 <div class="scene">
-
     <div class="beam"></div>
 
     <div class="panel left">
         <div class="title">
             { Sofía ➜ Annabel ➜ Sofía }
         </div>
-
         <div class="word" id="sofiaWord"></div>
     </div>
 
@@ -200,7 +198,6 @@
         <div class="title">
             { Yao ➜ Infanta ➜ Yao }
         </div>
-
         <div class="word" id="yaoWord"></div>
     </div>
 
@@ -231,16 +228,17 @@ const infantaSequence = [
 const sofiaContainer = document.getElementById("sofiaWord");
 const yaoContainer = document.getElementById("yaoWord");
 
-function buildCharacters(container, chars, anchorIndex){
+function buildCharacters(container, chars, anchorIndex) {
     container.innerHTML = "";
     chars.forEach((c, index) => {
         const span = document.createElement("span");
 
         span.className = "char";
         span.textContent = c;
-        if (index === anchorIndex){
+        
+        if (index === anchorIndex)
             span.classList.add("anchor");
-        }
+        
         container.appendChild(span);
     });
 }
@@ -274,9 +272,8 @@ function morphSofiaToAnnabel() {
     }, 850);
 
     current.forEach((char, index) => {
-        if (index !== 4){
+        if (index !== 4)
             char.classList.add("ghost");
-        }
     });
 
     setTimeout(() => {
@@ -286,7 +283,7 @@ function morphSofiaToAnnabel() {
             span.className = "char ghost";
             span.textContent = c;
 
-            if (index == 0){
+            if (index == 0) {
                 span.classList.add("anchor");
                 span.style.opacity = "1";
                 span.style.filter = "blur(0)";
@@ -303,11 +300,8 @@ function morphSofiaToAnnabel() {
         setTimeout(() => {
             morphYaoToInfanta();
         }, 3700);
-
     }, 1200);
 }
-
-
 
 function morphYaoToInfanta() {
     /*
@@ -326,18 +320,17 @@ function morphYaoToInfanta() {
 
     setTimeout(() => {
         anchor.textContent = "I";
-        anchor.style.transform =
-            "translateY(0px) scale(1.05) rotate(0deg)";
+        anchor.style.transform = "translateY(0px) scale(1.05) rotate(0deg)";
     }, 850);
 
     current.forEach((char, index) => {
-        if (index !== 0){
+        if (index !== 0)
             char.classList.add("ghost");
-        }
     });
 
     setTimeout(() => {
         yaoContainer.innerHTML = "";
+        
         infantaSequence.forEach((c, index) => {
             const span = document.createElement("span");
             span.className = "char ghost";
@@ -356,13 +349,11 @@ function morphYaoToInfanta() {
                 span.classList.remove("ghost");
             }, 120 + index * 130);
         });
-
     }, 700);
 }
 
 
-function createSpark(){
-
+function createSpark() {
     const spark = document.createElement("div");
 
     spark.className = "spark";
@@ -382,10 +373,11 @@ setInterval(createSpark, 4120);
 setInterval(() => {
     buildCharacters(sofiaContainer, sofiaSequence, 4);
     buildCharacters(yaoContainer, yaoSequence, 0);
+    
     setTimeout(() => {
         morphSofiaToAnnabel();
     }, 1000);
-}, 13000);
+}, 15000);
 
 </script>
 
