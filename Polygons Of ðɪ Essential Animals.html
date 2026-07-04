@@ -139,16 +139,17 @@
     <div id="raw-data" style="display:none;">
         <div class="instructions">
             <div class="point-isolated">
-                <div class="note">lion, King of Animals</div>
+                <div class="note">Lion, king of animals</div>
                 <div class="point">Lion</div>
             </div>
             <div class="line">
-                <div class="note">King happens first. After that Emperor appears.</div>
-                <div class="note">tiger, Emperor of Mountains 'n' Forests</div>
+                <div class="note">king happens first. after that emperor appears.</div>
+                <div class="note">Tiger, emperor of mountains 'n' forests</div>
                 <div class="point">Lion; Tiger</div>
                 <div class="point">Antelope; Horse</div>
             </div>
             <div class="circle triangle">
+                <div class="note">a Circle is in fact a Triangle.</div>
                 <div class="point">Lion; Tiger; Dragon</div>
                 <div class="point">Reindeer; Horse</div>
                 <div class="point">Rhinoceros; Elephant; Cetipede; Ant</div>
@@ -209,7 +210,6 @@
             }
 
             const lineDiv = root.querySelector('.line');
-            //const lineNoteDiv = root.querySelector('.line.note');
             if (lineDiv) {
                 states.push({ name: "Line Segments", 
                 notes: Array.from(lineDiv.querySelectorAll('.note')).map(p => p.textContent.trim()), 
