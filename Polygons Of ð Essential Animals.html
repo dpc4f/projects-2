@@ -138,10 +138,13 @@
 
     <div id="raw-data" style="display:none;">
         <div class="instructions">
-            <div class="point">Lion</div>
+            <div class="point-isolated">
+                <div class="note">lion, King of Animals;</div>
+                <div class="point">Lion</div>
+            </div>
             <div class="line">
                 <div class="note">King happens first. After that Emperor appears.</div>
-                <div class="note">{ lion, King of Animals; tiger, Emperor of Mountains 'n' Forests }</div>
+                <div class="note">tiger, Emperor of Mountains 'n' Forests</div>
                 <div class="point">Lion; Tiger</div>
                 <div class="point">Antelope; Horse</div>
             </div>
@@ -198,11 +201,11 @@
             const root = document.querySelector('#raw-data .instructions');
             const states = [];
 
-            const isolatedPoint = root.querySelector(':scope > .point');
+            const isolatedPoint = root.querySelector('.point-isolated');
             if (isolatedPoint) {
                 states.push({ name: "Isolated Point",
-                notes: null,
-                labels: [isolatedPoint.textContent.trim()] });
+                notes: Array.from(isolatedPoint.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                labels: Array.from(isolatedPoint.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const lineDiv = root.querySelector('.line');
@@ -216,14 +219,14 @@
             const circleTriangleDiv = root.querySelector('.circle.triangle');
             if (circleTriangleDiv) {
                 states.push({ name: "Circle / Triangle Blended Array",
-                notes: null,
+                notes: Array.from(circleTriangleDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                 labels: Array.from(circleTriangleDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const rectDiv = root.querySelector('.rectangle');
             if (rectDiv) {
                 states.push({ name: "Rectangle Matrix",
-                notes: null,
+                notes: Array.from(rectDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                 labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 

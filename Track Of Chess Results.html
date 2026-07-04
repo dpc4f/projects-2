@@ -194,6 +194,11 @@
         }
 
         function loadState() {
+            /* 
+                [] fix the bug to resume David the King when time being endly checked is over
+            */ 
+
+
             const rows = localStorage.getItem("davios_rows");
             if (rows) queenBody.innerHTML = rows;
 
