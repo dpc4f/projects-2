@@ -324,6 +324,9 @@
                 
                 const textChunks = this.label.split('; ');
                 textChunks.forEach((chunk, idx) => {
+                    let chunk1s = chunk.split('} ');
+                    let chunk2s = chunk1s[0].split('{ ');
+                    let chunk3 = chunk2s[0];
                     ctx.fillText(chunk, this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
                 });
 
