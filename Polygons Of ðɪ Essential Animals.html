@@ -155,10 +155,27 @@
                 <div class="point">Rhinoceros; Elephant; Cetipede; Ant</div>
             </div>
             <div class="rectangle">
-                <div class="point">Lion; Tiger; Dragon</div>
+                <div class="point">{{ Lion; { Tiger; } Dragon }}</div>
                 <div class="point">Deer; Horse; Vulture</div>
                 <div class="point">Rhino; Elephant; Cetipede; { Ant, Bee }</div>
-                <div class="point">Mouse; Bear; Bat; { Whale, Shark }; { Chicken / Duck }; etc.</div>
+                <div class="point">Mouse; Bear; Bat; { Whale, Shark }; Chicken</div>
+            </div>
+            <div class="pentagon">
+                <div class="note">[s, x] lục dục xúc dục --&gt; lục súc</div>
+                <div class="point">{ Lion; Tiger; Dragon; Long Dragon }</div>
+                <div class="point">Ant(elope); Horse; Vulture</div>
+                <div class="point">Rhino; Elephant; Cetipede; { Ant --&gt; Ape, Bee }</div>
+                <div class="point">{ Mouse, Snake }; Bear; Bat; { Whale, Quail, Shark }; { Chicken, Duck }</div>
+                <div class="point">Python; Pheasant; Falkon; Swan</div>
+            </div>
+            <div class="diamond">
+                <div class="note">future affects present 'N' past.</div>
+                <div class="point">{ Lion; Tiger; Dragon; Long Dragon }</div>
+                <div class="point">Ant(elope); Horse; Vulture</div>
+                <div class="point">Rhino; Elephant; Cetipede; { Ant --&gt; Ape, Bee }</div>
+                <div class="point">{ Mouse, Rabbit, Snake }; Bear; Bat; { Whale, Quail, Shark }; { Chicken, Duck }</div>
+                <div class="point">Python; Pheasant; Falkon; Swan</div>
+                <div class="point">Cat; Locke; Dodge; Pig</div>
             </div>
         </div>
     </div>
@@ -188,6 +205,8 @@
             <button class="btn" onclick="manualStateChange(1)">2. Line (Linear Pairs)</button>
             <button class="btn" onclick="manualStateChange(2)">3. { Circle, Triangle Triad }</button>
             <button class="btn" onclick="manualStateChange(3)">4. Rectangle Quad</button>
+            <button class="btn" onclick="manualStateChange(4)">5. Pentagon</button>
+            <button class="btn" onclick="manualStateChange(5)">6. Diamond</button>
         </div>
 
         <div id="data-display">
@@ -228,6 +247,20 @@
                 states.push({ name: "Rectangle Matrix",
                 notes: Array.from(rectDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                 labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
+
+            const pentDiv = root.querySelector('.pentagon');
+            if (pentDiv) {
+                states.push({ name: "Pentagon Matrix",
+                notes: Array.from(pentDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                labels: Array.from(pentDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
+
+            const diamondDiv = root.querySelector('.diamond');
+            if (diamondDiv) {
+                states.push({ name: "Diamond Matrix",
+                notes: Array.from(diamondDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                labels: Array.from(diamondDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             return states;
@@ -298,7 +331,7 @@
             }
         }
 
-        const particles = Array.from({ length: 4 }, () => new NodeParticle());
+        const particles = Array.from({ length: 6 }, () => new NodeParticle());
 
         function resize() {
             width = canvas.width = canvas.parentElement.clientWidth;
@@ -342,6 +375,24 @@
                     p.targetX = cx + offsets[i][0];
                     p.targetY = cy + offsets[i][1];
                 }
+                else if (currentStateIndex === 4) {
+                    const offsets = [
+                        [0, -size], [size * 0.8, -size * 0.5], 
+                        [size * 0.3, size * 0.4], [-size * 0.7, size * 0.4], 
+                        [-size * 0.8, -size * 0.5]
+                    ];
+                    p.targetX = cx + offsets[i][0];
+                    p.targetY = cy + offsets[i][1];
+                }
+                else if (currentStateIndex === 5) {
+                    const offsets = [
+                        [-size * 0.63, -size * 0.83], [size * 0.73, -size * 0.83], 
+                        [size, 0], [size * 0.73, size * 0.83], 
+                        [-size * 0.63, size * 0.83], [-size, 0]
+                    ];
+                    p.targetX = cx + offsets[i][0];
+                    p.targetY = cy + offsets[i][1];
+                }
             }
         }
 
@@ -361,7 +412,7 @@
                 ctx.moveTo(particles[0].x, particles[0].y);
                 ctx.lineTo(particles[1].x, particles[1].y);
             } 
-            else if (currentStateIndex === 2 || currentStateIndex === 3) {
+            else {
                 ctx.moveTo(particles[0].x, particles[0].y);
                 for(let i = 1; i < totalNodes; i++) {
                     ctx.lineTo(particles[i].x, particles[i].y);
