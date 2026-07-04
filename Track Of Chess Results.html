@@ -197,12 +197,13 @@
             /* 
                 [] fix the bug to resume David the King when time being endly checked is over
             */ 
-
-
             const rows = localStorage.getItem("davios_rows");
             if (rows) queenBody.innerHTML = rows;
 
             rowCounter = parseInt(localStorage.getItem("davios_counter") || "0");
+
+            let str = localStorage.getItem("davios_king_status");
+
             document.getElementById("kingStatus").innerHTML = localStorage.getItem("davios_king_status") || "";
             rebindButtons();
             checkLock();
