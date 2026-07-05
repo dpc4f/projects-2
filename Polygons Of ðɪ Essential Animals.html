@@ -280,7 +280,7 @@
 
         // --- AUTOMATION CONTROL CONFIGURATION ---
         let isAutoCycling = true;
-        const cycleDuration = 8000; // Time (in ms) to spend on each layout state
+        const cycleDuration = 4000; // Time (in ms) to spend on each layout state
         let lastStateTime = Date.now();
         let cycleProgress = 0; // Ranges 0 to 1 for visual loading timers
 
@@ -414,7 +414,7 @@
                 else if (currentStateIndex === 4) {
                     const offsets = [
                         [0, -size], [size * 0.8, -size * 0.5], 
-                        [size * 0.3, size * 0.4], [-size * 0.7, size * 0.4], 
+                        [size * 0.5, size * 0.4], [-size * 0.7, size * 0.4], 
                         [-size * 0.8, -size * 0.5]
                     ];
                     p.targetX = cx + offsets[i][0];
@@ -422,7 +422,7 @@
                 }
                 else if (currentStateIndex === 5) {
                     const offsets = [
-                        [-size * 0.63, -size * 0.83], [size * 0.73, -size * 0.83], 
+                        [-size * 0.63, -size * 0.83], [size * 0.63, -size * 0.83], 
                         [size, 0], [size * 0.73, size * 0.83], 
                         [-size * 0.63, size * 0.83], [-size, 0]
                     ];
@@ -538,9 +538,10 @@
             if (isAutoCycling) {
                 const now = Date.now();
                 const elapsed = now - lastStateTime;
-                cycleProgress = Math.min(elapsed / cycleDuration, 1);
+                const timeToNextLap = cycleDuration + (currentStateIndex + 1) * cycleDuration / 1.5;
+                cycleProgress = Math.min(elapsed / timeToNextLap, 1);
 
-                if (elapsed >= cycleDuration) {
+                if (elapsed >= timeToNextLap) {
                     let nextState = (currentStateIndex + 1) % statesData.length;
                     applyState(nextState);
                     lastStateTime = now;
