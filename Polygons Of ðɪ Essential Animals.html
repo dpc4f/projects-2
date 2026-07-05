@@ -134,7 +134,6 @@
     </style>
 </head>
 <body>
-
     <div id="raw-data" style="display:none;">
         <div class="instructions">
             <div class="point-isolated">
@@ -169,7 +168,7 @@
             </div>
             <div class="diamond">
                 <div class="note">future affects present 'N' past.</div>
-                <div class="point">{ Lion; Tiger; Dragon; Long-dragon }</div>
+                <div class="point">{ Lion, Tiger, Dragon, Long-dragon }</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
                 <div class="point">Rhino; Elephant; Cetipede; { Ape, Bee }</div>
                 <div class="point">{ Mouse, Rabbit, Snake }; Bear; Bat; { Whale, Quail, Shark }; { Chicken, Duck }</div>
@@ -189,14 +188,11 @@
     </div>
     
 
-    <div id="control-panel">
-        <div>
-            <h2>Shapes</h2>
-            <p style="font-size: 0.85rem; color: #94a3b8; margin: 0 0 15px 0;">
-                Shapes shift automatically. Click any option to pause and inspect manually.
-            </p>
-        </div>
-        
+    <div id="control-panel">  
+        <p class="note">
+            Shapes shift automatically. Click any option to pause and inspect manually.
+        </p>
+
         <button id="play-pause-btn" class="btn" onclick="toggleAutoCycle()">⏸ Auto-Shifting ON</button>
         
         <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -209,7 +205,7 @@
         </div>
 
         <div id="data-display">
-            <h3>Node Information</h3>
+            <h2>Node Information</h2>
             <div id="node-content">Loading elements ...</div>
         </div>
     </div>
@@ -495,7 +491,7 @@
             });
 
             const state = statesData[index];
-            let htmlContent = `<h3>${state.name} Elements:</h3><ul>`;
+            let htmlContent = `<h3>${state.name} Elements</h3><ul>`;
             if (state.notes !== null) {
                 state.notes.forEach(note => {
                     htmlContent += `<div class='note'>${note}</div>`;
