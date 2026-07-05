@@ -36,7 +36,7 @@
         }
 
         #control-panel {
-            width: 500px;
+            width: 670px;
             background: var(--panel-bg);
             backdrop-filter: blur(12px);
             border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -123,14 +123,13 @@
         .note {
             font-size: 14px;
             color: darkgreen;
-            margin-bottom: 11px;
-            display: inline-block;
+            margin-bottom: 9px;
         }
 
-        .bottom-right-note { 
+        .bottom-left-note { 
             position: fixed;
             bottom: 30px;
-            right: 520px;
+            left: 20px;
         }
     </style>
 </head>
@@ -170,7 +169,7 @@
             </div>
             <div class="diamond">
                 <div class="note">future affects present 'N' past.</div>
-                <div class="point">{ Lion; Tiger; Dragon; Long Dragon }</div>
+                <div class="point">{ Lion; Tiger; Dragon; Long-dragon }</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
                 <div class="point">Rhino; Elephant; Cetipede; { Ant --&gt; Ape, Bee }</div>
                 <div class="point">{ Mouse, Rabbit, Snake }; Bear; Bat; { Whale, Quail, Shark }; { Chicken, Duck }</div>
@@ -180,7 +179,7 @@
         </div>
     </div>
 
-    <div class="note bottom-right-note">respect to ð time manner. always.</div>
+    <div class="note bottom-left-note">respect to ð time manner. always.</div>
 
     <div id="canvas-container">
         <canvas id="stage">
@@ -266,7 +265,7 @@
             return states;
         };
 
-        function isAllowedLetter(ch) {
+        function isAllowedLetter(ch, nx = '') {
             ret = 0;
             if (ch >= 'A' && ch <= 'Z') 
                 ret = 3;
@@ -276,6 +275,10 @@
                 ret = 2;
             else if (ch == '-' || ch == '(' || ch == ')' || ch == '>')
                 ret = 4;
+            else if (ch == '-' && nx == '-')
+                ret = 5;
+            else if ( ch == '-' && nx == '>')
+                ret = 6; //(
 
             return ret;
         }
@@ -342,8 +345,9 @@
                 textChunks.forEach((chunk, idx) => {
                     // take the string
                     let anima = '', i = 0, isNew = false, isAllowed = 0;
+                    
                     for (; i < chunk.length; ++i) {
-                        isAllowed = isAllowedLetter(chunk[i]);
+                        isAllowed = isAllowedLetter(chunk[i], i < chunk.length-1 ? chunk[i+1] : '');
                         if (isAllowed == 0) continue;
                         if (isAllowed == 3 && isNew) {
                             anima += ', ' + chunk[i];
@@ -351,6 +355,16 @@
                             anima += chunk[i];
                         }
                         isAllowed > 3 ? isNew = false : isNew = true;
+                    }
+
+                    if (anima.length > 1) {
+                        let tmp = '', j = 0;
+                        for (; j < anima.length-1; ++j) {
+                            if (anima[j] == '-' && anima[j+1] == '-') tmp += ' ';
+                            tmp += anima[j];
+                            if (j > 1 && anima[j-1] == '-' && anima[j] == '>') tmp += ' ';
+                        }
+                        anima = tmp + anima[j];
                     }
                     
                     ctx.fillText(anima, this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
