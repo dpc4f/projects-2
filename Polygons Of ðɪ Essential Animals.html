@@ -163,7 +163,7 @@
                 <div class="note">[s, x] lục dục xúc dục --&gt; lục súc</div>
                 <div class="point">{ Lion; Tiger; Dragon; Long-dragon }</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
-                <div class="point">Rhino; Elephant; Cetipede; { Ant --> Ape, Bee }</div>
+                <div class="point">Rhino; Elephant; Cetipede; { Ant --&gt; Ape, Bee }</div>
                 <div class="point">{ Mouse, Snake }; Bear; Bat; { Whale, Quail, Shark }; { Chicken, Duck }</div>
                 <div class="point">Python; Pheasant; Falkon; Swan</div>
             </div>
@@ -171,7 +171,7 @@
                 <div class="note">future affects present 'N' past.</div>
                 <div class="point">{ Lion; Tiger; Dragon; Long-dragon }</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
-                <div class="point">Rhino; Elephant; Cetipede; { Ant --&gt; Ape, Bee }</div>
+                <div class="point">Rhino; Elephant; Cetipede; { Ape, Bee }</div>
                 <div class="point">{ Mouse, Rabbit, Snake }; Bear; Bat; { Whale, Quail, Shark }; { Chicken, Duck }</div>
                 <div class="point">Python; Pheasant; Falkon; Swan</div>
                 <div class="point">Cat; Locke; Dodge; Pig</div>
@@ -275,10 +275,6 @@
                 ret = 2;
             else if (ch == '-' || ch == '(' || ch == ')' || ch == '>')
                 ret = 4;
-            else if (ch == '-' && nx == '-')
-                ret = 5;
-            else if ( ch == '-' && nx == '>')
-                ret = 6; //(
 
             return ret;
         }
