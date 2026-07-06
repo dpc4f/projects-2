@@ -265,7 +265,7 @@
         function isAllowedLetter(ch, nx = '') {
             ret = 0;
             if (ch >= 'A' && ch <= 'Z') {
-                if (nx != '' || nx == -1) ret = 2;
+                if ((nx >= 'A' && nx <= 'Z') || nx == '@') ret = 2;
                 else ret = 3;
             }
             else if ('0' <= ch && ch <= '9') 
@@ -342,7 +342,7 @@
                     let anima = '', i = 0, isNew = false, isAllowed = 0;
                     
                     for (; i < chunk.length; ++i) {
-                        isAllowed = isAllowedLetter(chunk[i], i < chunk.length-1 ? chunk[i+1] : -1);
+                        isAllowed = isAllowedLetter(chunk[i], i < chunk.length-1 ? chunk[i+1] : '@');
                         if (isAllowed == 0) continue;
                         if (isAllowed == 3 && isNew) {
                             anima += ', ' + chunk[i];
