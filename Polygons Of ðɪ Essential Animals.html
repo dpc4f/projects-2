@@ -397,7 +397,7 @@
                     let len = 0;
                     partedConvertedText.forEach((str, index) => {
                         len += index > 0 ? partedConvertedText[index - 1].length * 15 : 0;
-                        ctx.fillText(str, this.x, 
+                        ctx.fillText(str, this.x + len, 
                         this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
                         // ctx.fillText('a', this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
                     });
