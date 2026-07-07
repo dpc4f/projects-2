@@ -131,6 +131,17 @@
             bottom: 30px;
             left: 20px;
         }
+
+        .ambitious { 
+            /*
+                [Qaru current_year+6] 
+                violet ~ purple
+                !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                'cause there isn't darkpurple in here; I have to use darkviolet ... ;-)
+                dark means heavy; 'N' ð reverse ..
+            */
+            color: darkviolet; /* Gold (dark-yellow) --> Blue --> Purple */
+        }
     </style>
 </head>
 <body>
@@ -262,6 +273,14 @@
             return states;
         };
 
+        /*
+            [] colourize character, 'a'
+        */
+        function colourize_aMBITIOUS(str) {
+
+          
+        }
+        
         function isAllowedLetter(ch, nx = '') {
             ret = 0;
             if (ch >= 'A' && ch <= 'Z') {
@@ -361,9 +380,24 @@
                         }
                         anima = tmp + anima[j];
                     }
-                    
-                    ctx.fillText(anima, this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
-                    
+
+                    // [an Algo]
+                    // use regex to part string, 'anima' 
+                    // fill parted string b4 character, 'a'
+                    // fill character 'a' in that it will have colour dark-violet
+                    // fill parted string 4b character, 'a' && b4 the next character 'a'
+                    // 'n' so on
+                    // 
+
+                    const rules = [{ regex: /a/g, replacement: ' ' }];
+                    const rule = rules[0];
+
+                    let convertedText = anima.replace(rule.regex, rule.replacement);
+                    let partedConvertedText = this.label.split(' ');
+                    partedConvertedText.forEach((str, idx) => {
+                        ctx.fillText(str, this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                        ctx.fillText('a', this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                    });
                 });
 
                 ctx.restore();
