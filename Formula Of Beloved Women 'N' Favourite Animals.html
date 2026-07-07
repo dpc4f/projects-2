@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beloved Women In ð Soul(s) Of Elemental Animals</title>
+    <title>Gorgeous Women In Soul(s) Of ð FA</title>
 
     <style>
         body {
@@ -171,7 +171,8 @@
 
 <body>
     <h1 class="center">Beloved Women && Favourite Animals</h1>
-    <div class="note">[gender] woman, F</div>
+    <div class="note">[gender] woman, F; man, M; etc.</div>
+    <div class="note">[a taxonomy] FA, Favourite Animals</div>
     <div class="beloved">
         <div type="text" class="名前" disabled>Thoa Nguyen</div>
         <div type="text" id="DOB-1" class="dob" disabled>Oct 5 1987</div>
@@ -338,7 +339,7 @@
         function convertToElteWithDayName(aDate) {     
             const DAY = [ "TH", "WA", "UT", "FR", "SA", "HI", "DA" ];      
             let elteDOB = convertToElte(aDate);
-            let dayNameInAWeek = DAY[TODAY.getDate()];
+            let dayNameInAWeek = DAY[TODAY.getDate() % 7];
                             
             return elteDOB + ' ' + dayNameInAWeek;    
         }
