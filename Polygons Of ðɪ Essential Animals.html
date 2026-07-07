@@ -351,7 +351,7 @@
                 ctx.shadowBlur = 0;
                 ctx.fillStyle = '#cbd5e1';
                 ctx.font = 'bold 15px "Segoe UI", sans-serif';
-                ctx.textAlign = 'center';
+                ctx.textAlign = 'left';
                 
                 const textChunks = this.label.split('; ');
                 
@@ -393,11 +393,17 @@
                     const rule = rules[0];
 
                     let convertedText = anima.replace(rule.regex, rule.replacement);
-                    let partedConvertedText = this.label.split(' ');
-                    partedConvertedText.forEach((str, idx) => {
-                        ctx.fillText(str, this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
-                        ctx.fillText('a', this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                    let partedConvertedText = convertedText.split(' ');
+                    let len = 0;
+                    partedConvertedText.forEach((str, index) => {
+                        len += index > 0 ? partedConvertedText[index - 1].length * 15 : 0;
+                        ctx.fillText(str, this.x, 
+                        this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                        // ctx.fillText('a', this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
                     });
+
+                    // ctx.fillText(anima, this.x, 
+                    // this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
                 });
 
                 ctx.restore();
