@@ -321,7 +321,7 @@
             <div id="beijing" class="local-current-time"></div>
 
             <div class="platon-time"><em class="city">Dacet</em><span class="excellent-def">GMT+7</span></div>
-            <div id="bangkok" class="local-current-time"></div>
+            <div id="dustin-pine" class="local-current-time"></div>
         </div>
 
     </div>
@@ -348,13 +348,13 @@
             const ExcellenT = new Date();
             let oxakaSeoulTime = formatTime(ExcellenT, additionalHours = 2); // GMT+7+2
             let beijingTime = formatTime(ExcellenT, additionalHours = -5); // GMT+7+1 --> GMT+7-5
-            let rachaelTime = formatTime(ExcellenT, additionalHours = -6); // GMT+7-7
-            let bangkokTime = formatTime(ExcellenT, additionalHours = 0); // GMT+7
+            let rainingTime = formatTime(ExcellenT, additionalHours = -6); // GMT+7-7
+            let dacetTime = formatTime(ExcellenT, additionalHours = 0); // GMT+7
 
             document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
             document.getElementById('beijing').textContent = `${beijingTime}`;
-            document.getElementById('rachael').textContent = `${rachaelTime}`;
-            document.getElementById('bangkok').textContent = `${bangkokTime}`;
+            document.getElementById('rachael').textContent = `${rainingTime}`;
+            document.getElementById('dustin-pine').textContent = `${dacetTime}`;
         }
 
         // initial render
