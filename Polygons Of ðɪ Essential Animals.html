@@ -392,21 +392,33 @@
                     const rules = [{ regex: /a/g, replacement: '@' }];
                     const rule = rules[0];
 
-                    let convertedText = anima.replace(rule.regex, rule.replacement);
-                    let partedConvertedText = convertedText.split('@');
-                    let len = 0;
-                    partedConvertedText.forEach((str, index) => {
-                        let l = 0;
-                        if (index > 0) 
-                            l = partedConvertedText[index - 1].length;
-                        len += (l > 3 ? (l - 3 + (l - 3) / 3) : l) * 15;
-                        ctx.fillText(str, this.x + len, 
-                        this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
-                        // ctx.fillText('a', this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
-                    });
+                    // let convertedText = anima.replace(rule.regex, rule.replacement);
+                    // let partedConvertedText = convertedText.split('@');
+                    // let len = 0;
+                    // partedConvertedText.forEach((str, index) => {
+                    //     let l = 0;
+                    //     if (index > 0) 
+                    //         l = partedConvertedText[index - 1].length;
+                    //     len += (l > 3 ? (l - 3 + (l - 3) / 3) : l) * 15;
+                    //     ctx.fillText(str, this.x + len, 
+                    //     this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                    //     // ctx.fillText('a', this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                    // });
 
                     // ctx.fillText(anima, this.x, 
                     // this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+
+                    let idd = 0;
+                    let subt = 0;
+                    for (; idd < anima.length; ++idd) {
+                        if (anima[idd] == 'a')
+                            ctx.fillStyle = 'darkviolet';
+                        ctx.fillText(anima[idd], this.x + idd * 15 - subt, 
+                                        this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                        if (anima[idd] == ',')
+                            subt += 9;
+                         ctx.fillStyle = '#cbd5e1';
+                    }
                 });
 
                 ctx.restore();
