@@ -291,15 +291,30 @@
         function addRow() {
             const order = getQueenOrder();
             const tr = document.createElement("tr");
+            const RET = playTheDice();
 
-            tr.innerHTML = createQueenCell(order[0][0], order[0][1]) +
-                createQueenCell(order[1][0], order[1][1]) +
-                createQueenCell(order[2][0], order[2][1]) +
-                createQueenCell(order[3][0], order[3][1], false);
+            if (RET) {
+                tr.innerHTML = createQueenCell(order[0][0], order[0][1]) +
+                    createQueenCell(order[1][0], order[1][1]) +
+                    createQueenCell(order[2][0], order[2][1]) +
+                    createQueenCell(order[3][0], order[3][1], false);
+            } else {
+                tr.innerHTML = createQueenCell(order[0][0], order[0][1]) +
+                    createQueenCell(order[2][0], order[2][1]) +
+                    createQueenCell(order[1][0], order[1][1]) +
+                    createQueenCell(order[3][0], order[3][1], false);
+            }
+            
             queenBody.appendChild(tr);
             rebindButtons();
-
             saveState();
+        }
+
+        function playTheDice() { /* play the dice once only */
+            let now = new Date();
+            let sec = now.getSeconds();
+            
+            return sec%2;
         }
 
         function rebindButtons() {
