@@ -413,10 +413,14 @@
                     for (; idd < anima.length; ++idd) {
                         if (anima[idd] == 'a')
                             ctx.fillStyle = 'darkviolet';
-                        ctx.fillText(anima[idd], this.x + idd * 15 - subt, 
+                        ctx.fillText(anima[idd], this.x + idd * 12 - subt, 
                                         this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
                         if (anima[idd] == ',')
                             subt += 9;
+                        if (anima[idd] == 'i' || anima[idd] == 'l')
+                            subt += 6;
+                        if (anima[idd] == 'M' || anima[idd] == 'W' || anima[idd] == 'm' || anima[idd] == 'w') 
+                            subt -= 6;
                          ctx.fillStyle = '#cbd5e1';
                     }
                 });
