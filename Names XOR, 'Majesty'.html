@@ -82,15 +82,17 @@
             color: darkgrey;
         }
 
-        .ambitious { 
+        .ambitious-odin { 
             /*
                 [Qaru current_year+6] 
                 violet ~ purple
                 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 'cause there isn't darkpurple in here; I have to use darkviolet ... ;-)
                 dark means heavy; 'N' ð reverse ..
+                >>>> [updated]
+                change CSS class to be, 'ambitious-odin' && color will be changed to, 'darkmagenta'
             */
-            color: darkviolet; /* Gold (dark-yellow) --> Blue --> Purple */
+            color: darkmagenta; /* Gold (dark-yellow) --> Blue --> Purple */
         }
 
         .aspace {
@@ -202,7 +204,7 @@
         function getPurpleA() {
             // create a span container 4, character 'a' && apply colour
             let spanA = document.createElement("span");
-            spanA.classList.add("ambitious");
+            spanA.classList.add("ambitious-odin");
             spanA.textContent = 'a';
             return spanA;
         }

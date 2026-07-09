@@ -132,17 +132,6 @@
             bottom: 30px;
             left: 20px;
         }
-
-        .ambitious { 
-            /*
-                [Qaru current_year+6] 
-                violet ~ purple
-                !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                'cause there isn't darkpurple in here; I have to use darkviolet ... ;-)
-                dark means heavy; 'N' ð reverse ..
-            */
-            color: darkviolet; /* Gold (dark-yellow) --> Blue --> Purple */
-        }
     </style>
 </head>
 <body>
@@ -381,7 +370,7 @@
                     */
                     // [an Algo]
                     // 1. paint character by character
-                    // 2. if the current letter is, 'a' then change colour of the Canvas to, 'darkviolet'
+                    // 2. if the current letter is, 'a' then change colour of the Canvas to, 'darkmagenta'
                     // 3. change the colour back 4 the next letter
                     // 4. justify the space between adjecent letters
 
@@ -391,7 +380,7 @@
                         if (anima[idd] == '-' || anima[idd] == '>')
                             subt = 6;
                         if (anima[idd] == 'a')
-                            ctx.fillStyle = 'darkviolet';
+                            ctx.fillStyle = 'darkmagenta';
                         ctx.fillText(anima[idd], 
                                         this.x + idd * 12 - subt, 
                                         this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
