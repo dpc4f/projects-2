@@ -271,9 +271,9 @@
             let ret = 0;
 
             if (ch >= 'A' && ch <= 'Z') {
-                // if ((nx >= 'A' && nx <= 'Z') || nx == '@' || ('a' <= nx && nx <= 'z')) ret = 2;
-                // else ret = 3;
-                ret = 2;
+                if ((nx >= 'A' && nx <= 'Z') || nx == '@') ret = 2;
+                else ret = 3;
+                // ret = 2;
             }
             else if ('0' <= ch && ch <= '9') 
                 ret = 1;
@@ -404,6 +404,8 @@
                                 break;
                             
                             case '-':
+                                if (idd < anima.length-1 && anima[idd+1] != '-')
+                                break;
                             case '>':
                                 subt += 6;
                                 break;
