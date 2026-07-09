@@ -89,6 +89,7 @@
             font-size: 1rem;
             box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
         }
+
         #play-pause-btn.paused {
             background: #ef4444;
             box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
@@ -178,8 +179,9 @@
                 <div class="point">{ Mouse, Snake }; Bear; Bat; { Whale, Quail, Shark }; { Chicken, Duck }</div>
                 <div class="point">Python; Pheasant; Falkon; Swan</div>
             </div>
-            <div class="diamond">
-                <div class="note">future affects present 'N' past.</div>
+            <div class="three-angels">
+                <div class="note">future affects present 'N' past</div>
+                <div class="note">Halving ð number six to become three && angle will be, 'angel'.</div>
                 <div class="note">LTDL, { lion, tiger, dragon, long-dragon }</div>
                 <div class="point">LTDL</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
@@ -196,10 +198,8 @@
     <div id="canvas-container">
         <canvas id="stage">
             
-        </canvas>
-        
-    </div>
-    
+        </canvas>     
+    </div> 
 
     <div id="control-panel">  
         <p class="note">
@@ -214,7 +214,7 @@
             <button class="btn" onclick="manualStateChange(2)">3. { Circle, Triangle Triad }</button>
             <button class="btn" onclick="manualStateChange(3)">4. Rectangle / Square</button>
             <button class="btn" onclick="manualStateChange(4)">5. Pentagon</button>
-            <button class="btn" onclick="manualStateChange(5)">6. Six Equal Angles</button>
+            <button class="btn" onclick="manualStateChange(5)">6. { Six Equal Angles, 3 angels }</button>
         </div>
 
         <div id="data-display">
@@ -264,11 +264,11 @@
                 labels: Array.from(pentDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
-            const diamondDiv = root.querySelector('.diamond');
-            if (diamondDiv) {
+            const angelsDiv = root.querySelector('.three-angels');
+            if (angelsDiv) {
                 states.push({ name: "Diamond Matrix",
-                notes: Array.from(diamondDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                labels: Array.from(diamondDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                notes: Array.from(angelsDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                labels: Array.from(angelsDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             return states;
