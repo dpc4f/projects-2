@@ -173,7 +173,7 @@
                 <div class="note">future affects present 'N' past</div>
                 <div class="note">Do halving ð number six to become three && angle will be, 'angel'.</div>
                 <div class="note">LTDL ~ l'Tal {/[softly] lờ/ + /t(h)on/}, { lion, tiger, dragon, long-dragon }</div>
-                <div class="point">l'Tal (LTDL)</div>
+                <div class="point">LTDL</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
                 <div class="point">Rhino; Elephant; Centipede; { Ape, Bee }; Snake</div>
                 <div class="point">{ Mouse, Rabbit }; Bear; { Bat, Octopus }; { Whale, Quail, Shark }; { Chicken, Duck }</div>
@@ -222,59 +222,64 @@
             const isolatedPoint = root.querySelector('.point-isolated');
             if (isolatedPoint) {
                 states.push({ name: "Isolated Point",
-                notes: Array.from(isolatedPoint.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                labels: Array.from(isolatedPoint.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(isolatedPoint.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                labels: Array.from(isolatedPoint.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const lineDiv = root.querySelector('.line');
             if (lineDiv) {
                 states.push({ name: "Line Segments", 
-                notes: Array.from(lineDiv.querySelectorAll('.note')).map(p => p.textContent.trim()), 
-                labels: Array.from(lineDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(lineDiv.querySelectorAll('.note')).map(p => p.textContent.trim()), 
+                                labels: Array.from(lineDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const circleTriangleDiv = root.querySelector('.circle.triangle');
             if (circleTriangleDiv) {
                 states.push({ name: "Circle / Triangle Blended Array",
-                notes: Array.from(circleTriangleDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                labels: Array.from(circleTriangleDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(circleTriangleDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                labels: Array.from(circleTriangleDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const rectDiv = root.querySelector('.rectangle');
             if (rectDiv) {
                 states.push({ name: "Rectangle Matrix",
-                notes: Array.from(rectDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(rectDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const pentDiv = root.querySelector('.pentagon');
             if (pentDiv) {
                 states.push({ name: "Pentagon Matrix",
-                notes: Array.from(pentDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                labels: Array.from(pentDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(pentDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                labels: Array.from(pentDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
 
             const angelsDiv = root.querySelector('.three-angels');
             if (angelsDiv) {
                 states.push({ name: "Diamond Matrix",
-                notes: Array.from(angelsDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                labels: Array.from(angelsDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(angelsDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                labels: Array.from(angelsDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
             }
+
+            // add a modifier 4 the supreme animal
+            states[5].labels[0] += "(l'Tal)";
 
             return states;
         };
   
         function isAllowedLetter(ch, nx = '') {
-            ret = 0;
-            if (ch == "'") 
+            let ret = 0;
+
+            if (ch >= 'A' && ch <= 'Z') {
+                // if ((nx >= 'A' && nx <= 'Z') || nx == '@' || ('a' <= nx && nx <= 'z')) ret = 2;
+                // else ret = 3;
                 ret = 2;
-            else if (ch >= 'A' && ch <= 'Z') {
-                if ((nx >= 'A' && nx <= 'Z') || nx == '@' || ('a' <= nx && nx <= 'z')) ret = 2;
-                else ret = 3;
             }
             else if ('0' <= ch && ch <= '9') 
                 ret = 1;
             else if ('a' <= ch && ch <= 'z') 
+                ret = 2;
+            else if (ch == "'") 
                 ret = 2;
             else if (ch == '-' || ch == '(' || ch == ')' || ch == '>')
                 ret = 4;
