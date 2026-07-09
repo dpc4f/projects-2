@@ -263,7 +263,7 @@
             }
 
             // add a modifier 4 the supreme animal
-            states[5].labels[0] += "(l'Tal)";
+            states[5].labels[0] += " (l'Tal)";
 
             return states;
         };
@@ -410,6 +410,10 @@
                                 break;
                             case '>':
                                 subt += 6;
+                                break;
+
+                            case '(':
+                                subt += 3;
                                 break;
 
                             default:
