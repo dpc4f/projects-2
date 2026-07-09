@@ -266,8 +266,10 @@
   
         function isAllowedLetter(ch, nx = '') {
             ret = 0;
-            if (ch >= 'A' && ch <= 'Z') {
-                if ((nx >= 'A' && nx <= 'Z') || nx == '@') ret = 2;
+            if (ch == "'") 
+                ret = 2;
+            else if (ch >= 'A' && ch <= 'Z') {
+                if ((nx >= 'A' && nx <= 'Z') || nx == '@' || ('a' <= nx && nx <= 'z')) ret = 2;
                 else ret = 3;
             }
             else if ('0' <= ch && ch <= '9') 
