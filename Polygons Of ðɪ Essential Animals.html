@@ -377,8 +377,6 @@
                     let idd = 0;
                     let subt = 0;
                     for (; idd < anima.length; ++idd) {
-                        if (anima[idd] == '-' || anima[idd] == '>')
-                            subt = 6;
                         if (anima[idd] == 'a')
                             ctx.fillStyle = 'darkmagenta';
                         ctx.fillText(anima[idd], 
@@ -388,6 +386,7 @@
                             subt += 9;
                         if (anima[idd] == 'i' || anima[idd] == 'l')
                             subt += 6;
+                        
                         switch (anima[idd]) 
                         {
                             case 'M': 
@@ -396,6 +395,12 @@
                             case 'w':
                                 subt -= 6;
                                 break;
+                            
+                            case '-':
+                            case '>':
+                                subt += 6;
+                                break;
+
                             default:
                                 break;
                         }
