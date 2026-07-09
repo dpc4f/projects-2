@@ -172,7 +172,7 @@
                 <div class="point">Mouse; Bear; Bat; { Whale, Shark }; Chicken</div>
             </div>
             <div class="pentagon">
-                <div class="note">[s, x] lục dục xúc dục --&gt; lục súc</div>
+                <div class="note">[s, x] lục dục xúc dục --&gt; lục súc, 6 cột trụ các thú</div>
                 <div class="note">cũng như octopus hay là { tôm; cua; mực } vậy; con dơi nó bay ñ ko phải là chim ..</div>
                 <div class="point">{ Lion; Tiger; Dragon; Long-dragon }</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
@@ -274,15 +274,7 @@
 
             return states;
         };
-
-        /*
-            [] colourize character, 'a'
-        */
-        function colourize_aMBITIOUS(str) {
-
-          
-        }
-        
+  
         function isAllowedLetter(ch, nx = '') {
             ret = 0;
             if (ch >= 'A' && ch <= 'Z') {
@@ -383,47 +375,45 @@
                         anima = tmp + anima[j];
                     }
 
+
+                    /*
+                        [] colourize character, 'a'
+                    */
                     // [an Algo]
-                    // use regex to part string, 'anima' 
-                    // fill parted string b4 character, 'a'
-                    // fill character 'a' in that it will have colour dark-violet
-                    // fill parted string 4b character, 'a' && b4 the next character 'a'
-                    // 'n' so on
-                    // 
-
-                    const rules = [{ regex: /a/g, replacement: '@' }];
-                    const rule = rules[0];
-
-                    // let convertedText = anima.replace(rule.regex, rule.replacement);
-                    // let partedConvertedText = convertedText.split('@');
-                    // let len = 0;
-                    // partedConvertedText.forEach((str, index) => {
-                    //     let l = 0;
-                    //     if (index > 0) 
-                    //         l = partedConvertedText[index - 1].length;
-                    //     len += (l > 3 ? (l - 3 + (l - 3) / 3) : l) * 15;
-                    //     ctx.fillText(str, this.x + len, 
-                    //     this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
-                    //     // ctx.fillText('a', this.x, this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
-                    // });
-
-                    // ctx.fillText(anima, this.x, 
-                    // this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
+                    // 1. paint character by character
+                    // 2. if the current letter is, 'a' then change colour of the Canvas to, 'darkviolet'
+                    // 3. change the colour back 4 the next letter
+                    // 4. justify the space between adjecent letters
 
                     let idd = 0;
                     let subt = 0;
                     for (; idd < anima.length; ++idd) {
+                        if (anima[idd] == '-' || anima[idd] == '>')
+                            subt = 6;
                         if (anima[idd] == 'a')
                             ctx.fillStyle = 'darkviolet';
-                        ctx.fillText(anima[idd], this.x + idd * 12 - subt, 
+                        ctx.fillText(anima[idd], 
+                                        this.x + idd * 12 - subt, 
                                         this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
                         if (anima[idd] == ',')
                             subt += 9;
                         if (anima[idd] == 'i' || anima[idd] == 'l')
                             subt += 6;
-                        if (anima[idd] == 'M' || anima[idd] == 'W' || anima[idd] == 'm' || anima[idd] == 'w') 
-                            subt -= 6;
-                         ctx.fillStyle = '#cbd5e1';
+                        switch (anima[idd]) 
+                        {
+                            case 'M': 
+                            case 'W': 
+                            case 'm':
+                            case 'w':
+                                subt -= 6;
+                                break;
+                            default:
+                                break;
+                        }
+                            
+
+
+                        ctx.fillStyle = '#cbd5e1';
                     }
                 });
 
