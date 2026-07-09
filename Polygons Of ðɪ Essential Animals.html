@@ -270,18 +270,19 @@
         function isAllowedLetter(ch, nx = '') {
             let ret = 0;
 
-            if (ch >= 'A' && ch <= 'Z') {
-                // if ((nx >= 'A' && nx <= 'Z') || nx == '@') ret = 2;
-                // else ret = 3;
+            if (ch == "'") 
                 ret = 2;
+            else if (ch >= 'A' && ch <= 'Z') {
+                if ((nx >= 'A' && nx <= 'Z') || ('a' <= nx && nx <= 'z') || nx == '@' || nx == ')' || nx == '(') 
+                    ret = 2;
+                else 
+                    ret = 3;
             }
             else if ('0' <= ch && ch <= '9') 
                 ret = 1;
             else if ('a' <= ch && ch <= 'z') 
                 ret = 2;
-            else if (ch == "'" || ch == ')' || ch == '(') 
-                ret = 2;
-            else if (ch == '-' || ch == '(' || ch == ')' || ch == '>')
+            else if (ch == '-' || ch == ',' || ch == '(' || ch == ')' || ch == '>')
                 ret = 4;
 
             return ret;
@@ -358,7 +359,7 @@
                         } else { 
                             anima += chunk[i];
                         }
-                        isAllowed > 3 ? isNew = false : isNew = true;
+                        isNew = (isAllowed == 3);
                     }
 
                     if (anima.length > 1) {
@@ -390,7 +391,7 @@
                                         this.x + idd * 12 - subt, 
                                         this.y - (this.radius + 12) - ((textChunks.length - 1 - idx) * 16));
                         if (anima[idd] == ',')
-                            subt += 9;
+                            subt -= 2;
                         if (anima[idd] == 'i' || anima[idd] == 'l')
                             subt += 6;
                         
