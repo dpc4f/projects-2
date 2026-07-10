@@ -345,13 +345,15 @@
         let width, height, cx, cy;
 
         class NodeParticle {
-            constructor() {
+            constructor(nodeIndex) {
+                const KOLOURS = ["red", "yellow", "blue", "green", "purple", "pink"];
+
                 this.x = window.innerWidth / 2;
                 this.y = window.innerHeight / 2;
                 this.targetX = this.x;
                 this.targetY = this.y;
                 this.radius = 8;
-                this.color = '#38bdf8';
+                this.color = KOLOURS[nodeIndex];
                 this.label = '';
                 this.alpha = 0;
                 this.targetAlpha = 0;
@@ -371,7 +373,8 @@
 
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(56, 189, 248, 0.15)';
+                // ctx.fillStyle = 'rgba(56, 189, 248, 0.15)';
+                ctx.fillStyle = this.color;
                 ctx.fill();
 
                 ctx.beginPath();
@@ -469,7 +472,8 @@
             }
         }
 
-        const particles = Array.from({ length: 6 }, () => new NodeParticle());
+        let nodeIndex = 0;
+        const particles = Array.from({ length: 6 }, () => new NodeParticle(nodeIndex++));
 
         function resize() {
             width = canvas.width = canvas.parentElement.clientWidth;
@@ -559,12 +563,12 @@
             }
             ctx.stroke();
 
-            // Draw the circle
+            // Draw the circle which is the triangle
             if (currentStateIndex === 2) {
                 ctx.beginPath();
                 const radius = Math.hypot(particles[0].x - cx, particles[0].y - cy);
                 ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(244, 63, 94, 1.15)';
+                ctx.strokeStyle = 'lightgreen';
                 ctx.stroke();
             }
             ctx.restore();
