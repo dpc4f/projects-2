@@ -127,16 +127,19 @@
             font-size: 14px;
             color: lightblue;
             margin-bottom: 9px;
+            margin-left: -3px;
         }
 
         .big {
             font-weight: bold;
             color: rgb(60, 149, 179);
+            margin-left: -3px;
         }
 
         .note-inline {
             display: inline-block;
             font-weight: normal;
+            padding-left: 3px;
         }
 
         .bottom-left-note { 
@@ -194,7 +197,7 @@
                 <div class="note">future affects present 'N' past</div>
                 <div class="note">Do halving ð number six to become three && angle will be, 'angel'.</div>
                 <div class="note">LTDL ~ l'Tal {/[softly] lờ/ + /t(h)on/}, { lion, tiger, dragon, long-dragon }</div>
-                <div class="big">Infanta Sofia y Ortiz de Todos los Santos; can be, Bear / Pig / Tiger OR Dragon.</div>
+                <div class="big">Infanta Sofia y Ortiz de Todos los Santos; can be, Bear / Pig / Tiger OR Dragon;.</div>
                 <div class="invisible">Therefore Krebs isn't listed here.</div>
                 <div class="point">LTDL</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
@@ -590,7 +593,11 @@
             if (state.bigNotes !== null) {
                 state.bigNotes.forEach(big => {
                     let parts = big.split(';');
-                    htmlContent += `<div class='big'>${parts[0]}<span> </span><span class='note-inline'> ${parts[1]}</span></div>`;
+                    htmlContent += `<div class='big'>${parts[0]}
+                        <span class='note-inline'> </span>
+                        <span class='note-inline'>${parts[1]}</span>
+                        <span class='big'>.</span>
+                        </div>`;
                 });
             }
             state.labels.forEach(label => {
