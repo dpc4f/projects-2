@@ -199,6 +199,8 @@
                 <div class="note">LTDL ~ l'Tal {/[softly] lờ/ + /t(h)on/}, { lion, tiger, dragon, long-dragon }</div>
                 <div class="big">Infanta Sofia y Ortiz de Todos los Santos; can be, Bear / Pig / Tiger OR Dragon;.</div>
                 <div class="invisible">Therefore Krebs isn't listed here.</div>
+                <div class="note">Locke, cá lóc</div>
+                <div class="note">Dodge, con Ki-ki</div>
                 <div class="point">LTDL</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
                 <div class="point">Rhino; Elephant; Centipede; { Ape, Bee }; Snake</div>
@@ -584,22 +586,32 @@
 
             const state = statesData[index];
             let htmlContent = `<h3>${state.name} Elements</h3><ul>`;
-            if (state.notes !== null) {
-                state.notes.forEach(note => {
-                    htmlContent += `<div class='note'>${note}</div>`;
-                    
-                });
+                
+            // add notes w/ big notes into the htmlContent
+            let len = state.notes !== null ? state.notes.length : 0;
+            let lenBig = state.bigNotes !== null ? state.bigNotes.length : 0;
+            let li = len < 2 ? len : len - 2;
+
+            let i = 0; // first notes
+            for (; i < li; ++i) {
+                htmlContent += `<div class='note'>${state.notes[i]}</div>`;
             }
-            if (state.bigNotes !== null) {
-                state.bigNotes.forEach(big => {
-                    let parts = big.split(';');
-                    htmlContent += `<div class='big'>${parts[0]}
-                        <span class='note-inline'> </span>
-                        <span class='note-inline'>${parts[1]}</span>
-                        <span class='big'>.</span>
-                        </div>`;
-                });
+            
+            i = 0; // then, big notes
+            for (; i < lenBig; ++i) {
+                let parts = state.bigNotes[i].split(';');
+                htmlContent += `<div class='big'>${parts[0]}
+                    <span class='note-inline'> </span>
+                    <span class='note-inline'>${parts[1]}</span>
+                    <span class='big'>.</span>
+                    </div>`;
             }
+
+            i = 0; // the 2 remained
+            for (; i < len - li; ++i) {
+                htmlContent += `<div class='note'>${state.notes[li+i]}</div>`;
+            }
+            
             state.labels.forEach(label => {
                 htmlContent += `<li>${label}</li>`;
             });
