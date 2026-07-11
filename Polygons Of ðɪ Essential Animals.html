@@ -251,6 +251,18 @@
                 <div class="point">Cat; Locke; Dodge; Pig</div>
                 <div class="invisible">Ki-ki is the king in the time of BUDDHA Kassapa.</div>
             </div>
+            <div class="extended-1">
+                <div class="note">Fungus / Mushroom</div>
+            </div>
+            <div class="extended-2">
+                <div class="note">Bacterium</div>
+            </div>
+            <div class="extended-3">
+                <div class="note">Virus</div>
+            </div>
+            <div class="extended-4">
+                <div class="note">Thực Vật && Bông Hoa [3 Flowers Only]</div>
+            </div>
         </div>
     </div>
 
@@ -309,10 +321,28 @@
                     <span class="inactive-moving-text span-block">Tender Wise, good; Maha Tender Wise, no-good</span>
                 </div>
             </button>
-            <button class="btn" onclick="manualStateChange(5)">
+            <button class="btn" onclick="manualStateChange(6)">
                 <div class="container">
-                    <span class="static-text">6. { Six Equal Angles, 3 phi nhân nữ vương }&nbsp;&nbsp;</span>
-                    <span class="inactive-moving-text span-block">Tender Wise, good; Maha Tender Wise, no-good</span>
+                    <span class="static-text">7. [extended]</span>
+                    <span class="inactive-moving-text span-block"></span>
+                </div>
+            </button>
+            <button class="btn" onclick="manualStateChange(7)">
+                <div class="container">
+                    <span class="static-text">8. [extended]</span>
+                    <span class="inactive-moving-text span-block"></span>
+                </div>
+            </button>
+            <button class="btn" onclick="manualStateChange(8)">
+                <div class="container">
+                    <span class="static-text">9. [extended]</span>
+                    <span class="inactive-moving-text span-block"></span>
+                </div>
+            </button>
+            <button class="btn" onclick="manualStateChange(9)">
+                <div class="container">
+                    <span class="static-text">10. [extended]</span>
+                    <span class="inactive-moving-text span-block"></span>
                 </div>
             </button>
         </div>
@@ -379,6 +409,38 @@
 
             // add a modifier 4 the supreme animal
             // states[5].labels[0] += " (l'Tal)";
+
+            const extendOneDiv = root.querySelector('.extended-1');
+            if (extendOneDiv) {
+                states.push({ name: "Extended 1",
+                                notes: Array.from(extendOneDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                bigNotes: Array.from(extendOneDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
+                                labels: Array.from(extendOneDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
+
+            const extendTwoDiv = root.querySelector('.extended-2');
+            if (extendTwoDiv) {
+                states.push({ name: "Extended 2",
+                                notes: Array.from(extendTwoDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                bigNotes: Array.from(extendTwoDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
+                                labels: Array.from(extendTwoDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
+
+            const extendThreeDiv = root.querySelector('.extended-3');
+            if (extendThreeDiv) {
+                states.push({ name: "Extended 3",
+                                notes: Array.from(extendThreeDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                bigNotes: Array.from(extendThreeDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
+                                labels: Array.from(extendThreeDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
+
+            const extendFourDiv = root.querySelector('.extended-4');
+            if (extendFourDiv) {
+                states.push({ name: "Extended 4",
+                                notes: Array.from(extendFourDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                bigNotes: Array.from(extendFourDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
+                                labels: Array.from(extendFourDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+            }
 
             return states;
         };
