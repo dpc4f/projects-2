@@ -330,25 +330,25 @@
             </button>
             <button class="btn" onclick="manualStateChange(6)">
                 <div class="container">
-                    <span class="static-text">7. [extended]</span>
+                    <span class="static-text">7. Extended 1</span>
                     <span class="inactive-moving-text span-block"></span>
                 </div>
             </button>
             <button class="btn" onclick="manualStateChange(7)">
                 <div class="container">
-                    <span class="static-text">8. [extended]</span>
+                    <span class="static-text">8. Extended 2</span>
                     <span class="inactive-moving-text span-block"></span>
                 </div>
             </button>
             <button class="btn" onclick="manualStateChange(8)">
                 <div class="container">
-                    <span class="static-text">9. [extended]</span>
+                    <span class="static-text">9. Extended 3</span>
                     <span class="inactive-moving-text span-block"></span>
                 </div>
             </button>
             <button class="btn" onclick="manualStateChange(9)">
                 <div class="container">
-                    <span class="static-text">10. [extended]</span>
+                    <span class="static-text">10. Extended 4</span>
                     <span class="inactive-moving-text span-block"></span>
                 </div>
             </button>
@@ -419,7 +419,7 @@
 
             const extendOneDiv = root.querySelector('.extended-1');
             if (extendOneDiv) {
-                states.push({ name: "Extended 1",
+                states.push({ name: "Extended 1 No-Shapes",
                                 notes: Array.from(extendOneDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendOneDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
                                 labels: Array.from(extendOneDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
@@ -427,7 +427,7 @@
 
             const extendTwoDiv = root.querySelector('.extended-2');
             if (extendTwoDiv) {
-                states.push({ name: "Extended 2",
+                states.push({ name: "Extended 2 No-Shapes",
                                 notes: Array.from(extendTwoDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendTwoDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
                                 labels: Array.from(extendTwoDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
@@ -435,7 +435,7 @@
 
             const extendThreeDiv = root.querySelector('.extended-3');
             if (extendThreeDiv) {
-                states.push({ name: "Extended 3",
+                states.push({ name: "Extended 3 No-Shapes",
                                 notes: Array.from(extendThreeDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendThreeDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
                                 labels: Array.from(extendThreeDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
@@ -443,7 +443,7 @@
 
             const extendFourDiv = root.querySelector('.extended-4');
             if (extendFourDiv) {
-                states.push({ name: "Extended 4",
+                states.push({ name: "Extended 4 No-Shapes",
                                 notes: Array.from(extendFourDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendFourDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
                                 labels: Array.from(extendFourDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
