@@ -162,6 +162,12 @@
             margin-bottom: 7px;
         }
 
+        .container {
+            display: flex;
+            width: 100%;             /* Or whatever specific width your layout needs */
+            overflow: hidden;        /* Prevents the moving text from spilling outside the div */
+        }
+
         .static-text {
             flex-shrink: 0;          /* Forces the static part to stay still and never squish */
         }
@@ -191,7 +197,7 @@
 
             100% {
                 /* Moves the text to the right by pushing it near the edge of its own width */
-                transform: translateX(82%); 
+                transform: translateX(100%); 
             }
         }
     </style>
@@ -402,7 +408,7 @@
 
             const angelsDiv = root.querySelector('.three-angels');
             if (angelsDiv) {
-                states.push({ name: "'Lục Giác Ma Trận'",
+                states.push({ name: "'Lục Giác' Matrix",
                                 notes: Array.from(angelsDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(angelsDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
                                 labels: Array.from(angelsDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
