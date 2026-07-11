@@ -351,6 +351,7 @@
         class NodeParticle {
             constructor(nodeIndex) {
                 const KOLOURS = ["red", "yellow", "blue", "green", "purple", "pink"];
+                const SHADOWCOLOURS = ['lightgrey', 'goldenrod', 'lightblue', 'darkgreen', 'magenta', 'darkviolet'];
 
                 this.x = window.innerWidth / 2;
                 this.y = window.innerHeight / 2;
@@ -358,6 +359,7 @@
                 this.targetY = this.y;
                 this.radius = 8;
                 this.color = KOLOURS[nodeIndex];
+                this.shadowcolor = SHADOWCOLOURS[nodeIndex];
                 this.label = '';
                 this.alpha = 0;
                 this.targetAlpha = 0;
@@ -385,7 +387,7 @@
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = this.color;
                 ctx.shadowBlur = 15;
-                ctx.shadowColor = this.color;
+                ctx.shadowColor = this.shadowcolor;
                 ctx.fill();
 
                 ctx.shadowBlur = 0;
