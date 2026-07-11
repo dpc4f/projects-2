@@ -201,12 +201,12 @@
             <div class="three-angels">
                 <div class="note">future affects present 'N' past</div>
                 <div class="note">Do halving ð number six to become three && angle will be, 'angel'.</div>
-                <div class="note">LTDL ~ l'Tal {/[softly] lờ/ + /t(h)on/}, { lion, tiger, dragon, long-dragon }</div>
+                <div class="note">l'Tal //[softly] lờ/ + /t(h)on// ~ LTDL [Lion, Tiger, Dragon, Long-dragon]</div>
                 <div class="big">Infanta Sofia y Ortiz de Todos los Santos; can be, Bear / Pig / Tiger OR Dragon;.</div>
                 <div class="invisible">Therefore Krebs isn't listed here.</div>
-                <div class="note">Locke, cá lóc</div>
-                <div class="note">Dodge, con Ki-ki</div>
-                <div class="point">LTDL</div>
+                <div class="note">locke, cá lóc</div>
+                <div class="note">dodge, con Ki-ki</div>
+                <div class="point">l'Tal ~ LTDL</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
                 <div class="point">Rhino; Elephant; Centipede; { Ape, Bee }; Snake</div>
                 <div class="point">{ Mouse, Rabbit }; Bear; { Bat, Octopus }; { Whale, Quail, Shark }; { Chicken, Duck }</div>
@@ -305,7 +305,7 @@
             }
 
             // add a modifier 4 the supreme animal
-            states[5].labels[0] += " (l'Tal)";
+            // states[5].labels[0] += " (l'Tal)";
 
             return states;
         };
@@ -315,6 +315,8 @@
 
             if (ch == "'") 
                 ret = 2;
+            else if (ch == '~') 
+                ret = -1;
             else if (ch >= 'A' && ch <= 'Z') {
                 if ((nx >= 'A' && nx <= 'Z') || ('a' <= nx && nx <= 'z') || nx == '@' || nx == ')' || nx == '(') 
                     ret = 2;
@@ -399,6 +401,8 @@
                     
                     for (; i < chunk.length; ++i) {
                         isAllowed = isAllowedLetter(chunk[i], i < chunk.length-1 ? chunk[i+1] : '@');
+
+                        if (isAllowed == -1) break;
                         if (isAllowed == 0) continue;
                         if (isAllowed == 3 && isNew) {
                             anima += ', ' + chunk[i];
