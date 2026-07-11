@@ -178,6 +178,10 @@
          
         }
 
+        .span-block {
+            display: block;
+        }
+
         /* The magic animation */
         @keyframes bounceText {
             0% {
@@ -186,7 +190,7 @@
 
             100% {
                 /* Moves the text to the right by pushing it near the edge of its own width */
-                transform: translateX(190%); 
+                transform: translateX(82%); 
             }
         }
     </style>
@@ -271,20 +275,40 @@
         <div style="display: flex; flex-direction: column; gap: 10px;">
             <button class="btn btn-container" onclick="manualStateChange(0)">
                 <div class="container">
-                    <span class="static-text">1. Point [Isolated]&nbsp;</span>
+                    <span class="static-text">1. Point [Isolated]&nbsp;&nbsp;</span>
                     <span class="moving-text">Potato Is Noblely Tasty</span>
                 </div>
             </button>
             <button class="btn btn-container" onclick="manualStateChange(1)">
-                 <div class="container">
-                    <span class="static-text">2. Line (Linear Pairs)&nbsp;</span>
-                    <span class="inactive-moving-text">Loops Is Neatly Endless</span>
+                <div class="container">
+                    <span class="static-text">2. Line (Linear Pairs)&nbsp;&nbsp;</span>
+                    <span class="inactive-moving-text">Loop Is Neatly Endless</span>
                 </div>
             </button>
-            <button class="btn" onclick="manualStateChange(2)">3. { Circle, Triangle Triad } Coconut Is Regularly Clean</button>
-            <button class="btn" onclick="manualStateChange(3)">4. Rectangle / Square</button>
-            <button class="btn" onclick="manualStateChange(4)">5. Pentagon</button>
-            <button class="btn" onclick="manualStateChange(5)">6. { Six Equal Angles, 3 phi nhân nữ vương }</button>
+            <button class="btn" onclick="manualStateChange(2)">
+                <div class="container">
+                    <span class="static-text">3. { Circle, Triangle Triad }&nbsp;&nbsp;</span>
+                    <span class="inactive-moving-text">Coconut Is Regularly Clean</span>
+                </div>
+            </button>
+            <button class="btn" onclick="manualStateChange(3)">
+                <div class="container">
+                    <span class="static-text">4. Rectangle / Square&nbsp;&nbsp;</span>
+                    <span class="inactive-moving-text">Square is the special case of Rectangle</span>
+                    </div>
+                </button>
+            <button class="btn" onclick="manualStateChange(4)">
+                <div class="container">
+                    <span class="static-text">5. Pentagon&nbsp;&nbsp;</span>
+                    <span class="inactive-moving-text">Pencil tames Aragon</span>
+                </div>
+            </button>
+            <button class="btn" onclick="manualStateChange(5)">
+                <div class="container">
+                    <span class="static-text">6. { Six Equal Angles, 3 phi nhân nữ vương }&nbsp;&nbsp;</span>
+                    <span class="inactive-moving-text span-block">Tender Good, good; Maha Tender Good, no-good</span>
+                </div>
+            </button>
         </div>
 
         <div id="data-display">
