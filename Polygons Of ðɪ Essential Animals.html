@@ -157,6 +157,38 @@
             margin-left: -3px;
         }
 
+        br {
+            margin-bottom: 7px;
+        }
+
+        .static-text {
+            flex-shrink: 0;          /* Forces the static part to stay still and never squish */
+        }
+
+        .moving-text {
+            display: inline-block;
+            animation: bounceText 2s ease-in-out infinite alternate;
+        }
+
+        .btn-container {
+            display: flex;
+            width: 100%;             /* Or whatever specific width your layout needs */
+            overflow: hidden;        /* Prevents the moving text from spilling outside the div */
+            white-space: nowrap;     /* Forces all the text to stay on a single line */
+         
+        }
+
+        /* The magic animation */
+        @keyframes bounceText {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                /* Moves the text to the right by pushing it near the edge of its own width */
+                transform: translateX(190%); 
+            }
+        }
     </style>
 </head>
 <body>
@@ -237,9 +269,19 @@
         <button id="play-pause-btn" class="btn" onclick="toggleAutoCycle()">⏸ Auto-Shifting ON</button>
         
         <div style="display: flex; flex-direction: column; gap: 10px;">
-            <button class="btn active" onclick="manualStateChange(0)">1. Point [Isolated]</button>
-            <button class="btn" onclick="manualStateChange(1)">2. Line (Linear Pairs)</button>
-            <button class="btn" onclick="manualStateChange(2)">3. { Circle, Triangle Triad }</button>
+            <button class="btn btn-container" onclick="manualStateChange(0)">
+                <div class="container">
+                    <span class="static-text">1. Point [Isolated]&nbsp;</span>
+                    <span class="moving-text">Potato Is Noblely Tasty</span>
+                </div>
+            </button>
+            <button class="btn btn-container" onclick="manualStateChange(1)">
+                 <div class="container">
+                    <span class="static-text">2. Line (Linear Pairs)&nbsp;</span>
+                    <span class="inactive-moving-text">Loops Is Neatly Endless</span>
+                </div>
+            </button>
+            <button class="btn" onclick="manualStateChange(2)">3. { Circle, Triangle Triad } Coconut Is Regularly Clean</button>
             <button class="btn" onclick="manualStateChange(3)">4. Rectangle / Square</button>
             <button class="btn" onclick="manualStateChange(4)">5. Pentagon</button>
             <button class="btn" onclick="manualStateChange(5)">6. { Six Equal Angles, 3 phi nhân nữ vương }</button>
@@ -600,8 +642,19 @@
             currentStateIndex = index;
             
             document.querySelectorAll('#control-panel .btn:not(#play-pause-btn)').forEach((btn, idx) => {
-                if (idx === index) btn.classList.add('active');
-                else btn.classList.remove('active');
+                if (idx === index) {
+                    btn.classList.add('active');
+                    btn.querySelectorAll('.inactive-moving-text').forEach((spn) => { 
+                        spn.classList.add('moving-text');
+                        spn.classList.remove('inactive-moving-text');
+                    });
+                } else {
+                    btn.classList.remove('active');
+                    btn.querySelectorAll('.moving-text').forEach((spn) => { 
+                        spn.classList.remove('moving-text');
+                        spn.classList.add('inactive-moving-text');
+                    });
+                }
             });
 
             const state = statesData[index];
