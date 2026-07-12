@@ -259,10 +259,12 @@
                 <div class="invisible">Ki-ki is the king in the time of BUDDHA Kassapa.</div>
             </div>
             <div class="extended-1">
-                <div class="note">Fungus / Mushroom</div>
+                <div class="note">DENIS' EMPIRE</div>
+                <div class="zipped-point">Fungus / Mushroom</div>
             </div>
             <div class="extended-2">
                 <div class="note">Bacterium</div>
+                <div class="zipped-point">bacteria will have No. eight (8, bát)</div>
             </div>
             <div class="extended-3">
                 <div class="note">Virus</div>
@@ -422,7 +424,7 @@
                 states.push({ name: "Extended 1 No-Shapes",
                                 notes: Array.from(extendOneDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendOneDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(extendOneDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                labels: Array.from(extendOneDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
             }
 
             const extendTwoDiv = root.querySelector('.extended-2');
@@ -430,7 +432,7 @@
                 states.push({ name: "Extended 2 No-Shapes",
                                 notes: Array.from(extendTwoDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendTwoDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(extendTwoDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                labels: Array.from(extendTwoDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
             }
 
             const extendThreeDiv = root.querySelector('.extended-3');
@@ -438,7 +440,7 @@
                 states.push({ name: "Extended 3 No-Shapes",
                                 notes: Array.from(extendThreeDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendThreeDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(extendThreeDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                labels: Array.from(extendThreeDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
             }
 
             const extendFourDiv = root.querySelector('.extended-4');
@@ -446,7 +448,7 @@
                 states.push({ name: "Extended 4 No-Shapes",
                                 notes: Array.from(extendFourDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendFourDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(extendFourDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                labels: Array.from(extendFourDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
             }
 
             return states;
@@ -684,6 +686,27 @@
                     p.targetX = cx + offsets[i][0];
                     p.targetY = cy + offsets[i][1];
                 }
+                else if (currentStateIndex === 6) {
+                    const offsets = [];
+                    p.targetX = 0;
+                    p.targetY = 0;
+                }
+                else if (currentStateIndex === 7) {
+                    const offsets = [];
+                    p.targetX = 0;
+                    p.targetY = 0;
+                 
+                }
+                else if (currentStateIndex === 8) {
+                    const offsets = [];
+                    p.targetX = 0;
+                    p.targetY = 0;
+                }
+                else if (currentStateIndex === 9) {
+                    const offsets = [];
+                    p.targetX = 0;
+                    p.targetY = 0;
+                }
             }
         }
 
@@ -736,10 +759,10 @@
             ctx.restore();
         }
 
-        // Internal State Swapper
-        function applyState(index) {
+        const DENNIS_KINGDOM = 6;
+
+        function applyState(index) { // Internal State Swapper
             currentStateIndex = index;
-            
             document.querySelectorAll('#control-panel .btn:not(#play-pause-btn)').forEach((btn, idx) => {
                 if (idx === index) {
                     btn.classList.add('active');
@@ -790,6 +813,7 @@
 
             htmlContent += `</ul>`;
             document.getElementById('node-content').innerHTML = htmlContent;
+            
             calculateLayout();
         }
 
@@ -820,12 +844,11 @@
         // Primary animation loop frame execution
         function animate() {
             ctx.clearRect(0, 0, width, height);
-
-            // Handle Timing Cycles
-            if (isAutoCycling) {
+          
+            if (isAutoCycling) { // Handle Timing Cycles
                 const now = Date.now();
                 const elapsed = now - lastStateTime;
-                const timeToNextLap = cycleDuration + (currentStateIndex + 1) * cycleDuration / 1.5;
+                const timeToNextLap = cycleDuration + (currentStateIndex<DENNIS_KINGDOM ? currentStateIndex+1 : 0) * cycleDuration / 1.9;
                 cycleProgress = Math.min(elapsed / timeToNextLap, 1);
 
                 if (elapsed >= timeToNextLap) {
