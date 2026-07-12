@@ -175,6 +175,9 @@
         .moving-text {
             display: inline-block;
             animation: bounceText 2s ease-in-out infinite alternate;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            text-align: center;
         }
 
         .btn-container {
@@ -182,11 +185,15 @@
             width: 100%;             /* Or whatever specific width your layout needs */
             overflow: hidden;        /* Prevents the moving text from spilling outside the div */
             white-space: nowrap;     /* Forces all the text to stay on a single line */
-         
         }
 
         .span-block {
             display: block;
+        }
+
+        .inactive-moving-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
         }
 
         /* The magic animation */
@@ -331,8 +338,8 @@
             </button>
             <button class="btn" onclick="manualStateChange(5)">
                 <div class="container">
-                    <span class="static-text">6. { Six Equal Angles, 3 phi nhân nữ vương }&nbsp;&nbsp;</span>
-                    <span class="inactive-moving-text span-block">Tender Wise, good; Maha Tender Wise, no-good</span>
+                    <span class="static-text">6. Six Equal Angles, 3 phi nhân nữ vương&nbsp;&nbsp;</span>
+                    <span class="inactive-moving-text span-block">Tender Wise, good; Maha Tender Wise, bad</span>
                 </div>
             </button>
             <button class="btn" onclick="manualStateChange(6)">
