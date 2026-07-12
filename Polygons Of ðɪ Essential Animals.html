@@ -850,7 +850,8 @@
             if (isAutoCycling) { // Handle Timing Cycles
                 const now = Date.now();
                 const elapsed = now - lastStateTime;
-                const timeToNextLap = cycleDuration + (currentStateIndex<DENNIS_KINGDOM ? currentStateIndex+1 : 0) * cycleDuration / 1.9;
+                const timeToNextLap = cycleDuration + (currentStateIndex<DENNIS_KINGDOM ? currentStateIndex+1 : 
+                                        (DENNIS_KINGDOM-2-(-DENNIS_KINGDOM+currentStateIndex)))*cycleDuration/1.9;
                 cycleProgress = Math.min(elapsed / timeToNextLap, 1);
 
                 if (elapsed >= timeToNextLap) {
