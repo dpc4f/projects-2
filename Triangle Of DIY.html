@@ -11,7 +11,7 @@
             padding: 0;
             background-color: #0b0c10;
             overflow: hidden;
-            display: flex;
+            
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -31,14 +31,18 @@
         }
 
         .note-top-right {
+            font-size: 17px;
+            color: darkgreen;
             position: absolute;
-            top: 20px;
-            right: 40px;
+        
+            margin-left: 0;
+            left: 1500px;
         }
         
         .instruction {
             position: absolute;
             bottom: 20px;
+            left: 610px;
             color: rgba(141, 4, 4, 0.877);
             font-size: 24px;
             letter-spacing: 1px;
@@ -46,13 +50,19 @@
             text-align: center;
             margin-left: 0;
         }
+
+        .note-invisible {
+            display: none
+        }
     </style>
 </head>
 
 <body>
+    <span class="note note-top-right">SoD, Solitarily operating Diy</span>
+    <span class="note-invisible">there're times Davios the Eliteness ought to proceed / move next alone.</span>
     <canvas id="diyCanvas"></canvas>
     <div class="note instruction">w/ this triangle character 'I' can be converted to, 'Y' && vice versa</div>
-    <div class="note note-top-right">SoD, Solitarily operating Diy</div>
+   
 
     <script>
         const canvas = document.getElementById('diyCanvas');
