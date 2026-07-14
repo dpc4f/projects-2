@@ -41,11 +41,11 @@
             background: var(--panel-bg);
             backdrop-filter: blur(12px);
             border-left: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 24px;
+            padding: 10px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 5px;
             z-index: 10;
             box-shadow: -5px 0 25px rgba(0,0,0,0.3);
         }
@@ -64,8 +64,8 @@
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-color);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 6px 4px;
-            border-radius: 3px;
+            padding: 4px 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: 720;
             text-align: left;
@@ -101,10 +101,12 @@
         #data-display {
             flex: 1;
             background: rgba(0, 0, 0, 0.2);
-            border-radius: 0;
-            padding: 15px;
+            border-radius: 11px;
+            margin-top: 10px;
+            padding: 14px;
             font-size: 0.9rem;
-            overflow-y: auto;
+            overflow-y: hidden;
+            
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -300,6 +302,9 @@
                 <div class="zipped-point">flowers, { red lotus; virgin woman; mộc lan }</div>
                 <div class="zipped-point">Rivers need to include trees OR @least, wild grasses.</div>
             </div>
+            <div class="misce">
+                <div class="note">David 'N' closedly related Ones</div>
+            </div>
         </div>
     </div>
 
@@ -383,6 +388,12 @@
             <button class="btn" onclick="manualStateChange(9)">
                 <div class="container">
                     <span class="static-text">10. Extended 4</span>
+                    <span class="inactive-moving-text span-block"></span>
+                </div>
+            </button>
+            <button class="btn" onclick="manualStateChange(10)">
+                <div class="container">
+                    <span class="static-text">11. Miscellaneous</span>
                     <span class="inactive-moving-text span-block"></span>
                 </div>
             </button>
@@ -481,6 +492,14 @@
                                 notes: Array.from(extendFourDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(extendFourDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
                                 labels: Array.from(extendFourDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
+            }
+
+            const miscDiv = root.querySelector('.misce');
+            if (miscDiv) {
+                states.push({ name: "Miscellaneous",
+                                notes: Array.from(miscDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                bigNotes: Array.from(miscDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
+                                labels: Array.from(miscDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
             }
 
             return states;
