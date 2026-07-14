@@ -305,6 +305,7 @@
             </div>
             <div class="misce">
                 <div class="note">David 'N' closedly related Ones</div>
+                <div class="zipped-point">Davis, l'Tal</div>
             </div>
         </div>
     </div>
@@ -901,7 +902,7 @@
                 const now = Date.now();
                 const elapsed = now - lastStateTime;
                 const timeToNextLap = cycleDuration + (currentStateIndex<DENNIS_KINGDOM ? currentStateIndex+1 : 
-                                        (DENNIS_KINGDOM-2-(-DENNIS_KINGDOM+currentStateIndex)))*cycleDuration/1.9;
+                                        (DENNIS_KINGDOM+2))*cycleDuration/1.9;
                 cycleProgress = Math.min(elapsed / timeToNextLap, 1);
 
                 if (elapsed >= timeToNextLap) {
