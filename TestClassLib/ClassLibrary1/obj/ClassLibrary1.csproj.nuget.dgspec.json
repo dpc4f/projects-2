@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\projects-2\\TestClassLib\\ClassLibrary1\\ClassLibrary1.csproj": {}
+    "D:\\projects-3\\projects-2\\TestClassLib\\ClassLibrary1\\ClassLibrary1.csproj": {}
   },
   "projects": {
-    "D:\\projects-2\\TestClassLib\\ClassLibrary1\\ClassLibrary1.csproj": {
+    "D:\\projects-3\\projects-2\\TestClassLib\\ClassLibrary1\\ClassLibrary1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projects-2\\TestClassLib\\ClassLibrary1\\ClassLibrary1.csproj",
+        "projectUniqueName": "D:\\projects-3\\projects-2\\TestClassLib\\ClassLibrary1\\ClassLibrary1.csproj",
         "projectName": "ClassLibrary1",
-        "projectPath": "D:\\projects-2\\TestClassLib\\ClassLibrary1\\ClassLibrary1.csproj",
+        "projectPath": "D:\\projects-3\\projects-2\\TestClassLib\\ClassLibrary1\\ClassLibrary1.csproj",
         "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-        "outputPath": "D:\\projects-2\\TestClassLib\\ClassLibrary1\\obj\\",
+        "outputPath": "D:\\projects-3\\projects-2\\TestClassLib\\ClassLibrary1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config"
