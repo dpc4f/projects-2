@@ -228,14 +228,14 @@
                 Array.from(container.children).forEach(child => child.classList.add('fade-out'));
 
                 setTimeout(() => {
-                    container.innerHTML = `<span class="word-part fade-in" style="color: #00FF87; font-size: 2.8rem;">
-                        cá <--> <span style="color: #E7F2E9;">chim</span>`;
+                    container.innerHTML = `<span class="word-part fade-in" style="color: #4A00E0; font-size: 2.8rem;">
+                        cá <--> chim</span>`;
                     container.offsetHeight;
                     container.children[0].classList.remove('fade-in');
 
                     step++;
-                    timeoutId = setTimeout(runSequence, intervalDuration + 500); // Give the final phrase a tad longer
-                }, 500);
+                    timeoutId = setTimeout(runSequence, intervalDuration + 1000); // Give the final phrase a tad longer
+                }, 1000);
             }
             // --- CASE 3: Reset and Restart Loop Automatically ---
             else {
