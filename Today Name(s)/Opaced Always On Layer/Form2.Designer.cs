@@ -28,36 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtDaveName4Today = new System.Windows.Forms.RichTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // txtDaveName4Today
-            // 
-            this.txtDaveName4Today.Location = new System.Drawing.Point(70, 65);
-            this.txtDaveName4Today.Name = "txtDaveName4Today";
-            this.txtDaveName4Today.ReadOnly = true;
-            this.txtDaveName4Today.Size = new System.Drawing.Size(612, 96);
-            this.txtDaveName4Today.TabIndex = 9;
-            this.txtDaveName4Today.Text = "";
-            // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(154, 205);
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.textBox1.Location = new System.Drawing.Point(0, 7);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(396, 20);
+            this.textBox1.Size = new System.Drawing.Size(355, 13);
             this.textBox1.TabIndex = 10;
+            this.textBox1.TabStop = false;
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(759, 288);
+            this.ClientSize = new System.Drawing.Size(355, 32);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.txtDaveName4Today);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form2";
+            this.Opacity = 0.61D;
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
@@ -67,7 +62,6 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox txtDaveName4Today;
         private System.Windows.Forms.TextBox textBox1;
     }
 }
