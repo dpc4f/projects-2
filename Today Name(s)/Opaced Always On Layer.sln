@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 15 for Windows Desktop
+VisualStudioVersion = 15.0.37327.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opaced Always On Layer", "Opaced Always On Layer\Opaced Always On Layer.csproj", "{5055DE2E-4093-4DE2-A4EF-F2CDEE7529EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5055DE2E-4093-4DE2-A4EF-F2CDEE7529EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5055DE2E-4093-4DE2-A4EF-F2CDEE7529EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5055DE2E-4093-4DE2-A4EF-F2CDEE7529EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5055DE2E-4093-4DE2-A4EF-F2CDEE7529EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B6F99BF-F377-49AE-B7E0-DCFBAA9D5516}
+	EndGlobalSection
+EndGlobal
