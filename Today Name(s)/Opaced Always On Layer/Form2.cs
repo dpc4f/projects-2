@@ -36,13 +36,24 @@ namespace Opaced_Always_On_Layer
         private void Form2_Load(object sender, EventArgs e)
         {
             this.textBox1.Text = "Nai Chúa bậc Đế Ngưu Đấng Y vương hiệu Gia Long mộc Rồng Xanh";
+            
             this.Left = 1555;
             this.Top = 137;
+            this.Width = this.textBox1.Width;
+            this.Height = textBox1.Height;
+            textBox1.Left = 0;
+            textBox1.Top = 0;
+            this.PerformLayout();
         }
 
         private void btnMovements_KeyPress(object sender, KeyPressEventArgs e)
         {
             MessageBox.Show("A key has been pressed.");
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
