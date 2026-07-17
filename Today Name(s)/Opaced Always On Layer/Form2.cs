@@ -35,7 +35,7 @@ namespace Opaced_Always_On_Layer
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            this.textBox1.Text = "Nai Chúa Bậc Đế Ngưu Đấng Y vương hiệu Gia Long mộc Rồng Xanh";
+            this.textBox1.Text = "Nai Chúa bậc Đế Ngưu Đấng Y vương hiệu Gia Long mộc Rồng Xanh";
             this.Left = 1555;
             this.Top = 137;
         }
