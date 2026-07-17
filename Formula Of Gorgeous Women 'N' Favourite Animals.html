@@ -102,6 +102,20 @@
             color: darkblue;
         }
 
+        .lioness {
+            font-size: 18px;
+            color: rgb(20, 150, 9);
+        }
+
+        .sa\^u {
+            font-size: 18px;
+            color: rgb(4, 85, 65);
+        }
+
+        .quail {
+            color: blue;
+        }
+
         .center {
             text-align: center;
             color: darkgoldenrod;
@@ -250,7 +264,7 @@
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
             document.getElementById('ANI-2').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2])) +
-                ` / <span class='elephale'>Whale</span>`; /* specially 4 bél Anna */
+                ` / <span class='elephale'>Whale clan</span>`; /* specially 4 bél Anna */
             document.getElementById('ANI-3').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
             document.getElementById('ANI-4').innerHTML =
@@ -261,9 +275,12 @@
             //     exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
             document.getElementById('ANI-7').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2])) +
-                ` / <span class='bear'>Bear</span>`; /* specially 4 Infanta Sofia */;
+                ` / <span class='bear'>Bear</span>` +
+                ` / <span class='lioness'>Lioness</span>` +
+                ` / <span class='sa^u'>Worm</span>`; /* specially 4 Infanta Sapphire */;
             document.getElementById('ANI-8').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-8').innerHTML.split(' ')[2]));
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-8').innerHTML.split(' ')[2])) +
+                ` / <span class='quail'>Quail</span>`;
 
             document.getElementById('dateTime').innerHTML = convertToElteWithDayName();
             exchange2Animal();
