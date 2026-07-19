@@ -23,7 +23,7 @@
             cursor: pointer;
         }
 
-        .instructions {
+        .instruction {
             position: absolute;
             bottom: 20px;
             color: rgba(212, 160, 160, 0.877);
@@ -38,7 +38,7 @@
 <body>
 
     <canvas id="diyCanvas"></canvas>
-    <div class="instructions">EOA, Eliteness Of Axes</div>
+    <div class="instruction">EOA, Eliteness Of Axes</div>
 
     <script>
         const canvas = document.getElementById('diyCanvas');
@@ -52,7 +52,7 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Color definitions
+        // Colour definitions
         const colors = {
             D: '#FFBF00', // Amber
             I: '#50C878', // Emerald
