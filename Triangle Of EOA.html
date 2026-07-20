@@ -32,6 +32,19 @@
             pointer-events: none;
             text-align: center;
         }
+
+        .note-top-right {
+            font-size: 17px;
+            color: darkgreen;
+            position: absolute;
+        
+            margin-left: 0;
+            left: 1500px;
+        }
+
+        .note-invisible {
+            display: none
+        }
     </style>
 </head>
 
@@ -39,6 +52,11 @@
 
     <canvas id="diyCanvas"></canvas>
     <div class="instruction">EOA, Eliteness Of Axes</div>
+    <div class="note-top-right">
+        [ı, dotless i][a taxonomy]<br/>
+        AıO,  All In One<br/>
+    </div>
+    <div class="note-invisible">MS Word cannot convert ı to become, uppercase-dotless-ı</div>
 
     <script>
         const canvas = document.getElementById('diyCanvas');
