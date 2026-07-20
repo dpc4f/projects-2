@@ -15,7 +15,7 @@ namespace Opaced_Always_On_Layer
         // Define the Windows API Constants
         private const int WS_EX_TRANSPARENT = 0x20;
         private const int WS_EX_LAYERED = 0x80000;
-       
+        Color color = Color.DarkBlue;
 
         public Form2()
         {
@@ -61,6 +61,7 @@ namespace Opaced_Always_On_Layer
             this.Height = textBox1.Height;
             textBox1.Left = 0;
             textBox1.Top = 0;
+            this.timer1.Start();
             this.PerformLayout();
         }
 
@@ -68,6 +69,13 @@ namespace Opaced_Always_On_Layer
         {
             notifyIcon1.Dispose();
             base.OnFormClosing(e);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            color = color == Color.DarkBlue ? Color.LightGreen : Color.DarkBlue;
+            this.textBox1.ForeColor = color;
+            this.textBox1.Update();
         }
     }
 }
