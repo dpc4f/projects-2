@@ -65,10 +65,7 @@
             this.Name = "Form2";
             this.Opacity = 0.8D;
             this.Text = "Form2";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.Form2_Load);
-            
-
             this.ResumeLayout(false);
             this.PerformLayout();
 
