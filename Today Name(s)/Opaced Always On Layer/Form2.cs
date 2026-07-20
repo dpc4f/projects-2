@@ -15,10 +15,27 @@ namespace Opaced_Always_On_Layer
         // Define the Windows API Constants
         private const int WS_EX_TRANSPARENT = 0x20;
         private const int WS_EX_LAYERED = 0x80000;
+       
 
         public Form2()
         {
             InitializeComponent();
+
+            
+            // A valid Icon is required, otherwise the tray icon won't show up!
+            notifyIcon1.Icon = SystemIcons.Application; // Replace with your own .ico file if available
+            notifyIcon1.Text = "My Name";
+
+            // Double-clicking the tray icon restores the app
+            notifyIcon1.DoubleClick += TrayIcon_DoubleClick;
+
+            // 2. Hide the main app button from the Windows Taskbar
+            this.ShowInTaskbar = false;
+        }
+
+        private void TrayIcon_DoubleClick(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         protected override CreateParams CreateParams
@@ -36,26 +53,21 @@ namespace Opaced_Always_On_Layer
         private void Form2_Load(object sender, EventArgs e)
         {
             this.textBox1.Text = "Nai Chúa bậc Đế Ngưu Đấng Y vương hiệu Gia Long mộc Rồng Xanh";
-            
+            // this.Hide(); // Removes the window from the taskbar
+            notifyIcon1.Visible = true;
             this.Left = 1555;
             this.Top = 137;
             this.Width = this.textBox1.Width;
             this.Height = textBox1.Height;
             textBox1.Left = 0;
             textBox1.Top = 0;
-         
-            
             this.PerformLayout();
         }
 
-        private void btnMovements_KeyPress(object sender, KeyPressEventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            MessageBox.Show("A key has been pressed.");
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            notifyIcon1.Dispose();
+            base.OnFormClosing(e);
         }
     }
 }
