@@ -15,7 +15,7 @@ namespace Opaced_Always_On_Layer
         // Define the Windows API Constants
         private const int WS_EX_TRANSPARENT = 0x20;
         private const int WS_EX_LAYERED = 0x80000;
-        Color color = Color.LightGreen;
+        Color color = Color.DarkBlue;
 
         public Form2()
         {
