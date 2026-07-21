@@ -61,6 +61,7 @@ namespace Opaced_Always_On_Layer
             this.Height = textBox1.Height;
             textBox1.Left = 0;
             textBox1.Top = 0;
+            this.textBox1.ForeColor = color;
             this.timer1.Start();
             this.PerformLayout();
         }
