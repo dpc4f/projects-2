@@ -210,6 +210,11 @@
             margin-left: 24px;
         }
 
+        .head {
+            font-weight: 900 !important;
+            color: lightgreen;
+        }
+
         /* The magic animation */
         @keyframes bounceText {
             0% {
@@ -289,6 +294,7 @@
             </div>
             <div class="extended-1">
                 <div class="note">DENIS' REAL ESTATE EMPIRE</div>
+                <div class="note"><span class="head">Đế Chế Phấn Tảo Y</span></div>
                 <div class="note">[nấm; !cây-nấm] { rơm; mèo (mộc nhĩ); Đông Cô; mốc } w/ { bào tử nấm }</div>
                 <div class="note">[a fact] fungi are a sole kingdom; fungi aren't plants OR animals ..</div>
                 <div class="note">núm dzú</div>
@@ -486,7 +492,7 @@
             const extendOneDiv = root.querySelector('.extended-1');
             if (extendOneDiv) {
                 states.push({ name: "Extended 1 No-Shapes",
-                                notes: Array.from(extendOneDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
+                                notes: Array.from(extendOneDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
                                 bigNotes: Array.from(extendOneDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
                                 labels: Array.from(extendOneDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
             }
@@ -520,7 +526,8 @@
                 states.push({ name: "Miscellaneous",
                                 notes: Array.from(miscDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
                                 bigNotes: Array.from(miscDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(miscDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
+                                labels: Array.from(miscDiv.querySelectorAll('.point, .zipped-point, .zipped-point-2'))
+                                    .map(p => p.textContent.trim()) });
             }
 
             return states;
@@ -831,7 +838,7 @@
             ctx.restore();
         }
 
-        const DENNIS_KINGDOM = 6;
+        const DENNIS_KINGDOM = 6; // Vương Quốc Động Vật
 
         function applyState(index) { // Internal State Swapper
             currentStateIndex = index;
