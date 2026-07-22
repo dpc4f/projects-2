@@ -215,6 +215,11 @@
             color: lightgreen;
         }
 
+        h4 {
+            display: inline-block;
+            color: goldenrod;
+        }
+
         /* The magic animation */
         @keyframes bounceText {
             0% {
@@ -294,7 +299,7 @@
             </div>
             <div class="extended-1">
                 <div class="note">DENIS' REAL ESTATE EMPIRE</div>
-                <div class="note"><span class="head">Đế Chế Phấn Tảo Y</span></div>
+                <div class="note"><span class="head">Đế Chế Phấn Tảo <h4>w/</h4> Vương Quốc Động Vật</span></div>
                 <div class="note">[nấm; !cây-nấm] { rơm; mèo (mộc nhĩ); Đông Cô; mốc } w/ { bào tử nấm }</div>
                 <div class="note">[a fact] fungi are a sole kingdom; fungi aren't plants OR animals ..</div>
                 <div class="note">núm dzú</div>
@@ -319,6 +324,9 @@
             </div>
             <div class="extended-4">
                 <div class="note">Flower w/ Plant</div>
+                <div class="zipped-point">Trees' Country - ĐẤT NƯỚC CÂY CỐI</div>
+                <div class="invisible">Flowers are plants' reproduction body part.</div>
+                <div class="hidden">//tri zz/ + 4*'white spaces' + /cun tri//</div>
                 <div class="zipped-point">Oak là cây sồi.</div>
                 <div class="zipped-point">There're only 3 types of flowers.</div> 
                 <div class="zipped-point">flowers, { red lotus; virgin woman; mộc lan }</div>
@@ -569,6 +577,13 @@
         const canvas = document.getElementById('stage');
         const ctx = canvas.getContext('2d');
         let width, height, cx, cy;
+
+        const DVATTIMSAKARA = [ 
+                                'tóc', 'lông', 'móng', 'răng', 'da', 'thịt', 'gân', 'xương', 'tủy', 'thận','tim', 'gan', 'hoành cách mô', 
+                                'lá lách', 'phổi', 'ruột', 'màng ruột', 'bụng', 'phân', 'mật', 'đàm', 'mủ', 'máu', 'mồ hôi',
+                                'mỡ', 'nước mắt', 'mỡ da', 'nước miếng', 'nước mủ', 'chất nhờn ở khớp', 'nước tiểu' /* 'N' */, 
+                                'não trong đầu' 
+                            ];
 
         class NodeParticle {
             constructor(nodeIndex) {
