@@ -866,8 +866,14 @@
                 let canvas = document.getElementById('stage');
                 canvas.classList.add('hidden');
                 let div = document.getElementById('content');
+                div.classList.remove('invisible');
                 div.textContent = DVATTIMSAKARA;
                 return;
+            } else {
+                let canvas = document.getElementById('stage');
+                canvas.classList.remove('hidden');
+                let div = document.getElementById('content');
+                div.classList.add('invisible');
             }
 
             document.querySelectorAll('#control-panel .btn:not(#play-pause-btn)').forEach((btn, idx) => {
