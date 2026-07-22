@@ -355,7 +355,8 @@
     <div id="canvas-container">
         <canvas id="stage">
             
-        </canvas>     
+        </canvas> 
+        <div id="content"></div>    
     </div> 
 
     <div id="control-panel">  
@@ -719,6 +720,7 @@
 
         let nodeIndex = 0;
         const particles = Array.from({ length: 6 }, () => new NodeParticle(nodeIndex++));
+        const DENNIS_KINGDOM = 6; // Vương Quốc Động Vật
 
         function resize() {
             width = canvas.width = canvas.parentElement.clientWidth;
@@ -805,6 +807,8 @@
         }
 
         function drawGeometricBackbone() {
+            if (currentStateIndex >= DENNIS_KINGDOM) return;
+
             const state = statesData[currentStateIndex];
             const totalNodes = state.labels.length;
 
@@ -853,10 +857,19 @@
             ctx.restore();
         }
 
-        const DENNIS_KINGDOM = 6; // Vương Quốc Động Vật
+        
 
         function applyState(index) { // Internal State Swapper
             currentStateIndex = index;
+
+            if (currentStateIndex >= DENNIS_KINGDOM) {
+                let canvas = document.getElementById('stage');
+                canvas.classList.add('hidden');
+                let div = document.getElementById('content');
+                div.textContent = DVATTIMSAKARA;
+                return;
+            }
+
             document.querySelectorAll('#control-panel .btn:not(#play-pause-btn)').forEach((btn, idx) => {
                 if (idx === index) {
                     btn.classList.add('active');
