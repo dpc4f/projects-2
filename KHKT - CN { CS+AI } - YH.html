@@ -23,7 +23,7 @@
             cursor: pointer;
         }
 
-        .instructions {
+        .instruction {
             position: absolute;
             bottom: 20px;
             color: rgba(34, 136, 177, 0.877);
@@ -40,17 +40,28 @@
             bottom: 60px;
             position: absolute;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
 
     <canvas id="diyCanvas"></canvas>
-    <div class="instructions">Khoa Học Kỹ Thuật<br>
+    <div class="instruction">Khoa Học Kỹ Thuật<br>
     Công Nghệ<br>
     Y Học</div>
 
     <div class="note">Tech area will focus on, Khoa Học Máy Tính 'N' Trí Tuệ Nhân Tạo</div>
+    <div clas="note hidden">
+        BIG BUDDHA, Sakyamuni Buddha who is crowned prince Siddhartha Gotama<br/>
+        Big BUDDHA, Chánh Đẳng Chánh Giác Phật [7 people only; of all time]<br/>
+        BUDDHA, Chánh Đẳng Giác Phật<br/>
+        Buddha, Bích Chi Phật / Phật Độc Giác<br/>
+        buddha, Phật (an Arahant), bậc Chánh Giác
+    </div>
 
     <script>
         const canvas = document.getElementById('diyCanvas');
