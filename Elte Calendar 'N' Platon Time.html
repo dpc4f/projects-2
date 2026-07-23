@@ -195,14 +195,33 @@
             font-size: 19px;
         }
 
-        .local-current-time,
-        .dacet-pine {
+        /* 1. Define the color-switching animation */
+        @keyframes colorSwitch {
+            0%, 100% {
+                color: #23bb9a; /* Start & End color (e.g., Blue) */
+            }
+            50% {
+                color: #050c49; /* Middle color (e.g., Red) */
+            }
+        }
+
+        .local-current-time
+        {
             width: auto;
             padding: 10px;
             background: #667eea;
             color: white;
             border: none;
             margin-bottom: 80px;
+        }
+
+        .dacet-pine {
+            /* 
+                - 3s: total duration of one cycle (blue -> red -> blue)
+                - ease-in-out: makes the transition smooth
+                - infinite: keeps repeating endlessy
+            */
+            animation: colorSwitch 23s ease-in-out infinite;
         }
 
         .old-db-record {
@@ -324,7 +343,7 @@
             <div id="beijing" class="local-current-time"></div>
 
             <div class="platon-time"><em class="city">Dacet</em><span class="excellent-def">GMT+7</span></div>
-            <div id="dustin-plural" class="dacet-pine"></div>
+            <div id="dustin-plural" class="local-current-time dacet-pine"></div>
         </div>
 
     </div>
