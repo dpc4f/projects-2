@@ -220,6 +220,11 @@
             color: goldenrod;
         }
 
+        h41 {
+            display: inline-block;
+            color: rgb(53, 104, 12);
+        }
+
         /* The magic animation */
         @keyframes bounceText {
             0% {
@@ -324,7 +329,7 @@
             </div>
             <div class="extended-4">
                 <div class="note">Flower w/ Plant</div>
-                <div class="zipped-point">Trees' Country - ĐẤT NƯỚC CÂY CỐI</div>
+                <div class="note"><h41>Trees' Country - ĐẤT NƯỚC CÂY CỐI</h41></div>
                 <div class="invisible">Flowers are plants' reproduction body part.</div>
                 <div class="hidden">//tri zz/ + 4*'white spaces' + /cun tri//</div>
                 <div class="zipped-point">Oak là cây sồi.</div>
@@ -450,49 +455,49 @@
             const isolatedPoint = root.querySelector('.point-isolated');
             if (isolatedPoint) {
                 states.push({ name: "Isolated Point",
-                                notes: Array.from(isolatedPoint.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(isolatedPoint.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(isolatedPoint.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(isolatedPoint.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(isolatedPoint.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(isolatedPoint.querySelectorAll('.point')).map(p => p.innerHTML.trim()) });
             }
 
             const lineDiv = root.querySelector('.line');
             if (lineDiv) {
                 states.push({ name: "Line Segments", 
-                                notes: Array.from(lineDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(lineDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(lineDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(lineDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(lineDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(lineDiv.querySelectorAll('.point')).map(p => p.innerHTML.trim()) });
             }
 
             const circleTriangleDiv = root.querySelector('.circle.triangle');
             if (circleTriangleDiv) {
                 states.push({ name: "Circle / Triangle Blended Array",
-                                notes: Array.from(circleTriangleDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(circleTriangleDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(circleTriangleDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(circleTriangleDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(circleTriangleDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(circleTriangleDiv.querySelectorAll('.point')).map(p => p.innerHTML.trim()) });
             }
 
             const rectDiv = root.querySelector('.rectangle');
             if (rectDiv) {
                 states.push({ name: "Rectangle Matrix",
-                                notes: Array.from(rectDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(rectDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(rectDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(rectDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(rectDiv.querySelectorAll('.point')).map(p => p.innerHTML.trim()) });
             }
 
             const pentDiv = root.querySelector('.pentagon');
             if (pentDiv) {
                 states.push({ name: "Pentagon Matrix",
-                                notes: Array.from(pentDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(pentDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(pentDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(pentDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(pentDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(pentDiv.querySelectorAll('.point')).map(p => p.innerHTML.trim()) });
             }
 
             const angelsDiv = root.querySelector('.diamond');
             if (angelsDiv) {
                 states.push({ name: "'Lục Giác' Matrix",
-                                notes: Array.from(angelsDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(angelsDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(angelsDiv.querySelectorAll('.point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(angelsDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(angelsDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(angelsDiv.querySelectorAll('.point')).map(p => p.innerHTML.trim()) });
             }
 
             // add a modifier 4 the supreme animal
@@ -502,41 +507,41 @@
             if (extendOneDiv) {
                 states.push({ name: "Extended 1 No-Shapes",
                                 notes: Array.from(extendOneDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(extendOneDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(extendOneDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
+                                bigNotes: Array.from(extendOneDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(extendOneDiv.querySelectorAll('.point, .zipped-point')).map(p => p.innerHTML.trim()) });
             }
 
             const extendTwoDiv = root.querySelector('.extended-2');
             if (extendTwoDiv) {
                 states.push({ name: "Extended 2 No-Shapes",
-                                notes: Array.from(extendTwoDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(extendTwoDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(extendTwoDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(extendTwoDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(extendTwoDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(extendTwoDiv.querySelectorAll('.point, .zipped-point')).map(p => p.innerHTML.trim()) });
             }
 
             const extendThreeDiv = root.querySelector('.extended-3');
             if (extendThreeDiv) {
                 states.push({ name: "Extended 3 No-Shapes",
-                                notes: Array.from(extendThreeDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(extendThreeDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(extendThreeDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(extendThreeDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(extendThreeDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(extendThreeDiv.querySelectorAll('.point, .zipped-point')).map(p => p.innerHTML.trim()) });
             }
 
             const extendFourDiv = root.querySelector('.extended-4');
             if (extendFourDiv) {
                 states.push({ name: "Extended 4 No-Shapes",
-                                notes: Array.from(extendFourDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(extendFourDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
-                                labels: Array.from(extendFourDiv.querySelectorAll('.point, .zipped-point')).map(p => p.textContent.trim()) });
+                                notes: Array.from(extendFourDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(extendFourDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                labels: Array.from(extendFourDiv.querySelectorAll('.point, .zipped-point')).map(p => p.innerHTML.trim()) });
             }
 
             const miscDiv = root.querySelector('.misce');
             if (miscDiv) {
                 states.push({ name: "Miscellaneous",
-                                notes: Array.from(miscDiv.querySelectorAll('.note')).map(p => p.textContent.trim()),
-                                bigNotes: Array.from(miscDiv.querySelectorAll('.big')).map(p => p.textContent.trim()),
+                                notes: Array.from(miscDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(miscDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(miscDiv.querySelectorAll('.point, .zipped-point, .zipped-point-2'))
-                                    .map(p => p.textContent.trim()) });
+                                    .map(p => p.innerHTML.trim()) });
             }
 
             return states;
@@ -867,7 +872,7 @@
                 canvas.classList.add('hidden');
                 let div = document.getElementById('content');
                 div.classList.remove('invisible');
-                div.textContent = DVATTIMSAKARA;
+                div.innerHTML = DVATTIMSAKARA;
                 
             } else {
                 let canvas = document.getElementById('stage');
