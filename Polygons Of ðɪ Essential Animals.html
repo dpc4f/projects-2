@@ -225,6 +225,10 @@
             color: rgb(53, 104, 12);
         }
 
+        .left-li {
+            padding-left: 40px;
+        }
+
         /* The magic animation */
         @keyframes bounceText {
             0% {
@@ -330,7 +334,7 @@
             <div class="extended-4">
                 <div class="note">Flower w/ Plant</div>
                 <div class="note"><span class="head"><h41>Trees' Country - ĐẤT NƯỚC CÂY CỐI</h41></span></div>
-                <div class="invisible">Flowers are plants' reproduction body part.</div>
+                <div class="invisible">Flowers are plants' reproduction organ.</div>
                 <div class="hidden">//tri zz/ + 4*'white spaces' + /cun tri//</div>
                 <div class="zipped-point">Oak là cây sồi.</div>
                 <div class="zipped-point">There're only 3 types of flowers.</div> 
@@ -872,7 +876,14 @@
                 canvas.classList.add('hidden');
                 let div = document.getElementById('content');
                 div.classList.remove('invisible');
-                div.innerHTML = DVATTIMSAKARA;
+           
+                let htmlContent = '';
+                DVATTIMSAKARA.forEach(label => {
+                    htmlContent += `<li class='left-li'>${label}</li>`;
+                });
+                div.innerHTML = htmlContent;
+
+          
                 
             } else {
                 let canvas = document.getElementById('stage');
