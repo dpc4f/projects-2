@@ -215,6 +215,11 @@
             color: lightgreen;
         }
 
+        .head-2 {
+            font-weight: 900 !important;
+            color: darkgreen;
+        }
+
         h4 {
             display: inline-block;
             color: goldenrod;
@@ -222,7 +227,7 @@
 
         h41 {
             display: inline-block;
-            color: rgb(53, 104, 12);
+            color: rgb(37, 73, 7);
         }
 
         .left-li {
@@ -318,7 +323,7 @@
                 <div class="note">[a fact] muốn di chuyển từ thiên hà này sang thiên hà khác cần có Con Cua 'N' Con Sâu</div>
             </div>
             <div class="extended-1">
-                <div class="note">DENIS' REAL ESTATE EMPIRE</div>
+                
                 <div class="note"><span class="head">Đế Chế Phấn Tảo <h4>w/</h4> Vương Quốc Động Vật</span></div>
                 <div class="note">[nấm; !cây-nấm] { rơm; mèo (mộc nhĩ); Đông Cô; mốc } w/ { bào tử nấm }</div>
                 <div class="note">[a fact] fungi are a sole kingdom; fungi aren't plants OR animals ..</div>
@@ -330,6 +335,8 @@
             </div>
             <div class="extended-2">
                 <div class="note">Bacterium</div>
+                <div class="note">DENIS' WORDIMAGY NATION EMPIRE</div>
+                <div class="note"><span class="head-2">Đế Chế Công Quốc Hình Chữ</span></div>
                 <div class="zipped-point">bacteria will have No. eight (8, bát)</div>
                 <div class="zipped-point">Semmelweis Ignác Fülöp, Alan Turing / Kurt Gödel in Medical</div>
                 <div class="invisible">[master 'n' whore] { m, w; a/o/e; 5 letters; letter 'r' happens in { horse; OR; professionalism }}</div>
@@ -892,7 +899,8 @@
                 DVATTIMSAKARA.forEach((label, idx) => {
                     htmlContent += `<li id='${idx}' class='left-li'>${label}</li>`;
 
-                    // [] set time out for the transition to happen
+                    // [] set time out for the transition to happen 
+                    // --> done
                     setTimeout(() => {
                         let element = document.getElementById(idx);
                         element.classList.add('transf');
