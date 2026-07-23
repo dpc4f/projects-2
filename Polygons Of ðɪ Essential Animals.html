@@ -938,8 +938,7 @@
             i = 0; // then, big notes
             for (; i < lenBig; ++i) {
                 let parts = state.bigNotes[i].split(';');
-                htmlContent += `<div class='big'>${parts[0]}
-                    
+                htmlContent += `<div class='big'>${parts[0]}       
                     <span class='note-inline'>${parts[1]}</span>
                     <span class='big'>.</span>
                     </div>`;
@@ -995,7 +994,7 @@
                                         (DENNIS_KINGDOM+2))*cycleDuration/1.9;
                 cycleProgress = Math.min(elapsed / timeToNextLap, 1);
 
-                timeToNextLap = cycleDuration + (currentStateIndex>=DENNIS_KINGDOM ? 1000 : cycleDuration/1.9);
+                timeToNextLap = cycleDuration + (currentStateIndex>=DENNIS_KINGDOM ? 1000 : cycleDuration); // a temporary formuler; will change
                 if (elapsed >= timeToNextLap) {
                     let nextState = (currentStateIndex + 1) % statesData.length;
                     applyState(nextState);
