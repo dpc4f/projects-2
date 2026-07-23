@@ -233,7 +233,7 @@
         .left-li {
             padding-left: 40px;
             margin-bottom: 5px;
-            transform: translateY(150px) translateX(150px) scale(1.25) rotate(8deg);
+            transform: translateY(-350px) translateX(150px) scale(1.25) rotate(8deg);
             transition: all 2.4s ease;
             
             letter-spacing: 3px;
@@ -242,7 +242,7 @@
 
         .left-li.transf {
             opacity: 80;
-            transform: translateY(-30px) scale(0.9);
+            transform: translateY(7px) scale(0.9);
         }
 
         /* The magic animation */
@@ -323,7 +323,6 @@
                 <div class="note">[a fact] muốn di chuyển từ thiên hà này sang thiên hà khác cần có Con Cua 'N' Con Sâu</div>
             </div>
             <div class="extended-1">
-                
                 <div class="note"><span class="head">Đế Chế Phấn Tảo <h4>w/</h4> Vương Quốc Động Vật</span></div>
                 <div class="note">[nấm; !cây-nấm] { rơm; mèo (mộc nhĩ); Đông Cô; mốc } w/ { bào tử nấm }</div>
                 <div class="note">[a fact] fungi are a sole kingdom; fungi aren't plants OR animals ..</div>
@@ -1002,7 +1001,7 @@
                                         (DENNIS_KINGDOM+2))*cycleDuration/1.9;
                 cycleProgress = Math.min(elapsed / timeToNextLap, 1);
 
-                timeToNextLap = cycleDuration + (currentStateIndex>=DENNIS_KINGDOM ? 1000 : cycleDuration); // a temporary formuler; will change
+                // timeToNextLap = cycleDuration + (currentStateIndex>=DENNIS_KINGDOM ? 1000 : cycleDuration); // a temporary formuler; will change
                 if (elapsed >= timeToNextLap) {
                     let nextState = (currentStateIndex + 1) % statesData.length;
                     applyState(nextState);
