@@ -17,6 +17,7 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            margin-top: 100px;
         }
 
         .container {
@@ -32,6 +33,7 @@
 
         /* Container holding the words to manage their layout */
         .word-wrapper {
+            flex: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -41,6 +43,7 @@
             letter-spacing: 1px;
             gap: 15px;
             margin-bottom: 2rem;
+            margin-top: 100px;
             width: 500px;
         }
 
@@ -120,14 +123,21 @@
         .btn:active {
             transform: scale(0.95);
         }
+
+        #a-proof {
+            flex: 1;
+            margin-top: 40px;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <div class="word-wrapper" id="display-box">
-        </div>
+        <div class="word-wrapper" id="display-box"></div>
+        
 
         <div class="controls">
             <label>Interval Speed: <b id="speed-val">1.0</b>s</label>
@@ -138,6 +148,7 @@
             </div>
         </div>
     </div>
+    <div id="a-proof"></div>
 
     <script>
         // Full sequence loop
@@ -149,6 +160,21 @@
         ];   
         // const finalPhrase = "cá <--> chim";
         // const dewColor = "#E7F2E9"; // Dew color for the final phrase #E7F2E9
+
+        const phrases_2 = [ 'mâu, mưu --> â/ư', // the assumption 
+                            'y/a <-- quý hóa quá', // the existing condition
+                            '{ â/ư; y/a } --> mây mưa' ]; // output the valid result && # dpcm #
+
+        let div = document.getElementById('a-proof');
+        let idx = 0;
+        for (; idx < phrases_2.length; ++idx) {
+            let d = document.createElement('div');
+            d.innerText = phrases_2[idx];
+            div.appendChild(d);
+        };
+        // div.textContent = 'test';
+        
+        // div.innerHTML = str;
 
         // A vivid palette of neon color pairs to make it astonishing
         const colorPalettes = [
