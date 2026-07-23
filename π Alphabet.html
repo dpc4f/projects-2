@@ -44,6 +44,7 @@
             background-color: #e7dfdf;
             text-align: center;
             font-size: 13px;
+            color: black;
         }
 
         .box {
@@ -91,6 +92,10 @@
             margin-left: 483px;
             margin-top: 14px;
         }
+
+        .character-z {
+            color: darkred;
+        }
     </style>
 </head>
 
@@ -118,6 +123,8 @@
                 dwElement.className = 'mini-creature';
                 dwElement.innerHTML = dw;
                 div.appendChild(dwElement);
+            } else if (i == 23) {
+                div.classList.add('character-z');
             }
             
             div.innerHTML += `${letters[i]}`;
