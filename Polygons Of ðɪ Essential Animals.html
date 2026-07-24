@@ -751,7 +751,7 @@
         let nodeIndex = 0;
         const particles = Array.from({ length: 6 }, () => new NodeParticle(nodeIndex++));
         const DENNIS_KINGDOM = 6; // Vương Quốc Động Vật
-        const DE_CHE_CONG_QUOC_HINH_CHU = 7; // 
+        const DE_CHE_CONG_QUOC_HINH_CHU = 7; // wording(s)' transformation; images' real-time varying
 
         function resize() {
             width = canvas.width = canvas.parentElement.clientWidth;
@@ -910,6 +910,7 @@
                         }, 400);
                     });
                 } else if (currentStateIndex == DE_CHE_CONG_QUOC_HINH_CHU) {
+                    htmlContent += `<div>${'[vowel transforming]'}</div>`
                     htmlContent += `<div>${'a/e, anh em'}</div>`;
                     htmlContent += `<div>${'a/o, All in One'}</div>`;
                     htmlContent += `<div>${'i/e, it will have the meaning of'}</div>`;
