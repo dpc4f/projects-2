@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Non-static Word Chain Loop</title>
+    <title>Fish To Bird 'N' Bird To Fish</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -136,6 +136,7 @@
 <body>
 
     <div class="container">
+        <div>A Proof Of Bird Can Be Converted To Fish 'N' ð Reverse By Word Chain Loop</div>
         <div class="word-wrapper" id="display-box"></div>
         
 
@@ -205,8 +206,7 @@
             // determine custom speed interval variedly
             const intervalDuration = parseFloat(speedInput.value) * 1000;
 
-            // --- CASE 1: Processing the standard 7 phrases ---
-            if (step < phrases.length) {
+            if (step < phrases.length) { // --- CASE 1: Processing the standard 7 phrases ---
                 const currentTokens = phrases[step].split(" ");
                 const currentColors = colorPalettes[step % colorPalettes.length];
 
@@ -250,11 +250,10 @@
                         timeoutId = setTimeout(runSequence, intervalDuration);
                     }, 500); // Wait for CSS transition timing budget
                 }
-            }
-            // --- CASE 2: Displaying the Final Summary Chain ---
-            else if (step === phrases.length) {
-                // Fade out the entire last pair ('chợ cá') together
-                Array.from(container.children).forEach(child => child.classList.add('fade-out'));
+            } else if (step === phrases.length) { // --- CASE 2: Displaying the Final Summary Chain ---
+                Array.from(container.children)
+                .forEach(child => child.classList
+                .add('fade-out')); // Fade out the entire last pair ('chợ cá') together
 
                 setTimeout(() => {
                     container.innerHTML = `<span class="word-part fade-in" style="color: #4A00E0; font-size: 2.8rem;">
@@ -265,9 +264,7 @@
                     step++;
                     timeoutId = setTimeout(runSequence, intervalDuration + 1000); // Give the final phrase a tad longer
                 }, 1000);
-            }
-            // --- CASE 3: Reset and Restart Loop Automatically ---
-            else {
+            } else { // --- CASE 3: Reset and Restart Loop Automatically ---
                 container.children[0].classList.add('fade-out');
                 setTimeout(() => {
                     step = 0;
