@@ -255,6 +255,11 @@
                 transform: translateX(380%); 
             }
         }
+
+        .added-margin {
+            margin-top: 100px;
+            margin-left: 100px;
+        }
     </style>
 </head>
 <body>
@@ -910,11 +915,13 @@
                         }, 400);
                     });
                 } else if (currentStateIndex == DE_CHE_CONG_QUOC_HINH_CHU) {
-                    htmlContent += `<div>${'[vowel transforming]'}</div>`
+                    htmlContent += `<div class='added-margin'>`;
+                    htmlContent += `<div>${'[vowel transforming]'}</div>`;
                     htmlContent += `<div>${'a/e, anh em'}</div>`;
                     htmlContent += `<div>${'a/o, All in One'}</div>`;
                     htmlContent += `<div>${'i/e, it will have the meaning of'}</div>`;
                     htmlContent += `<div>${'y/a, quý hóa quá'}</div>`;
+                    htmlContent += `</div>`;
                     div.innerHTML = htmlContent;
                 }
 
