@@ -373,7 +373,7 @@
         </div>
     </div>
 
-    <div class="note bottom-left-note">
+    <div class="note bottom-left-note" id="time-manner">
         respect to ð time manner. always.<br/>
         tự hiểu đi, understanding-by-yourself-4b-thinking-on-your-own<br/>
     </div>
@@ -751,6 +751,7 @@
         let nodeIndex = 0;
         const particles = Array.from({ length: 6 }, () => new NodeParticle(nodeIndex++));
         const DENNIS_KINGDOM = 6; // Vương Quốc Động Vật
+        const DE_CHE_CONG_QUOC_HINH_CHU = 7; // 
 
         function resize() {
             width = canvas.width = canvas.parentElement.clientWidth;
@@ -887,8 +888,6 @@
             ctx.restore();
         }
 
-        
-
         function applyState(index) { // Internal State Swapper
             currentStateIndex = index;
 
@@ -910,7 +909,14 @@
                             element.classList.add('transf');
                         }, 400);
                     });
+                } else if (currentStateIndex == DE_CHE_CONG_QUOC_HINH_CHU) {
+                    htmlContent += `<div>${'a/e, anh em'}</div>`;
+                    htmlContent += `<div>${'a/o, All in One'}</div>`;
+                    htmlContent += `<div>${'i/e, it will have the meaning of'}</div>`;
+                    htmlContent += `<div>${'y/a, quý hóa quá'}</div>`;
+                    div.innerHTML = htmlContent;
                 }
+
                 div.innerHTML = htmlContent;
             } else {
                 let canvas = document.getElementById('stage');
@@ -1028,6 +1034,12 @@
         }
 
         window.addEventListener('resize', resize);
+        
+        setTimeout(() => {
+            let ele = document.getElementById('time-manner');
+            ele.classList.add('invisible');
+        }, 10000);
+        
         window.addEventListener('DOMContentLoaded', () => {
             resize();
             applyState(0); 
@@ -1035,4 +1047,5 @@
         });
     </script>
 </body>
+
 </html>
