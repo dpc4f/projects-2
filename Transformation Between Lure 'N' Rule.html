@@ -19,40 +19,32 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
             background:
                 radial-gradient(circle at top left, #4b0082 0%, transparent 35%),
                 radial-gradient(circle at bottom right, #00bfff 0%, transparent 35%),
                 linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-
             font-family: Arial, Helvetica, sans-serif;
         }
 
         /* MAIN SCENE */
-
         .scene {
             position: relative;
             width: 700px;
             height: 260px;
-
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         /* WORD */
-
         .word {
             position: relative;
             width: 520px;
             height: 120px;
         }
 
-        /* LETTERS */
-
-
+        /************ LETTERS ************/
         /* FIXED LETTERS */
-
         .l {
             left: 0px;
             top: 0;
@@ -61,28 +53,24 @@
         .u {
             left: 120px;
             top: 0;
-        
         }
 
         .r {
             left: 270px;
             top: 0;
-
         }
 
         .e {
             left: 420px;
             top: 100px;
-     
         }
 
         /*
-    IMPORTANT:
-    L and r are now ABSOLUTELY POSITIONED.
-    They are no longer inside normal text flow.
-    Therefore they can truly pass each other.
-*/
-
+            IMPORTANT:
+            L and r are now ABSOLUTELY POSITIONED.
+            They are no longer inside normal text flow.
+            Therefore they can truly pass each other.
+        */
 
         .morph-container {
             display: flex;
@@ -92,42 +80,30 @@
             font-family: 'Courier New', Courier, monospace;
             font-size: 150px;
             font-weight: bold;
-            color: green; /* colour Green is 4 Annabel Yao, my beloved wife <3 */
+            color: green;  /* colour Green is 4 Annabel Yao, my beloved wife <3 */
         }
 
-
         /* L ANIMATION */
-
-
         .letter-L {
             position: relative;
             animation: morph 20s infinite alternate;
         }
 
-
-
         @keyframes morph {
-
             /* 0 to 40 seconds: Static L */
-            0%
-           {
-       
-
+            0% {
                 transform:
-              scale(1);
+                    scale(1);
                 opacity: 1;
             }
 
             /* 40 to 50 seconds: Scrunching down */
-     
             12% {
-
                 transform:
-               scale(1);
+                    scale(1);
                 opacity: 0.75;
             }
 
-        
             /* 50 seconds: The switch point */
             20% {
 
@@ -137,9 +113,7 @@
             }
 
             /* 50.01% to 60%: Zooming out as lowercase l */
-       
             37% {
-            
                 transform: translateX(235px) scale(0.2);
                 opacity: 0.4;
             }
@@ -150,30 +124,22 @@
             }
 
             50% {
-            
                 transform:
-        
                     scale(2.2);
                 opacity: .71;
             }
 
             /* the reverse */
-
             70% {
                 transform: translateX(187px) scale(1);
                 opacity: 0.9;
             }
 
-
-
-
             82% {
-       
                 transform:
                     rotateY(0deg) translateY(0px) scale(1);
                 opacity: 1;
             }
-
         }
 
         /* Using the ::after pseudo-element to handle the text swap */
@@ -183,7 +149,6 @@
         }
 
         @keyframes textSwap {
-
             0%,
             50% {
                 content: 'R';
@@ -195,45 +160,34 @@
             }
         }
 
-   
-
         .letter-r {
             position: relative;
             animation: morph-2 20s infinite alternate;
         }
 
         @keyframes morph-2 {
-
             /* 0 to 40 seconds: Static L */
-            0%
-           {
-         
-
+            0% {
                 transform:
                     rotateY(0deg) translateY(0px) scale(.9);
                 opacity: 1;
             }
 
             /* 40 to 50 seconds: Scrunching down */
-     
             12% {
-
                 transform:
                     rotateY(-180deg) translateY(-40px) translateX(-200px) scale(0.45);
                 opacity: 0.75;
             }
 
-        
             /* 50 seconds: The switch point */
             25% {
-
                 transform:
-                 translateX(-100px) scale(0.14);
+                    translateX(-100px) scale(0.14);
                 opacity: 0.35;
             }
 
             /* 50.01% to 60%: Zooming out as lowercase l */
-       
             37% {
                 transform: translateX(-205px) scale(0.02);
                 opacity: 0.12;
@@ -245,43 +199,32 @@
             }
 
             50% {
-  
                 transform:
-             translateX(200px)
-                    scale(2.2);
+                    translateX(200px) scale(2.2);
                 opacity: .91;
             }
 
             /* the reverse */
-
             70% {
                 transform: translateX(-200px) scale(1);
                 opacity: 0.9;
             }
 
-
-
-
             96%,
             100% {
-                
                 transform:
                     rotateY(0deg) translateY(0px) scale(1);
                 opacity: 1;
             }
-
         }
 
-
-
-                /* Using the ::after pseudo-element to handle the text swap */
+        /* Using the ::after pseudo-element to handle the text swap */
         .letter-r::after {
             content: 'l';
             animation: textSwap-2 10s linear infinite alternate;
         }
 
         @keyframes textSwap-2 {
-
             0%,
             50% {
                 content: 'l';
@@ -293,15 +236,12 @@
             }
         }
 
-
         /* FLOATING */
-
         .word {
             animation: floating 125s ease-in-out infinite;
         }
 
         @keyframes floating {
-
             0%,
             100% {
                 transform: translateY(0px);
@@ -313,24 +253,17 @@
         }
 
         /* GLOW */
-
         .glow {
             position: absolute;
-
             width: 350px;
             height: 350px;
-
             border-radius: 50%;
-
             background: rgba(0, 255, 255, 0.15);
-
             filter: blur(60px);
-
             animation: pulse 41s ease-in-out infinite;
         }
 
         @keyframes pulse {
-
             0%,
             100% {
                 transform: scale(1);
@@ -344,46 +277,32 @@
         }
 
         /* PARTICLES */
-
         .particle {
             position: absolute;
-
             border-radius: 50%;
-
             background: white;
-
             pointer-events: none;
-
             animation: fly linear forwards;
         }
 
         @keyframes fly {
-
             from {
                 transform:
                     translateY(0px) scale(1);
-
                 opacity: 1;
             }
 
             to {
                 transform:
                     translateY(-700px) scale(0);
-
                 opacity: 0;
             }
         }
-
-
         /* TO MAKE IT SMOOTH TRANSFROMATION -- FROM GEMINI */
     </style>
 </head>
 
 <body>
-
-
-
-
     <div class="morph-container word">
         <div class="letter-L"></div>
         <div class="u">u</div>
@@ -391,29 +310,17 @@
         <div class="e">e</div>
     </div>
 
-
-
     <script>
-
         /* PARTICLES */
-
         function createParticle() {
-
             const p = document.createElement("div");
-
             p.className = "particle";
-
             const size = Math.random() * 8 + 2;
-
             p.style.width = size + "px";
             p.style.height = size + "px";
-
             p.style.left = Math.random() * window.innerWidth + "px";
             p.style.top = window.innerHeight + "px";
-
-            p.style.animationDuration =
-                (Math.random() * 410 + 132) + "s";
-
+            p.style.animationDuration = (Math.random() * 410 + 132) + "s";
             document.body.appendChild(p);
 
             setTimeout(() => {
@@ -422,9 +329,7 @@
         }
 
         setInterval(createParticle, 120);
-
     </script>
-
 </body>
 
 </html>
