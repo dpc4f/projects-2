@@ -190,45 +190,28 @@
 
     <div class="scene">
         <div class="beam"></div>
-
         <div class="panel left">
             <div class="title">
                 { Sofía ➜ Annabel ➜ Sofía }
             </div>
             <div class="word" id="sofiaWord"></div>
         </div>
-
         <div class="panel right">
             <div class="title">
                 { Yao ➜ Infanta ➜ Yao }
             </div>
             <div class="word" id="yaoWord"></div>
         </div>
-
         <div class="hint">
             magical OR miraclic back && forth transform powered by anchor letters ✨
         </div>
-
     </div>
 
     <script>
-
-        const sofiaSequence = [
-            "S", "o", "f", "í", "a"
-        ];
-
-        const annabelSequence = [
-            "A", "n", "n", "a", "b", "e", "l"
-        ];
-
-        const yaoSequence = [
-            "Y", "a", "o"
-        ];
-
-        const infantaSequence = [
-            "I", "n", "f", "a", "n", "t", "a"
-        ];
-
+        const sofiaSequence = [ "S", "o", "f", "í", "a" ];
+        const annabelSequence = [ "A", "n", "n", "a", "b", "e", "l" ];
+        const yaoSequence = [ "Y", "a", "o" ];
+        const infantaSequence = [ "I", "n", "f", "a", "n", "t", "a" ];
         const sofiaContainer = document.getElementById("sofiaWord");
         const yaoContainer = document.getElementById("yaoWord");
 
@@ -250,10 +233,7 @@
         buildCharacters(sofiaContainer, sofiaSequence, 4);
         buildCharacters(yaoContainer, yaoSequence, 0);
 
-        <!-- Replace ONLY the two morph functions below -->
-
-
-
+        /// *** Replace ONLY the two morph functions below **/
         function morphSofiaToAnnabel() {
             /*
                 anchor:
@@ -261,7 +241,6 @@
                 morphs into
                 'A' in Annabel
             */
-
             const current = sofiaContainer.querySelectorAll(".char");
             const anchor = current[4]; // character 'a'
 
@@ -314,7 +293,6 @@
                 morphs into
                 'I' in Infanta
             */
-
             const current = yaoContainer.querySelectorAll(".char");
             const anchor = current[0];
 
@@ -356,7 +334,6 @@
             }, 700);
         }
 
-
         function createSpark() {
             const spark = document.createElement("div");
 
@@ -381,10 +358,9 @@
             setTimeout(() => {
                 morphSofiaToAnnabel();
             }, 1000);
-        }, 15000);
+        }, 20000);
 
     </script>
-
 </body>
 
 </html>
