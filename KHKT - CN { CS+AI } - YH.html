@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orientation: KHKT - CN { CS+AI } - YH</title>
+    
     <style>
         body {
             margin: 0;
@@ -48,11 +49,12 @@
 </head>
 
 <body>
-
     <canvas id="diyCanvas"></canvas>
-    <div class="instruction">Khoa Học Kỹ Thuật<br>
-    Công Nghệ<br>
-    Y Học</div>
+    <div class="instruction">
+        Khoa Học Kỹ Thuật<br>
+        Công Nghệ<br>
+        Y Học
+    </div>
 
     <div class="note">Tech area will focus on, Khoa Học Máy Tính 'N' Trí Tuệ Nhân Tạo</div>
     <div clas="note hidden">
@@ -60,7 +62,7 @@
         Big BUDDHA, Chánh Đẳng Chánh Giác Phật [8 people only; of all time]<br/>
         BUDDHA, Chánh Đẳng Giác Phật<br/>
         Buddha, Bích Chi Phật / Phật Độc Giác<br/>
-        buddha, Phật (an Arahant), bậc Chánh Giác
+        buddha, Phật (an arahant), bậc Chánh Giác
     </div>
 
     <script>
@@ -72,16 +74,16 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
+
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
         /*
-        Khoa Học Kỹ Thuật - Crystal Clear
-Công Nghệ mà đặc biệt là, Khoa Học Máy Tính [Magenta] Trí Tuệ Nhân Tạo [Tomato] - Cyan
-Y Học - Yellow
+            Khoa Học Kỹ Thuật - Crystal Clear
+            Công Nghệ mà đặc biệt là, Khoa Học Máy Tính [Magenta] Trí Tuệ Nhân Tạo [Tomato] - Cyan
+            Y Học - Yellow
         */
-        // Color definitions
-        const colors = {
+        const colors = { // Color definitions
             D: '#DFCFFF', // Crystal Clear
             I: '#00ffff', // Cyan (Aqua)
             Y: '#FF0000',  // Tomato ~red
