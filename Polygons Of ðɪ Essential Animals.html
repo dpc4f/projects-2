@@ -394,7 +394,7 @@
         tự hiểu đi, understanding-by-yourself-4b-thinking-on-your-own<br/>
     </div>
 
-    <div class="note bottom-right-note">
+    <div class="note bottom-right-note" id="time-manner-2">
         In practice, Rule [3:1] is a more common than [2:4] the Rule.
     </div>
 
@@ -1067,6 +1067,11 @@
             let ele = document.getElementById('time-manner');
             ele.classList.add('invisible');
         }, 10000);
+
+        setTimeout(() => {
+            let ele = document.getElementById('time-manner-2');
+            ele.classList.add('invisible');
+        }, 31000);
         
         window.addEventListener('DOMContentLoaded', () => {
             resize();
