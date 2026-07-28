@@ -104,15 +104,10 @@
     <h1 class="center">Exchange To Animals</h1>
     <input type="text" id="gregorianDOB" placeholder="Dec 13 2011">
     <button class="inputElte" onclick="copypaste2BirthYear(document.getElementById('gregorianDOB').value)">COPYpaste</button>
-
-
     <input type="text" id="birthYear" value="current_year, 2020" disabled>
-    
     <input id="birthYear-2" value="">
     <button class="inputElte" onclick="fromElte()">COPYpaste From Elte</button>
-
     <input id="animal" disabled value="">
-
 
     <script>
         const CURRENT_YEAR = 2020;
@@ -131,7 +126,6 @@
             const match = yearStr.match(/^current_year([+-]\d+)$/);
             return CURRENT_YEAR + Number(match?.[1] ?? 0);
         }
-
 
         function toTuesdayFirst(day) {
             return (day + 5) % 7;
@@ -155,18 +149,16 @@
         ]; /* { dragon; Dragon }, 'Lý Dần' ð Snake */ /* Reindeer <> Goat */
 
         function renderCalendar(year, month) {
-            document.getElementById("monthYear").textContent =
-                monthNames_2[month] + " " + convertCurrentYear(year);
+            document.getElementById("monthYear").textContent = monthNames_2[month] + " " + convertCurrentYear(year);
 
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-
             const body = document.getElementById("calendarBody");
-            body.innerHTML = "";
-
             let date = 1;
-
+            
+            body.innerHTML = "";
+            
             for (let r = 0; r < 6; r++) {
                 const row = document.createElement("tr");
 
@@ -210,7 +202,6 @@
 
             renderCalendar(currentYear, currentMonth);
         }
-
 
         function calculateAge() {
             const birthDate = document.getElementById('birthDate').value;
@@ -263,10 +254,7 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-
             const elteMonth = monthNames_2[month];
-
-            
             
             if (month < 2) // month is Jan or Feb
                 year--;
@@ -282,10 +270,10 @@
             return elteDOB;
         }
 
-window.onload = function() {
-        document.getElementById('birthYear-2').value = convertToElte(new Date());
-        fromElte();
-}
+        window.onload = function() {
+            document.getElementById('birthYear-2').value = convertToElte(new Date());
+            fromElte();
+        }
         
         function copypaste2BirthYear(aDate)
         {
@@ -311,14 +299,12 @@ window.onload = function() {
         }
 
         function exchange2Animal(birthYear) {
-            while (birthYear < CURRENT_YEAR) {
+            while (birthYear < CURRENT_YEAR)
                 birthYear += 12;
-            }
 
             document.getElementById('animal').value = animalNames[(birthYear - CURRENT_YEAR) % 12];
         }
     </script>
-
 </body>
 
 </html>
