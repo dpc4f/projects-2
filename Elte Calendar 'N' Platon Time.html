@@ -353,6 +353,14 @@
         const CURRENT_YEAR = 2020;
         const TODAY = new Date();
         const DAYS_IN_YEAR = 365.25;
+        const MONTH_NAMES = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const MONTH_NAMES_2 = [
+            "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
+            "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
+        ]; // Athen is { Infanta Sofía, a goddess }, wife of Zeus
 
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
@@ -399,17 +407,6 @@
             return (day + 5) % 7;
         }
 
-        const monthNames = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-
-        const monthNames_2 = [
-            "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
-            "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
-        ]; // Athen is { Infanta Sofía, a goddess }, wife of Zeus
-
-
         function removePurple4Months() {
             let mt = document.getElementById("monthNames").children;
             let i = 0;
@@ -420,7 +417,7 @@
 
         function renderCalendar(year, month) {
             document.getElementById("monthYear").textContent =
-                monthNames_2[month < 2 ? month + 10 : month - 2] + " " + convertCurrentYear(year);
+                MONTH_NAMES_2[month < 2 ? month + 10 : month - 2] + " " + convertCurrentYear(year);
 
             let mt = document.getElementById("monthNames").children;
 

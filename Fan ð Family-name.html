@@ -39,37 +39,35 @@
             display: inline-block;
             margin-left: 12px;
         }
-
     </style>
 </head>
+
 <body>
+    <div id="name">
+        { Fan, Ph<span id="a">a</span>
+        <span class="dot" id="dot"></span>
+        <span class="tail" id="tail">n</span> 
+        <span class="last-char">}</span> 
+    </div>
 
-<div id="name">
-    { Fan, Ph<span id="a">a</span>
-    <span class="dot" id="dot"></span>
-    <span class="tail" id="tail">n</span> 
-    <span class="last-char">}</span> 
-</div>
+    <script>
+        const dotEl = document.getElementById("dot");
+        const tailEl = document.getElementById("tail");
+        let dotOn = false;
+        let isM = false;
 
-<script>
-    const dotEl = document.getElementById("dot");
-    const tailEl = document.getElementById("tail");
+        // Dot accent (̣) toggles every 500ms
+        setInterval(() => {
+            dotOn = !dotOn;
+            dotEl.textContent = dotOn ? "\u0323" : ""; // combining dot below
+        }, 2200);
 
-    let dotOn = false;
-    let isM = false;
-
-    // Dot accent (̣) toggles every 500ms
-    setInterval(() => {
-        dotOn = !dotOn;
-        dotEl.textContent = dotOn ? "\u0323" : ""; // combining dot below
-    }, 2200);
-
-    // n <-> m toggles every 800ms (different rhythm)
-    setInterval(() => {
-        isM = !isM;
-        tailEl.textContent = isM ? "m" : "n";
-    }, 1500);
-</script>
+        // n <-> m toggles every 800ms (different rhythm)
+        setInterval(() => {
+            isM = !isM;
+            tailEl.textContent = isM ? "m" : "n";
+        }, 1500);
+    </script>
 
 </body>
 </html>
