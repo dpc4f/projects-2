@@ -43,13 +43,10 @@
             font-size: 18px;
         }
 
-        h2 {
-            margin: 5px 0;
-            font-size: 18px;
-        }
-
         .center {
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
@@ -93,22 +90,22 @@
         }
 
         .elephale {
-            font-size: 18px;
+            font-size: 17px;
             color: rgb(16, 163, 11);
         }
 
         .bear {
-            font-size: 18px;
+            font-size: 17px;
             color: darkblue;
         }
 
         .lioness {
-            font-size: 18px;
+            font-size: 17px;
             color: rgb(20, 150, 9);
         }
 
         .sa\^u {
-            font-size: 18px;
+            font-size: 17px;
             color: rgb(4, 85, 65);
         }
 
@@ -123,11 +120,11 @@
         }
 
         .beloved {
-            margin: 31px;
+            margin: 27px;
         }
 
         .relative {
-            margin: 32px;
+            margin: 27px;
         }
 
         .currentYear {
@@ -141,9 +138,8 @@
 
         .colourAnimal {
             color: brown;
-            margin-top: 10px;
-            font-size: 18px;
-
+            margin-top: 7px;
+            font-size: 17px;
         }
 
         .infor {
@@ -270,15 +266,12 @@
     <div class="note">[gender] woman, F; man, M; etc.</div>
     <div class="note">[a taxonomy] FA, Favourite Animals</div>
     <div class="note">[Bát Chánh Đạo, 841]<b> { luật các con số, luật các con thú }</b></div><br/>
-
-
     <div class="note">
         <div class="invisible">/ria/, real-time</div>
         <div class="defined">Ria, <b>r</b>evive <b>i</b>nvincible <b>A</b>nimala</div>
         <div class="defined">RıA, Restore ımmortal Animal</div>
         <div class="defined">RIA, <b>R</b>eincarnate <b>I</b>mperial <b>A</b>rcher</div>
     </div><br/>
-
     <div class="note">
         <div class="infor-2">safe, <b>s</b>inister <b>a</b>dward <b>f</b>eels <b>e</b>ased</div>
         <div class="infor-2">
@@ -287,7 +280,6 @@
                                 --> accept <-- tốt đẹp
         </div>
     </div>
-
     <div class="infor" id="dateTime" disabled></div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
 
@@ -323,7 +315,6 @@
             document.getElementById('ANI-8').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-8').innerHTML.split(' ')[2])) +
                 ` / <span class='quail'>Quail</span>`;
-
             document.getElementById('dateTime').innerHTML = convertToElteWithDayName();
             exchange2Animal();
         }
@@ -331,24 +322,20 @@
         const CURRENT_YEAR = 2020;
         const TODAY = new Date();
         const DAYS_IN_YEAR = 365.25;
-
-        const monthNames = [
+        const MONTH_NAMES = [
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
-
-         const monthNames_2 = [
+         const MONTH_NAMES_2 = [
             "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
             "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
         ]; // Athen is { Infanta Sofía, a goddess }, wife of Zeus
-
-        const animalNames = [
+        const ANIMAL_NAMES = [
             "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
             "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant / Bee / Peacock", "Snake Family / Centipede",
             "Horse / Sea-horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape / Kong",
             "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
         ]; /* { dragon; Dragon }, 'Lý Dần' ð Snake */ /* Reindeer <> Goat && 'Con Nai Sơn Dương (Linh Dương)' là ko tồn tại */
-
         // Pig --> Mouse --> Rabbit --> Dodge
 
         let currentMonth = TODAY.getMonth();
@@ -376,7 +363,7 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-            let elteMonth = monthNames_2[month < 2 ? month+10 : month-2];
+            let elteMonth = MONTH_NAMES_2[month < 2 ? month+10 : month-2];
             let elteYear;
             let elteDOB;
 
@@ -406,28 +393,25 @@
         }
         
         function fromElte() {
-            const elteDOB = document.getElementById('birthYear-2').value;
-            const arr = elteDOB.trim().split(/\s+/);
-            const m = monthNames_2.indexOf(arr[0]);
+            const ELTE_DOB = document.getElementById('birthYear-2').value;
+            const ARR = ELTE_DOB.trim().split(/\s+/);
+            const M = MONTH_NAMES_2.indexOf(arr[0]);
+            const BIRTH_MONTH_NAME = MONTH_NAMES[m];
+            const BIRTH_YEAR = convertReversedCurrentYear(ARR[2]);
 
-            if (m === -1 || arr.length < 3) {
+            if (M === -1 || ARR.length < 3) {
                 alert("Please use the format, 'M11 1 current_year±N'");
                 return;
             }
-
-            const birthMonthName = monthNames[m];
-            const birthYear = convertReversedCurrentYear(arr[2]);
-            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
             exchange2Animal(birthYear);
         }
 
         function exchange2Animal(birthYear) {
-            while (birthYear < CURRENT_YEAR) {
+            while (birthYear < CURRENT_YEAR)
                 birthYear += 12;
-            }
 
-            return animalNames[(birthYear - CURRENT_YEAR) % 12];
+            return ANIMAL_NAMES[(birthYear - CURRENT_YEAR) % 12];
         }
     </script>
 
