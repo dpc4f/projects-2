@@ -84,11 +84,11 @@
             background: #fff8e1;
         }
 
-        .yao {
+        .yao, .sofia-1 {
             background: #e8f5e9;
         }
 
-        .sofia {
+        .yao-1, .sofia {
             background: #f3e5f5;
         }
 
@@ -185,8 +185,7 @@
 
     <script>
         let rowCounter = 0;
-        const queenBody =
-            document.getElementById("queenBody");
+        const queenBody = document.getElementById("queenBody");
 
         function saveState() {
             localStorage.setItem("davios_rows", queenBody.innerHTML);
@@ -213,47 +212,97 @@
         }
 
         function getQueenOrder() {
-            rowCounter++;
             let ret;
+            let order = playTheDice(10);
+            let dao = rowCounter % 2 == 0 ? 'yao' : 'yao-1';
+            let sofıa = rowCounter % 2 == 0 ? 'sofia' : 'sofia-1'
 
-            switch (rowCounter%4) {    
-                
+            switch (order) {    
+            
                 /***
                  * 
                  * Narana Erdyneeva (Нарана Эрдынеева), queen Annabel Yao's subordinate
                  * Narana Erdyneeva (Đắc Kỷ), thuộc cấp của bél Anna
                  * 
                  */
+
+                case 0:
+                    ret = [["Tigress Kim_thoa", "thoa"], 
+                        // ["Anna Giang", "yao"], 
+                        ["Naran Erdyneeva (Нарана Эрдынеева)", dao], 
+                        ["Infanta Sofı'a Of Spain", sofıa], 
+                        ["", "blank"]];
+                    break;
                 
-                 case 1:
+                case 1:
                     ret = [["Thoa Nguyen", "thoa"], 
                         // ["Annabel Yield /diêu/", "yao"], 
-                        ["Nữ Báu Thực Thi 'Naran Erdyneeva'", 'yao'],
-                        ["Infanta Sapphire", "sofia"], 
+                        ["Diamond eXecution Concubine 'Naran Erdyneeva'", dao],
+                        ["Infanta Sapphire", sofıa], 
                         ["", "blank"]];
                     break;
 
                 case 2:
                     ret = [["Lý Bèo", "thoa"], 
-                        ["Sofía ð Todos ðɪ B'orbón", "sofia"], 
+                        ["Sofía ð Todos ðɪ B'orbón", sofıa], 
                         // ["姚安娜", "yao"], 
-                        ['Diamond Unmeasureable Concubine Narana', 'yao'],
-                        ["", "blank"]];
-                    break;
-
-                case 0:
-                    ret = [["Tigress Kim_thoa", "thoa"], 
-                        // ["Anna Giang", "yao"], 
-                        ["Naran Erdyneeva (Нарана Эрдынеева)", "yao"], 
-                        ["Sofia Princess of Spain", "sofia"], 
+                        ['Diamond Unmeasureable Concubine Narana', dao],
                         ["", "blank"]];
                     break;
 
                 case 3:
                     ret = [["Xà /tho/ Rắn Yêu", "thoa"], 
-                        ["Công Chúa Bong Bóng", "sofia"], 
+                        ["Công Chúa Bong Bóng", sofıa], 
                         // ["Beo 'Anna Yao'", "yao"], 
-                        ["Нарана Эрдынеева ð Bee", "yao"],
+                        ["Нарана Эрдынеева ð Bee", dao],
+                        ["", "blank"]];
+                    break;
+
+                case 4:
+                    ret = [["Tigress Kim_thoa", "thoa"], 
+                        // ["Anna Giang", "yao"], 
+                        ["Naran Erdyneeva (Нарана Эрдынеева)", dao], 
+                        ["Infanta Sofı'a Of Spain", sofıa], 
+                        ["", "blank"]];
+                    break;
+
+                case 5:
+                    ret = [["Thoa Nguyen", "thoa"], 
+                        // ["Anna Giang", "yao"], 
+                        ["Diamond eXecution Concubine Эрдынеева", dao], 
+                        ["Princesa Sofia", sofıa], 
+                        ["", "blank"]];
+                    break;
+
+                case 6:
+                    ret = [["Lý Bèo", "thoa"],
+                        ["Infanta Sapphire", sofıa], 
+                        // ["Anna Giang", "yao"],
+                        ["Naran Erdyneeva (Нарана Эрдынеева)", dao], 
+                        ["", "blank"]];
+                    break;
+
+                case 7:
+                    ret = [["Xà /tho/ Rắn Yêu", "thoa"], 
+                        // ["Anna Giang", "yao"], 
+                        ["Нарана Эрдынеева ð Bee", dao], 
+                        ["Béo Sofı'a", sofıa], 
+                        ["", "blank"]];
+                    break;
+
+                case 8:
+                    ret = [["Tigress Kim_thoa", "thoa"], 
+                        ["Sofı'a los Santos y Ortiz", sofıa], 
+                        // ["Anna Giang", "yao"], 
+                        ["Diamond Unvaluable Concubine Narana", dao], 
+                        ["", "blank"]];
+                    break;
+
+                case 9:
+                    ret = [["Mèo Béo Thoa", "thoa"], 
+                        // ["Anna Giang", "yao"], 
+                        ["Naran Erdyneeva ð Bee", dao], 
+                        ["Sofıa ð Todos ð Borbón", sofıa],
                         ["", "blank"]];
                     break;
 
@@ -265,6 +314,8 @@
                         ["", "blank"]];
                     break;
             }
+
+            rowCounter++;
             return ret;
         }
 
@@ -308,11 +359,11 @@
             /***
              * [; nr] update the algorithm 4 a randomizing
              *
-             */ 
+             */ // --> done
 
             const order = getQueenOrder();
             const tr = document.createElement("tr");
-            const RET = playTheDice();
+            const RET = playTheDice(2); // once; to define which queen will make a move first
 
             if (RET) {
                 tr.innerHTML = createQueenCell(order[0][0], order[0][1]) +
@@ -331,11 +382,11 @@
             saveState();
         }
 
-        function playTheDice() { /* play the dice once only */
+        function playTheDice(modulo) { /* play the dice once only */
             let now = new Date();
             let sec = now.getSeconds();
             
-            return sec%2;
+            return ((sec+19)*3)%modulo;
         }
 
         function rebindButtons() {
