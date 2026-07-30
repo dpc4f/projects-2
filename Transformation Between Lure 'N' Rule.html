@@ -311,18 +311,18 @@
     </div>
 
     <script>
-        /* PARTICLES */
-        function createParticle() {
+        function createParticle() { // Particles
             const p = document.createElement("div");
-            p.className = "particle";
             const size = Math.random() * 8 + 2;
+
+            p.className = "particle";
             p.style.width = size + "px";
             p.style.height = size + "px";
             p.style.left = Math.random() * window.innerWidth + "px";
             p.style.top = window.innerHeight + "px";
             p.style.animationDuration = (Math.random() * 410 + 132) + "s";
             document.body.appendChild(p);
-
+            
             setTimeout(() => {
                 p.remove();
             }, 197000);
