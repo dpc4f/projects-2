@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{ time, AL } [in 'et al']</title>
+
     <style>
         body {
             margin: 0;
@@ -110,25 +111,18 @@
 </head>
 
 <body>
-
     <div class="container" id="word"></div>
 
     <script>
-
         const steps = ["al", "ar", "bar", "ba", "ba, time"];
         const container = document.getElementById("word");
-
         let currentIndex = 0;
-
-        // soft color rotation
-        const colors = ["c0", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9"];
-        let colorIndex = 0;
+        const colors = ["c0", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9"]; // soft color rotation
+        let colorIndex = -1;
 
         function getColor(coChar) {
-            let colorIndex = 0;
             switch (coChar) {
                 case "a":
-            
                     break;
                 case "l":
                     colorIndex = 2;
@@ -160,15 +154,12 @@
                     break;
             }
 
-            const c = colors[colorIndex % colors.length];
-            colorIndex++;
-            return c;
+            return colors[++colorIndex % colors.length];;
         }
 
         // Render word
         function renderWord(curWord, word) { // word is next word to be rendered
             container.innerHTML = "";
-
             word.split("").forEach((char, i) => {
                 const span = document.createElement("span");
                 span.textContent = char;
@@ -183,17 +174,14 @@
                     span.classList.add(getColor(char));
                 }
 
-                if (char === 'b') {
+                if (char === 'b')
                     span.classList.add("b-character");
-                }
 
-                if (char === 'l') {
+                if (char === 'l')
                     span.classList.add("l-character");
-                }
 
-                if (char === "t" || char === "i" || char === "m" || char === "e") {
+                if (char === "t" || char === "i" || char === "m" || char === "e")
                     span.classList.add("font-time");
-                }
 
                 if (char !== "a") {
                     if (curWord.includes(char)) {
@@ -214,35 +202,32 @@
         let duration = 0;
         let bExit = true;
         let bExtended = false;
-        // Transition
-        function transitionTo(nextWord) {
-            const oldLetters = container.querySelectorAll(".letter");
+        
+        function transitionTo(nextWord) { // Transition
+            let oldLetters = container.querySelectorAll(".letter");
             let currentWord = '';
 
             oldLetters.forEach((letter, i) => {
                 currentWord += letter.textContent;
+                
                 let duration;
-                    if (!letter.classList.contains("anchor")) {
-                        duration = 0; // default exit duration
-                        if (nextWord.includes(letter.textContent)) {
-                            duration = 4100; // extend duration for letters that will be reused
-                        }
+                if (!letter.classList.contains("anchor")) {
+                    duration = 0; // default exit duration
+                    
+                    if (nextWord.includes(letter.textContent))
+                        duration = 4100; // extend duration for letters that will be reused
 
-                        setTimeout(() => {
-                            letter.classList.add("exit");
-                        }, i * 80 + duration); // stagger exit with a base delay and additional duration for reused letters
-                    }
-
+                    setTimeout(() => {
+                        letter.classList.add("exit");
+                    }, i * 80 + duration); // stagger exit with a base delay and additional duration for reused letters
+                }
             });
 
 
-            if (nextWord === "ba, { 3, time }") {
-                // Special case; cause it to display longer
-                duration = 500;
-            }
-            else {
+            if (nextWord === "ba, { 3, time }")
+                duration = 500; // Special case; cause it to display longer
+            else
                 duration = 1100;
-            }
 
             setTimeout(() => {
                 renderWord(currentWord, nextWord);
@@ -252,8 +237,8 @@
         // Loop
         function startAnimation() {
             let curWord= steps[currentIndex];
+            
             renderWord('', curWord);
-
             setInterval(() => {
                 curWord = steps[currentIndex];
                 currentIndex = (currentIndex + 1) % steps.length;
