@@ -12,17 +12,31 @@
             padding: 20px;
         }
 
-        textarea {
+        .note-output {
             width: 50%;
-            height: 540px;
+            min-height: 540px;
             font-size: 12px;
-            margin: auto;
+            margin: 10px auto 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+            overflow: auto;
+            background: #fafafa;
+        }
+
+        .html-source {
+            width: 50%;
+            height: 120px;
+            font-size: 12px;
+            margin: 10px auto 0;
+            display: block;
+            padding: 8px;
         }
 
         button {
             margin-top: 40px;
             margin-right: 10px;
-            padding-left: 14px; 
+            padding-left: 14px;
             padding-right: 14px;
             padding-top: 7px;
             padding-bottom: 7px;
@@ -36,7 +50,11 @@
         .note {
             font-size: 14px;
             color: darkgreen;
-           margin-left: 630px;
+            margin-left: 630px;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 
@@ -47,9 +65,15 @@
 
     <!-- think of a way to re-use this application -->
 
-    <textarea id="note"></textarea>
+    <textarea id="htmlSource" class="html-source" placeholder="Paste HTML here to parse it"></textarea>
+    <!-- <button onclick="parseHtml()">Parse HTML</button> -->
+
+    <div id="Note-1" class="note"></div>
     <br>
     <div class="note">các dục đắng nhiều ngọt ít</div>
+
+    <div id="treeView"></div>
+
 
     <!--
 Source - https://stackoverflow.com/a/23332116
@@ -62,19 +86,47 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
     <button onclick="clearNote()">Clear</button>
 
     <script>
+        function loadChessStatus() {
+            const $output = document.getElementById('Note-1');
+
+            let rows = localStorage.getItem("davios_rows");
+            // if (rows) {
+            //     $output.insertAdjacentHTML('beforeend', rows);
+            // }
+
+            let str = localStorage.getItem("davios_king_status");
+            // if (str) {
+            //     $output.insertAdjacentHTML('beforeend', '<div>' + str + '</div>');
+            // }
+
+            // console.log($output.innerHTML); // <-- used 4 debugging
+            // exportText(); 
+
+            renderDomTree(rows);
+        }
+
+        function parseHtml() {
+            const $output = document.getElementById('note');
+            const source = document.getElementById('htmlSource').value;
+            $output.innerText = source;
+
+            const note_2 = document.getElementById('htmlSource');
+            note_2.innerText = $output.innerHTML;
+        }
+
         function loadNote() {
-            const $output = document.getElementById('note')
+            const $output = document.getElementById('note');
+            const $source = document.getElementById('htmlSource');
             document.getElementById('file').onchange = function () {
                 var file = this.files[0];
 
                 var reader = new FileReader();
 
-                reader.onload = function (progressEvent) {
-                    // Entire file
+                reader.onload = function () {
                     const text = this.result;
-                    $output.innerHTML = text
+                    $source.value = text;
+                    $output.innerHTML = text;
 
-                    // By lines
                     var lines = text.split('\r\n');
                     for (var line = 0; line < lines.length; line++) {
                         console.log(lines[line]);
@@ -86,12 +138,13 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
         }
 
         function clearNote() {
-            document.getElementById("note").value = "";
+            document.getElementById("note").innerHTML = "";
+            document.getElementById("htmlSource").value = "";
             document.getElementById("file").value = "";
         }
 
         function exportText() {
-            var text = document.getElementById("note").value;
+            var text = document.getElementById("htmlSource").value;
             var blob = new Blob([text], { type: "text/plain" });
             var link = document.createElement("a");
 
@@ -103,8 +156,96 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
             document.body.removeChild(link);
         }
 
-        window.onload = loadNote;
+        let myHtmlString = localStorage.getItem("davios_rows");
+        const $output = document.getElementById('Note-1');
+        window.onload = () => {
+            const $htmlSource = document.getElementById('htmlSource');
+            $htmlSource.value = formatHTML(myHtmlString);
+        };
+
+        function formatHTML(htmlString, indentSize = 4) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, 'text/html');
+
+            function formatNode(node, level = 0) {
+                const indent = ' '.repeat(level * indentSize);
+                let output = '';
+
+                for (const child of node.childNodes) {
+                    if (child.nodeType === Node.ELEMENT_NODE) {
+                        const tagName = child.tagName.toLowerCase();
+                        const attrs = Array.from(child.attributes)
+                            .map(a => ` ${a.name}="${a.value}"`)
+                            .join('');
+
+                        // Self-closing / void elements (e.g. <img>, <br>, <input>)
+                        const isVoid = /^(img|br|hr|input|meta|link)$/i.test(tagName);
+
+                        if (isVoid) {
+                            output += `${indent}<${tagName}${attrs} />\n`;
+                        } else if (child.childNodes.length === 1 && child.firstChild.nodeType === Node.TEXT_NODE) {
+                            // Keep short text nodes on a single line
+                            output += `${indent}<${tagName}${attrs}>${child.textContent.trim()}</${tagName}>\n`;
+                        } else {
+                            output += `${indent}<${tagName}${attrs}>\n`;
+                            output += formatNode(child, level + 1);
+                            output += `${indent}</${tagName}>\n`;
+                        }
+                    } else if (child.nodeType === Node.TEXT_NODE) {
+                        const text = child.textContent.trim();
+                        if (text) {
+                            output += `${indent}${text}\n`;
+                        }
+                    }
+                }
+                return output;
+            }
+
+            return formatNode(doc.body).trim();
+        }
+
+        // Usage Example:
+        const rawHtml = '<div><ul><li>Item 1</li><li>Item 2</li></ul></div>';
+        console.log(formatHTML(rawHtml));
+
+
+        function renderDomTree(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent.trim();
+                return text ? document.createTextNode(text) : null;
+            }
+
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                const details = document.createElement('details');
+                details.open = true;
+
+                const summary = document.createElement('summary');
+                summary.style.fontFamily = 'monospace';
+                summary.innerHTML = `<b style="color:#000080">&lt;${node.tagName.toLowerCase()}&gt;</b>`;
+                details.appendChild(summary);
+
+                const container = document.createElement('div');
+                container.style.paddingLeft = '20px';
+
+                Array.from(node.childNodes).forEach(child => {
+                    const childEl = renderDomTree(child);
+                    if (childEl) container.appendChild(childEl);
+                });
+
+                details.appendChild(container);
+                return details;
+            }
+            return null;
+        }
+
+        // Usage:
+        const parser = new DOMParser();
+        
+        const doc = parser.parseFromString(myHtmlString, 'text/html');
+        // document.getElementById('treeView').appendChild(renderDomTree(doc.body));
+
     </script>
 
 </body>
+
 </html>
