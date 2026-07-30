@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fish To Bird 'N' Bird To Fish</title>
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -138,12 +139,9 @@
 </head>
 
 <body>
-
     <div class="container">
         <div>A Proof Of Bird Can Be Converted To Fish 'N' ð Reverse By Word Chain Loop</div>
         <div class="word-wrapper" id="display-box"></div>
-        
-
         <div class="controls">
             <label>Interval Speed: <b id="speed-val">1.0</b>s</label>
             <div class="slider-container">
@@ -163,9 +161,7 @@
         const phrases = [
             /* "cá chim", "chim chuột", "chuột bạch", "bạch kim", "kim tiền", "tiền chợ", "chợ cá"  <-- 1st version's fainted. */
             "cá chim", "chim cú", "cú mèo", "mèo mướp", "mướp đắng", "đắng lòng", "lòng vòng", "vòng tay", "tay mắt", "mắt cá"
-        ];   
-        // const finalPhrase = "cá <--> chim";
-        // const dewColor = "#E7F2E9"; // Dew color for the final phrase #E7F2E9
+        ];
 
         const phrases_2 = [ 'mâu, mưu --> â/ư', // the assumption 
                             'y/a <-- quý hóa quá', // the existing condition
@@ -180,9 +176,6 @@
             d.innerText = phrases_2[idx];
             div.appendChild(d);
         };
-        // div.textContent = 'test';
-        
-        // div.innerHTML = str;
 
         // A vivid palette of neon color pairs to make it astonishing
         const colorPalettes = [
@@ -260,14 +253,16 @@
                 .forEach(child => child.classList
                 .add('fade-out')); // Fade out the entire last pair ('chợ cá') together
 
-                setTimeout(() => {
-                    container.innerHTML = `<span class="word-part fade-in" style="color: #4A00E0; font-size: 2.8rem;">
-                        cá <--> chim</span>`;
+                setTimeout(() => { // cá <--> chim [the final phrase]
+                    container.innerHTML = 
+                        `<span class="word-part fade-in" style="color: #4A00E0; font-size: 2.8rem;">
+                            cá <--> chim
+                        </span>`;
                     container.offsetHeight;
                     container.children[0].classList.remove('fade-in');
 
                     step++;
-                    timeoutId = setTimeout(runSequence, intervalDuration + 1000); // Give the final phrase a tad longer
+                    timeoutId = setTimeout(runSequence, intervalDuration+1900); // Give the final phrase a tad longer
                 }, 1000);
             } else { // --- CASE 3: Reset and Restart Loop Automatically ---
                 container.children[0].classList.add('fade-out');
@@ -288,7 +283,6 @@
         }
 
         speedInput.addEventListener('input', (e) => updateSpeedDisplay(e.target.value));
-
         btnPlus.addEventListener('click', () => {
             updateSpeedDisplay(parseFloat(speedInput.value) + 0.1);
         });
@@ -296,9 +290,8 @@
         btnMinus.addEventListener('click', () => {
             updateSpeedDisplay(parseFloat(speedInput.value) - 0.1);
         });
-
-        // Initialize App Loop on Load
-        runSequence();
+        
+        runSequence(); // Initialize App Loop on Load
     </script>
 
 </body>
