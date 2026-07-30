@@ -55,7 +55,7 @@ namespace Opaced_Always_On_Layer
             this.textBox1.Text = "Nai Chúa bậc Đế Ngưu Đấng Y vương hiệu Nam Hải Long Vương mộc Rồng Xanh";
             // this.Hide(); // Removes the window from the taskbar
             notifyIcon1.Visible = true;
-            this.Left = 1355;
+            this.Left = 135;
             this.Top = 137;
             this.Width = this.textBox1.Width;
             this.Height = textBox1.Height;
