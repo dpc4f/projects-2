@@ -196,9 +196,11 @@
         }
 
         function loadState() {
-            /* 
-                [; nr] fix the bug to resume David the King when time being endly checked is over
-            */ 
+            
+            /*** 
+                [; nr] fix the bug to resume David the King when time being endly checked is over <-- done
+            */
+
             const rows = localStorage.getItem("davios_rows");
             if (rows) queenBody.innerHTML = rows;
             rowCounter = parseInt(localStorage.getItem("davios_counter") || "0");
