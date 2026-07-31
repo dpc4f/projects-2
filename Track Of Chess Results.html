@@ -201,12 +201,20 @@
             */ 
             const rows = localStorage.getItem("davios_rows");
             if (rows) queenBody.innerHTML = rows;
-
             rowCounter = parseInt(localStorage.getItem("davios_counter") || "0");
 
-            let str = localStorage.getItem("davios_king_status");
+            let status = localStorage.getItem("davios_king_status");
+            const ARR = status.trim().split(/\s+/);
+            document.getElementById("kingStatus").innerHTML = status || "";
+            
+            if (ARR.length > 5) { // do check if passing 4 days from being checked endly
+                let date = new Date(ARR[ARR.length-1]);
+                const TODAY = new Date();
+                
+                if (TODAY >= date) // clear the message
+                    document.getElementById("kingStatus").innerHTML = "";
+            }
 
-            document.getElementById("kingStatus").innerHTML = localStorage.getItem("davios_king_status") || "";
             rebindButtons();
             checkLock();
         }
