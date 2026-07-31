@@ -400,9 +400,7 @@
     </div>
 
     <div id="canvas-container">
-        <canvas id="stage">
-            
-        </canvas> 
+        <canvas id="stage"></canvas> 
         <div id="content"></div>    
     </div> 
 
@@ -410,9 +408,7 @@
         <span class="note note-inline span-block">
             Shapes shift automatically. Click any option to pause 'n' inspect manually.
         </span>
-
         <button id="play-pause-btn" class="btn" onclick="toggleAutoCycle()">⏸ Auto-Shifting ON</button>
-        
         <div style="display: flex; flex-direction: column; gap: 10px;">
             <button class="btn btn-container" onclick="manualStateChange(0)">
                 <div class="container">
@@ -481,7 +477,6 @@
                 </div>
             </button>
         </div>
-
         <div id="data-display">
             <h2>Node Information</h2>
             <div id="node-content">Loading elements ...</div>
@@ -493,7 +488,7 @@
         const parseHTMLData = () => {
             const root = document.querySelector('#raw-data .instructions');
             const states = [];
-
+            
             const isolatedPoint = root.querySelector('.point-isolated');
             if (isolatedPoint) {
                 states.push({ name: "Isolated Point",
@@ -541,9 +536,6 @@
                                 bigNotes: Array.from(angelsDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(angelsDiv.querySelectorAll('.point')).map(p => p.innerHTML.trim()) });
             }
-
-            // add a modifier 4 the supreme animal
-            // states[5].labels[0] += " (l'Tal)";
 
             const extendOneDiv = root.querySelector('.extended-1');
             if (extendOneDiv) {
@@ -681,7 +673,6 @@
                 ctx.textAlign = 'left';
                 
                 const textChunks = this.label.split('; ');
-                
 
                 textChunks.forEach((chunk, idx) => {
                     // take the string
@@ -710,15 +701,16 @@
                         anima = tmp + anima[j];
                     }
 
-
                     /*
-                        [] colourize character, 'a'
+                        [] colourize character, 'a' <-- done
+                     
+                        // [an Algo]
+                        // 1. paint character by character
+                        // 2. if the current letter is, 'a' then change colour of the Canvas to, 'darkmagenta'
+                        // 3. change the colour back 4 the next letter
+                        // 4. justify the space between adjecent letters
+
                     */
-                    // [an Algo]
-                    // 1. paint character by character
-                    // 2. if the current letter is, 'a' then change colour of the Canvas to, 'darkmagenta'
-                    // 3. change the colour back 4 the next letter
-                    // 4. justify the space between adjecent letters
 
                     let idd = 0;
                     let subt = 11;
@@ -741,18 +733,15 @@
                             case 'w':
                                 subt -= 6;
                                 break;
-                            
                             case '-':
                                 if (idd < anima.length-1 && anima[idd+1] != '-')
                                 break;
                             case '>':
                                 subt += 6;
                                 break;
-
                             case '(':
                                 subt += 3;
                                 break;
-
                             default:
                                 break;
                         }
@@ -839,7 +828,6 @@
                     const offsets = [];
                     p.targetX = 0;
                     p.targetY = 0;
-                 
                 }
                 else if (currentStateIndex === 8) {
                     const offsets = [];
@@ -889,6 +877,7 @@
                 ctx.strokeStyle = 'lightgreen';
                 ctx.stroke();
             }
+
             ctx.restore();
         }
 
@@ -971,10 +960,8 @@
             });
 
             const state = statesData[index];
-            let htmlContent = `<h3>${state.name}</h3><ul>`;
-                
-            // add notes w/ big notes into the htmlContent
-            let len = state.notes !== null ? state.notes.length : 0;
+            let htmlContent = `<h3>${state.name}</h3><ul>`;    
+            let len = state.notes !== null ? state.notes.length : 0; // add notes w/ big notes into the htmlContent
             let lenBig = state.bigNotes !== null ? state.bigNotes.length : 0;
             let li = len < 2 ? len : len - 2;
 
@@ -1003,7 +990,6 @@
 
             htmlContent += `</ul>`;
             document.getElementById('node-content').innerHTML = htmlContent;
-            
             calculateLayout();
         }
 

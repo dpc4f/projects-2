@@ -124,12 +124,12 @@
         // The π Alphabet starts w/ character, 'D' @position 1
         const letters = 'DEFGHIJKLMNÑOPQRSTUVWXYZABC';
         const dw = 'D́ d́';
-
         const container = document.getElementById('alphabet');
 
         for (let i = 0; i < letters.length; i++) {
             const div = document.createElement('div');
             div.className = 'letter';
+
             if (i == 11) {
                 // div.classList.add('censored');
                 let dwElement = document.createElement('div');
@@ -147,8 +147,6 @@
             div.appendChild(divNum);
             container.appendChild(div);
         }
-
-
     </script>
 
 </body>
