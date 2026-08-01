@@ -302,6 +302,7 @@
             <div class="center dry-season">Palm</div>
             <div class="center dry-season">Hose</div>
         </div>
+
         <div class="left-panel">
             <div class="calendar-container">
                 <h1 class="center" id="monthYear"></h1>
@@ -330,24 +331,40 @@
         </div>
 
         <div class="right-panel">
-            <div class="platon-time"><em class="city">Galway</em><span class="excellent">GMT+7</span>-6</div>
-            <div id="rachael" class="local-current-time"></div>
+            <div class="platon-time">
+                <em class="city">Galway</em>
+                <span class="excellent">GMT+7</span>-6
+            </div>
+            <div id="narana" class="local-current-time"></div>
 
-            <div class="platon-time old-db-record"><em class="forestry">서울</em><em class="city">Kyoto</em><span
-                    class="excellent">GMT+7</span>+2</div>
+            <div class="platon-time old-db-record">
+                <em class="forestry">서울</em><em class="city">Kyoto</em>
+                <span class="excellent">GMT+7</span>+2
+            </div>
             <div id="oxaka-seoul" class="local-current-time"></div>
 
-            <div class="platon-time"><em class="forestry-b">北京</em><em>== madrid+6</em><em class="city">Madrid</em><span
-                    class="excellent">GMT+7</span>-5</div>
+            <div class="platon-time">
+                <em class="forestry-b">北京</em>
+                <em>== madrid+6</em>
+                <em class="city">Madrid</em>
+                <span class="excellent">GMT+7</span>-5
+            </div>
             <div id="beijing" class="local-current-time"></div>
 
-            <div class="platon-time"><em class="city">Dacet</em><span class="excellent-def">GMT+7</span></div>
+            <div class="platon-time">
+                <em class="city">Matxkva</em>
+                <span class="excellent">GMT+7</span>+8
+            </div>
+            <div id="dmitry" class="local-current-time"></div>
+
+            <div class="platon-time">
+                <em class="city">Dacet</em>
+                <span class="excellent-def">GMT+7</span>
+            </div>
             <div id="dustin-plural" class="local-current-time dacet-pine"></div>
         </div>
-
     </div>
-    </div>
-
+ 
     <script>
         const CURRENT_YEAR = 2020;
         const TODAY = new Date();
@@ -377,13 +394,15 @@
             const ExcellenT = new Date();
             let oxakaSeoulTime = formatTime(ExcellenT, additionalHours = 2); // GMT+7+2
             let beijingTime = formatTime(ExcellenT, additionalHours = -5); // GMT+7+1 --> GMT+7-5
-            let rainingTime = formatTime(ExcellenT, additionalHours = -6); // GMT+7-7
+            let rainingTime = formatTime(ExcellenT, additionalHours = -6); // GMT+7-6
             let dacetTime = formatTime(ExcellenT, additionalHours = 0); // GMT+7
+            let dimitryTime = formatTime(ExcellenT, additionalHours = 8); // GMT+7+8
 
             document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
             document.getElementById('beijing').textContent = `${beijingTime}`;
-            document.getElementById('rachael').textContent = `${rainingTime}`;
+            document.getElementById('narana').textContent = `${rainingTime}`;
             document.getElementById('dustin-plural').textContent = `${dacetTime}`;
+            document.getElementById('dmitry').textContent = `${dimitryTime}`;
         }
 
         // initial render
