@@ -384,11 +384,31 @@
             return (day + 5) % 7;
         }
 
+
+        /**
+         * Gets the date for a specific day in the current week (local time).
+         * 
+         * @param {number} dayOfWeek - 0 for Sunday, 1 for Monday, ..., 6 for Saturday.
+         * @returns {Date} A Date object set to the start of that day.
+         */
+        function getDateInWeek(dayOfWeek) {
+            const now = new Date();
+            const currentDay = now.getDay(); // 0 (Sun) to 6 (Sat)
+            
+            // Calculate the difference between target day and current day
+            const diff = dayOfWeek - currentDay;
+            
+            const targetDate = new Date(now);
+            targetDate.setDate(now.getDate() + diff);
+            
+            return targetDate;
+        }
+
         function convertToElteWithDayName(aDate) {     
             const DAY = [ "TH", "WA", "UT", "FR", "SA", "HI", "DA" ];      
             let elteDOB = convertToElte(aDate);
-            let dayNameInAWeek = DAY[TODAY.getDate() % 7];
-                            
+            let dayNameInAWeek = DAY[(TODAY.getDay()+5) % 7];
+
             return elteDOB + ' ' + dayNameInAWeek;    
         }
         
