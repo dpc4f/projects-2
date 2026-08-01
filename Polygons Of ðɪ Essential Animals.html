@@ -917,6 +917,16 @@
             return template.content.firstElementChild;
         }
 
+        function isHTML(str) {
+            const doc = new DOMParser().parseFromString(str, 'text/html');
+            
+            return Array.from(doc.body.childNodes).some(node => node.nodeType === 1); // Check if any actual HTML elements were parsed inside the body
+        }
+// // Examples:
+// console.log(isHTML("<h1>Hello</h1>")); // true
+// console.log(isHTML("Hello World"));    // false
+// console.log(isHTML("5 < 10 & 10 > 5")); // false
+
         function applyState(index) { // Internal State Swapper
             let canvas = document.getElementById('stage');
             let divDisplayedContent = document.getElementById('content');
@@ -927,6 +937,8 @@
                 divDisplayedContent.classList.remove('invisible');
                 
                 let htmlContent = '';
+                
+                divDisplayedContent.innerHTML = '';
                 if (currentStateIndex == DENNIS_KINGDOM) {
                     DVATTIMSAKARA.forEach((label, idx) => {
                         htmlContent += `<li id='${idx}' class='left-li'>${label}</li>`;
@@ -965,7 +977,11 @@
 
                     state.notes.forEach(note => {
                         let div = document.createElement('div');
-                        div.innerText = note;
+                        
+                        if (isHTML(note))
+                            div.appendChild(createElementFromHTML(note));
+                        else
+                            div.innerText = note;
                         divDisplayedContent.appendChild(div);
                     });
                 } else { // not yet to be implemented
