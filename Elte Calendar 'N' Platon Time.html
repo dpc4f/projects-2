@@ -353,7 +353,7 @@
 
             <div class="platon-time">
                 <em class="city">Matxkva</em>
-                <span class="excellent">GMT+7</span>+8
+                <span class="excellent">GMT+7</span>-4
             </div>
             <div id="dmitry" class="local-current-time"></div>
 
@@ -393,10 +393,10 @@
         function updateTimes() {
             const ExcellenT = new Date();
             let oxakaSeoulTime = formatTime(ExcellenT, additionalHours = 2); // GMT+7+2
-            let beijingTime = formatTime(ExcellenT, additionalHours = -5); // GMT+7+1 --> GMT+7-5
+            let beijingTime = formatTime(ExcellenT, additionalHours = -5); // GMT+7+1 --> GMT+7-5; switch to Madrid time
             let rainingTime = formatTime(ExcellenT, additionalHours = -6); // GMT+7-6
             let dacetTime = formatTime(ExcellenT, additionalHours = 0); // GMT+7
-            let dimitryTime = formatTime(ExcellenT, additionalHours = 8); // GMT+7+8
+            let dimitryTime = formatTime(ExcellenT, additionalHours = -4); // GMT+7-4
 
             document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
             document.getElementById('beijing').textContent = `${beijingTime}`;
