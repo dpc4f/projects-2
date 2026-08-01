@@ -367,6 +367,7 @@
                 <div class="zipped-point">There's a species of bacteria big enough that we don't need to use microscopes to look.</div>
                 <div class="zipped-point">Albert Einstein nhờ có trí tưởng tượng mà dẫn đến sự thành công</div>
                 <div class="zipped-point">[water][only species] Octopus, bacteria related</div>
+                <div class="note">follow Rule [841] as strict as possible</div>
             </div>
             <div class="extended-3">
                 <div class="note">Virus</div>
@@ -552,7 +553,8 @@
                 states.push({ name: "Extended 1 No-Shapes",
                                 notes: Array.from(extendOneDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
                                 bigNotes: Array.from(extendOneDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
-                                labels: Array.from(extendOneDiv.querySelectorAll('.point, .zipped-point')).map(p => p.innerHTML.trim()) });
+                                labels: Array.from(extendOneDiv.querySelectorAll('.point, .zipped-point, .presented-point'))
+                                        .map(p => p.innerHTML.trim()) });
             }
 
             const extendTwoDiv = root.querySelector('.extended-2');
@@ -904,14 +906,25 @@
             ctx.restore();
         }
 
-        function applyState(index) { // Internal State Swapper
-            currentStateIndex = index;
+        function createElementFromHTML(htmlString) {
+            // 1. Create a template element
+            const template = document.createElement('template');
+            
+            // 2. Set the HTML string as innerHTML (trimmed to remove whitespace)
+            template.innerHTML = htmlString.trim();
+            
+            // 3. Return the first child element
+            return template.content.firstElementChild;
+        }
 
+        function applyState(index) { // Internal State Swapper
+            let canvas = document.getElementById('stage');
+            let divDisplayedContent = document.getElementById('content');
+
+            currentStateIndex = index;
             if (currentStateIndex >= DENNIS_KINGDOM) {
-                let canvas = document.getElementById('stage');
                 canvas.classList.add('hidden');
-                let div = document.getElementById('content');
-                div.classList.remove('invisible');
+                divDisplayedContent.classList.remove('invisible');
                 
                 let htmlContent = '';
                 if (currentStateIndex == DENNIS_KINGDOM) {
@@ -925,33 +938,42 @@
                             element.classList.add('transf');
                         }, 400);
                     });
-                } else if (currentStateIndex == DE_CHE_CONG_QUOC_HINH_CHU) {
-                    htmlContent += `<div class='added-margin'>`;
-                    htmlContent += `<div>${'[vowel transforming]'}</div>`;
-                    htmlContent += `<div>${'a/e, anh em'}</div>`;
-                    htmlContent += `<div>${'a/o, All in One'}</div>`;
-                    htmlContent += `<div>${'i/e, it will have the meaning of'}</div>`;
-                    htmlContent += `<div>${'y/a, quý hóa quá'}</div>`;
-                    htmlContent += `<div>${'a/i, an-ma-ni pad-me-hum'}</div>`;
-                    htmlContent += `<div>${'a/u, { AU, gold }'}</div>`;
-                    htmlContent += `<div>${'u/y, uy đức'}</div>`;
-                    htmlContent += `</div>`;
-                    htmlContent += `<div class='added-margin'>follow Rule [841] as strict as possible</div>`;
-                    htmlContent += `<div class='added-margin-2'>playing wording(s) needs to limit playing bodies</div>`;
-                    htmlContent += `<div class='added-margin-2'>{ sia, say it again } <-- đây là điều dc nói lại có thể giống có thể khác đi 1 ít OR khác hẳn 100%</div>`;
-                    htmlContent += `<div class='added-margin-2'>Tiếng Việt, lệch lạc vị giác</div>`;
-                    htmlContent += `<div class='added-margin-2'>French, lệch giới tính</div>`;
-                    htmlContent += `<div class='added-margin-2'>American English, lệch phương tiện đối tượng</div>`;
                     
-                    div.innerHTML = htmlContent;
-                }
+                    divDisplayedContent.innerHTML = htmlContent;
+                } else if (currentStateIndex == DE_CHE_CONG_QUOC_HINH_CHU) {
+                    // htmlContent += `<div class='added-margin'>`;
+                    // htmlContent += `<div>${'[vowel transforming]'}</div>`;
+                    // htmlContent += `<div>${'a/e, anh em'}</div>`;
+                    // htmlContent += `<div>${'a/o, All in One'}</div>`;
+                    // htmlContent += `<div>${'i/e, it will have the meaning of'}</div>`;
+                    // htmlContent += `<div>${'y/a, quý hóa quá'}</div>`;
+                    // htmlContent += `<div>${'a/i, an-ma-ni pad-me-hum'}</div>`;
+                    // htmlContent += `<div>${'a/u, { AU, gold }'}</div>`;
+                    // htmlContent += `<div>${'u/y, uy đức'}</div>`;
+                    // htmlContent += `</div>`;
+                    // htmlContent += `<div class='added-margin'>follow Rule [841] as strict as possible</div>`;
+                    // htmlContent += `<div class='added-margin-2'>playing wording(s) needs to limit playing bodies</div>`;
+                    // htmlContent += `<div class='added-margin-2'>{ sia, say it again } <-- đây là điều dc nói lại có thể giống có thể khác đi 1 ít OR khác hẳn 100%</div>`;
+                    // htmlContent += `<div class='added-margin-2'>Tiếng Việt, lệch lạc vị giác</div>`;
+                    // htmlContent += `<div class='added-margin-2'>French, lệch giới tính</div>`;
+                    // htmlContent += `<div class='added-margin-2'>American English, lệch phương tiện đối tượng</div>`;
+                    
+                    // div.innerHTML = htmlContent;
 
-                div.innerHTML = htmlContent;
+                    const state = statesData[index];
+                    let len = state.notes !== null ? state.notes.length : 0; // add notes w/ big notes into the htmlContent
+
+                    state.notes.forEach(note => {
+                        let div = document.createElement('div');
+                        div.innerText = note;
+                        divDisplayedContent.appendChild(div);
+                    }); 
+                } else { // not yet to be implemented
+                    divDisplayedContent.innerHTML = '';
+                }
             } else {
-                let canvas = document.getElementById('stage');
                 canvas.classList.remove('hidden');
-                let div = document.getElementById('content');
-                div.classList.add('invisible');
+                divDisplayedContent.classList.add('invisible');
             }
 
             document.querySelectorAll('#control-panel .btn:not(#play-pause-btn)').forEach((btn, idx) => {
