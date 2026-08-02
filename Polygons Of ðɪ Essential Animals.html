@@ -353,7 +353,7 @@
                     108 --> 1 ~ 8; 2 ~ 7; 3 ~ 6; etc.<br/>
                     176 --> 167<br/>
                     numbers in VNMese need to be written in digits while wording(s) in English<br/>
-                    [pair][oder matters] { [3:1]; [2:4]; [2:5]; [6:9]; [4:6]; [6:11] }<br/>
+                    [pair][oder matters] { 3:1; 2:4; 2:5; 6:9; 4:6; 6:11 }<br/>
                 </div>
                 <div class="hidden">Digitalization is the now-trending in life.</div>
             </div>
@@ -367,7 +367,7 @@
                 <div class="zipped-point">There's a species of bacteria big enough that we don't need to use microscopes to look.</div>
                 <div class="zipped-point">Albert Einstein nhờ có trí tưởng tượng mà dẫn đến sự thành công</div>
                 <div class="zipped-point">[water][only species] Octopus, bacteria related</div>
-                <div class="note">follow Rule [841] as strict as possible</div>
+                <div class="note">follow Rule 841 as strict as possible</div>
             </div>
             <div class="extended-3">
                 <div class="note">Virus</div>
@@ -429,7 +429,7 @@
     </div>
 
     <div class="note bottom-right-note" id="time-manner-2">
-        In practice, Rule [3:1] is a more common than [2:4] the Rule.
+        In practice, Rule <b>3:1</b> is a more common than <b>2:4</b> the Rule.
     </div>
 
     <div id="canvas-container">
@@ -643,7 +643,7 @@
 
         // --- AUTOMATION CONTROL CONFIGURATION ---
         let isAutoCycling = true;
-        const cycleDuration = 4000; // Time (in ms) to spend on each layout state
+        const cycleDuration = 7000; // Time (in ms) to spend on each layout state
         let lastStateTime = Date.now();
         let cycleProgress = 0; // Ranges 0 to 1 for visual loading timers
 
@@ -1095,13 +1095,14 @@
             if (isAutoCycling) { // Handle Timing Cycles
                 const now = Date.now();
                 const elapsed = now - lastStateTime;
-                let timeToNextLap = cycleDuration + (currentStateIndex<DENNIS_KINGDOM ? currentStateIndex+1 : 
-                                        (DENNIS_KINGDOM+2))*cycleDuration/1.9;
+                let timeToNextLap = cycleDuration + (currentStateIndex < DENNIS_KINGDOM ? currentStateIndex + 1 : 
+                                        (DENNIS_KINGDOM+2)) * cycleDuration / 1.9;
                 cycleProgress = Math.min(elapsed / timeToNextLap, 1);
 
                 // timeToNextLap = cycleDuration + (currentStateIndex>=DENNIS_KINGDOM ? 1000 : cycleDuration); // a temporary formuler; will change
                 if (elapsed >= timeToNextLap) {
                     let nextState = (currentStateIndex + 1) % statesData.length;
+                    
                     applyState(nextState);
                     lastStateTime = now;
                     cycleProgress = 0;
@@ -1128,7 +1129,7 @@
 
         setTimeout(() => {
             let ele = document.getElementById('time-manner-2');
-            ele.classList.add('invisible');
+            ele.classList.add('hidden');
         }, 31000);
         
         window.addEventListener('DOMContentLoaded', () => {
