@@ -148,13 +148,13 @@
         }
 
         .bottom-left-note { 
-            position: fixed;
+            position: absolute;
             bottom: 30px;
             left: 20px;
         }
 
         .bottom-right-note {
-            position: fixed;
+            position: absolute;
             bottom: 10px;
             left: 750px;
         }
@@ -345,7 +345,7 @@
                 <div class="note">[a fact] muốn di chuyển từ thiên hà này sang thiên hà khác cần có Con Cua 'N' Con Sâu</div>
                 <div class="note">[a methodology] lấy Vương Quốc Động Vật làm nền tảng cho Y Khoa</div>
             </div>
-            <div class="extended-1">
+            <div class="extended-1"> <!-- DENNIS_KINGDOM = 6; // Maximum Of 'Vương Quốc Động Vật' -->
                 <div class="note"><span class="head">Đế Chế Phấn Tảo <h4>w/</h4> Vương Quốc Động Vật</span></div>
                 <div class="note">[nấm; !cây-nấm] { rơm; mèo (mộc nhĩ); Đông Cô; mốc } w/ { bào tử nấm }</div>
                 <div class="note">[a fact] fungi are a sole kingdom; fungi aren't plants OR animals</div>
@@ -799,7 +799,7 @@
 
         let nodeIndex = 0;
         const particles = Array.from({ length: 6 }, () => new NodeParticle(nodeIndex++));
-        const DENNIS_KINGDOM = 6; // Vương Quốc Động Vật
+        const DENNIS_KINGDOM = 6; // Maximum Of 'Vương Quốc Động Vật'
         const DE_CHE_CONG_QUOC_HINH_CHU = 7; // wording(s)' transformation; images' real-time varying
 
         function resize() {
@@ -964,13 +964,13 @@
 
             currentStateIndex = index;
             if (currentStateIndex >= DENNIS_KINGDOM) {
+                let htmlContent = '';
+
                 canvas.classList.add('hidden');
                 divDisplayedContent.classList.remove('invisible');
-                
-                let htmlContent = '';
-                
                 divDisplayedContent.innerHTML = '';
-                if (currentStateIndex == DENNIS_KINGDOM) {
+
+                if (currentStateIndex == DENNIS_KINGDOM) { // Đế Chế Phấn Tảo
                     DVATTIMSAKARA.forEach((label, idx) => {
                         htmlContent += `<li id='${idx}' class='left-li'>${label}</li>`;
 
@@ -1008,6 +1008,7 @@
 
                     state.notes.forEach(note => {
                         let div = document.createElement('div');
+                        div.classList.add('added-margin');
                         
                         if (isHTML(note))
                             div.appendChild(createElementFromHTML(note));
