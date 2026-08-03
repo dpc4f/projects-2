@@ -275,8 +275,9 @@
         }
 
         .note-aligned {
-            color: rgb(3, 83, 3);
-            margin-left: 750px;
+            color: darkred;
+            position: relative;
+            right: -400px;
         }
     </style>
 </head>
@@ -369,6 +370,11 @@
             "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
         ]; // Athena is { Infanta Sofía, a goddess }, wife of Zeus
 
+        const MONTH_NAMES_3 = [
+            "a", "d", "m", "q", "f", "y",
+            "s", "o", "n", "d", "p", "h"
+        ];
+
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
 
@@ -412,25 +418,25 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-            let elteMonth = MONTH_NAMES_2[month < 2 ? month+10 : month-2];
+            let elteMonth = MONTH_NAMES_3[month < 2 ? month+10 : month-2];
             let elteYear;
             let elteDOB;
 
             if (month < 2) // month is Jan OR Feb
                 year--;
             if (year > CURRENT_YEAR)
-                elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
+                elteYear = 'cy+' + (year - CURRENT_YEAR).toString();
             else if (year < CURRENT_YEAR)
-                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+                elteYear = 'cy-' + (CURRENT_YEAR - year).toString();
             else
-                elteYear = 'current_year';
+                elteYear = 'cy';
             elteDOB = `${elteMonth} ${day} ${elteYear}`;
 
             return elteDOB;
         }
 
         function convertToElteWithDayName(aDate = '') {     
-            const DAY = [ "TH", "WA", "UT", "FR", "SA", "HI", "DA" ];
+            const DAY = [ "T", "W", "U", "F", "S", "H", "D" ];
             const TODAY = new Date();
 
             let elteDOB = convertToElte(aDate != '' ? aDate : TODAY.toString());
