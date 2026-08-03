@@ -223,7 +223,7 @@
 
         function getQueenOrder() {
             let ret;
-            let order = playTheDice(10);
+            let order = playTheDice(11);
             let dao = rowCounter % 2 == 0 ? 'yao' : 'yao-1';
             let sofıa = rowCounter % 2 == 0 ? 'sofia' : 'sofia-1'
 
@@ -316,6 +316,14 @@
                         ["", "blank"]];
                     break;
 
+                case 10:
+                    ret = [["Mèo Béo Thoa", "thoa"], 
+                        // ["Anna Giang", "yao"], 
+                        ["'Tô Đát Kỷ' the Fox", dao], 
+                        ["Sofıa los Santos de Todos", sofıa],
+                        ["", "blank"]];
+                    break;
+
                 default:
                     /* not explicitly exposed to the others [cim, Clever Internal Wives] */
                     ret = [["Thoa", "thoa"], 
@@ -396,7 +404,7 @@
             let now = new Date();
             let sec = now.getSeconds();
             
-            return ((sec+19)*3)%modulo;
+            return ((sec + 19) * 732)  % modulo;
         }
 
         function rebindButtons() {
