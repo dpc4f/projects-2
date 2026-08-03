@@ -36,13 +36,22 @@
             color: darkgreen;
             margin-left: 28px;
         }
+
+        .capitalize-first::first-letter {
+            text-transform: uppercase;
+        }
+
+        .invisible, .hidden {
+            display: none
+        }
     </style>
 </head>
 
 <body>
     <h2>today name is,</h2><br />
-    <div id="name" disabled></div>
+    <div id="name" disabled class="capitalize-last"></div>
     <h5 class="note">Names need to have meaning(s).</h5>
+    <h5 class="hidden">[a fact][alphabet] chữ i của Æ khi uppercase lên đâu mất tiêu cái dấu nhìn giống y chang chữ l hahah ...</h5>
 
     <script>
         function getRandomName(names) {
