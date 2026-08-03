@@ -116,7 +116,6 @@
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             margin-top: 200px;
-
         }
 
         #monthYear {
@@ -124,14 +123,11 @@
         }
 
         #reference {
-
             font-size: 12px;
-
         }
 
         /* Mobile optimization */
         @media (max-width: 580px) {
-
             th,
             td {
                 font-size: 12px;
@@ -153,12 +149,9 @@
             margin-top: 40px;
         }
 
-
-
         .flex-months,
         .left-panel,
         .right-panel {
-
             /* each side takes equal width */
             padding: 10px;
             background: #f2f2f2;
@@ -175,8 +168,6 @@
             font: bold 31px "Arial", monospace;
             color: brown;
         }
-
-
 
         .left-panel {
             flex: 1 0 50%;
@@ -200,6 +191,7 @@
             0%, 100% {
                 color: #23bb9a; /* Start & End color (e.g., Blue) */
             }
+
             50% {
                 color: #050c49; /* Middle color (e.g., Red) */
             }
@@ -221,7 +213,7 @@
                 - ease-in-out: makes the transition smooth
                 - infinite: keeps repeating endlessy
             */
-            animation: colorSwitch 23s ease-in-out infinite;
+            animation: colorSwitch 33s ease-in-out infinite;
         }
 
         .old-db-record {
@@ -273,16 +265,19 @@
         .city {
             font-size: 26px;
             font-weight: 900;
-     
         }
 
-        .note {
+        .note, .note-aligned {
             font-size: 17px;
             color: darkgreen;
             margin-left: 483px;
             margin-top: 14px;
         }
 
+        .note-aligned {
+            color: rgb(3, 83, 3);
+            margin-left: 750px;
+        }
     </style>
 </head>
 
@@ -302,7 +297,6 @@
             <div class="center dry-season">Palm</div>
             <div class="center dry-season">Hose</div>
         </div>
-
         <div class="left-panel">
             <div class="calendar-container">
                 <h1 class="center" id="monthYear"></h1>
@@ -328,27 +322,24 @@
                     <button onclick="changeMonth(1)">Next Month</button>
                 </div>
             </div>
+            <div id="infor" class="note-aligned"></div>
         </div>
-
         <div class="right-panel">
             <div class="platon-time">
                 <em class="city">Galway</em>
                 <span class="excellent">GMT+7</span>-6
             </div>
             <div id="narana" class="local-current-time"></div>
-
             <div class="platon-time">
                 <em class="city">Matxkva</em>
                 <span class="excellent">GMT+7</span>-4
             </div>
             <div id="dmitry" class="local-current-time"></div>
-
             <div class="platon-time old-db-record">
                 <em class="forestry">서울</em><em class="city">Kyoto</em>
                 <span class="excellent">GMT+7</span>+2
             </div>
             <div id="oxaka-seoul" class="local-current-time"></div>
-
             <div class="platon-time">
                 <em class="forestry-b">北京</em>
                 <em>== madrid+6</em>
@@ -356,7 +347,6 @@
                 <span class="excellent">GMT+7</span>-5
             </div>
             <div id="beijing" class="local-current-time"></div>
-
             <div class="platon-time">
                 <em class="city">Dacet</em>
                 <span class="excellent-def">GMT+7</span>
@@ -373,14 +363,14 @@
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
+
         const MONTH_NAMES_2 = [
             "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
             "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
-        ]; // Athen is { Infanta Sofía, a goddess }, wife of Zeus
+        ]; // Athena is { Infanta Sofía, a goddess }, wife of Zeus
 
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
-
 
         function formatTime(date, hours = 0) {
             let hr;
@@ -405,6 +395,50 @@
             document.getElementById('dmitry').textContent = `${dimitryTime}`;
         }
 
+        function convertToElte(aDate) {
+            let date = '';
+
+            if (aDate !== '' && aDate !== undefined) {
+                date = new Date(aDate);
+            } else {
+                date = new Date();
+            }
+
+            if (isNaN(date.getTime())) {
+                alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
+                return;
+            }
+
+            let month = date.getMonth();
+            let day = date.getDate();
+            let year = date.getFullYear();
+            let elteMonth = MONTH_NAMES_2[month < 2 ? month+10 : month-2];
+            let elteYear;
+            let elteDOB;
+
+            if (month < 2) // month is Jan OR Feb
+                year--;
+            if (year > CURRENT_YEAR)
+                elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
+            else if (year < CURRENT_YEAR)
+                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+            else
+                elteYear = 'current_year';
+            elteDOB = `${elteMonth} ${day} ${elteYear}`;
+
+            return elteDOB;
+        }
+
+        function convertToElteWithDayName(aDate = '') {     
+            const DAY = [ "TH", "WA", "UT", "FR", "SA", "HI", "DA" ];
+            const TODAY = new Date();
+
+            let elteDOB = convertToElte(aDate != '' ? aDate : TODAY.toString());
+            let dayNameInAWeek = DAY[(TODAY.getDay()+5) % 7];
+
+            return elteDOB + ' ' + dayNameInAWeek;    
+        }
+
         // initial render
         updateTimes();
 
@@ -413,11 +447,13 @@
 
         function convertCurrentYear() {
             let subtract = currentYear - CURRENT_YEAR;
+
             return 'current_year+' + subtract.toString();
         }
 
         function convertReversedCurrentYear(yearStr) {
             const match = yearStr.match(/^current_year([+-]\d+)$/);
+
             return CURRENT_YEAR + Number(match?.[1] ?? 0);
         }
 
@@ -428,19 +464,18 @@
         function removePurple4Months() {
             let mt = document.getElementById("monthNames").children;
             let i = 0;
-            for (; i<mt.length; i++) {
+
+            for (; i<mt.length; i++) { // remove Purple the current month colour
                 mt[i].style.color = "";
-            } // remove Purple the current month colour
+            } 
         }
 
         function renderCalendar(year, month) {
-            document.getElementById("monthYear").textContent =
-                MONTH_NAMES_2[month < 2 ? month + 10 : month - 2] + " " + convertCurrentYear(year);
-
             let mt = document.getElementById("monthNames").children;
 
+            document.getElementById("monthYear").textContent = MONTH_NAMES_2[month < 2 ? month + 10 : month - 2] 
+                                                                + " " + convertCurrentYear(year);
             removePurple4Months();
-
             mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
             
             const firstDay = new Date(year, month, 1);
@@ -456,9 +491,9 @@
                 /* 
                     the first row (row zero) is 4 displaying Name of Days in a Week
                     có đúng 7 ngày trong tuần 'N' phải nhỏ hơn 5 tuần
-                */
-                
+                */       
                 const row = document.createElement("tr");
+                
                 for (let c = 0; c < 7; c++) {
                     const cell = document.createElement("td");
 
@@ -472,13 +507,16 @@
                         
                         date++;
                     }
+                    
                     row.appendChild(cell);
                 }
 
                 body.appendChild(row);
                 if (date > daysInMonth) break;
             }
-           
+            
+            const infor = document.getElementById("infor");
+            infor.innerText = convertToElteWithDayName();
         }
 
         function changeMonth(step) {
