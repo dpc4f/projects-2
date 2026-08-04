@@ -1051,8 +1051,7 @@
 
             let i = 0; // first notes
             for (; i < li; ++i) {
-
-                
+                state.notes[i] = state.notes[i].replaceAll('==A', ' --> ');
                 htmlContent += `<div class='note'>${state.notes[i]}</div>`;
             }
             
@@ -1067,10 +1066,12 @@
 
             i = 0; // the 2 remained
             for (; i < len - li; ++i) {
+                state.notes[li+i] = state.notes[li+i].replaceAll('==A', ' --> ');
                 htmlContent += `<div class='note'>${state.notes[li+i]}</div>`;
             }
             
             state.labels.forEach(label => {
+                label = label.replaceAll('==A', ' --> ');
                 htmlContent += `<li>${label}</li>`;
             });
 
