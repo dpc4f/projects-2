@@ -146,7 +146,6 @@
 </head>
 
 <body>
-
     <div class="layout">
         <div class="side"></div>
         <div class="main">
@@ -190,16 +189,14 @@
         function saveState() {
             localStorage.setItem("davios_rows", queenBody.innerHTML);
             localStorage.setItem("davios_counter", rowCounter);
-            localStorage.setItem("davios_king_status",
-                document.getElementById("kingStatus").innerHTML
-            );
+            localStorage.setItem("davios_king_status", document.getElementById("kingStatus").innerHTML);
         }
 
         function loadState() {
             
             /*** 
-                [; nr] fix the bug to resume David the King when time being endly checked is over <-- done
-            */
+                [; nr] fix the bug to resume David the King when time being endly checked is over
+            */ // --> done
 
             const rows = localStorage.getItem("davios_rows");
             if (rows) queenBody.innerHTML = rows;
@@ -335,14 +332,16 @@
                     ];
                     break;
             }
+
             rowCounter++;
             
             return ret;
         }
 
         function createQueenCell(name, cssClass, isPeopleHere = true) {
-            if (isPeopleHere) {
-                
+            if (isPeopleHere == false) 
+                return `<td class="${cssClass}"></td>`;
+            
             return `
                 <td class="${cssClass}">
                     <strong>${name}</strong>
@@ -368,15 +367,10 @@
                         </button>
                     </div>
                 </td>`;
-            }
-            else
-            {
-                return `<td class="${cssClass}"></td>`;
-            }
         }
 
         function addRow() {
-
+            
             /***
              * [; nr] update the algorithm 4 a randomizing
              *
@@ -412,8 +406,7 @@
 
         function rebindButtons() {
             document.querySelectorAll(".addResultBtn").forEach(btn => {
-                if (btn.dataset.bound)
-                    return;
+                if (btn.dataset.bound) return;
 
                 btn.dataset.bound = "1";
                 btn.addEventListener("click", () => {
@@ -422,8 +415,7 @@
                     const select = td.querySelector("select");
                     const current = history.textContent.trim();
                     let items = current ? current.split(" ") : [];
-
-                    
+       
                     if (select.value === "default") {
                         // alert("Please select a valid result.");
                         return;
@@ -432,13 +424,6 @@
                     if (select.value === "koe") {
                         items.push("kỏe");
                     } else {
-                        // let maxLoss = 0;
-
-                        // items.forEach(x => {
-                        //     const n = parseInt(x);
-
-                        //     if (!isNaN(n)) maxLoss = Math.max(maxLoss, n);
-                        // });
                         items.push(items.length + 1);
                     }
 
@@ -482,21 +467,21 @@
 
         document.getElementById("createRowBtn").addEventListener("click", addRow);
         document.getElementById("kingBtn").addEventListener("click", () => {
-            const now = new Date();
-            const resume = new Date(now.getTime() + 4 * 24 * 60 * 60 * 1000);
+                const now = new Date();
+                const resume = new Date(now.getTime() + 4 * 24 * 60 * 60 * 1000);
 
-            localStorage.setItem("davios_resume", resume.toISOString());
-            document.getElementById("kingStatus").innerHTML =
-                `
-                            Checked:
-                            ${now.toLocaleString()}
-                            <br><br>
-                            Resume:
-                            ${resume.toLocaleDateString()}
-                        `;
-            lockControls();
-            saveState();
-        }
+                localStorage.setItem("davios_resume", resume.toISOString());
+                document.getElementById("kingStatus").innerHTML =
+                    `
+                                Checked:
+                                ${now.toLocaleString()}
+                                <br><br>
+                                Resume:
+                                ${resume.toLocaleDateString()}
+                            `;
+                lockControls();
+                saveState();
+            }
         );
 
         loadState();
