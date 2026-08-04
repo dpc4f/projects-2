@@ -318,7 +318,7 @@
                 <div class="note">Dendrelaphis, a species of Snakes</div>
                 <div class="point">{ Lion; Tiger; Dragon; Long-dragon }</div>
                 <div class="point">Ant(elope); Horse; Vulture</div>
-                <div class="point">Rhimo; Elephant; Centipede; Ant ==A Amip; Bee</div>
+                <div class="point"><strong>Rhimo</strong>; Elephant; Centipede; Ant ==A Amip; Bee</div>
                 <div class="point">{ Mouse, Snake }; Bear; Bat; { Whale, Quail, Shark }; Chicken</div>
                 <div class="point">Python; { Pheasant ==A Tortoise; Owl ==A Crow }; Falkon; { Swan, Peacock }</div>
                 <div class="invisible">vulture, { kên kền, thứu linh, dã can }</div>
@@ -719,9 +719,9 @@
                 const textChunks = this.label.split('; ');
 
                 textChunks.forEach((chunk, idx) => {
-                    // take the string
                     let anima = '', i = 0, isNew = false, isAllowed = 0;
-                    
+
+                    chunk = isHTML(chunk) ? createElementFromHTML(chunk).innerText : chunk; // take the string
                     for (; i < chunk.length; ++i) {
                         isAllowed = isAllowedLetter(chunk[i], i < chunk.length-1 ? chunk[i+1] : '@');
 
@@ -956,7 +956,7 @@
             
             return Array.from(doc.body.childNodes).some(node => node.nodeType === 1); // Check if any actual HTML elements were parsed inside the body
         }
-// // Examples:
+// Examples:
 // console.log(isHTML("<h1>Hello</h1>")); // true
 // console.log(isHTML("Hello World"));    // false
 // console.log(isHTML("5 < 10 & 10 > 5")); // false
@@ -1051,6 +1051,8 @@
 
             let i = 0; // first notes
             for (; i < li; ++i) {
+
+                
                 htmlContent += `<div class='note'>${state.notes[i]}</div>`;
             }
             
