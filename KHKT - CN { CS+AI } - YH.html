@@ -45,6 +45,50 @@
         .hidden, .invisible {
             display: none;
         }
+
+        :root {
+  /* Crystal Backgrounds & Surfaces */
+  --bg-crystal-icy: #F0F8FF;
+  --bg-crystal-glass: #E0F7FA;
+  --surface-aqua: #D4F1F4;
+  --surface-cyan: #AFEEEE;
+
+  /* Accent & CTA Colors */
+  --accent-coral: #E05A47;
+  --accent-warm-bronze: #D97724;
+  
+  /* Text & Structure */
+  --text-primary: #1B2A32;
+  --border-subtle: rgba(255, 255, 255, 0.6);
+}
+
+/* Glassmorphism Card Style */
+.crystal-card {
+  background: rgba(224, 247, 250, 0.45);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  color: var(--text-primary);
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(27, 42, 50, 0.08);
+}
+
+/* Eye-Catching Button */
+.btn-primary {
+  background-color: var(--accent-coral);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #C84635;
+  transform: translateY(-2px);
+}
     </style>
 </head>
 
@@ -79,12 +123,12 @@
         resizeCanvas();
 
         /*
-            Khoa Học Kỹ Thuật - Crystal Clear
+            Khoa Học Kỹ Thuật (sCienCe) - shade of Crystal Clear 
             Công Nghệ mà cụ thể là, Khoa Học Máy Tính [Magenta] Trí Tuệ Nhân Tạo [Tomato] - Cyan
             Y Học - Yellow
         */
         const colors = { // Color definitions
-            D: '#DFCFFF', // Crystal Clear
+            D: '#D4F1F4', // Crystal Water Aqua
             I: '#00ffff', // Cyan (Aqua)
             Y: '#FF0000',  // Tomato ~red
             T: '#f1c232' // Yellow
