@@ -80,7 +80,7 @@
 
         /*
             Khoa Học Kỹ Thuật - Crystal Clear
-            Công Nghệ mà đặc biệt là, Khoa Học Máy Tính [Magenta] Trí Tuệ Nhân Tạo [Tomato] - Cyan
+            Công Nghệ mà cụ thể là, Khoa Học Máy Tính [Magenta] Trí Tuệ Nhân Tạo [Tomato] - Cyan
             Y Học - Yellow
         */
         const colors = { // Color definitions
@@ -172,7 +172,7 @@
                 { label: 'Technology', color: colors.I, 
                     x: centerX + radius * Math.cos(angle + (2 * Math.PI / NUM_VERTEX)), 
                     y: centerY + radius * Math.sin(angle + (2 * Math.PI / NUM_VERTEX)) },
-                { label: 'KHMT+AI', color: colors.Y, 
+                { label: 'KHMT + AI', color: colors.Y, 
                     x: centerX + radius * Math.cos(angle + (4 * Math.PI / NUM_VERTEX)), 
                     y: centerY + radius * Math.sin(angle + (4 * Math.PI / NUM_VERTEX)) },
                 { label: 'YH', color: colors.T, 
@@ -239,12 +239,6 @@
                 ctx.fill();
                 ctx.restore();
 
-                // Core inner white dot
-                // ctx.fillStyle = '#ffffff';
-                // ctx.beginPath();
-                // ctx.arc(v.x, v.y, 2, 0, Math.PI * 2);
-                // ctx.fill();
-
                 // Label Typography
                 ctx.fillStyle = '#ffffff';
                 ctx.font = 'bold 34px "Segoe UI", sans-serif';
@@ -266,9 +260,8 @@
 
             requestAnimationFrame(animate);
         }
-
-        // Kick off the loop
-        animate();
+        
+        animate(); // Kick off the loop
     </script>
 
 </body>
