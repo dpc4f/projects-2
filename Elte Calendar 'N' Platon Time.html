@@ -277,7 +277,9 @@
         .note-aligned {
             color: darkred;
             position: relative;
-            right: -400px;
+            right: -80px;
+            width: 400px;
+            text-align: right;
         }
 
         .city-void-in-middle {
@@ -379,6 +381,9 @@
             "s", "o", "n", "d", "p", "h"
         ];
 
+        const DAY_2 = [ 'Thaw', 'Wan', 'Uth', 'Fri', 'Sat', 'Hie', 'Dak' ];
+        const DAY_3 = [ "T", "W", "U", "F", "S", "H", "D" ];
+
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
 
@@ -405,7 +410,7 @@
             document.getElementById('dmitry').textContent = `${dimitryTime}`;
         }
 
-        function convertToElte(aDate) {
+        function convertToElte(bShortForm = false, aDate) {
             let date = '';
 
             if (aDate !== '' && aDate !== undefined) {
@@ -422,29 +427,29 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-            let elteMonth = MONTH_NAMES_3[month < 2 ? month+10 : month-2];
+            let elteMonth = bShortForm ? MONTH_NAMES_3[month < 2 ? month + 10 : month - 2] : MONTH_NAMES_2[month < 2 ? month + 10 : month - 2];
             let elteYear;
             let elteDOB;
 
             if (month < 2) // month is Jan OR Feb
                 year--;
             if (year > CURRENT_YEAR)
-                elteYear = 'cy+' + (year - CURRENT_YEAR).toString();
+                elteYear = (bShortForm ? '+' : 'current_year+') + (year - CURRENT_YEAR).toString();
             else if (year < CURRENT_YEAR)
-                elteYear = 'cy-' + (CURRENT_YEAR - year).toString();
+                elteYear = (bShortForm ? '-' : 'current_year-') + (CURRENT_YEAR - year).toString();
             else
-                elteYear = 'cy';
+                elteYear = bShortForm ? 'O' : 'current_year';
+            
             elteDOB = `${elteMonth} ${day} ${elteYear}`;
 
             return elteDOB;
         }
 
-        function convertToElteWithDayName(aDate = '') {     
-            const DAY = [ "T", "W", "U", "F", "S", "H", "D" ];
+        function convertToElteWithDayName(bShortForm = false, aDate = '') {
             const TODAY = new Date();
 
-            let elteDOB = convertToElte(aDate != '' ? aDate : TODAY.toString());
-            let dayNameInAWeek = DAY[(TODAY.getDay()+5) % 7];
+            let elteDOB = convertToElte(bShortForm, aDate != '' ? aDate : TODAY.toString());
+            let dayNameInAWeek = bShortForm ? DAY_3[(TODAY.getDay() + 5) % 7] : DAY_2[(TODAY.getDay() + 5) % 7];
 
             return elteDOB + ' ' + dayNameInAWeek;    
         }
@@ -526,7 +531,13 @@
             }
             
             const infor = document.getElementById("infor");
-            infor.innerText = convertToElteWithDayName();
+            let bShortForm = true;
+            // infor.innerText = convertToElteWithDayName(bShortForm);
+            
+            setInterval(() => {
+                infor.innerText = convertToElteWithDayName(bShortForm);
+                bShortForm = !bShortForm; 
+            }, 10000);
         }
 
         function changeMonth(step) {
