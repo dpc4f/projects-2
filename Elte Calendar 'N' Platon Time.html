@@ -410,7 +410,7 @@
             document.getElementById('dmitry').textContent = `${dimitryTime}`;
         }
 
-        function convertToElte(bShortForm = false, aDate) {
+        function convertToElte(aDate) {
             let date = '';
 
             if (aDate !== '' && aDate !== undefined) {
@@ -427,18 +427,53 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-            let elteMonth = bShortForm ? MONTH_NAMES_3[month < 2 ? month + 10 : month - 2] : MONTH_NAMES_2[month < 2 ? month + 10 : month - 2];
+            let elteMonth = MONTH_NAMES_2[month < 2 ? month + 10 : month - 2];
             let elteYear;
             let elteDOB;
 
             if (month < 2) // month is Jan OR Feb
                 year--;
             if (year > CURRENT_YEAR)
-                elteYear = (bShortForm ? '+' : 'current_year+') + (year - CURRENT_YEAR).toString();
+                elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
             else if (year < CURRENT_YEAR)
-                elteYear = (bShortForm ? '-' : 'current_year-') + (CURRENT_YEAR - year).toString();
+                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
             else
-                elteYear = bShortForm ? 'O' : 'current_year';
+                elteYear = 'current_year';
+            
+            elteDOB = `${elteMonth} ${day} ${elteYear}`;
+
+            return elteDOB;
+        }
+
+        function convertToElte_ShortForm(aDate) {
+            let date = '';
+
+            if (aDate !== '' && aDate !== undefined) {
+                date = new Date(aDate);
+            } else {
+                date = new Date();
+            }
+
+            if (isNaN(date.getTime())) {
+                alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
+                return;
+            }
+
+            let month = date.getMonth();
+            let day = date.getDate();
+            let year = date.getFullYear();
+            let elteMonth = MONTH_NAMES_3[month < 2 ? month + 10 : month - 2];
+            let elteYear;
+            let elteDOB;
+
+            if (month < 2) // month is Jan OR Feb
+                year--;
+            if (year > CURRENT_YEAR)
+                elteYear = '+' + (year - CURRENT_YEAR).toString();
+            else if (year < CURRENT_YEAR)
+                elteYear = '-' + (CURRENT_YEAR - year).toString();
+            else
+                elteYear = 'O';
             
             elteDOB = `${elteMonth} ${day} ${elteYear}`;
 
@@ -448,7 +483,8 @@
         function convertToElteWithDayName(bShortForm = false, aDate = '') {
             const TODAY = new Date();
 
-            let elteDOB = convertToElte(bShortForm, aDate != '' ? aDate : TODAY.toString());
+            let elteDOB = bShortForm ? convertToElte_ShortForm(aDate != '' ? aDate : TODAY.toString()) :
+                            convertToElte(aDate != '' ? aDate : TODAY.toString());
             let dayNameInAWeek = bShortForm ? DAY_3[(TODAY.getDay() + 5) % 7] : DAY_2[(TODAY.getDay() + 5) % 7];
 
             return elteDOB + ' ' + dayNameInAWeek;    
