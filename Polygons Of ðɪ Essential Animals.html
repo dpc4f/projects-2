@@ -428,14 +428,6 @@
                         on the West; Maha is the former person && non-maha is the successor one<br/>
                         on the East; non-maha is the former && Maha is the follower<br/>
                     </div>
-                    <div>
-                        91 --> 19 --> [10 'N' 19] 0 ~ 9 --> 0 ~ 9; 1 ~ 8; 2 ~ 7; 3 ~ 6; etc.
-                    </div>
-                    <br>
-                    <div>
-                        [life span in years][8 BUDDHAs; the first the last]<br/>
-                        80k --> 40k --> 20k --> 10k --> 5k --> 2k --> 1k * 0.1 = 100 
-                    </div>
                 </div>
             </div>
             <div class="misce">
@@ -446,6 +438,22 @@
                 <div class="invisible">{ David; Davis } 'N' King Danisa are only one person.</div>
                 <div class="note">{ Denis, Sophisticated Creator } w/ {[DEK] Báo Sofia, Diamond Ernomous King }</div>
                 <div class="zipped-point">XÂY DỰNG 1 KỶ NGUYÊN BÌNH LẶNG VUA DAVIOS TRỊ VÌ</div>
+                <div class="note">
+                    <div>
+                        [8 Vị Phật Chánh Đẳng Chánh Giác]<br/>
+                        { Vị Bá Thi ~ Metteya; Thi Khí; 3; 4; Câu Lưu Tôn; Cà Sa Ba; Gotama }<br/>
+                        >>>><br/>
+                        chiếc áo cà sa màu vàng (3, yellow)<br/>
+                    </div>
+                    <div>
+                        91 --> 19 --> [10 'N' 19] 0 ~ 9 --> 0 ~ 9; 1 ~ 8; 2 ~ 7; 3 ~ 6; etc.
+                    </div>
+                    <br>
+                    <div>
+                        [life span in years][8 BUDDHAs; the first the last]<br/>
+                        80k --> 40k --> 20k --> 10k --> 5k --> 2k --> 1k * 0.1 = 100 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1038,7 +1046,19 @@
                         divDisplayedContent.appendChild(div);
                     });
                 } else { // not yet to be implemented
-                    divDisplayedContent.innerHTML = '';
+                    const state = statesData[index];
+                    let len = state.notes !== null ? state.notes.length : 0; // add notes w/ big notes into the htmlContent
+
+                    state.notes.forEach(note => {
+                        let div = document.createElement('div');
+                        div.classList.add('added-margin');
+                        
+                        if (isHTML(note))
+                            div.appendChild(createElementFromHTML(note));
+                        else
+                            div.innerText = note;
+                        divDisplayedContent.appendChild(div);
+                    });
                 }
             } else {
                 canvas.classList.remove('hidden');
