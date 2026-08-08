@@ -23,12 +23,12 @@
 
         .container {
             text-align: center;
-            background: rgba(42, 42, 42, 0.65);
+            background: rgba(139, 135, 135, 0.384);
             padding: 4rem 3rem;
             border-radius: 24px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.452);
             min-width: 500px;
         }
 
@@ -91,6 +91,11 @@
             font-weight: 500;
         }
 
+        .true-black {
+            color: rgb(0, 0, 0);
+            font-weight: 900;
+        }
+
         input[type=range] {
             width: 160px;
             accent-color: #00f2fe;
@@ -140,7 +145,7 @@
 
 <body>
     <div class="container">
-        <div>A Proof Of Bird Can Be Converted To Fish 'N' ð Reverse By Word Chain Loop</div>
+        <div class="true-black">A Proof Of Bird Can Be Converted To Fish 'N' ð Reverse By Word Chain Loop</div>
         <div class="word-wrapper" id="display-box"></div>
         <div class="controls">
             <label>Interval Speed: <b id="speed-val">1.0</b>s</label>
@@ -206,9 +211,9 @@
 
         function runSequence() {
             // determine custom speed interval variedly
-            const intervalDuration = parseFloat(speedInput.value) * 1000;
+            const intervalDuration = parseFloat(speedInput.value) * 1000; // multiply to 1k to make it seconds
 
-            if (step < phrases.length) { // --- CASE 1: Processing the standard 7 phrases ---
+            if (step < phrases.length) { // --- CASE 1: Processing the standard 10 phrases ---
                 const currentTokens = phrases[step].split(" ");
                 const currentColors = colorPalettes[step % colorPalettes.length];
 
@@ -226,7 +231,7 @@
                     step++;
                     timeoutId = setTimeout(runSequence, intervalDuration);
                 } else {
-                    // Subsequent words: Shift & transform elements logically
+                    // Subsequent words: Shift && transform elements logically
                     const oldLeftNode = container.children[0];
                     const oldRightNode = container.children[1];
 
