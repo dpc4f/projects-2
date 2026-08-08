@@ -24,7 +24,7 @@ namespace Opaced_Always_On_Layer
             
             // A valid Icon is required, otherwise the tray icon won't show up!
             notifyIcon1.Icon = SystemIcons.Application; // Replace with your own .ico file if available
-            notifyIcon1.Text = "My Name";
+            notifyIcon1.Text = "Davis' Name";
 
             // Double-clicking the tray icon restores the app
             notifyIcon1.DoubleClick += TrayIcon_DoubleClick;
@@ -55,8 +55,8 @@ namespace Opaced_Always_On_Layer
             this.textBox1.Text = "Nai Chúa bậc Đế Ngưu Đấng Y vương hiệu Nam Hải Long Vương mộc Rồng Xanh";
             // this.Hide(); // Removes the window from the taskbar
             notifyIcon1.Visible = true;
-            this.Left = 135;
-            this.Top = 137;
+            this.Left = 1520;
+            this.Top = 7;
             this.Width = this.textBox1.Width;
             this.Height = textBox1.Height;
             textBox1.Left = 0;
