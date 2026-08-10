@@ -286,6 +286,43 @@
         .brown {
             color: brown;
         }
+
+        .body-1 {
+            color: grey;
+        }
+
+        .body-2 {
+            color: yellow;
+        }
+
+        .body-3 {
+            color: blue;
+
+        }
+
+        .body-4 {
+            color: green;
+        }
+
+        .body-5 {
+            color: purple;
+        }
+
+        .body-6 {
+            color: goldenrod;
+        }
+
+        .body-7 {
+            color: red;
+        }
+
+        .body-8 {
+            color: honeydew;
+        }
+
+        .body-9 {
+            color: black;
+        }
     </style>
 </head>
 
@@ -1016,7 +1053,12 @@
 
                 if (currentStateIndex == DENNIS_KINGDOM) { // Đế Chế Phấn Tảo
                     DVATTIMSAKARA.forEach((label, idx) => {
-                        htmlContent += `<li id='${idx}' class='left-li'>${label}</li>`;
+                        // let li = document.createElement('li');
+                        // li.classList.add('left-li');
+                        let colour = Math.floor(idx / 4);
+                        if (idx == 31) // the last one is brain 
+                            colour = 9;
+                        htmlContent += `<li id='${idx}' class='left-li body-${colour}'>${label}</li>`;
 
                         // [] set time out for the transition to happen 
                         // --> done
