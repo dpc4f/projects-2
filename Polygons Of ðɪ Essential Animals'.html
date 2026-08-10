@@ -1058,7 +1058,7 @@
                         let colour = Math.floor(idx / 4);
                         if (idx == 31) // the last one is brain 
                             colour = 9;
-                        htmlContent += `<li id='${idx}' class='left-li body-${colour}'>${label}</li>`;
+                        htmlContent += `<li id='${idx}' class='left-li body-${colour+1}'>${label}</li>`;
 
                         // [] set time out for the transition to happen 
                         // --> done
