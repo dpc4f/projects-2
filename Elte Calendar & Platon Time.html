@@ -267,7 +267,7 @@
             font-weight: 900;
         }
 
-        .note, .note-aligned, .left-note {
+        .note, .note-aligned, .left-note, .right-note {
             font-size: 17px;
             color: darkgreen;
             margin-left: 483px;
@@ -285,6 +285,13 @@
         .left-note {
             position: absolute;
             left: 10px;
+        }
+
+        .right-note {
+            margin: 0;
+            margin-top: -60px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .city-void-in-middle {
@@ -342,8 +349,7 @@
                 </table>
                 <div class="note left-note">thứ Thaw là ngày đầu tuần</div>
                 <div class="note">days have a peer-to-peer relationship</div>
-                <div class="note">Xử Nữ. Song Tử. Bọ Cạp. Aquarius.
-                </div>
+                <div class="note">Xử Nữ. Song Tử. Bọ Cạp. Aquarius.</div>
                 <div class="nav">
                     <button onclick="changeMonth(-1)">Prev Month</button>
                     <button onclick="changeMonth(1)">Next Month</button>
@@ -379,6 +385,7 @@
                 <span class="excellent-def">GMT+7</span>
             </div>
             <div id="dustin-plural" class="local-current-time dacet-pine"></div>
+            <div class="right-note">giờ giấc 'n' ngày tháng ko hòa thuận với nhau</div>
         </div>
     </div>
  
