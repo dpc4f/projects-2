@@ -87,6 +87,10 @@
             animation: rotateBreve 4s infinite ease-in-out;
         }
 
+        .margin-up {
+            margin-top: -8px;
+        }
+
         #rotation {
             position: absolute;
             left: 1100px;
@@ -107,7 +111,7 @@
 
         @keyframes rotateU {
             0% {
-                transform: rotateX(0deg) translateY(-8px);
+                transform: rotateX(0deg); /* translateY(-8px); */
             }
             50% {
                 transform: rotateX(180deg);
@@ -127,8 +131,8 @@
         <span class="last-char">}</span> 
     </div>
     <div id="rotation">
-         <span class='letter'>Con Tr</span> 
-        <div class="container">
+         <span class='letter margin-up'>Con Tr</span> 
+        <div class="container margin-up">
             <span class="letter breve rotate-breve">˘</span>
             <span class="letter">a</span>
         </div>
