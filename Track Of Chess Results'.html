@@ -85,15 +85,15 @@
         }
 
         .yao, .yao-1 {
-            background: #e8f5e9;
+            background: #c4eec7;
         }
 
         .yao-1 {
-            background: #91a8e7;
+            background: #d5d9e4;
         }
 
         .sofia-1, .sofia {
-            background: #99ebc2;
+            background: #c4eed9;
         }
 
         .blank {
@@ -109,7 +109,7 @@
         .history {
             min-height: 24px;
             font-weight: bold;
-            color: #0d47a1;
+            color: darkblue;
             word-break: break-word;
         }
 
@@ -190,8 +190,8 @@
     </div>
 
     <script>
-        let rowCounter = 0;
         const queenBody = document.getElementById("queenBody");
+        let rowCounter = 0;
 
         function saveState() {
             localStorage.setItem("davios_rows", queenBody.innerHTML);
@@ -203,19 +203,23 @@
             
             /*** 
                 [; nr] fix the bug to resume David the King when time being endly checked is over
+            *    
             */ // --> done
 
             const rows = localStorage.getItem("davios_rows");
-            if (rows) queenBody.innerHTML = rows;
+
+            if (rows !== null) 
+                queenBody.innerHTML = rows;
             rowCounter = parseInt(localStorage.getItem("davios_counter") || "0");
 
-            let status = localStorage.getItem("davios_king_status");
             const ARR = status.trim().split(/\s+/);
+            let status = localStorage.getItem("davios_king_status");
+            
             document.getElementById("kingStatus").innerHTML = status || "";
             
             if (ARR.length > 5) { // do check if passing 4 days from being checked endly
-                let date = new Date(ARR[ARR.length-1]);
                 const TODAY = new Date();
+                let date = new Date(ARR[ARR.length-1]);
                 
                 if (TODAY >= date) // clear the message
                     document.getElementById("kingStatus").innerHTML = "";
@@ -226,11 +230,11 @@
         }
 
         function getQueenOrder() {
-            let ret;
             let order = playTheDice(11);
-            let dao = rowCounter % 2 == 0 ? 'yao' : 'yao-1';
+            let dao = ++rowCounter % 2 == 0 ? 'yao' : 'yao-1';
             let sofıa = rowCounter % 2 == 0 ? 'sofia' : 'sofia-1';
             let thoa = 'thoa';
+            let ret;
 
             switch (order) {    
             
@@ -248,7 +252,7 @@
                         ["Infanta Sofı'a Of Spain", sofıa], 
                         ["", "blank"]];
                     break;
-                
+           
                 case 1:
                     ret = [["Thoa Nguyen", thoa], 
                         // ["Annabel Yield /diêu/", "yao"], 
@@ -340,8 +344,6 @@
                     break;
             }
 
-            rowCounter++;
-            
             return ret;
         }
 
@@ -423,22 +425,18 @@
                     const current = history.textContent.trim();
                     let items = current ? current.split(" ") : [];
        
-                    if (select.value === "default") {
-                        // alert("Please select a valid result.");
+                    if (select.value === "default")
                         return;
-                    }
 
-                    if (select.value === "koe") {
+                    if (select.value === "koe")
                         items.push("kỏe");
-                    } else {
+                    else
                         items.push(items.length + 1);
-                    }
 
                     history.textContent = items.join(" ");
 
-                    if (items.length == 4) {
+                    if (items.length == 4)
                         td.classList.add("locked");
-                    }
 
                     saveState();
                 });
@@ -464,9 +462,9 @@
             const now = new Date();
             const resumeDate = new Date(resume);
 
-            if (now < resumeDate) {
+            if (now < resumeDate)
                 lockControls();
-            } else {
+            else {
                 unlockControls();
                 localStorage.removeItem("davios_resume");
             }
