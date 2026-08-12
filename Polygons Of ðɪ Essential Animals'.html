@@ -906,7 +906,7 @@
         }
 
         let nodeIndex = 0;
-        const particles = Array.from({ length: 6 }, () => new NodeParticle(nodeIndex++));
+        const particles = Array.from({ length: 11 }, () => new NodeParticle(nodeIndex++));
         const DENNIS_KINGDOM = 6; // Maximum Of 'Vương Quốc Động Vật'
         const DE_CHE_CONG_QUOC_HINH_CHU = 7; // wording(s)' transformation; images' real-time varying
 
@@ -1136,8 +1136,6 @@
                     let outerMostDiv = document.createElement('div');
                     outerMostDiv.classList.add('added-margin');
                     divDisplayedContent.appendChild(outerMostDiv);
-
-                    // [] continue to add margins for a clear visulization
                     
                     state.notes.forEach(note => {
                         let div = document.createElement('div');
