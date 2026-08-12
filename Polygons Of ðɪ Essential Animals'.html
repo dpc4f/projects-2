@@ -459,11 +459,11 @@
                 <div class="invisible">[an idea] HIV might be Jesus</div>
             </div>
             <div class="extended-4"> <!-- ĐẤT NƯỚC CÂY CỐI -->
-                <div class="note">Flower w/ Tree</div>
                 <div class="note"><span class="head"><h41>TREE COUNTRY - <span class="head-27">ĐẤT NƯỚC CÂY CỐI</span></h41></span></div>
                 <div class="invisible">Flowers are plants' reproduction organs.</div>
                 <div class="hidden">//tri/ + /cun tri//</div>
                 <div class="zipped-point">Oak là cây sồi.</div>
+                <div class="note"><h32>Flower w/ Tree</h32></div>
                 <div class="zipped-point">There're only 3 types of flowers.</div> 
                 <div class="zipped-point">flowers, { red lotus; virgin woman [yellow; white]; mộc lan [white; yellow] }</div>
                 <div class="zipped-point">Rivers need to include trees OR @least, wild grasses.</div>
@@ -1133,15 +1133,22 @@
                     const state = statesData[index];
                     let len = state.notes !== null ? state.notes.length : 0; // add notes w/ big notes into the htmlContent
 
+                    let outerMostDiv = document.createElement('div');
+                    outerMostDiv.classList.add('added-margin');
+                    divDisplayedContent.appendChild(outerMostDiv);
+
+                    // [] continue to add margins for a clear visulization
+                    
                     state.notes.forEach(note => {
                         let div = document.createElement('div');
-                        div.classList.add('added-margin');
+                        div.classList.add('note');
                         
                         if (isHTML(note))
                             div.appendChild(createElementFromHTML(note));
                         else
                             div.innerText = note;
-                        divDisplayedContent.appendChild(div);
+
+                        outerMostDiv.appendChild(div);
                     });
                 }
             } else {
