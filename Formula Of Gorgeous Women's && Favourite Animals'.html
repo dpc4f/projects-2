@@ -303,7 +303,8 @@
             document.getElementById('DOB-8').innerHTML = convertToElte(document.getElementById('DOB-8').innerHTML);
 
             document.getElementById('ANI-1').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2]));
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2])) +
+                ` / <span class='sa^u'>Con Cua</span>`;
             document.getElementById('ANI-2').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2])) +
                 ` / <span class='elephale'>Whale clan</span>`; /* specially 4 bél Anna */
