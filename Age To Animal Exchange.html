@@ -196,40 +196,6 @@
             renderCalendar(currentYear, currentMonth);
         }
 
-        function calculateAge() {
-            const birthDate = document.getElementById('birthDate').value;
-            const resultDiv = document.getElementById('result');
-
-            if (!birthDate) {
-                resultDiv.textContent = 'Please enter a birth date';
-                return;
-            }
-
-            const arr = birthDate.trim().split(/\s+/);
-            const m = MONTH_NAMES_2.indexOf(arr[0]);
-
-            if (m === -1 || arr.length < 3) {
-                resultDiv.textContent = 'Please use the format "M1 1 current_year±N"';
-                return;
-            }
-
-            const birthMonthName = MONTH_NAMES[m];
-            const birthYear = convertReversedCurrentYear(arr[2]);
-            const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
-
-            const TODAY = new Date();
-            const birth = new Date(convertedBirthDate);
-            if (isNaN(birth.getTime())) {
-                resultDiv.textContent = 'Invalid birth date format';
-                return;
-            }
-
-            let dayDiff = Math.floor((TODAY.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-
-            resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
-            document.getElementById('reference').textContent = '~' + (dayDiff / DAYS_IN_YEAR).toFixed(2) + ' years old';
-        }
-
         function convertToElte(aDate) {
             let date = '';
             date = aDate !== '' && aDate !== undefined ? new Date(aDate) : new Date();
@@ -242,19 +208,21 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-            const elteMonth = MONTH_NAMES_2[month];
-            
-            if (month < 2) // month is Jan or Feb
-                year--;
+            let elteMonth = MONTH_NAMES_2[month < 2 ? month+10 : month-2];
+            let elteYear;
+            let elteDOB;
 
+            if (month < 2) // month is Jan OR Feb
+                year--;
             if (year > CURRENT_YEAR)
                 elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
             else if (year < CURRENT_YEAR)
                 elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
             else
                 elteYear = 'current_year';
+            elteDOB = `${elteMonth} ${day} ${elteYear}`;
 
-            return `${elteMonth} ${day} ${elteYear}`;
+            return elteDOB;
         }
 
         window.onload = function() {
@@ -268,12 +236,18 @@
         }
         
         function fromElte() {
+            /***
+             * [] revise this function 
+             * 
+             * */ // --> done
+
+
             const elteDOB = document.getElementById('birthYear-2').value;
             const arr = elteDOB.trim().split(/\s+/);
             const m = MONTH_NAMES_2.indexOf(arr[0]);
 
             if (m === -1 || arr.length < 3) {
-                alert('Please use the format "M11 1 current_year+0"');
+                alert('Please use the format "M1 27 current_year+6"');
                 return;
             }
 
@@ -289,7 +263,7 @@
             while (birthYear < CURRENT_YEAR)
                 birthYear += 12;
 
-            document.getElementById('animal').value = animalNames[(birthYear - CURRENT_YEAR) % 12];
+            document.getElementById('animal').value = ANIMAL_NAMES[(birthYear - CURRENT_YEAR) % 12];
         }
     </script>
 
