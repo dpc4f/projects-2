@@ -143,25 +143,24 @@
         }
 
         function renderCalendar(year, month) {
-            document.getElementById("monthYear").textContent = MONTH_NAMES_2[month] + " " + convertCurrentYear(year);
-
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const body = document.getElementById("calendarBody");
             let date = 1;
-            
+
+            document.getElementById("monthYear").textContent = MONTH_NAMES_2[month] + " " + convertCurrentYear(year);  
             body.innerHTML = "";
-            
+
             for (let r = 0; r < 6; r++) {
                 const row = document.createElement("tr");
 
                 for (let c = 0; c < 7; c++) {
                     const cell = document.createElement("td");
 
-                    if (r === 0 && c < startIndex || date > daysInMonth) {
+                    if (r === 0 && c < startIndex || date > daysInMonth)
                         cell.textContent = "";
-                    } else {
+                    else {
                         cell.textContent = date;
 
                         if (
@@ -210,7 +209,7 @@
             const m = MONTH_NAMES_2.indexOf(arr[0]);
 
             if (m === -1 || arr.length < 3) {
-                resultDiv.textContent = 'Please use the format "M11 1 current_year±N"';
+                resultDiv.textContent = 'Please use the format "M1 1 current_year±N"';
                 return;
             }
 
@@ -233,12 +232,7 @@
 
         function convertToElte(aDate) {
             let date = '';
-
-            if (aDate !== '' && aDate !== undefined) {
-                date = new Date(aDate);
-            } else {
-                date = new Date();
-            }
+            date = aDate !== '' && aDate !== undefined ? new Date(aDate) : new Date();
 
             if (isNaN(date.getTime())) {
                 alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
