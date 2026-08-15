@@ -15,7 +15,13 @@ namespace Opaced_Always_On_Layer
         // Define the Windows API Constants
         private const int WS_EX_TRANSPARENT = 0x20;
         private const int WS_EX_LAYERED = 0x80000;
-        Color color = Color.LightGreen;
+        
+        private static Color BLACK = Color.Black;
+        private static Color BLUE = Color.Blue;
+        private static Color LIGHT_GREEN = Color.LightGreen;
+        private static Color LIGHT_YELLOW = Color.LightYellow;
+        private Color colour = LIGHT_YELLOW;
+        private int timerTickInHours = 4;
 
         public Form2()
         {
@@ -53,7 +59,7 @@ namespace Opaced_Always_On_Layer
         private void Form2_Load(object sender, EventArgs e)
         {
             this.textBox1.Text = "Nai Chúa bậc Đế Ngưu Đấng Y vương hiệu Nam Hải Long Vương mộc Rồng Xanh";
-            // this.Hide(); // Removes the window from the taskbar
+            colour = LIGHT_YELLOW;
             notifyIcon1.Visible = true;
             this.Left = 1510;
             this.Top = 7;
@@ -61,7 +67,8 @@ namespace Opaced_Always_On_Layer
             this.Height = textBox1.Height;
             textBox1.Left = 0;
             textBox1.Top = 0;
-            this.textBox1.ForeColor = color;
+            this.textBox1.ForeColor = colour;
+            this.timer1.Interval = timerTickInHours * 3600;
             this.timer1.Start();
             this.PerformLayout();
         }
@@ -74,9 +81,33 @@ namespace Opaced_Always_On_Layer
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            color = color == Color.DarkBlue ? Color.LightGreen : Color.DarkBlue;
-            this.textBox1.ForeColor = color;
+            this.timer1.Stop();
+
+            if (colour == LIGHT_YELLOW)
+            {
+                colour = BLUE;
+                timerTickInHours = 8;
+            }
+            else if (colour == BLUE)
+            {
+                colour = BLACK;
+                timerTickInHours = 4;
+            }
+            else if (colour == BLACK) {
+                colour = LIGHT_GREEN;
+                timerTickInHours = 8;
+            }
+            else if (colour == LIGHT_GREEN)
+            {
+                colour = LIGHT_YELLOW;
+                timerTickInHours = 4;
+            }
+
+            this.textBox1.ForeColor = colour;
             this.textBox1.Update();
+
+            this.timer1.Interval = timerTickInHours * 3600;
+            this.timer1.Start();
         }
     }
 }
