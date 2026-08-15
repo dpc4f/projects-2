@@ -210,8 +210,8 @@
     <script>
         const sofiaSequence = [ "T", "h", "o", "a" ];
         const annabelSequence = [ "A", "n", "n", "a", "b", "e", "l" ];
-        const yaoSequence = [ "Y", "a", "ng" ];
-        const infantaSequence = [ "NG", "u", "y", "e", "n"];
+        const yaoSequence = [ "Y", "A", "NG" ];
+        const infantaSequence = [ "NG", "U", "Y", "E", "N"];
         const sofiaContainer = document.getElementById("sofiaWord");
         const yaoContainer = document.getElementById("yaoWord");
 
@@ -303,7 +303,7 @@
             }, 850);
 
             current.forEach((char, index) => {
-                if (index !== 0)
+                if (index !== 2)
                     char.classList.add("ghost");
             });
 
