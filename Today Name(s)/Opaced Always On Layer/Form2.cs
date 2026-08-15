@@ -68,7 +68,7 @@ namespace Opaced_Always_On_Layer
             textBox1.Left = 0;
             textBox1.Top = 0;
             this.textBox1.ForeColor = colour;
-            this.timer1.Interval = timerTickInHours * 3600;
+            this.timer1.Interval = timerTickInHours * 3600 * 1000;
             this.timer1.Start();
             this.PerformLayout();
         }
@@ -106,7 +106,7 @@ namespace Opaced_Always_On_Layer
             this.textBox1.ForeColor = colour;
             this.textBox1.Update();
 
-            this.timer1.Interval = timerTickInHours * 3600;
+            this.timer1.Interval = timerTickInHours * 3600 * 1000;
             this.timer1.Start();
         }
     }
