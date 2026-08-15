@@ -230,10 +230,10 @@
         }
 
         buildCharacters(sofiaContainer, sofiaSequence, 3);
-        buildCharacters(yaoContainer, yaoSequence, 2);
+        buildCharacters(yaoContainer, infantaSequence, 0);
 
         /// *** Replace ONLY the two morph functions below **/
-        function morphSofiaToAnnabel() {
+        function morphSofiaToAnnabel(bFirstTime = true) {
             /*
                 anchor:
                 'a' in Sofía
@@ -280,7 +280,7 @@
 
                 setTimeout(() => {
                     morphYaoToInfanta();
-                }, 3700);
+                }, 3700);           
             }, 1200);
         }
 
@@ -298,24 +298,24 @@
             anchor.style.color = "#ffe38f";
 
             setTimeout(() => {
-                anchor.textContent = "Ng";
+                anchor.textContent = "NG";
                 anchor.style.transform = "translateY(0px) scale(1.05) rotate(0deg)";
             }, 850);
 
             current.forEach((char, index) => {
-                if (index !== 2)
+                if (index !== 0)
                     char.classList.add("ghost");
             });
 
             setTimeout(() => {
                 yaoContainer.innerHTML = "";
 
-                infantaSequence.forEach((c, index) => {
+                yaoSequence.forEach((c, index) => {
                     const span = document.createElement("span");
                     span.className = "char ghost";
                     span.textContent = c;
 
-                    if (index == 0) {
+                    if (index == 2) {
                         span.classList.add("anchor");
                         span.style.opacity = "1";
                         span.style.filter = "blur(0)";
@@ -348,14 +348,16 @@
 
         setInterval(createSpark, 4120);
 
+        //let bFirstTime = true;
         setInterval(() => {
             buildCharacters(sofiaContainer, sofiaSequence, 3);
-            buildCharacters(yaoContainer, yaoSequence, 2);
+            buildCharacters(yaoContainer, infantaSequence, 0);
 
             setTimeout(() => {
                 morphSofiaToAnnabel();
+                // bFirstTime = false;
             }, 1000);
-        }, 17000);
+        }, 16000);
     </script>
 
 </body>
