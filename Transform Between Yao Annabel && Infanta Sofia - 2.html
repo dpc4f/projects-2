@@ -229,7 +229,7 @@
             });
         }
 
-        buildCharacters(sofiaContainer, sofiaSequence, 4);
+        buildCharacters(sofiaContainer, sofiaSequence, 3);
         buildCharacters(yaoContainer, yaoSequence, 0);
 
         /// *** Replace ONLY the two morph functions below **/
@@ -241,7 +241,7 @@
                 'A' in Annabel
             */
             const current = sofiaContainer.querySelectorAll(".char");
-            const anchor = current[4]; // character 'a'
+            const anchor = current[3]; // character 'a'
             anchor.style.transition = "all 2.4s cubic-bezier(.2,.8,.2,1)";
             anchor.style.transform = "translateY(-10px) scale(1.25) rotate(-8deg)";
             anchor.style.letterSpacing = "3px";
@@ -298,7 +298,7 @@
             anchor.style.color = "#ffe38f";
 
             setTimeout(() => {
-                anchor.textContent = "I";
+                anchor.textContent = "N";
                 anchor.style.transform = "translateY(0px) scale(1.05) rotate(0deg)";
             }, 850);
 
@@ -349,13 +349,13 @@
         setInterval(createSpark, 4120);
 
         setInterval(() => {
-            buildCharacters(sofiaContainer, sofiaSequence, 4);
+            buildCharacters(sofiaContainer, sofiaSequence, 3);
             buildCharacters(yaoContainer, yaoSequence, 0);
 
             setTimeout(() => {
                 morphSofiaToAnnabel();
             }, 1000);
-        }, 20000);
+        }, 17000);
     </script>
 
 </body>
