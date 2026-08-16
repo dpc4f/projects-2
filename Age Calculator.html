@@ -154,7 +154,7 @@
          * [] fix a bug Jan converted to Athen
          * 
          * 
-        */
+        */ // --> done
 
         function convertCurrentYear() {
             let subtract = currentYear - CURRENT_YEAR;
@@ -274,19 +274,19 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
+            let elteMonth = MONTH_NAMES_2[month < 2 ? month+10 : month-2];
+            let elteYear;
+            let elteDOB;
 
-            let elteMonth = MONTH_NAMES_2[month];
-
-            if (month < 2) // month is Jan or Feb
+            if (month < 2) // month is Jan OR Feb
                 year--;
-
             if (year > CURRENT_YEAR)
                 elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
             else if (year < CURRENT_YEAR)
                 elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
             else
                 elteYear = 'current_year';
-            let elteDOB = `${elteMonth} ${day} ${elteYear}`;
+            elteDOB = `${elteMonth} ${day} ${elteYear}`;
             
             document.getElementById('birthDate').value = elteDOB;
         }
