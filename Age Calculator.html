@@ -149,6 +149,13 @@
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
 
+
+        /****
+         * [] fix a bug Jan converted to Athen
+         * 
+         * 
+        */
+
         function convertCurrentYear() {
             let subtract = currentYear - CURRENT_YEAR;
             return 'current_year+' + subtract.toString();
