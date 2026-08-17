@@ -195,17 +195,13 @@
         <div class="beam"></div>
         <div class="panel left">
             <div class="title">
-                { Ly ➜ 
-                    <span class="ambitious-odin">A</span>nnabel ➜ 
-                        Ly }
+                { Ly Tu ➜ Annabel ➜ Ly Tu }
             </div>
             <div class="word" id="sofiaWord"></div>
         </div>
         <div class="panel right">
             <div class="title">
-                { Yield ➜ Duy
-                     ➜ 
-                    Yield }
+                { Yield ➜ Duy ➜ Yield }
             </div>
             <div class="word" id="yaoWord"></div>
         </div>
@@ -238,8 +234,8 @@
             });
         }
 
-        buildCharacters(sofiaContainer, sofiaSequence, 4);
-        buildCharacters(yaoContainer, yaoSequence, 2);
+        buildCharacters(sofiaContainer, sofiaSequence, 0);
+        buildCharacters(yaoContainer, yaoSequence, 4);
 
 
 
@@ -250,24 +246,24 @@
 
             /*
                 anchor:
-                'a' in Sofía
+                'L' in Ly Tu
                 morphs into
-                'A' in Annabel
+                'l' in Annabel
             */
 
-            const anchor = current[4];
+            const anchor = current[0];
             anchor.style.transition = "all 2.4s cubic-bezier(.2,.8,.2,1)";
             anchor.style.transform = "translateY(-10px) scale(1.25) rotate(-8deg)";
             anchor.style.letterSpacing = "3px";
             anchor.style.color = "#fff6bf";
 
             setTimeout(() => {
-                anchor.textContent = "A";
+                anchor.textContent = "L";
                 anchor.style.transform = "translateY(0px) scale(1.05) rotate(0deg)";
             }, 850);
 
             current.forEach((char, index) => {
-                if (index !== 4)
+                if (index !== 0)
                     char.classList.add("ghost");
             });
 
@@ -279,7 +275,7 @@
                     span.className = "char ghost";
                     span.textContent = c;
 
-                    if (index === 0) {
+                    if (index === 6) {
                         span.classList.add("anchor");
                         span.style.opacity = "1";
                         span.style.filter = "blur(0)";
@@ -304,23 +300,23 @@
 
             /*
                 anchor:
-                'Y' in Yao
+                'd' in Yield
                 morphs into
-                'I' in Infanta
+                'D' in Duy
             */
 
-            const anchor = current[2];
+            const anchor = current[4];
             anchor.style.transition = "all 2.4s cubic-bezier(.2,.8,.2,1)";
             anchor.style.transform = "translateY(-12px) scale(1.35) rotate(10deg)";
             anchor.style.color = "#ffe38f";
 
             setTimeout(() => {
-                anchor.textContent = "n";
+                anchor.textContent = "d";
                 anchor.style.transform = "translateY(0px) scale(1.05) rotate(0deg)";
             }, 850);
 
             current.forEach((char, index) => {
-                if (char !== 'n')
+                if (char !== 'd')
                     char.classList.add("ghost");
             });
 
@@ -331,7 +327,7 @@
                     span.className = "char ghost";
                     span.textContent = c;
 
-                    if (c === 'n') {
+                    if (c === 'D') {
                         span.classList.add("anchor");
                         span.style.opacity = "1";
                         span.style.filter = "blur(0)";
@@ -364,8 +360,8 @@
 
         setInterval(createSpark, 120);
         setInterval(() => {
-            buildCharacters(sofiaContainer, sofiaSequence, 4);
-            buildCharacters(yaoContainer, yaoSequence, 2);
+            buildCharacters(sofiaContainer, sofiaSequence, 0);
+            buildCharacters(yaoContainer, yaoSequence, 4);
 
             setTimeout(() => {
                 morphSofiaToAnnabel();
