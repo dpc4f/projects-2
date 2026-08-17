@@ -20,9 +20,9 @@
             justify-content: center;
             align-items: center;
             background:
-                radial-gradient(circle at top left, #133e7e 0%, transparent 35%),
-                radial-gradient(circle at bottom right, #8bfa9d 0%, transparent 35%),
-                linear-gradient(135deg, #d63b0c, #406906, #053d09);
+                radial-gradient(circle at top left, #585ac0 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #23726b 0%, transparent 35%),
+                linear-gradient(135deg, #c7c05d, #06614a, #043294);
             font-family: Segoe UI, Tahoma, sans-serif;
         }
 
@@ -201,9 +201,9 @@
         </div>
         <div class="panel right">
             <div class="title">
-                { Yield ➜ Duy ➜ Yield }
+                { Duy ➜ Yield ➜ Duy }
             </div>
-            <div class="word" id="yaoWord"></div>
+            <div class="word" id="duyWord"></div>
         </div>
         <div class="hint">
             magical OR miraclic back && forth transform powered by anchor letters ✨
@@ -214,10 +214,10 @@
         const sofiaSequence = ["L", "y", " ", "T", "u"];
         const annabelSequence = ["A", "n", "n", "a", "b", "e", "l"];
         const yaoSequence = ["Y", "i", "e", "l", "d"];
-        const infantaSequence = ["D", "u", "y"];
+        const duySequence = ["D", "u", "y"];
 
         const sofiaContainer = document.getElementById("sofiaWord");
-        const yaoContainer = document.getElementById("yaoWord");
+        const duyContainer = document.getElementById("duyWord");
 
         function buildCharacters(container, chars, anchorIndex) {
             container.innerHTML = "";
@@ -235,7 +235,7 @@
         }
 
         buildCharacters(sofiaContainer, sofiaSequence, 0);
-        buildCharacters(yaoContainer, yaoSequence, 4);
+        buildCharacters(duyContainer, duySequence, 0);
 
 
 
@@ -296,7 +296,7 @@
         }
 
         function morphYaoToInfanta() {
-            const current = yaoContainer.querySelectorAll(".char");
+            const current = duyContainer.querySelectorAll(".char");
 
             /*
                 anchor:
@@ -305,36 +305,36 @@
                 'D' in Duy
             */
 
-            const anchor = current[4];
+            const anchor = current[0];
             anchor.style.transition = "all 2.4s cubic-bezier(.2,.8,.2,1)";
             anchor.style.transform = "translateY(-12px) scale(1.35) rotate(10deg)";
             anchor.style.color = "#ffe38f";
 
             setTimeout(() => {
-                anchor.textContent = "d";
+                anchor.textContent = "D";
                 anchor.style.transform = "translateY(0px) scale(1.05) rotate(0deg)";
             }, 850);
 
             current.forEach((char, index) => {
-                if (char !== 'd')
+                if (char !== 'D')
                     char.classList.add("ghost");
             });
 
             setTimeout(() => {
-                yaoContainer.innerHTML = "";
-                infantaSequence.forEach((c, index) => {
+                duyContainer.innerHTML = "";
+                yaoSequence.forEach((c, index) => {
                     const span = document.createElement("span");
                     span.className = "char ghost";
                     span.textContent = c;
 
-                    if (c === 'D') {
+                    if (c === 'd') {
                         span.classList.add("anchor");
                         span.style.opacity = "1";
                         span.style.filter = "blur(0)";
                         span.style.transform = "translateY(0) scale(1)";
                     }
 
-                    yaoContainer.appendChild(span);
+                    duyContainer.appendChild(span);
 
                     setTimeout(() => {
                         span.classList.remove("ghost");
@@ -361,7 +361,7 @@
         setInterval(createSpark, 120);
         setInterval(() => {
             buildCharacters(sofiaContainer, sofiaSequence, 0);
-            buildCharacters(yaoContainer, yaoSequence, 4);
+            buildCharacters(duyContainer, duySequence, 0);
 
             setTimeout(() => {
                 morphSofiaToAnnabel();
