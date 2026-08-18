@@ -130,6 +130,11 @@
             transform: scale(0.95);
         }
 
+        #display-box {
+            text-align: center;
+            padding-left: 40px;
+        }
+
         #a-proof {
             flex: 1;
             margin-top: 40px;
@@ -157,7 +162,7 @@
         </div>
     </div>
     <div id="a-proof"></div>
-    <div class="hidden">Quí, 9 cửu phẩm triều đình</div>
+    <div class="invisible">Quí, 9 cửu phẩm triều đình</div>
 
     <script>
         // Full sequence loop
@@ -180,6 +185,7 @@
 
         let div = document.getElementById('a-proof');
         let idx = 0;
+
         for (; idx < phrases_2.length; ++idx) {
             let d = document.createElement('div');
             d.innerText = phrases_2[idx];
@@ -223,6 +229,7 @@
                         <span class="word-part fade-in" style="color: ${currentColors[0]}">${currentTokens[0]}</span>
                         <span class="word-part fade-in" style="color: ${currentColors[1]}">${currentTokens[1]}</span>
                     `;
+
                     // Trigger reflow to initialize entry animation smoothly
                     container.offsetHeight;
                     container.children[0].classList.remove('fade-in');
@@ -259,19 +266,17 @@
                 }
             } else if (step === phrases.length) { // --- CASE 2: Displaying the Final Summary Chain ---
                 Array.from(container.children)
-                .forEach(child => child.classList
-                .add('fade-out')); // Fade out the entire last pair ('chợ cá') together
+                    .forEach(child => child.classList.add('fade-out')); // Fade out the entire last pair ('mắt cá') together
 
                 setTimeout(() => { // cá <--> chim [the final phrase]
                     container.innerHTML = 
-                        `<span class="word-part fade-in" style="color: #4A00E0; font-size: 2.8rem;">
-                            cá <--> chim
+                        `<span class="word-part fade-in" style="color: #4A00E0; font-size: 2.8rem; text-align: center">
+                            { cá --> chim --> cá }
                         </span>`;
-                    container.offsetHeight;
                     container.children[0].classList.remove('fade-in');
 
                     step++;
-                    timeoutId = setTimeout(runSequence, intervalDuration+1900); // Give the final phrase a tad longer
+                    timeoutId = setTimeout(runSequence, intervalDuration + 1900); // Give the final phrase a tad longer
                 }, 1000);
             } else { // --- CASE 3: Reset and Restart Loop Automatically ---
                 container.children[0].classList.add('fade-out');
@@ -287,6 +292,7 @@
             // Keep value bounded inside bounds [0.8, 4.0]
             const boundedVal = Math.max(0.8, Math.min(4.0, parseFloat(value))).toFixed(1);
             // const boundedVal = 1;
+
             speedInput.value = boundedVal;
             speedVal.innerText = boundedVal;
         }
