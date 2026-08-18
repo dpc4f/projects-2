@@ -183,66 +183,6 @@
             return CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
         }
 
-        function toTuesdayFirst(day) {
-            return (day + 5) % 7;
-        }
-
-        function renderCalendar(year, month) {
-            document.getElementById("monthYear").textContent = MONTH_NAMES_2[month] + " " + convertCurrentYear(year);
-
-            const firstDay = new Date(year, month, 1);
-            const startIndex = toTuesdayFirst(firstDay.getDay());
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            const body = document.getElementById("calendarBody");
-            body.innerHTML = "";
-
-            let date = 1;
-
-            for (let r = 0; r < 6; r++) {
-                const row = document.createElement("tr");
-
-                for (let c = 0; c < 7; c++) {
-                    const cell = document.createElement("td");
-
-                    if (r === 0 && c < startIndex || date > daysInMonth) {
-                        cell.textContent = "";
-                    } else {
-                        cell.textContent = date;
-
-                        if (
-                            date === TODAY.getDate() &&
-                            month === TODAY.getMonth() &&
-                            year === TODAY.getFullYear()
-                        ) {
-                            cell.classList.add("TODAY");
-                        }
-
-                        date++;
-                    }
-
-                    row.appendChild(cell);
-                }
-
-                body.appendChild(row);
-                if (date > daysInMonth) break;
-            }
-        }
-
-        function changeMonth(step) {
-            currentMonth += step;
-
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            } else if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            }
-
-            renderCalendar(currentYear, currentMonth);
-        }
-
         function checkValues() {
             const gregorianDOB = document.getElementById('gregorianDOB').value;
             const date = new Date(gregorianDOB);
