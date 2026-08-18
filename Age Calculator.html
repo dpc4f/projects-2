@@ -188,8 +188,7 @@
         }
 
         function renderCalendar(year, month) {
-            document.getElementById("monthYear").textContent =
-                MONTH_NAMES_2[month] + " " + convertCurrentYear(year);
+            document.getElementById("monthYear").textContent = MONTH_NAMES_2[month] + " " + convertCurrentYear(year);
 
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());

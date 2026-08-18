@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>supreme conqueror's kin' E w/ starcraft</title>
+
     <style>
         body {
             margin: 0;
@@ -53,7 +54,7 @@
     <div class="instruction">EOA, Eliteness Of Axes</div>
     <div class="note-top-right">
         [ı, no-dot i][a taxonomy]<br/>
-        AıO,  All In One --> a/o, aıo<br/>
+        AıO, All In One --> a/o, aıo<br/>
     </div>
     <div class="invisible">MS Word cannot convert ı to become, uppercase-dotless-ı</div>
     <div class="hidden">DE, Dmitry ðɪ Excellent</div>
@@ -67,6 +68,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
+
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
@@ -142,9 +144,8 @@
 
             // Interpolate rotation speed smoothly
             currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 0.05;
-            if (!isDragging) {
+            if (!isDragging)
                 angle -= currentRotationSpeed;
-            }
 
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
@@ -159,9 +160,8 @@
 
             // 1. Emit Particles from vertices
             vertices.forEach(v => {
-                if (Math.random() < 0.4) {
+                if (Math.random() < 0.4)
                     particles.push(new Particle(v.x, v.y, v.color));
-                }
             });
 
             // Update and draw particles
