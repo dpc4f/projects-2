@@ -142,13 +142,14 @@
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
+
         const MONTH_NAMES_2 = [
             "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
             "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
-        ]; // Athen is { Infanta Sofía, a goddess }, wife of Zeus
+        ]; // Athen is a goddess, wife of Zeus
+
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
-
 
         /****
          * [] fix a bug Jan converted to Athen
@@ -274,20 +275,29 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-            let elteMonth = MONTH_NAMES_2[month < 2 ? month+10 : month-2];
+            let bFromDavid = false;
+
+            // check whether { month w/ day } are David's
+            if (month == 10 && day == 27)
+                bFromDavid = true;
+
+            let elteMonth = !bFromDavid ? MONTH_NAMES_2[month < 2 ? month+10 : month-2] : MONTH_NAMES_2[month];
             let elteYear;
             let elteDOB;
 
-            if (month < 2) // month is Jan OR Feb
+            if (bFromDavid == true) 
+                year -= 2;
+            else if (month < 2) // month is Jan OR Feb
                 year--;
+            
             if (year > CURRENT_YEAR)
                 elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
             else if (year < CURRENT_YEAR)
                 elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
             else
                 elteYear = 'current_year';
-            elteDOB = `${elteMonth} ${day} ${elteYear}`;
             
+            elteDOB = `${elteMonth} ${day} ${elteYear}`;
             document.getElementById('birthDate').value = elteDOB;
         }
     </script>
