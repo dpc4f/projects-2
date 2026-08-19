@@ -185,8 +185,11 @@
 
         function checkValues() {
             const gregorianDOB = document.getElementById('gregorianDOB').value;
-            const date = new Date(gregorianDOB);
 
+            if (gregorianDOB.trim().split(' ').length < 3) 
+                return;
+            
+            const date = new Date(gregorianDOB);
             if (isNaN(date.getTime()))
                 return;
 
