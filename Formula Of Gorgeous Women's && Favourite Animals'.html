@@ -336,10 +336,7 @@
             "July", "August", "September", "October", "November", "December"
         ];
         
-         const MONTH_NAMES_2 = [
-            "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
-            "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
-        ]; // Athen is a goddess, wife of Zeus
+        /*** Athen is a goddess, wife of Zeus */
 
         const ANIMAL_NAMES = [
             "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
@@ -351,6 +348,65 @@
 
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
+
+        function getMonth(month, bLongForm = true) {
+            let ret = '';
+
+            switch (month.toString()) {
+                case '0':
+                    ret = bLongForm ? 'Athen' : 'a';
+                    break;
+                
+                case '1':
+                    ret = bLongForm ? 'Duo' : 'd';
+                    break;
+
+                case '2':
+                    ret = bLongForm ? 'Magha' : 'm';
+                    break;
+                
+                case '3':
+                    ret = bLongForm ? 'Qaru' : 'q';
+                    break;
+
+                case '4':
+                    ret = bLongForm ? 'Felle' : 'f';
+                    break;
+                
+                case '5':
+                    ret = bLongForm ? 'Yune' : 'y';
+                    break;
+
+                case '6':
+                    ret = bLongForm ? 'SEPT' : 's';
+                    break;
+                
+                case '7':
+                    ret = bLongForm ? 'OCT' : 'o';
+                    break;
+
+                case '8':
+                    ret = bLongForm ? 'NOV' : 'n';
+                    break;
+                
+                case '9':
+                    ret = bLongForm ? 'DEC' : 'd';
+                    break;
+
+                case '10':
+                    ret = bLongForm ? 'Palm' : 'p';
+                    break;
+                
+                case '11':
+                    ret = bLongForm ? 'Hose' : 'h';
+                    break;
+
+                default:
+                    break;
+            }
+
+            return ret;
+        }
 
         function convertReversedCurrentYear(yearStr) {
             const match = yearStr.match(/^current_year([+-]\d+)$/);
@@ -374,7 +430,7 @@
             let month = date.getMonth();
             let day = date.getDate();
             let year = date.getFullYear();
-            let elteMonth = MONTH_NAMES_2[month < 2 ? month+10 : month-2];
+            let elteMonth = getMonth(month < 2 ? month+10 : month-2);
             let elteYear;
             let elteDOB;
 
@@ -415,27 +471,24 @@
             return targetDate;
         }
 
-        function convertToElteWithDayName(aDate) {     
-            const DAY = [ "TH", "WA", "UT", "FR", "SA", "HI", "DA" ];      
-            let elteDOB = convertToElte(aDate);
-            let dayNameInAWeek = DAY[(TODAY.getDay()+5) % 7];
+        const DAY_2 = [ 'Thaw', 'Wan', 'Uth', 'Fri', 'Sat', 'Hie', 'Dak' ];
+
+        function convertToElteWithDayName(bShortForm = false, aDate = '') {
+
+            /***
+             * [; nr] due to shortage of memory; rewrite this application using functions rather than constant arrays; i.e DAY_2 DAY_3
+             * 
+             * 
+             * 
+             * */
+
+            const TODAY = new Date();
+
+            let elteDOB = bShortForm ? convertToElte_ShortForm(aDate != '' ? aDate : TODAY.toString()) :
+                            convertToElte(aDate != '' ? aDate : TODAY.toString());
+            let dayNameInAWeek = bShortForm ? DAY_3[(TODAY.getDay() + 5) % 7] : DAY_2[(TODAY.getDay() + 5) % 7];
 
             return elteDOB + ' ' + dayNameInAWeek;    
-        }
-        
-        function fromElte() {
-            const ELTE_DOB = document.getElementById('birthYear-2').value;
-            const ARR = ELTE_DOB.trim().split(/\s+/);
-            const M = MONTH_NAMES_2.indexOf(arr[0]);
-            const BIRTH_MONTH_NAME = MONTH_NAMES[m];
-            const BIRTH_YEAR = convertReversedCurrentYear(ARR[2]);
-
-            if (M === -1 || ARR.length < 3) {
-                alert("Please use the format, 'M11 1 current_year±N'");
-                return;
-            }
-
-            exchange2Animal(birthYear);
         }
 
         function exchange2Animal(birthYear) {
