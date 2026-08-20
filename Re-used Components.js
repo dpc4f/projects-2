@@ -133,7 +133,7 @@ function convertToElte_ShortForm(aDate) {
     return elteDOB;
 }
 
-function convertToElte(aDate) {
+function convertToElte(aDate, bFromDavid = false) {
     let date = '';
 
     if (aDate !== '' && aDate !== undefined) {
@@ -150,12 +150,16 @@ function convertToElte(aDate) {
     let month = date.getMonth();
     let day = date.getDate();
     let year = date.getFullYear();
-    let elteMonth = getMonth(month < 2 ? month + 10 : month - 2);
+    
     let elteYear;
     let elteDOB;
+    let elteMonth = !bFromDavid ? getMonth(month < 2 ? month+10 : month-2) : getMonth(month);
 
-    if (month < 2) // month is Jan OR Feb
+    if (bFromDavid == true) 
+        year -= 2;
+    else if (month < 2) // month is Jan OR Feb
         year--;
+    
     if (year > CURRENT_YEAR)
         elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
     else if (year < CURRENT_YEAR)

@@ -101,7 +101,9 @@
 
         #D-label {
             display: inline-block;
-            margin-right: 0;
+            margin-left: 10px;
+            margin-top: 20px;
+            position: absolute;
         }
 
         .convertToElte {
@@ -246,8 +248,11 @@
 
         function copyPASTE() {
             const gregorianDOB = document.getElementById('gregorianDOB').value;
+            let decheck = document.getElementById('injectedCheckbox');
+            let bFromDavid = false;
 
-            document.getElementById('birthDate').value = convertToElte(gregorianDOB);
+            bFromDavid = decheck.checked;
+            document.getElementById('birthDate').value = convertToElte(gregorianDOB, bFromDavid);
         }
 
         function injectCheckbox(targetElementId) {
