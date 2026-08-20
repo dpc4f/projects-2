@@ -184,35 +184,6 @@
             return CURRENT_YEAR + Number(match?.[1] ?? 0);
         }
 
-        function convertToElte(aDate) {
-            let date = '';
-            date = aDate !== '' && aDate !== undefined ? new Date(aDate) : new Date();
-
-            if (isNaN(date.getTime())) {
-                alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
-                return;
-            }
-
-            let month = date.getMonth();
-            let day = date.getDate();
-            let year = date.getFullYear();
-            let elteMonth = getMonth(month < 2 ? month+10 : month-2);
-            let elteYear;
-            let elteDOB;
-
-            if (month < 2) // month is Jan OR Feb
-                year--;
-            if (year > CURRENT_YEAR)
-                elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
-            else if (year < CURRENT_YEAR)
-                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
-            else
-                elteYear = 'current_year';
-            elteDOB = `${elteMonth} ${day} ${elteYear}`;
-
-            return elteDOB;
-        }
-
         window.onload = function() {
             document.getElementById('birthYear-2').value = convertToElte(new Date());
             fromElte();

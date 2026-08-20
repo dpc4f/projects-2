@@ -1,4 +1,5 @@
 
+
 function getMonth(month, bLongForm = true) {
     let ret = '';
 
@@ -58,7 +59,6 @@ function getMonth(month, bLongForm = true) {
     return ret;
 }
 
-
 function getDay(day, bLongForm = true) {
     let ret = '';
 
@@ -96,4 +96,84 @@ function getDay(day, bLongForm = true) {
     }
 
     return ret;
+}
+
+function convertToElte_ShortForm(aDate) {
+    let date = '';
+
+    if (aDate !== '' && aDate !== undefined) {
+        date = new Date(aDate);
+    } else {
+        date = new Date();
+    }
+
+    if (isNaN(date.getTime())) {
+        alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
+        return;
+    }
+
+    let month = date.getMonth();
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let elteMonth = getMonth(month < 2 ? month + 10 : month - 2, false);
+    let elteYear;
+    let elteDOB;
+
+    if (month < 2) // month is Jan OR Feb
+        year--;
+    if (year > CURRENT_YEAR)
+        elteYear = '+' + (year - CURRENT_YEAR).toString();
+    else if (year < CURRENT_YEAR)
+        elteYear = '-' + (CURRENT_YEAR - year).toString();
+    else
+        elteYear = 'O';
+    
+    elteDOB = `${elteMonth} ${day} ${elteYear}`;
+
+    return elteDOB;
+}
+
+function convertToElte(aDate) {
+    let date = '';
+
+    if (aDate !== '' && aDate !== undefined) {
+        date = new Date(aDate);
+    } else {
+        date = new Date();
+    }
+
+    if (isNaN(date.getTime())) {
+        alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
+        return;
+    }
+
+    let month = date.getMonth();
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let elteMonth = getMonth(month < 2 ? month + 10 : month - 2);
+    let elteYear;
+    let elteDOB;
+
+    if (month < 2) // month is Jan OR Feb
+        year--;
+    if (year > CURRENT_YEAR)
+        elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
+    else if (year < CURRENT_YEAR)
+        elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+    else
+        elteYear = 'current_year';
+    
+    elteDOB = `${elteMonth} ${day} ${elteYear}`;
+
+    return elteDOB;
+}
+
+function convertToElteWithDayName(bShortForm = false, aDate = '') {
+    const TODAY = new Date();
+
+    let elteDOB = bShortForm ? convertToElte_ShortForm(aDate != '' ? aDate : TODAY.toString()) :
+                    convertToElte(aDate != '' ? aDate : TODAY.toString());
+    let dayNameInAWeek = getDay((TODAY.getDay() + 5) % 7, !bShortForm);
+
+    return elteDOB + ' ' + dayNameInAWeek;    
 }

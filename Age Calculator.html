@@ -135,7 +135,7 @@
             <div id="raw-date">
                 <input id="gregorianDOB" oninput="checkValues()" onchange="checkValues()" value="Dec 13 2011">
                 <div id="D-label"></div>
-                <button class="convertToElte" onclick="convertToElte()">COPYpaste</button>
+                <button class="convertToElte" onclick="copyPASTE()">COPYpaste</button>
             </div>
             <div class="note">Note: Time of a day in seconds may vary depending on situations 
                 like seasons on Earth; sun operations; moon's affections; other stars; meteors gravitational co-attraction; etc.</div>
@@ -148,6 +148,8 @@
         <h4 id="reference"></h4>
         <div class="note align-right">Tú Sỉ Dèo Mận Thì Tịn Ngụi Mò Dận Thâu Tới Huật</div>
     </div>
+
+    <script src='Re-used Components.js'></script>
 
     <script>
         const CURRENT_YEAR = 2020;
@@ -249,42 +251,10 @@
                                                                 (residuce >= 70 ? flooredDownYearsOld + 1 : flooredDownYearsOld).toString() + ' yrs old';
         }
 
-        function convertToElte() {
+        function copyPASTE() {
             const gregorianDOB = document.getElementById('gregorianDOB').value;
-            const date = new Date(gregorianDOB);
 
-            if (isNaN(date.getTime())) {
-                alert('Invalid date format. Please use a format like "Dec 13 2011".');
-                return;
-            }
-
-            let month = date.getMonth();
-            let day = date.getDate();
-            let year = date.getFullYear();
-            let bFromDavid = false;
-
-            // check whether { month w/ day } are David's
-            let decheck = document.getElementById('injectedCheckbox');
-            bFromDavid = decheck.checked;
-
-            let elteMonth = !bFromDavid ? MONTH_NAMES_2[month < 2 ? month+10 : month-2] : MONTH_NAMES_2[month];
-            let elteYear;
-            let elteDOB;
-
-            if (bFromDavid == true) 
-                year -= 2;
-            else if (month < 2) // month is Jan OR Feb
-                year--;
-            
-            if (year > CURRENT_YEAR)
-                elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
-            else if (year < CURRENT_YEAR)
-                elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
-            else
-                elteYear = 'current_year';
-            
-            elteDOB = `${elteMonth} ${day} ${elteYear}`;
-            document.getElementById('birthDate').value = elteDOB;
+            document.getElementById('birthDate').value = convertToElte(gregorianDOB);
         }
 
         function injectCheckbox(targetElementId) {
