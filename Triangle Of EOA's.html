@@ -35,12 +35,16 @@
             text-align: center;
         }
 
-        .note-top-right {
+        .note-top-right, .note-top-right-2 {
             font-size: 17px;
             color: darkgreen;
-            position: absolute;     
+            position: absolute;
             top: 10px;
-            left: 1600px;
+            left: 1550px;
+        }
+
+        .note-top-right-2 {
+            top: 140px;
         }
 
         .invisible, .hidden {
@@ -58,7 +62,7 @@
     </div>
     <div class="invisible">MS Word cannot convert ı to become, uppercase-dotless-ı</div>
     <div class="hidden">DE, Dmitry ðɪ Excellent</div>
-    <div>[D [Deustch], G [Germany]] { Gau Me, Duc Mix }</div>
+    <div class="note-top-right-2">[D [Deustch], G [Germany]] { Gau Me, Duc Mix }</div>
 
     <script>
         const canvas = document.getElementById('diyCanvas');
