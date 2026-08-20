@@ -155,15 +155,8 @@
         const CURRENT_YEAR = 2020;
         const TODAY = new Date();
         const DAYS_IN_YEAR = 365.25;        
-        const MONTH_NAMES = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
 
-        const MONTH_NAMES_2 = [
-            "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
-            "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
-        ]; // Athen is a goddess, wife of Zeus
+        // Athen is a goddess, wife of Zeus
 
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
@@ -222,7 +215,7 @@
             }
 
             const arr = birthDate.trim().split(/\s+/);
-            const m = MONTH_NAMES_2.indexOf(arr[0]);
+            const m = getIndexFromElteMonth(arr[0]);
 
             if (m === -1 || arr.length < 3) {
                 resultDiv.textContent = 'Please use the format "M11 1 current_year±N"';

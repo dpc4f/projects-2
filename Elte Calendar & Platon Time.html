@@ -401,23 +401,6 @@
          * 
          * */ // --> done
 
-        const MONTH_NAMES = [ // original months' name
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-
-        // const MONTH_NAMES_2 = [
-        //     "Athen", "Duo", "Magha", "Qaru", "Felle", "Yune",
-        //     "SEPT", "OCT", "NOV", "DEC", "Palm", "Hose"
-        // ]; // Athena is { Infanta Sofía, a goddess }, wife of Zeus
-
-        // const MONTH_NAMES_3 = [
-        //     "a", "d", "m", "q", "f", "y",
-        //     "s", "o", "n", "d", "p", "h"
-        // ];
-
-  
-
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
 
@@ -443,12 +426,6 @@
             document.getElementById('dustin-plural').textContent = `${dacetTime}`;
             document.getElementById('dmitry').textContent = `${dimitryTime}`;
         }
-
-
-
-
-
-
 
         // initial render
         updateTimes();
@@ -550,12 +527,8 @@
             renderCalendar(currentYear, currentMonth);
         }
 
-        renderCalendar(currentYear, currentMonth);
-
-        
+        renderCalendar(currentYear, currentMonth);   
     </script>
-
-    
 
 </body>
 </html>

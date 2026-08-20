@@ -126,62 +126,9 @@
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
 
-        function getAnimal(idx) {
-            let ret = '';
-
-            switch (idx) 
-            {
-                case 0:
-                    ret = "Mouse / Rat / Capybara";
-                    break;
-                case 1:
-                    ret = "Ox / Bull / Buffalo / Cow";
-                    break;
-                case 2:
-                    ret = "Tiger / Leopard";
-                    break;
-                case 3:
-                    ret = "Rabbit / Rapoo ð Computer Mouse";
-                    break;
-                case 4:
-                    ret = "Long-dragon / Ant / Bee / Peacock";
-                    break;
-                case 5:
-                    ret = "Snake Clan / Centipede";
-                    break;
-                case 6:
-                    ret = "Horse / Sea-horse / Dragon";
-                    break;
-                case 7:
-                    ret = "ma-Goat / Gorilla";
-                    break;
-                case 8:
-                    ret = "Monkey / Ape";
-                    break;
-                case 9:
-                    ret = "Rooster / Hen";
-                    break;
-                case 10:
-                    ret = "Dodge / Deer / Reindeer / Duck";
-                    break;
-                case 11:
-                    break;
-                    ret = "Pig / Boar in ð Wilderness / Bear";
-                default:
-                    break;
-            }
-
-            return ret;
-        }
-
         function convertCurrentYear() {
             let subtract = currentYear - CURRENT_YEAR;
             return 'current_year+' + subtract.toString();
-        }
-
-        function convertReversedCurrentYear(yearStr) {
-            const match = yearStr.match(/^current_year([+-]\d+)$/);
-            return CURRENT_YEAR + Number(match?.[1] ?? 0);
         }
 
         window.onload = function() {
