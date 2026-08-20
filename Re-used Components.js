@@ -57,3 +57,43 @@ function getMonth(month, bLongForm = true) {
 
     return ret;
 }
+
+
+function getDay(day, bLongForm = true) {
+    let ret = '';
+
+    switch (day) {
+        case 0:
+            ret = bLongForm ? 'Thaw' : 'T';
+            break;
+        
+        case 1:
+            ret = bLongForm ? 'Wan' : 'W';
+            break;
+
+        case 2:
+            ret = bLongForm ? 'Uth' : 'U';
+            break;
+
+        case 3:
+            ret = bLongForm ? 'Fri' : 'F';
+            break;
+
+        case 4:
+            ret = bLongForm ? 'Sat' : 'S';
+            break;
+
+        case 5:
+            ret = bLongForm ? 'Hie' : 'H';
+            break;
+
+        case 6:
+            ret = bLongForm ? 'Dak' : 'D';
+            break;
+
+        default:
+            break;
+    }
+
+    return ret;
+}

@@ -416,8 +416,7 @@
         //     "s", "o", "n", "d", "p", "h"
         // ];
 
-        const DAY_2 = [ 'Thaw', 'Wan', 'Uth', 'Fri', 'Sat', 'Hie', 'Dak' ];
-        const DAY_3 = [ "T", "W", "U", "F", "S", "H", "D" ];
+  
 
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
@@ -520,7 +519,7 @@
 
             let elteDOB = bShortForm ? convertToElte_ShortForm(aDate != '' ? aDate : TODAY.toString()) :
                             convertToElte(aDate != '' ? aDate : TODAY.toString());
-            let dayNameInAWeek = bShortForm ? DAY_3[(TODAY.getDay() + 5) % 7] : DAY_2[(TODAY.getDay() + 5) % 7];
+            let dayNameInAWeek = getDay((TODAY.getDay() + 5) % 7, !bShortForm);
 
             return elteDOB + ' ' + dayNameInAWeek;    
         }
