@@ -189,11 +189,11 @@
         /* 1. Define the color-switching animation */
         @keyframes colorSwitch {
             0%, 100% {
-                color: #03e228; /* Start & End color (e.g., Blue) */
+                color: #f1f505; /* Start & End color (e.g., Blue) */
             }
 
             50% {
-                color: #f70606; /* Middle color (e.g., Red) */
+                color: #7a0404; /* Middle color (e.g., Red) */
             }
         }
 
@@ -504,9 +504,10 @@
             }
             
             const infor = document.getElementById("infor");
-            let bShortForm = true;
-            // infor.innerText = convertToElteWithDayName(bShortForm);
-            
+            let bShortForm = false;
+
+            infor.innerText = convertToElteWithDayName(bShortForm);
+            bShortForm = !bShortForm; 
             setInterval(() => {
                 infor.innerText = convertToElteWithDayName(bShortForm);
                 bShortForm = !bShortForm; 
