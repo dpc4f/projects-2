@@ -258,7 +258,7 @@
                     // Step D: Animate the transition frame
                     setTimeout(() => {
                         oldLeftNode.remove(); // Drop the expired component
-                        newRightNode.classList.remove('fade-in'); // Slides/fades the new token in
+                        newRightNode.classList.remove('fade-in'); // Slides / Fades the new token in
 
                         step++;
                         timeoutId = setTimeout(runSequence, intervalDuration);
@@ -268,9 +268,9 @@
                 Array.from(container.children)
                     .forEach(child => child.classList.add('fade-out')); // Fade out the entire last pair ('mắt cá') together
 
-                setTimeout(() => { // cá <--> chim [the final phrase]
+                setTimeout(() => { // { cá --> chim --> cá } [the final phrase]
                     container.innerHTML = 
-                        `<span class="word-part fade-in" style="color: #4A00E0; font-size: 2.8rem; text-align: center">
+                        `<span class="word-part fade-in" style="color: goldenrod; font-size: 2.8rem; text-align: center">
                             { cá --> chim --> cá }
                         </span>`;
                     container.children[0].classList.remove('fade-in');
@@ -280,6 +280,7 @@
                 }, 1000);
             } else { // --- CASE 3: Reset and Restart Loop Automatically ---
                 container.children[0].classList.add('fade-out');
+
                 setTimeout(() => {
                     step = 0;
                     runSequence();
@@ -291,7 +292,6 @@
         function updateSpeedDisplay(value) {
             // Keep value bounded inside bounds [0.8, 4.0]
             const boundedVal = Math.max(0.8, Math.min(4.0, parseFloat(value))).toFixed(1);
-            // const boundedVal = 1;
 
             speedInput.value = boundedVal;
             speedVal.innerText = boundedVal;
