@@ -503,15 +503,7 @@
                 if (date > daysInMonth) break;
             }
             
-            const infor = document.getElementById("infor");
-            let bShortForm = false;
-
-            infor.innerText = convertToElteWithDayName(bShortForm);
-            bShortForm = !bShortForm; 
-            setInterval(() => {
-                infor.innerText = convertToElteWithDayName(bShortForm);
-                bShortForm = !bShortForm; 
-            }, 10000);
+            renderDateTimeVarieties();
         }
 
         function changeMonth(step) {
@@ -526,6 +518,59 @@
             }
 
             renderCalendar(currentYear, currentMonth);
+        }
+
+        function renderDateTimeVarieties() {
+            
+            /***
+             * [] make varieties of Date Time in the calendar
+             * 
+             * 
+             * Yune 22 current_year+6
+             * Yune 22 current_year+6 Sat
+             * y 22 +6 S
+             * y 22 +6
+             * yu cy+6
+             * current_year+6
+             * cy+6
+             * Yune current_year+6
+             * Yune current_year+6 Sat
+             * y +6 S
+             * 
+             * d +6 (Duo current_year+6)
+             * D +6 (DEC current_year+6)
+             * du cy+6 (Duo current_year+6)
+             * DE cy+6 (DEC current_year+6)
+             * 
+             * 
+             * combine w/ shits in a day
+             * y 22 +6 S iTm
+             * y 22 +6 S iTa
+             * y 22 +6 S 4
+             * ...
+             * 
+             * [shift] 
+             * iTm, M (in the morning)
+             * iTa, A (in the afternoon)
+             * iTe, E (in the evening)
+             * iTn, N (in the night)
+             * aMn, 4 (4b mid-night)
+             * 
+             * 
+             * 
+             * 
+             * 
+             * */
+
+            const infor = document.getElementById("infor");
+            let bShortForm = false;
+
+            infor.innerText = convertToElteWithDayName(bShortForm);
+            bShortForm = !bShortForm; 
+            setInterval(() => {
+                infor.innerText = convertToElteWithDayName(bShortForm);
+                bShortForm = !bShortForm; 
+            }, 10000);
         }
 
         renderCalendar(currentYear, currentMonth);   
