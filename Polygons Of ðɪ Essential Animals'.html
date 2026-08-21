@@ -136,7 +136,7 @@
             /* margin-top: -16px; */
         }
 
-        .big {
+        .big-note {
             font-weight: bold;
             color: rgb(60, 149, 179);
             margin-left: -3px;
@@ -400,7 +400,7 @@
                 <div class="note">[h, d] do dividing ð number six to make it smaller && angle will be, 'angel'</div>
                 <div class="note">[AD; BC] t'Law //[softly] tờ/ + /lo// ~ LTDL [Lion, Tiger, Dragon, Western-dragon]</div>
                 <div class="hidden">{ l'history; O'Cornor; X'Mas; m'em } --> t'law</div>
-                <div class="big invisible">Annabel y Ortiz de Todos los Santos de Borbón;can be, Bear / Pig / Tiger OR Western-dragon;.</div>
+                <div class="big-note invisible">Annabel y Ortiz de Todos los Santos de Borbón;can be, Bear / Pig / Tiger OR Western-dragon;.</div>
                 <div class="invisible">Therefore Krebs isn't listed here.</div>
                 <div class="note">locke, cá lóc</div>
                 <div class="note">dodge, con Ki-ki</div>
@@ -642,7 +642,7 @@
             if (isolatedPoint) {
                 states.push({ name: "Isolated Point",
                                 notes: Array.from(isolatedPoint.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(isolatedPoint.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(isolatedPoint.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(isolatedPoint.querySelectorAll('.label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -650,7 +650,7 @@
             if (lineDiv) {
                 states.push({ name: "Line Segments", 
                                 notes: Array.from(lineDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(lineDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(lineDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(lineDiv.querySelectorAll('.label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -658,7 +658,7 @@
             if (circleTriangleDiv) {
                 states.push({ name: "Circle / Triangle Blended Array",
                                 notes: Array.from(circleTriangleDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(circleTriangleDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(circleTriangleDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(circleTriangleDiv.querySelectorAll('.label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -666,7 +666,7 @@
             if (rectDiv) {
                 states.push({ name: "Rectangle Matrix",
                                 notes: Array.from(rectDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(rectDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(rectDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(rectDiv.querySelectorAll('.label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -674,7 +674,7 @@
             if (pentDiv) {
                 states.push({ name: "Pentangle Matrix",
                                 notes: Array.from(pentDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(pentDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(pentDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(pentDiv.querySelectorAll('.label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -682,7 +682,7 @@
             if (angelsDiv) {
                 states.push({ name: "'Lục Giác' Matrix",
                                 notes: Array.from(angelsDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(angelsDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(angelsDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(angelsDiv.querySelectorAll('.label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -690,7 +690,7 @@
             if (extendOneDiv) {
                 states.push({ name: "Extended 1 No-Shapes",
                                 notes: Array.from(extendOneDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(extendOneDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(extendOneDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(extendOneDiv.querySelectorAll('.label, .zipped-label'))
                                         .map(p => p.innerHTML.trim()) });
             }
@@ -699,7 +699,7 @@
             if (extendTwoDiv) {
                 states.push({ name: "Extended 2 No-Shapes",
                                 notes: Array.from(extendTwoDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(extendTwoDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(extendTwoDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(extendTwoDiv.querySelectorAll('.label, .zipped-label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -707,7 +707,7 @@
             if (extendThreeDiv) {
                 states.push({ name: "Extended 3 No-Shapes",
                                 notes: Array.from(extendThreeDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(extendThreeDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(extendThreeDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(extendThreeDiv.querySelectorAll('.label, .zipped-label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -715,7 +715,7 @@
             if (extendFourDiv) {
                 states.push({ name: "Extended 4 No-Shapes",
                                 notes: Array.from(extendFourDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(extendFourDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(extendFourDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(extendFourDiv.querySelectorAll('.label, .zipped-label')).map(p => p.innerHTML.trim()) });
             }
 
@@ -723,7 +723,7 @@
             if (miscDiv) {
                 states.push({ name: "Miscellaneous",
                                 notes: Array.from(miscDiv.querySelectorAll('.note')).map(p => p.innerHTML.trim()),
-                                bigNotes: Array.from(miscDiv.querySelectorAll('.big')).map(p => p.innerHTML.trim()),
+                                bigNotes: Array.from(miscDiv.querySelectorAll('.big-note')).map(p => p.innerHTML.trim()),
                                 labels: Array.from(miscDiv.querySelectorAll('.label, .zipped-label'))
                                     .map(p => p.innerHTML.trim()) });
             }
@@ -1188,9 +1188,9 @@
             i = 0; // then, big notes
             for (; i < lenBig; ++i) {
                 let parts = state.bigNotes[i].split(';');
-                htmlContent += `<div class='big'>${parts[0]}       
+                htmlContent += `<div class='big-note'>${parts[0]}       
                     <span class='note-inline'>${parts[1]}</span>
-                    <span class='big'>.</span>
+                    <span class='big-note'>.</span>
                     </div>`;
             }
 
