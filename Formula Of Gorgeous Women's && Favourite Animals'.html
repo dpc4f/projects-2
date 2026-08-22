@@ -200,8 +200,8 @@
             padding: 0;
         }
 
-        #dateTime {
-            color: #DE5D4E;
+        #dateWithoutTime {
+            color: #DE5D4E; /* decent tomato */ 
         }
     </style>
 </head>
@@ -292,7 +292,7 @@
                                 --> accept <-- tốt đẹp
         </div>
     </div>
-    <div class="infor" id="dateTime" disabled></div>
+    <div class="infor" id="dateWithoutTime" disabled></div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
 
     <script src='Re-used Components.js'></script>
@@ -330,7 +330,7 @@
             document.getElementById('ANI-8').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-8').innerHTML.split(' ')[2])) +
                 ` / <span class='quail'>Quail</span>`;
-            document.getElementById('dateTime').innerHTML = convertToElteWithDayName(); // Date Time - deluxe tomato
+            document.getElementById('dateWithoutTime').innerHTML = convertToElteWithDayName(); // Date Time - deluxe tomato
             exchange2Animal();
         }
 

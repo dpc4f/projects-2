@@ -311,7 +311,7 @@
             display: none;
         }
 
-        #dateTime {
+        #dateWithoutTime {
             color: #DE5D4E;
         }
     </style>
@@ -358,7 +358,7 @@
                     <button onclick="changeMonth(1)">Next Month</button>
                 </div>
             </div>
-            <div id="dateTime" class="note-aligned"></div>
+            <div id="dateWithoutTime" class="note-aligned"></div>
         </div>
         <div class="right-panel">
             <div class="platon-time">
@@ -572,7 +572,7 @@
              * 
              * */
 
-            const infor = document.getElementById("dateTime");
+            const infor = document.getElementById("dateWithoutTime");
             let bShortForm = false;
 
             infor.innerText = convertToElteWithDayName(bShortForm);
