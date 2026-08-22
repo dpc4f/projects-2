@@ -291,6 +291,8 @@
     <div class="infor" id="dateTime" disabled></div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
 
+    <script src='Re-used Components.js'></script>
+
     <script>
         window.onload = function () {
             document.getElementById('DOB-1').innerHTML = convertToElte(document.getElementById('DOB-1').innerHTML);
@@ -331,10 +333,6 @@
         const CURRENT_YEAR = 2020;
         const TODAY = new Date();
         const DAYS_IN_YEAR = 365.25;
-        const MONTH_NAMES = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
         
         /*** Athen is a goddess, wife of Zeus */
 
@@ -469,26 +467,6 @@
             targetDate.setDate(now.getDate() + diff);
             
             return targetDate;
-        }
-
-        const DAY_2 = [ 'Thaw', 'Wan', 'Uth', 'Fri', 'Sat', 'Hie', 'Dak' ];
-
-        function convertToElteWithDayName(bShortForm = false, aDate = '') {
-
-            /***
-             * [; nr] due to shortage of memory; rewrite this application using functions rather than constant arrays; i.e DAY_2 DAY_3
-             * 
-             * 
-             * 
-             * */
-
-            const TODAY = new Date();
-
-            let elteDOB = bShortForm ? convertToElte_ShortForm(aDate != '' ? aDate : TODAY.toString()) :
-                            convertToElte(aDate != '' ? aDate : TODAY.toString());
-            let dayNameInAWeek = bShortForm ? DAY_3[(TODAY.getDay() + 5) % 7] : DAY_2[(TODAY.getDay() + 5) % 7];
-
-            return elteDOB + ' ' + dayNameInAWeek;    
         }
 
         function exchange2Animal(birthYear) {
