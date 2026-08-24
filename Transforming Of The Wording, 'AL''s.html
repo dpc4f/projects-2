@@ -43,7 +43,7 @@
             transform: translateY(-30px) scale(0.8);
         }
 
-        /* ✨ Anchor letter "a" */
+        /* ✨ Anchor letter 'a' */
         .anchor {
             /* opacity: 1 !important;
             transform: none !important; */
@@ -125,31 +125,40 @@
             switch (coChar) {
                 case "a":
                     break;
+
                 case "l":
                     colorIndex = 2;
                     break;
+
                 case "r":
                     colorIndex = 3;
                     break;
+
                 case "b":
                     colorIndex = 4;
                     break;
+
                 case "e":
                     colorIndex = 5;
                     break;
+
                 case "t":
                     colorIndex = 6;
                     break;
+
                 case "i":
                     colorIndex = 7;
                     break;
+
                 case "3":
                     colorIndex = 8;
                     break;
+
                 case "{":   
                 case "}":
                     colorIndex = 9;
                     break;
+
                 default:
                     colorIndex = 0;
                     break;
@@ -228,7 +237,7 @@
             if (nextWord === "ba, { 3, time }")
                 duration = 500; // Special case; cause it to display longer
             else
-                duration = 1100;
+                duration = 4100;
 
             setTimeout(() => {
                 renderWord(currentWord, nextWord);
@@ -244,7 +253,7 @@
                 curWord = steps[currentIndex];
                 currentIndex = (currentIndex + 1) % steps.length;
                 transitionTo(steps[currentIndex]);
-            }, 5700);
+            }, 12700);
         }
 
         startAnimation();
