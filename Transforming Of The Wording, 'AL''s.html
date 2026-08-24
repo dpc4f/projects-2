@@ -87,7 +87,7 @@
         }
 
         .c6 {
-            color: #e75d37;
+            color: #25cccc;
         }
 
         .c7 {
@@ -106,6 +106,10 @@
             font-size: 40px;
             align-self: flex-center;
             align-content: center;
+        }
+
+        .hidden, .invisible {
+            display: none;
         }
     </style>
 </head>
@@ -225,7 +229,7 @@
                     duration = 0; // default exit duration
                     
                     if (nextWord.includes(letter.textContent))
-                        duration = 4100; // extend duration for letters that will be reused
+                        duration = 2200; // extend duration for letters that will be reused
 
                     setTimeout(() => {
                         letter.classList.add("exit");
@@ -237,7 +241,7 @@
             if (nextWord === "ba, { 3, time }")
                 duration = 500; // Special case; cause it to display longer
             else
-                duration = 4100;
+                duration = 1100;
 
             setTimeout(() => {
                 renderWord(currentWord, nextWord);
