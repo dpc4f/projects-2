@@ -63,7 +63,7 @@
 
         /* 🎨 Color palette for other letters */
         .c0 {
-            color: #4153f9;
+            color: #15a2c5;
         }
 
         .c1 {
@@ -87,7 +87,7 @@
         }
 
         .c6 {
-            color: #25cccc;
+            color: #9acc25;
         }
 
         .c7 {
@@ -240,7 +240,7 @@
             if (nextWord === "ba, { 3, time }")
                 duration = 500; // Special case; cause it to display longer
             else
-                duration = 1100;
+                duration = 750;
 
             setTimeout(() => {
                 renderWord(currentWord, nextWord);
@@ -256,7 +256,7 @@
                 curWord = steps[currentIndex];
                 currentIndex = (currentIndex + 1) % steps.length;
                 transitionTo(steps[currentIndex]);
-            }, 6700);
+            }, 4700);
         }
 
         startAnimation();
