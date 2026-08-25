@@ -478,3 +478,44 @@ function convertReversedCurrentYear(yearStr, addOneYear = false) {
 function toTuesdayFirst(day) {
     return (day + 5) % 7;
 }
+
+function periodicalUpdateDateTime_TimeStamp(bForm = FULL_FORM_DATE, bMonth = false, bDateInMonth = false, bDayInWeek = false) {
+    /***
+      + get current time in seconds
+      --> subtract w/ 86400 to have seconds left until next day
+      
+      + setInterval to that left time duration
+
+      + when come to next day setInterval to ~86400 seconds
+
+      + do the same 4, time which use setInterval in milli-seconds 
+        time is update every half a minute
+        
+      + apply colours
+    *
+    * */
+
+    let start = Date.now() + 1000;
+    let duration = 86400 * 1000 - start; // elapsed time in milliseconds
+    let dateStr = '', oldDateStr = '';
+
+    oldDateStr = getDateFullForm(true, true, true, true);
+    setTimeout(() => {
+        dateStr = getDateFullForm(true, true, true, true);
+        duration = 1000;
+        if (dateStr !== oldDateStr) {
+            start = Date.now() + 1000;
+            duration = 86400 * 1000 - start; // elapsed time in milliseconds
+            oldDateStr = dateStr;
+        }
+        setInterval(getDateFullForm, duration);
+    }, duration); // first time
+    
+    // handle time string in, HH:MM
+    duration = 1000;
+    setInterval(getDateFullForm(true, true, true, true), duration);    
+
+
+
+    
+}

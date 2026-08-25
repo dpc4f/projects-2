@@ -301,6 +301,8 @@
     <script src='Re-used Components.js'></script>
 
     <script>
+        let currentDateStr = '';
+
         window.onload = function () {
             document.getElementById('DOB-1').innerHTML = convertToElte(document.getElementById('DOB-1').innerHTML);
             document.getElementById('DOB-2').innerHTML = convertToElte(document.getElementById('DOB-2').innerHTML);
@@ -340,7 +342,79 @@
 
         function updateTimeStamp() {
             let ele = document.getElementById('dateWithTimeCombined');
-            ele.innerText = getDateWithTimeCombined(true, true, true, true);
+            ele.innerText = getDateWithTimeCombined(true, true, true);
+        }
+
+        function periodicalUpdateDateTime_TimeStamp(bMonth = true, bDateInMonth = true, bDayInWeek = true) {
+
+            function callback() {
+                let nowInMilliSeconds = Date.now() + 2000;
+                let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
+                let dateStr = '', oldDateStr = '';
+
+                oldDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+                
+                setTimeout(() => {
+                    dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+
+                    if (dateStr !== oldDateStr) {
+                        let ele = document.getElementById('dateWithTimeCombined');
+                        ele.innerText = dateStr;
+
+                        duration = 86395 * 1000; // up to the last 5 seconds of the new day; in milliseconds
+                        setTimeout(callback, duration);
+                    } else {
+                        duration = 1000; // set duration back to 1s 
+                        
+                        while (dateStr === oldDateStr) {       
+                            setTimeout(() => {
+                                dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+                            }, duration);
+                        }
+
+                        let ele = document.getElementById('dateWithTimeCombined');
+                        ele.innerText = dateStr;
+                    }
+                }, duration); // first time
+            }
+    
+            currentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+            callback_2();
+        }
+
+        // handle time string in, HH:MM    
+        function callback_2() { // for time value; in HH:MM
+            let nowInMilliSeconds = Date.now() + 100; // 100 milli-seconds added
+            let duration = 60 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
+            let timeStr = '', oldTimeStr = getCurrentTime_HHMM();
+            
+            setTimeout(() => {
+                timeStr = getCurrentTime_HHMM();
+
+                if (timeStr !== oldTimeStr) {
+                    oldTimeStr = timeStr;
+                    let ele = document.getElementById('dateWithTimeCombined');
+                    ele.innerText = currentDateStr + ' ' + timeStr;
+
+                    duration = 59 * 1000; // up to the last 1000 milli-seconds of the new minute; in milliseconds
+                    setTimeout(updateTimeStamp, duration);
+                } else {
+                    duration = 1000; // set duration back to 1000 milli-seconds 
+                     
+                    let id = setInterval(() => {
+                        timeStr = getCurrentTime_HHMM();
+                        let ele = document.getElementById('dateWithTimeCombined');
+                        ele.innerText = currentDateStr + ' ' + timeStr;
+                        
+                        if (timeStr !== oldTimeStr) {
+                            oldTimeStr = timeStr;
+                            clearInterval(id);
+                            duration = 12 * 1000; // set duration to 12 seconds
+                            setTimeout(callback_2, duration);
+                        }
+                    }, duration);
+                }
+            }, duration); // first time
         }
 
 
@@ -380,7 +454,7 @@
         }
 
         updateTimeStamp(); // first time
-        setInterval(updateTimeStamp, 1000); // every second
+        periodicalUpdateDateTime_TimeStamp(true, true, true);
     </script>
 
 </body>
