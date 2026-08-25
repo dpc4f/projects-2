@@ -131,40 +131,39 @@
                     break;
 
                 case "l":
-                    colorIndex = 2;
+                    colorIndex = 1;
                     break;
 
                 case "r":
-                    colorIndex = 3;
+                    colorIndex = 2;
                     break;
 
                 case "b":
-                    colorIndex = 4;
+                    colorIndex = 3;
                     break;
 
                 case "e":
-                    colorIndex = 5;
+                    colorIndex = 4;
                     break;
 
                 case "t":
-                    colorIndex = 6;
+                    colorIndex = 5;
                     break;
 
                 case "i":
-                    colorIndex = 7;
+                    colorIndex = 6;
                     break;
 
                 case "3":
-                    colorIndex = 8;
+                    colorIndex = 7;
                     break;
 
-                case "{":   
-                case "}":
+                case ',':
                     colorIndex = 9;
                     break;
 
                 default:
-                    colorIndex = 0;
+                    colorIndex = 8;
                     break;
             }
 
@@ -205,7 +204,7 @@
                     } else {
                         setTimeout(() => {
                             span.classList.add("show");
-                        }, (i+1) * 420);
+                        }, (i+1) * 220);
                     }
                 }
 
@@ -229,7 +228,7 @@
                     duration = 0; // default exit duration
                     
                     if (nextWord.includes(letter.textContent))
-                        duration = 2200; // extend duration for letters that will be reused
+                        duration = 1200; // extend duration for letters that will be reused
 
                     setTimeout(() => {
                         letter.classList.add("exit");
@@ -257,7 +256,7 @@
                 curWord = steps[currentIndex];
                 currentIndex = (currentIndex + 1) % steps.length;
                 transitionTo(steps[currentIndex]);
-            }, 12700);
+            }, 6700);
         }
 
         startAnimation();
