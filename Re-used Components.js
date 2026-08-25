@@ -437,7 +437,7 @@ function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = fals
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, true) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
 
-    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${shift}`;
+    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${dayInWeek} ${shift}`;
 
     return retStr;
 }
