@@ -301,7 +301,7 @@
     <script src='Re-used Components.js'></script>
 
     <script>
-        let currentDateStr = '';
+        let CurrentDateStr = '';
 
         window.onload = function () {
             document.getElementById('DOB-1').innerHTML = convertToElte(document.getElementById('DOB-1').innerHTML);
@@ -346,40 +346,45 @@
         }
 
         function periodicalUpdateDateTime_TimeStamp(bMonth = true, bDateInMonth = true, bDayInWeek = true) {
-
-            function callback() {
-                let nowInMilliSeconds = Date.now() + 2000;
-                let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
-                let dateStr = '', oldDateStr = '';
-
-                oldDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
-                
-                setTimeout(() => {
-                    dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
-
-                    if (dateStr !== oldDateStr) {
-                        let ele = document.getElementById('dateWithTimeCombined');
-                        ele.innerText = dateStr;
-
-                        duration = 86395 * 1000; // up to the last 5 seconds of the new day; in milliseconds
-                        setTimeout(callback, duration);
-                    } else {
-                        duration = 1000; // set duration back to 1s 
-                        
-                        while (dateStr === oldDateStr) {       
-                            setTimeout(() => {
-                                dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
-                            }, duration);
-                        }
-
-                        let ele = document.getElementById('dateWithTimeCombined');
-                        ele.innerText = dateStr;
-                    }
-                }, duration); // first time
-            }
-    
-            currentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+            CurrentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+            callback();
             callback_2();
+        }
+
+        function callback() {
+            let nowInMilliSeconds = Date.now() + 2000; // 2 seconds added
+            let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
+            let dateStr = '', oldDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+            
+            setTimeout(() => {
+                dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+
+                if (dateStr !== oldDateStr) {
+                    oldDateStr = dateStr;
+                    CurrentDateStr = dateStr;
+                    let ele = document.getElementById('dateWithTimeCombined');
+                    ele.innerText = CurrentDateStr;
+
+                    duration = 86395 * 1000; // up to the last 5 seconds of the new day; in milliseconds
+                    setTimeout(updateTimeStamp, duration);
+                } else {
+                    duration = 10 * 1000; // set duration back to 10 seconds 
+                    
+                    let id = setInterval(() => {
+                        dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+                        CurrentDateStr = dateStr;
+                        let ele = document.getElementById('dateWithTimeCombined');
+                        ele.innerText = CurrentDateStr;
+                        
+                        if (dateStr !== oldDateStr) {
+                            oldDateStr = dateStr;
+                            clearInterval(id);
+                            duration = 12 * 60 * 1000; // set duration to 12 minutes
+                            setTimeout(callback, duration);
+                        }
+                    }, duration);
+                }
+            }, duration); // first time
         }
 
         // handle time string in, HH:MM    
@@ -394,7 +399,7 @@
                 if (timeStr !== oldTimeStr) {
                     oldTimeStr = timeStr;
                     let ele = document.getElementById('dateWithTimeCombined');
-                    ele.innerText = currentDateStr + ' ' + timeStr;
+                    ele.innerText = CurrentDateStr + ' ' + timeStr;
 
                     duration = 59 * 1000; // up to the last 1000 milli-seconds of the new minute; in milliseconds
                     setTimeout(updateTimeStamp, duration);
@@ -404,7 +409,7 @@
                     let id = setInterval(() => {
                         timeStr = getCurrentTime_HHMM();
                         let ele = document.getElementById('dateWithTimeCombined');
-                        ele.innerText = currentDateStr + ' ' + timeStr;
+                        ele.innerText = CurrentDateStr + ' ' + timeStr;
                         
                         if (timeStr !== oldTimeStr) {
                             oldTimeStr = timeStr;
