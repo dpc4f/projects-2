@@ -408,11 +408,12 @@
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
 
-        function formatTime(date, hours = 0) {
+        function formatTime(date, addtionalHours = 0) {
             let hr;
-            const h = String((hr = date.getHours() + hours) >= 0 ? hr : 24 + hr).padStart(2, '0');
+            const h = String((hr = date.getHours() + addtionalHours) >= 0 ? hr : 24 + hr).padStart(2, '0');
             const m = String(date.getMinutes()).padStart(2, '0');
             const s = String(date.getSeconds()).padStart(2, '0');
+
             return `${h}:${m}:${s}`;
         }
 
@@ -437,20 +438,12 @@
         // refresh every second
         setInterval(updateTimes, 1000);
 
-        function convertCurrentYear() {
-            let subtract = currentYear - CURRENT_YEAR;
 
-            return 'current_year+' + subtract.toString();
-        }
 
         function convertReversedCurrentYear(yearStr) {
             const match = yearStr.match(/^current_year([+-]\d+)$/);
 
             return CURRENT_YEAR + Number(match?.[1] ?? 0);
-        }
-
-        function toTuesdayFirst(day) {
-            return (day + 5) % 7;
         }
 
         function removePurple4Months() {
@@ -653,32 +646,14 @@
 
         }
 
-        const FULL_FORM_DATE = 0;
-        const MID_FORM_DATE = 1;
-        const SHORT_FORM_DATE = 2;
+
 
         let bTimeCombined = false;
         let form = FULL_FORM_DATE;
 
 
 
-        function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false) {
-            const TODAY = new Date();
-            let month = TODAY.getMonth();
-            let soleDate = TODAY.getDate();
-            let year = TODAY.getFullYear();
-            let day = TODAY.getDay();
-
-            let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2) : '';
-            let elteSoleDate = bDateInMonth ? soleDate : '';
-            let elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
-            let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, true) : '';
-            let shift = bShiftInADay ? getShiftOfToday() : '';
-
-            let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${shift}`;
-
-            return retStr;
-        }
+        
 
         renderCalendar(currentYear, currentMonth);   
     </script>

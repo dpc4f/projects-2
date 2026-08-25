@@ -2,6 +2,21 @@ const LONG_FORM_SHIFT = 0;
 const MID_FORM_SHIFT = 1;
 const SHORT_FORM_SHIFT = 2;
 
+const FULL_FORM_DATE = 0;
+const MID_FORM_DATE = 1;
+const SHORT_FORM_DATE = 2;
+
+const CURRENT_YEAR = 2020;
+const DAYS_IN_A_YEAR = 365.25;
+const TODAY = new Date();
+
+const ANIMAL_NAMES = [
+    "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
+    "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant / Bee / Peacock", "Snake Family / Centipede",
+    "Horse / Sea-horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape / Kong",
+    "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
+]; 
+
 function getMonth(month, bLongForm = true) {
     let ret = '';
 
@@ -407,4 +422,59 @@ function getAnimal(idx) {
 function convertReversedCurrentYear(yearStr) {
     const match = yearStr.match(/^current_year([+-]\d+)$/);
     return CURRENT_YEAR + Number(match?.[1] ?? 0);
+}
+
+function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false) {
+    const TODAY = new Date();
+    let month = TODAY.getMonth();
+    let soleDate = TODAY.getDate();
+    let year = TODAY.getFullYear();
+    let day = TODAY.getDay();
+
+    let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2) : '';
+    let elteSoleDate = bDateInMonth ? soleDate : '';
+    let elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
+    let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, true) : '';
+    let shift = bShiftInADay ? getShiftOfToday() : '';
+
+    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${shift}`;
+
+    return retStr;
+}
+
+function getCurrentTime_HHMM() {
+    let today = new Date();
+    let hh = String(today.getHours()).padStart(2, '0');
+    let mm = String(today.getMinutes()).padStart(2, '0');
+    
+    return `${hh}:${mm}`;
+}
+
+function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWeek = false) {
+    let dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+    let hourStr = getCurrentTime_HHMM();
+
+    return dateStr + ' ' + hourStr;
+}
+
+ function convertReversedCurrentYear(yearStr) {
+    const match = yearStr.match(/^current_year([+-]\d+)$/);
+
+    return CURRENT_YEAR + Number(match?.[1] ?? 0);
+}
+
+function convertCurrentYear() {
+    let subtract = currentYear - CURRENT_YEAR;
+
+    return 'current_year+' + subtract.toString();
+}
+
+function convertReversedCurrentYear(yearStr, addOneYear = false) {
+    const match = yearStr.match(/^current_year([+-]\d+)$/);
+    
+    return CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
+}
+
+function toTuesdayFirst(day) {
+    return (day + 5) % 7;
 }

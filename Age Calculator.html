@@ -169,17 +169,8 @@
          * 
         */ // --> done
 
-        function convertCurrentYear() {
-            let subtract = currentYear - CURRENT_YEAR;
-            return 'current_year+' + subtract.toString();
-        }
 
-        function convertReversedCurrentYear(yearStr, addOneYear = false) {
-            const match = yearStr.match(/^current_year([+-]\d+)$/);
-            
-            return CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
-        }
-
+        
         function checkValues() {
             const gregorianDOB = document.getElementById('gregorianDOB').value;
 
@@ -236,7 +227,7 @@
             }
 
             let dayDiff = Math.floor((TODAY.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-            let yearsOld = (dayDiff / DAYS_IN_YEAR).toFixed(2);
+            let yearsOld = (dayDiff / DAYS_IN_A_YEAR).toFixed(2);
             let residuce = (yearsOld * 100) % 100;
             let flooredDownYearsOld = ((yearsOld * 100) - residuce) / 100; // Nov 27 1982
 
