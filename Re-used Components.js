@@ -1,4 +1,6 @@
-
+const LONG_FORM_SHIFT = 0;
+const MID_FORM_SHIFT = 1;
+const SHORT_FORM_SHIFT = 2;
 
 function getMonth(month, bLongForm = true) {
     let ret = '';
@@ -59,7 +61,7 @@ function getMonth(month, bLongForm = true) {
     return ret;
 }
 
-function getDay(day, bLongForm = true) {
+function whichDayIsToday(day, bLongForm = true) {
     let ret = '';
 
     switch (day) {
@@ -96,6 +98,102 @@ function getDay(day, bLongForm = true) {
     }
 
     return ret;
+}
+
+function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
+    const date = new Date();
+    const hr = date.getHours();
+    const mi = date.getMinutes();
+    
+    let sf = '';
+    if (4 <= hr && hr < 12) {
+        switch(longShort) {
+            case LONG_FORM_SHIFT:
+                sf = 'iTm';
+                break;
+
+            case MID_FORM_SHIFT:
+                sf = 'Tm';
+                break;
+
+            case SHORT_FORM_SHIFT:
+                sf = 'M';
+                break;
+
+            default: 
+                break;
+        }
+    } else if (12 <= hr && hr < 17) {
+        switch(longShort) {
+            case 0:
+                sf = 'iTa';
+                break;
+
+            case 1:
+                sf = 'Ta';
+                break;
+
+            case 2:
+                sf = 'A';
+                break;
+
+            default: 
+                break;
+        }
+    } else if ((17 <= hr && hr < 20) || (h == 20 && mi < 30)) {
+        switch(longShort) {
+            case 0:
+                sf = 'iTe';
+                break;
+
+            case 1:
+                sf = 'Te';
+                break;
+
+            case 2:
+                sf = 'E';
+                break;
+
+            default: 
+                break;
+        }
+    } else if (20 <= hr && hr < 24) {
+        switch(longShort) {
+            case 0:
+                sf = 'iTn';
+                break;
+
+            case 1:
+                sf = 'Tn';
+                break;
+
+            case 2:
+                sf = 'N';
+                break;
+
+            default: 
+                break;
+        } 
+    } else {
+        switch(longShort) {
+            case 0:
+                sf = 'aMn';
+                break;
+
+            case 1:
+                sf = 'Mn';
+                break;
+
+            case 2:
+                sf = '4';
+                break;
+
+            default: 
+                break;
+        }
+    }
+    
+    return sf;
 }
 
 function convertToElte_ShortForm(aDate) {
