@@ -155,7 +155,7 @@ function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
             default: 
                 break;
         }
-    } else if ((17 <= hr && hr < 20) || (h == 20 && mi < 30)) {
+    } else if ((17 <= hr && hr < 20) || (hr == 20 && mi < 30)) {
         switch(longShort) {
             case 0:
                 sf = 'iTe';
