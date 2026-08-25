@@ -354,7 +354,7 @@
         function callback() {
             let nowInMilliSeconds = Date.now() + 2000; // 2 seconds added
             let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
-            let dateStr = '', oldDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+            let dateStr = '', oldDateStr = getDateFullForm(true, true, true);
             
             setTimeout(() => {
                 dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
@@ -370,7 +370,7 @@
                 } else {
                     duration = 10 * 1000; // set duration back to 10 seconds 
                     
-                    let id = setInterval(() => {
+                    let idcb = setInterval(() => {
                         dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
                         CurrentDateStr = dateStr;
                         let ele = document.getElementById('dateWithTimeCombined');
@@ -378,7 +378,7 @@
                         
                         if (dateStr !== oldDateStr) {
                             oldDateStr = dateStr;
-                            clearInterval(id);
+                            clearInterval(idcb);
                             duration = 12 * 60 * 1000; // set duration to 12 minutes
                             setTimeout(callback, duration);
                         }
@@ -406,14 +406,14 @@
                 } else {
                     duration = 1000; // set duration back to 1000 milli-seconds 
                      
-                    let id = setInterval(() => {
+                    let id_cb2 = setInterval(() => {
                         timeStr = getCurrentTime_HHMM();
                         let ele = document.getElementById('dateWithTimeCombined');
                         ele.innerText = CurrentDateStr + ' ' + timeStr;
                         
                         if (timeStr !== oldTimeStr) {
                             oldTimeStr = timeStr;
-                            clearInterval(id);
+                            clearInterval(id_cb2);
                             duration = 12 * 1000; // set duration to 12 seconds
                             setTimeout(callback_2, duration);
                         }
