@@ -402,25 +402,17 @@
          * 
          * */ // --> done
 
-        let currentMonth = TODAY.getMonth();
-        let currentYear = TODAY.getFullYear();
 
-        function formatTime(date, addtionalHours = 0) {
-            let hr;
-            const h = String((hr = date.getHours() + addtionalHours) >= 0 ? hr : 24 + hr).padStart(2, '0');
-            const m = String(date.getMinutes()).padStart(2, '0');
-            const s = String(date.getSeconds()).padStart(2, '0');
 
-            return `${h}:${m}:${s}`;
-        }
+
 
         function updateTimes() {
             const ExcellenT = new Date();
-            let oxakaSeoulTime = formatTime(ExcellenT, additionalHours = 2); // GMT+7+2
-            let beijingTime = formatTime(ExcellenT, additionalHours = -5); // GMT+7+1 --> GMT+7-5; switch to Madrid time
-            let rainingTime = formatTime(ExcellenT, additionalHours = -6); // GMT+7-6
-            let dacetTime = formatTime(ExcellenT, additionalHours = 0); // GMT+7
-            let dimitryTime = formatTime(ExcellenT, additionalHours = -4); // GMT+7-4
+            let oxakaSeoulTime = formatTime(ExcellenT, true, 2); // GMT+7+2
+            let beijingTime = formatTime(ExcellenT, true, -5); // GMT+7+1 --> GMT+7-5; switch to Madrid time
+            let rainingTime = formatTime(ExcellenT, true, -6); // GMT+7-6
+            let dacetTime = formatTime(ExcellenT, true, 0); // GMT+7
+            let dimitryTime = formatTime(ExcellenT, true, -4); // GMT+7-4
 
             document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
             document.getElementById('beijing').textContent = `${beijingTime}`;
@@ -450,7 +442,12 @@
             } 
         }
 
-        function renderCalendar(year, month) {
+        function callback() {
+            Today = new Date();
+            renderCalendar();
+        }
+
+        function renderCalendar(year = Today.getFullYear(), month = Today.getMonth()) {
             let mt = document.getElementById("monthNames").children;
 
             document.getElementById("monthYear").textContent = getMonth(month < 2 ? month + 10 : month - 2) 
@@ -549,9 +546,9 @@
              * Tm <-- used 4, 2 characters month stamp <-- in the morning
              * M <-- used 4, short stamp <-- in the morning
              * 
-             * iTa, Ta, A (in the afternoon)
+             * iTa, Ta, a (in the afternoon)
              * iTe, Te, E (in the evening)
-             * iTn, Tn, N (in the night)
+             * iTn, Tn, n (in the night)
              * aMn, Mn, 4 (4b mid-night)
              * 
              * 
@@ -562,7 +559,7 @@
 
             const infor = document.getElementById("dateWithoutTime");
             let form = FULL_FORM_DATE;
-            let duration = 6 * 1000; // one minute
+            let duration = 1 * 1000; // one minute
             let index = 1;
 
             infor.innerText = getDateValuesTimeStamp(0, 0); // first time
@@ -657,9 +654,11 @@
         let form = FULL_FORM_DATE;
 
 
-
+        let currentMonth = TODAY.getMonth();
+        let currentYear = TODAY.getFullYear();
         
-
+        // window.addEventListener('focus', callback);
+        // window.addEventListener('blur', callback);
         renderCalendar(currentYear, currentMonth);   
     </script>
 

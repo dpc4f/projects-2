@@ -136,7 +136,7 @@ function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
                 break;
 
             case SHORT_FORM_SHIFT:
-                sf = 'M';
+                sf = 'm';
                 break;
 
             default: 
@@ -153,7 +153,7 @@ function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
                 break;
 
             case 2:
-                sf = 'A';
+                sf = 'a';
                 break;
 
             default: 
@@ -170,7 +170,7 @@ function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
                 break;
 
             case 2:
-                sf = 'E';
+                sf = 'e';
                 break;
 
             default: 
@@ -187,7 +187,7 @@ function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
                 break;
 
             case 2:
-                sf = 'N';
+                sf = 'n';
                 break;
 
             default: 
@@ -567,11 +567,11 @@ const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
 function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
-    let arr = DATE_FORMAT_STRINGS[0];
-    let bMonth = arr[index][0]; 
-    let bDateInMonth = arr[index][1]; 
-    let bDayInWeek = arr[index][2]; 
-    let bShiftInADay = bDayInWeek ? arr[index][3] : false;
+    let arrFormatString = DATE_FORMAT_STRINGS[0];
+    let bMonth = arrFormatString[index][0]; 
+    let bDateInMonth = arrFormatString[index][1]; 
+    let bDayInWeek = arrFormatString[index][2]; 
+    let bShiftInADay = bDayInWeek ? arrFormatString[index][3] : false;
     let valuesStr = '';
 
     switch (formLength) {
@@ -592,4 +592,14 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
     }
 
     return valuesStr;
+}
+
+function formatTime(date = TODAY.getDate(), bSecond = false, addtionalHours = 0) {
+    const hr = date.getHours();
+    const h = String((hr + addtionalHours) >= 0 ? hr : 24 + hr).padStart(2, '0');
+    const m = String(date.getMinutes()).padStart(2, '0');
+    const s = bSecond ? String(date.getSeconds()).padStart(2, '0') : '';
+    
+    let retStr = `${h}:${m}` + (s ? `:${s}` : '');
+    return retStr;
 }
