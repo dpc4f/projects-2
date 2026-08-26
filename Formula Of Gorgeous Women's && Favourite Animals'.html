@@ -338,6 +338,7 @@
 
            
             exchange2Animal();
+            periodicalUpdateDateTime_TimeStamp();
         }
 
         function updateTimeStamp() {
@@ -347,8 +348,10 @@
 
         function periodicalUpdateDateTime_TimeStamp(bMonth = true, bDateInMonth = true, bDayInWeek = true) {
             CurrentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
-            callback();
-            callback_2();
+            
+            updateTimeStamp(); // first time
+            callback(); // date timestamp
+            callback_2(); // time timestamp
         }
 
         function callback() {
@@ -429,9 +432,6 @@
         
         // Pig --> Mouse --> Rabbit --> Dodge
 
-        let currentMonth = TODAY.getMonth();
-        let currentYear = TODAY.getFullYear();
-
         /**
          * Gets the date for a specific day in the current week (local time).
          * 
@@ -458,8 +458,8 @@
             return ANIMAL_NAMES[(birthYear - CURRENT_YEAR) % 12];
         }
 
-        updateTimeStamp(); // first time
-        periodicalUpdateDateTime_TimeStamp(true, true, true);
+        window.addEventListener('focus', periodicalUpdateDateTime_TimeStamp);
+        window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
     </script>
 
 </body>
