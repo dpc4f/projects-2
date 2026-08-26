@@ -561,14 +561,17 @@
              * */
 
             const infor = document.getElementById("dateWithoutTime");
-            let bShortForm = false;
-            let duration = 60 * 1000; // one minute
+            let form = FULL_FORM_DATE;
+            let duration = 6 * 1000; // one minute
             let index = 1;
 
             infor.innerText = getDateValuesTimeStamp(0, 0); // first time
             setInterval(() => {
-                infor.innerText = getDateValuesTimeStamp(0, index);
-                index = ++index % DATE_FORMAT_STRINGS[0].length;
+                infor.innerText = getDateValuesTimeStamp(form, index);
+                if (++index == DATE_FORMAT_STRINGS[0].length) {
+                    index = 0;
+                    if (++form > SHORT_FORM_DATE) form = FULL_FORM_DATE;
+                }
             }, duration);
             
             // bShortForm = !bShortForm;
@@ -625,7 +628,7 @@
              * y 22 +6 S
              * y 22 +6 S M
              * D +6 T N (DEC current_year+6 Thaw iTn)
-             * d 22 +6 H 4 (Duo current_year+6 Hie aMn)
+             * d 22 +6 H 4 (Duo 22 current_year+6 Hie aMn)
              * 
             */
 

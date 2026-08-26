@@ -6,6 +6,10 @@ const FULL_FORM_DATE = 0;
 const MID_FORM_DATE = 1;
 const SHORT_FORM_DATE = 2;
 
+const DATE_FULL_FORM = 0;
+const DATE_MID_FORM = 1;
+const DATE_SHORT_FORM = 2;
+
 const CURRENT_YEAR = 2020;
 const DAYS_IN_A_YEAR = 365.25;
 const TODAY = new Date();
@@ -17,56 +21,56 @@ const ANIMAL_NAMES = [
     "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
 ]; 
 
-function getMonth(month, bLongForm = true) {
+function getMonth(month, form = FULL_FORM_DATE) {
     let ret = '';
 
-    switch (month.toString()) {
-        case '0':
-            ret = bLongForm ? 'Athen' : 'a';
+    switch (month) {
+        case 0:
+            ret = form == FULL_FORM_DATE ? 'Athen' : (form == MID_FORM_DATE ? 'At' : 'a');
             break;
 
-        case '1':
-            ret = bLongForm ? 'Duo' : 'd';
+        case 1:
+            ret = form == FULL_FORM_DATE ? 'Duo' : (form == MID_FORM_DATE ? 'Du' : 'd');
             break;
 
-        case '2':
-            ret = bLongForm ? 'Magha' : 'm';
+        case 2:
+            ret = form == FULL_FORM_DATE ? 'Magha' : (form == MID_FORM_DATE ? 'Ma' : 'm');
             break;
 
-        case '3':
-            ret = bLongForm ? 'Qaru' : 'q';
+        case 3:
+            ret = form == FULL_FORM_DATE ? 'Qaru' : (form == MID_FORM_DATE ? 'Qa' : 'q');
             break;
 
-        case '4':
-            ret = bLongForm ? 'Felle' : 'f';
+        case 4:
+            ret = form == FULL_FORM_DATE ? 'Felle' : (form == MID_FORM_DATE ? 'Fe' : 'f');
             break;
 
-        case '5':
-            ret = bLongForm ? 'Yune' : 'y';
+        case 5:
+            ret = form == FULL_FORM_DATE ? 'Yune' : (form == MID_FORM_DATE ? 'Yu' : 'y');
             break;
 
-        case '6':
-            ret = bLongForm ? 'SEPT' : 'S';
+        case 6:
+            ret = form == FULL_FORM_DATE ? 'SEPT' : (form == MID_FORM_DATE ? 'SE' : 'S');
             break;
 
-        case '7':
-            ret = bLongForm ? 'OCT' : 'O';
+        case 7:
+            ret = form == FULL_FORM_DATE ? 'OCT' : (form == MID_FORM_DATE ? 'OC' : 'O');
             break;
 
-        case '8':
-            ret = bLongForm ? 'NOV' : 'N';
+        case 8:
+            ret = form == FULL_FORM_DATE ? 'NOV' : (form == MID_FORM_DATE ? 'NO' : 'N');
             break;
 
-        case '9':
-            ret = bLongForm ? 'DEC' : 'D';
+        case 9:
+            ret = form == FULL_FORM_DATE ? 'DEC' : (form == MID_FORM_DATE ? 'DE' : 'D');
             break;
 
-        case '10':
-            ret = bLongForm ? 'Palm' : 'p';
+        case 10:
+            ret = form == FULL_FORM_DATE ? 'Palm' : (form == MID_FORM_DATE ? 'Pa' : 'p');
             break;
 
-        case '11':
-            ret = bLongForm ? 'Hose' : 'h';
+        case 11:
+            ret = form == FULL_FORM_DATE ? 'Hose' : (form == MID_FORM_DATE ? 'Ho' : 'h');
             break;
 
         default:
@@ -76,36 +80,36 @@ function getMonth(month, bLongForm = true) {
     return ret;
 }
 
-function whichDayIsToday(day, bLongForm = true) {
+function whichDayIsToday(day, form = FULL_FORM_DATE) {
     let ret = '';
 
     switch (day) {
         case 0:
-            ret = bLongForm ? 'Thaw' : 'T';
+            ret = form == FULL_FORM_DATE ? 'Thaw' : (form == MID_FORM_DATE ? 'th' : 'T');
             break;
         
         case 1:
-            ret = bLongForm ? 'Wan' : 'W';
+            ret = form == FULL_FORM_DATE ? 'Wan' : (form == MID_FORM_DATE ? 'wa' : 'W');
             break;
 
         case 2:
-            ret = bLongForm ? 'Uth' : 'U';
+            ret = form == FULL_FORM_DATE ? 'Uth' : (form == MID_FORM_DATE ? 'ut' : 'U');
             break;
 
         case 3:
-            ret = bLongForm ? 'Fri' : 'F';
+            ret = form == FULL_FORM_DATE ? 'Fri' : (form == MID_FORM_DATE ? 'fr' : 'F');
             break;
 
         case 4:
-            ret = bLongForm ? 'Sat' : 'S';
+            ret = form == FULL_FORM_DATE ? 'Sat' : (form == MID_FORM_DATE ? 'sa' : 'S');
             break;
 
         case 5:
-            ret = bLongForm ? 'Hie' : 'H';
+            ret = form == FULL_FORM_DATE ? 'Hie' : (form == MID_FORM_DATE ? 'hi' : 'H');
             break;
 
         case 6:
-            ret = bLongForm ? 'Dak' : 'D';
+            ret = form == FULL_FORM_DATE ? 'Dak' : (form == MID_FORM_DATE ? 'da' : 'D');
             break;
 
         default:
@@ -434,8 +438,44 @@ function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = fals
     let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
-    let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, true) : '';
+    let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
+
+    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${dayInWeek} ${shift}`;
+
+    return retStr;
+}
+
+function getDateMidForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false) {
+    const TODAY = new Date();
+    let month = TODAY.getMonth();
+    let soleDate = TODAY.getDate();
+    let year = TODAY.getFullYear();
+    let day = TODAY.getDay();
+
+    let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2, MID_FORM_DATE) : '';
+    let elteSoleDate = bDateInMonth ? soleDate : '';
+    let elteYear = 'cur_yea+' + (year - CURRENT_YEAR).toString();
+    let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
+    let shift = bShiftInADay ? getShiftOfToday(MID_FORM_SHIFT) : '';
+
+    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${dayInWeek} ${shift}`;
+
+    return retStr;
+}
+
+function getDateShortForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false) {
+    const TODAY = new Date();
+    let month = TODAY.getMonth();
+    let soleDate = TODAY.getDate();
+    let year = TODAY.getFullYear();
+    let day = TODAY.getDay();
+
+    let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2, SHORT_FORM_DATE) : '';
+    let elteSoleDate = bDateInMonth ? soleDate : '';
+    let elteYear = year == CURRENT_YEAR ? 'O' : ((bMonth == false ? 'Y+' : '+') + (year - CURRENT_YEAR).toString());
+    let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
+    let shift = bShiftInADay ? getShiftOfToday(SHORT_FORM_SHIFT) : '';
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${dayInWeek} ${shift}`;
 
@@ -497,26 +537,27 @@ function periodicalUpdateDateTime_TimeStamp(bForm = FULL_FORM_DATE, bMonth = fal
 
 }
 
-const DATE_FULL_FORM = 0;
-const DATE_MID_FORM = 1;
-const DATE_SHORT_FORM = 2;
-
 const DATE_FORMAT_STRINGS = [
     /** full forms */ 
     [ // **month **{ date in month } year **{{ day in week } **{ shift in day }}
-        [false, false, false], //current_year+6
+        [false, false, false], // current_year+6
         [true, false, false], // Yune current_year+6
         [true, true, false], // Yune 22 current_year+6
         [true, true, true, false], // Yune 22 current_year+6 Sat
         [true, true, true, true] // Yune 22 current_year+6 Sat iTa 
     ],
-    /** mid forms */
-    [
 
+    /** mid forms */
+    [ // **month **{ date in month } year **{{ day in week } **{ shift in day }}
+         // cy+6
+         // Du cy+6 (Duo current_year+6); DE cy+6 (DEC current_year+6)
+         // Yu 22 cy+6
+         // Yu 23 cy+6 H
+         // Yu 23 cy+6 H Ta
     ], 
 
     /** short forms */
-    [
+    [ // **month **{ date in month } year **{{ day in week } **{ shift in day }}
 
     ] 
 ];
@@ -525,18 +566,25 @@ const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
-function getDateValuesTimeStamp(formLength = DATE_FULL_FORM, index = 0) {
+function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
+    let arr = DATE_FORMAT_STRINGS[0];
+    let bMonth = arr[index][0]; 
+    let bDateInMonth = arr[index][1]; 
+    let bDayInWeek = arr[index][2]; 
+    let bShiftInADay = bDayInWeek ? arr[index][3] : false;
     let valuesStr = '';
 
     switch (formLength) {
-        case DATE_FULL_FORM:
-            let arr = DATE_FORMAT_STRINGS[0];
-            let bMonth = arr[index][0]; 
-            let bDateInMonth = arr[index][1]; 
-            let bDayInWeek = arr[index][2]; 
-            let bShiftInADay = bDayInWeek ? arr[index][3] : false;
-            
+        case FULL_FORM_DATE:
             valuesStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay);
+            break;
+
+        case MID_FORM_DATE:
+            valuesStr = getDateMidForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay);
+            break;
+
+        case SHORT_FORM_DATE:
+            valuesStr = getDateShortForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay);
             break;
 
         default:
