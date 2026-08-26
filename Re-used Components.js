@@ -495,34 +495,53 @@ function periodicalUpdateDateTime_TimeStamp(bForm = FULL_FORM_DATE, bMonth = fal
     *
     * */
 
-    //   function callback() {
-    //     let nowInMilliSeconds = Date.now() + 2000;
-    //     let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
-    //     let dateStr = '', oldDateStr = '';
+}
 
-    //     oldDateStr = getDateFullForm(true, true, true, true);
-    //     setTimeout(() => {
-    //         dateStr = getDateFullForm(true, true, true, true);
+const DATE_FULL_FORM = 0;
+const DATE_MID_FORM = 1;
+const DATE_SHORT_FORM = 2;
 
-    //         if (dateStr !== oldDateStr) {
-    //             duration = 86395 * 1000; // up to the last 5 seconds of the new day; in milliseconds
-    //             oldDateStr = dateStr;
-    //             setTimeout(callback, duration);
-    //         } else {
-    //             duration = 1000; // set duration back to 1s 
+const DATE_FORMAT_STRINGS = [
+    /** full forms */ 
+    [ // **month **{ date in month } year **{{ day in week } **{ shift in day }}
+        [false, false, false], //current_year+6
+        [true, false, false], // Yune current_year+6
+        [true, true, false], // Yune 22 current_year+6
+        [true, true, true, false], // Yune 22 current_year+6 Sat
+        [true, true, true, true] // Yune 22 current_year+6 Sat iTa 
+    ],
+    /** mid forms */
+    [
 
-    //             while (dateStr === oldDateStr) {       
-    //                 setTimeout(() => {
-    //                     dateStr = getDateFullForm();
-    //                 }, duration);
-    //             }
-    //         }
-    //     }, duration); // first time
-    // }
-    
-    // handle time string in, HH:MM
-    // duration = 1000;
-    // setInterval(getDateFullForm(true, true, true, true), duration);    
+    ], 
 
+    /** short forms */
+    [
 
+    ] 
+];
+
+const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
+
+const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
+
+function getDateValuesTimeStamp(formLength = DATE_FULL_FORM, index = 0) {
+    let valuesStr = '';
+
+    switch (formLength) {
+        case DATE_FULL_FORM:
+            let arr = DATE_FORMAT_STRINGS[0];
+            let bMonth = arr[index][0]; 
+            let bDateInMonth = arr[index][1]; 
+            let bDayInWeek = arr[index][2]; 
+            let bShiftInADay = bDayInWeek ? arr[index][3] : false;
+            
+            valuesStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay);
+            break;
+
+        default:
+            break;
+    }
+
+    return valuesStr;
 }

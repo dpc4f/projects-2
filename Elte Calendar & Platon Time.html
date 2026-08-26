@@ -562,8 +562,15 @@
 
             const infor = document.getElementById("dateWithoutTime");
             let bShortForm = false;
+            let duration = 60 * 1000; // one minute
+            let index = 1;
 
-            infor.innerText = getDateFullForm(true, true, true, true);
+            infor.innerText = getDateValuesTimeStamp(0, 0); // first time
+            setInterval(() => {
+                infor.innerText = getDateValuesTimeStamp(0, index);
+                index = ++index % DATE_FORMAT_STRINGS[0].length;
+            }, duration);
+            
             // bShortForm = !bShortForm;
 
             // setInterval(() => {
