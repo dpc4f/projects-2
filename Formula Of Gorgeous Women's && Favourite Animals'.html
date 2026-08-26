@@ -341,20 +341,22 @@
             periodicalUpdateDateTime_TimeStamp();
         }
 
-        function updateTimeStamp() {
+        function callback(dateTimeTimestamp) {
             let ele = document.getElementById('dateWithTimeCombined');
-            ele.innerText = getDateWithTimeCombined(true, true, true);
+            ele.innerText = dateTimeTimestamp;
         }
 
         function periodicalUpdateDateTime_TimeStamp(bMonth = true, bDateInMonth = true, bDayInWeek = true) {
             CurrentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
             
-            updateTimeStamp(); // first time
-            callback(); // date timestamp
-            callback_2(); // time timestamp
+            let ele = document.getElementById('dateWithTimeCombined');
+            ele.innerText = getDateWithTimeCombined(true, true, true);
+        
+            recursive(); // date timestamp
+            recursive_2(); // time timestamp
         }
 
-        function callback() {
+        function recursive(callback) {
             let nowInMilliSeconds = Date.now() + 2000; // 2 seconds added
             let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
             let dateStr = '', oldDateStr = getDateFullForm(true, true, true);
@@ -365,25 +367,27 @@
                 if (dateStr !== oldDateStr) {
                     oldDateStr = dateStr;
                     CurrentDateStr = dateStr;
-                    let ele = document.getElementById('dateWithTimeCombined');
-                    ele.innerText = CurrentDateStr;
+                    callback(CurrentDateStr);
 
                     duration = 86395 * 1000; // up to the last 5 seconds of the new day; in milliseconds
-                    setTimeout(updateTimeStamp, duration);
+                    setTimeout(() => {
+                        dateStr = getDateWithTimeCombined(true, true, true);
+                        callback(dateStr);
+                    }, duration);
                 } else {
                     duration = 10 * 1000; // set duration back to 10 seconds 
                     
                     let idcb = setInterval(() => {
                         dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
                         CurrentDateStr = dateStr;
-                        let ele = document.getElementById('dateWithTimeCombined');
-                        ele.innerText = CurrentDateStr;
+                        callback(CurrentDateStr);
                         
                         if (dateStr !== oldDateStr) {
                             oldDateStr = dateStr;
                             clearInterval(idcb);
                             duration = 12 * 60 * 1000; // set duration to 12 minutes
-                            setTimeout(callback, duration);
+                            
+                            setTimeout(recursive, duration);
                         }
                     }, duration);
                 }
@@ -391,7 +395,7 @@
         }
 
         // handle time string in, HH:MM    
-        function callback_2() { // for time value; in HH:MM
+        function recursive_2(callback) { // for time value; in HH:MM
             let nowInMilliSeconds = Date.now() + 100; // 100 milli-seconds added
             let duration = 60 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
             let timeStr = '', oldTimeStr = getCurrentTime_HHMM();
@@ -401,24 +405,26 @@
 
                 if (timeStr !== oldTimeStr) {
                     oldTimeStr = timeStr;
-                    let ele = document.getElementById('dateWithTimeCombined');
-                    ele.innerText = CurrentDateStr + ' ' + timeStr;
+                    callback(CurrentDateStr + ' ' + timeStr);
 
                     duration = 59 * 1000; // up to the last 1000 milli-seconds of the new minute; in milliseconds
-                    setTimeout(updateTimeStamp, duration);
+                    setTimeout(() => {
+                        dateStr = getDateWithTimeCombined(true, true, true);
+                        callback(dateStr);
+                    }, duration);
                 } else {
                     duration = 1000; // set duration back to 1000 milli-seconds 
                      
                     let id_cb2 = setInterval(() => {
                         timeStr = getCurrentTime_HHMM();
-                        let ele = document.getElementById('dateWithTimeCombined');
-                        ele.innerText = CurrentDateStr + ' ' + timeStr;
+                        callback(CurrentDateStr + ' ' + timeStr);
                         
                         if (timeStr !== oldTimeStr) {
                             oldTimeStr = timeStr;
                             clearInterval(id_cb2);
                             duration = 12 * 1000; // set duration to 12 seconds
-                            setTimeout(callback_2, duration);
+                            
+                            setTimeout(recursive_2, duration);
                         }
                     }, duration);
                 }

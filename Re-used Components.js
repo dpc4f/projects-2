@@ -495,27 +495,34 @@ function periodicalUpdateDateTime_TimeStamp(bForm = FULL_FORM_DATE, bMonth = fal
     *
     * */
 
-    let start = Date.now() + 1000;
-    let duration = 86400 * 1000 - start; // elapsed time in milliseconds
-    let dateStr = '', oldDateStr = '';
+    //   function callback() {
+    //     let nowInMilliSeconds = Date.now() + 2000;
+    //     let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
+    //     let dateStr = '', oldDateStr = '';
 
-    oldDateStr = getDateFullForm(true, true, true, true);
-    setTimeout(() => {
-        dateStr = getDateFullForm(true, true, true, true);
-        duration = 1000;
-        if (dateStr !== oldDateStr) {
-            start = Date.now() + 1000;
-            duration = 86400 * 1000 - start; // elapsed time in milliseconds
-            oldDateStr = dateStr;
-        }
-        setInterval(getDateFullForm, duration);
-    }, duration); // first time
+    //     oldDateStr = getDateFullForm(true, true, true, true);
+    //     setTimeout(() => {
+    //         dateStr = getDateFullForm(true, true, true, true);
+
+    //         if (dateStr !== oldDateStr) {
+    //             duration = 86395 * 1000; // up to the last 5 seconds of the new day; in milliseconds
+    //             oldDateStr = dateStr;
+    //             setTimeout(callback, duration);
+    //         } else {
+    //             duration = 1000; // set duration back to 1s 
+
+    //             while (dateStr === oldDateStr) {       
+    //                 setTimeout(() => {
+    //                     dateStr = getDateFullForm();
+    //                 }, duration);
+    //             }
+    //         }
+    //     }, duration); // first time
+    // }
     
     // handle time string in, HH:MM
-    duration = 1000;
-    setInterval(getDateFullForm(true, true, true, true), duration);    
+    // duration = 1000;
+    // setInterval(getDateFullForm(true, true, true, true), duration);    
 
 
-
-    
 }
