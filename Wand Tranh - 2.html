@@ -10,6 +10,7 @@
         body {
             font-family: Arial;
             padding: 20px;
+            background-color: rgb(13, 199, 199);
         }
 
         .note-output {
@@ -56,6 +57,10 @@
         .hidden {
             display: none;
         }
+
+        .sutta, .sa-position {
+            color: yellow;
+        }
     </style>
 
 </head>
@@ -65,12 +70,12 @@
 
     <!-- think of a way to re-use this application -->
 
-    <textarea id="htmlSource" class="html-viewer" placeholder="Loanding ..."></textarea>
+    <textarea id="htmlSource" class="html-viewer" placeholder="Loading ..."></textarea>
     <!-- <button onclick="parseHtml()">Parse HTML</button> -->
 
     <div id="Note-1" class="note"></div>
     <br>
-    <div class="note">các dục đắng nhiều ngọt ít</div>
+    <div class="note sutta">các dục đắng nhiều ngọt ít</div>
 
     <div id="treeView"></div>
 
@@ -102,7 +107,8 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
             // console.log($output.innerHTML); // <-- used 4 debugging
             // exportText(); 
 
-            renderDomTree(rows);
+            // if (rows)
+            //     renderDomTree(rows);
         }
 
         function parseHtml() {
@@ -159,8 +165,8 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
         let myHtmlString = localStorage.getItem("davios_rows");
         const $output = document.getElementById('Note-1');
         window.onload = () => {
-            const $htmlSource = document.getElementById('htmlSource');
-            $htmlSource.value = formatHTML(myHtmlString);
+            // const $htmlSource = document.getElementById('htmlSource');
+            // $htmlSource.value = formatHTML(myHtmlString);
         };
 
         function formatHTML(htmlString, indentSize = 4) {
@@ -235,7 +241,8 @@ Retrieved 2026-04-25, License - CC BY-SA 4.0
                 details.appendChild(container);
                 return details;
             }
-            return null;
+
+            return '';
         }
 
         // Usage:
