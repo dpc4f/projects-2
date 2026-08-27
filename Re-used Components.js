@@ -568,10 +568,10 @@ const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
 function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
     let arrFormatString = DATE_FORMAT_STRINGS[0];
-    let bMonth = arrFormatString[index][0]; 
-    let bDateInMonth = arrFormatString[index][1]; 
-    let bDayInWeek = arrFormatString[index][2]; 
-    let bShiftInADay = bDayInWeek ? arrFormatString[index][3] : false;
+    let bMonth = arrFormatString[0]; 
+    let bDateInMonth = arrFormatString[1]; 
+    let bDayInWeek = arrFormatString[2]; 
+    let bShiftInADay = bDayInWeek ? arrFormatString[3] : false;
     let valuesStr = '';
 
     switch (formLength) {

@@ -200,11 +200,33 @@
             padding: 0;
         }
 
-        #dateWithTimeCombined {
-            /***
-                the reverse of, 'Decent Tomato' which is Date w/o Time 
+        #dateWithoutTime {
+             color: #DE5D4E; /* decent tomato <-- Date w/o Time */
+             display: inline-block;
+        }
+
+        #time_HHMM {
+            display: inline-block;
+        }
+
+        .dacet-pine {
+            /* 
+                - 3s: total duration of one cycle (blue -> red -> blue)
+                - ease-in-out: makes the transition smooth
+                - infinite: keeps repeating endlessy
             */
-            color: #ff5e00;  
+            animation: colorSwitch 33s ease-in-out infinite;
+        }
+
+        /* 1. Define the color-switching animation */
+        @keyframes colorSwitch {
+            0%, 100% {
+                color: #f1f505; /* Start & End color (e.g., Blue) */
+            }
+
+            50% {
+                color: #7a0404; /* Middle color (e.g., Red) */
+            }
         }
     </style>
 </head>
@@ -295,7 +317,10 @@
                                 --> accept <-- tốt đẹp
         </div>
     </div>
-    <div class="infor" id="dateWithTimeCombined" disabled></div>
+    <div class="infor" >
+        <div id="dateWithoutTime" disabled></div>
+        <div id="time_HHMM" class="dacet-pine" disabled></div>
+    </div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
 
     <script src='Re-used Components.js'></script>
@@ -341,19 +366,24 @@
             periodicalUpdateDateTime_TimeStamp();
         }
 
-        function callback(dateTimeTimestamp) {
-            let ele = document.getElementById('dateWithTimeCombined');
-            ele.innerText = dateTimeTimestamp;
+        function callback_time(timeStr = '') {
+            let ele = document.getElementById('time_HHMM');
+            ele.innerText = timeStr ? timeStr : getCurrentTime_HHMM();
+        }
+
+        function callback_date(dateStr = '') {
+            let ele = document.getElementById('dateWithoutTime');
+            ele.innerText = dateStr ? dateStr : getDateFullForm(true, true, true);
         }
 
         function periodicalUpdateDateTime_TimeStamp(bMonth = true, bDateInMonth = true, bDayInWeek = true) {
             CurrentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
             
-            let ele = document.getElementById('dateWithTimeCombined');
-            ele.innerText = getDateWithTimeCombined(true, true, true);
-        
-            recursive(); // date timestamp
-            recursive_2(); // time timestamp
+            callback_date();
+            callback_time();
+
+            recursive(callback_date); // date timestamp
+            recursive_2(callback_time); // time timestamp
         }
 
         function recursive(callback) {
@@ -362,7 +392,7 @@
             let dateStr = '', oldDateStr = getDateFullForm(true, true, true);
             
             setTimeout(() => {
-                dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+                dateStr = getDateFullForm(true, true, true);
 
                 if (dateStr !== oldDateStr) {
                     oldDateStr = dateStr;
@@ -378,7 +408,7 @@
                     duration = 10 * 1000; // set duration back to 10 seconds 
                     
                     let idcb = setInterval(() => {
-                        dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+                        dateStr = getDateFullForm(true, true, true);
                         CurrentDateStr = dateStr;
                         callback(CurrentDateStr);
                         
@@ -394,41 +424,21 @@
             }, duration); // first time
         }
 
-        // handle time string in, HH:MM    
+        // handle time string in, HH:MM
+        let idcb = null;    
         function recursive_2(callback) { // for time value; in HH:MM
-            let nowInMilliSeconds = Date.now() + 100; // 100 milli-seconds added
+            const ONE_MINUTE_IN_MILLISECONDS = 59999;
+            let nowInMilliSeconds = Date.now();
             let duration = 60 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
             let timeStr = '', oldTimeStr = getCurrentTime_HHMM();
             
-            setTimeout(() => {
-                timeStr = getCurrentTime_HHMM();
+            if (idcb) 
+                clearInterval(idcb);
 
-                if (timeStr !== oldTimeStr) {
-                    oldTimeStr = timeStr;
-                    callback(CurrentDateStr + ' ' + timeStr);
-
-                    duration = 59 * 1000; // up to the last 1000 milli-seconds of the new minute; in milliseconds
-                    setTimeout(() => {
-                        dateStr = getDateWithTimeCombined(true, true, true);
-                        callback(dateStr);
-                    }, duration);
-                } else {
-                    duration = 1000; // set duration back to 1000 milli-seconds 
-                     
-                    let id_cb2 = setInterval(() => {
-                        timeStr = getCurrentTime_HHMM();
-                        callback(CurrentDateStr + ' ' + timeStr);
-                        
-                        if (timeStr !== oldTimeStr) {
-                            oldTimeStr = timeStr;
-                            clearInterval(id_cb2);
-                            duration = 12 * 1000; // set duration to 12 seconds
-                            
-                            setTimeout(recursive_2, duration);
-                        }
-                    }, duration);
-                }
-            }, duration); // first time
+            setTimeout(() => { 
+                callback();
+                idcb = setInterval(callback, ONE_MINUTE_IN_MILLISECONDS);
+            }, duration);
         }
 
 
