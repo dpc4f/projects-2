@@ -473,7 +473,7 @@ function getDateShortForm(bMonth = false, bDateInMonth = false, bDayInWeek = fal
 
     let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2, SHORT_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
-    let elteYear = year == CURRENT_YEAR ? 'O' : ((bMonth == false ? 'Y+' : '+') + (year - CURRENT_YEAR).toString());
+    let elteYear = year == CURRENT_YEAR ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - CURRENT_YEAR).toString());
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(SHORT_FORM_SHIFT) : '';
 
@@ -521,27 +521,24 @@ function toTuesdayFirst(day) {
 
 const DATE_FORMAT_STRINGS = [
     /** full forms */ 
-    [ // **month **{ date in month } year **{{ day in week } **{ shift in day }}
+    // **month **{ date in month } year **{{ day in week } **{ shift in day }}
         [false, false, false], // current_year+6
         [true, false, false], // Yune current_year+6
         [true, true, false], // Yune 22 current_year+6
         [true, true, true, false], // Yune 22 current_year+6 Sat
         [true, true, true, true] // Yune 22 current_year+6 Sat iTa 
-    ],
 
     /** mid forms */
-    [ // **month **{ date in month } year **{{ day in week } **{ shift in day }}
-         // cy+6
-         // Du cy+6 (Duo current_year+6); DE cy+6 (DEC current_year+6)
-         // Yu 22 cy+6
-         // Yu 23 cy+6 H
-         // Yu 23 cy+6 H Ta
-    ], 
+    // **month **{ date in month } year **{{ day in week } **{ shift in day }}
+        // cy+6
+        // Du cy+6 (Duo current_year+6); DE cy+6 (DEC current_year+6)
+        // Yu 22 cy+6
+        // Yu 23 cy+6 H
+        // Yu 23 cy+6 H Ta
 
     /** short forms */
-    [ // **month **{ date in month } year **{{ day in week } **{ shift in day }}
+    // **month **{ date in month } year **{{ day in week } **{ shift in day }}
 
-    ] 
 ];
 
 const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
@@ -549,11 +546,10 @@ const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
 function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
-    let arrFormatString = DATE_FORMAT_STRINGS[0];
-    let bMonth = arrFormatString[0]; 
-    let bDateInMonth = arrFormatString[1]; 
-    let bDayInWeek = arrFormatString[2]; 
-    let bShiftInADay = bDayInWeek ? arrFormatString[3] : false;
+    let bMonth = DATE_FORMAT_STRINGS[index][0]; 
+    let bDateInMonth = DATE_FORMAT_STRINGS[index][1]; 
+    let bDayInWeek = DATE_FORMAT_STRINGS[index][2]; 
+    let bShiftInADay = bDayInWeek ? DATE_FORMAT_STRINGS[index][3] : false;
     let valuesStr = '';
 
     switch (formLength) {
