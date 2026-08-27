@@ -221,11 +221,11 @@
         /* 1. Define the color-switching animation */
         @keyframes colorSwitch {
             0%, 100% {
-                color: #f1f505; /* Start & End color (e.g., Blue) */
+                color: #fa7901; /* Start & End color (e.g., Blue) */
             }
 
             50% {
-                color: #7a0404; /* Middle color (e.g., Red) */
+                color: red; /* Middle color (e.g., Red) */
             }
         }
     </style>
@@ -377,8 +377,24 @@
         }
 
         function periodicalUpdateDateTime_TimeStamp(bMonth = true, bDateInMonth = true, bDayInWeek = true) {
+
+             /***
+                 + get current time in seconds
+                --> subtract w/ 86400 to have seconds left until next day
+                
+                + setInterval to that left time duration
+
+                + when come to next day setInterval to ~86400 seconds
+
+                + do the same 4, time which use setInterval in milli-seconds 
+                    time is update every half a minute
+                    
+                + apply colours
+            *
+            * */
+
+            // first time
             CurrentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
-            
             callback_date();
             callback_time();
 
