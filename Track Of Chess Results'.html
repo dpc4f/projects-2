@@ -147,6 +147,7 @@
 
         .right-align {
             margin-left: 700px;
+            display: inline-block;
         }
 
         .invisible, .hidden {
@@ -159,6 +160,10 @@
             position: absolute;
             padding-left: 20px;
             padding-top: 20px;
+        }
+
+        .sutta, .sa-position {
+            color: yellow;
         }
     </style>
 </head>
@@ -193,9 +198,12 @@
                 </table>
             </div>
             <div class="section">
-                <button id="kingBtn" disabled>
-                    King Endly Checked
-                </button>
+                <div>
+                    <button id="kingBtn" disabled>
+                        King Endly Checked
+                    </button>
+                    <div class="right-align sutta">The King, A Horcrux Of { Grand Bee Emperor, Great King Ant, Mahà Sudassana }</div>
+                </div>
                 <div id="kingStatus"></div>
                 <div class="note note-big hidden">
                     vào năm Gia Tĩnh triều Ink<br/>
@@ -204,7 +212,7 @@
                     xinh tươi thì cũng nhu mì làm thuê<br/>
                     ...
                 </div>
-                <div class="note right-align hidden">The King, A Horcrux Of { Grand Bee Emperor, Great King Ant, Mahà Sudassana }</div>
+                
             </div>
         </div>
 
