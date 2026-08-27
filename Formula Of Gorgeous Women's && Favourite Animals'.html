@@ -425,12 +425,14 @@
         }
 
         // handle time string in, HH:MM
-        // [; nr] fix a bug
+        // [; nr] fix a bug <-- done
         let idcb = null;    
         function recursive_2(callback) { // for time value; in HH:MM
-            const ONE_MINUTE_IN_MILLISECONDS = 59999;
-            let nowInMilliSeconds = Date.now();
-            let duration = 60 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
+            const ONE_MINUTE_IN_SECONDS = 60;
+            const ONE_MINUTE_IN_MILLISECONDS = 60000;
+            const Today = new Date();
+            let fractionOfAMinuteInSecond = Today.getSeconds() % ONE_MINUTE_IN_SECONDS;
+            let duration = (ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
             let timeStr = '', oldTimeStr = getCurrentTime_HHMM();
             
             if (idcb) 
