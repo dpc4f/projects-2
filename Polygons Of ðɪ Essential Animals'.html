@@ -154,6 +154,12 @@
             left: 20px;
         }
 
+        .bottom-left-note-2 { 
+            position: absolute;
+            bottom: 55px;
+            left: 20px;
+        }
+
         .bottom-right-note {
             position: absolute;
             bottom: 10px;
@@ -544,8 +550,9 @@
         </div>
     </div>
 
-    <div class="note bottom-left-note" id="time-manner">
-        respect to ð time manner. always.<br/>
+    <div class="note bottom-left-note" id="time-manner">respect to ð time manner. always.</div>
+    
+    <div class="note bottom-left-note-2" id="time-manner-3">
         tự hiểu đi, understanding-by-yourself-4b-thinking-on-your-own<br/>
     </div>
 
@@ -1282,6 +1289,14 @@
             let ele = document.getElementById('time-manner-2');
             ele.classList.add('hidden');
         }, 31000);
+
+        setInterval(() => {
+            let ele = document.getElementById('time-manner-3');
+            if (ele.classList.contains('hidden'))
+                ele.classList.remove('hidden');
+            else
+                ele.classList.add('hidden');
+        }, 20000);
         
         window.addEventListener('DOMContentLoaded', () => {
             resize();
