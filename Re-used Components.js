@@ -567,6 +567,7 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
 }
 
 class TimeValues {
+    
     constructor(date) {
         this.h = date.getHours();
         this.m = date.getMinutes();
