@@ -433,11 +433,10 @@
             // formatTime(ExcellenT, true, -4); // GMT+7-4
         }
 
-        // initial render
-        updateTimes();
-
         // refresh every second
         setInterval(updateTimes, 1000);
+        // initial render
+        updateTimes();
 
         function removePurple4Months() {
             let mt = document.getElementById("monthNames").children;
