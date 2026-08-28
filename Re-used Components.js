@@ -497,12 +497,6 @@ function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWee
     return dateStr + ' ' + hourStr;
 }
 
- function convertReversedCurrentYear(yearStr) {
-    const match = yearStr.match(/^current_year([+-]\d+)$/);
-
-    return CURRENT_YEAR + Number(match?.[1] ?? 0);
-}
-
 function convertCurrentYear() {
     let subtract = currentYear - CURRENT_YEAR;
 
@@ -572,12 +566,35 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
     return valuesStr;
 }
 
-function formatTime(date = TODAY.getDate(), bSecond = false, addtionalHours = 0) {
-    const hr = date.getHours();
-    const h = String((hr + addtionalHours) >= 0 ? hr : 24 + hr).padStart(2, '0');
-    const m = String(date.getMinutes()).padStart(2, '0');
-    const s = bSecond ? String(date.getSeconds()).padStart(2, '0') : '';
+class TimeValues {
+    constructor(date) {
+        this.h = date.getHours();
+        this.m = date.getMinutes();
+        this.s = date.getSeconds();
+        this.ms = date.getMilliseconds();
+    }
+
+    timeTheCurrent() {
+        let date = (new Date()).getDate();
+        
+        this.h = date.getHours();
+        this.m = date.getMinutes()
+        this.s = date.getSeconds();
+    }
+
+    addHours(additionalHours) {
+        let r = additionalHours % 24;
+
+        this.h = (this.h + r) >= 0 ? this.h : 24 + this.h;
+    }
+
+    formatTime(bSecond = false) {
+        let hh = String(this.h).padStart(2, '0');
+        let mm = String(this.m).padStart(2, '0');
+        let ss = String(this.s).padStart(2, '0');
+        let retStr = `${hh}:${mm}` + (bSecond ? `:${ss}` : '');
     
-    let retStr = `${h}:${m}` + (s ? `:${s}` : '');
-    return retStr;
+        return retStr;
+    }
 }
+

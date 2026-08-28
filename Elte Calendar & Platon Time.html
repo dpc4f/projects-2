@@ -403,22 +403,34 @@
          * */ // --> done
 
 
-
-
-
         function updateTimes() {
-            const ExcellenT = new Date();
-            let oxakaSeoulTime = formatTime(ExcellenT, true, 2); // GMT+7+2
-            let beijingTime = formatTime(ExcellenT, true, -5); // GMT+7+1 --> GMT+7-5; switch to Madrid time
-            let rainingTime = formatTime(ExcellenT, true, -6); // GMT+7-6
-            let dacetTime = formatTime(ExcellenT, true, 0); // GMT+7
-            let dimitryTime = formatTime(ExcellenT, true, -4); // GMT+7-4
+            let excellenT = new Date();
+            let tVal = new TimeValues(excellenT);
 
-            document.getElementById('oxaka-seoul').textContent = `${oxakaSeoulTime}`;
-            document.getElementById('beijing').textContent = `${beijingTime}`;
-            document.getElementById('narana').textContent = `${rainingTime}`;
-            document.getElementById('dustin-plural').textContent = `${dacetTime}`;
-            document.getElementById('dmitry').textContent = `${dimitryTime}`;
+            // oxakaSeoulTime = 
+            tVal.addHours(2);
+            document.getElementById('oxaka-seoul').textContent = `${tVal.formatTime(true)}`;
+            // formatTime(ExcellenT, true, 2); // GMT+7+2
+            
+            // let beijingTime = 
+            tVal.addHours(-7);
+            document.getElementById('beijing').textContent = `${tVal.formatTime(true)}`;
+            // formatTime(ExcellenT, true, -5); // GMT+7+1 --> GMT+7-5; switch to Madrid time
+            
+            // let rainingTime = 
+            tVal.addHours(-1);
+            document.getElementById('narana').textContent = `${tVal.formatTime(true)}`;
+            // formatTime(ExcellenT, true, -6); // GMT+7-6
+            
+            // let dacetTime = 
+            tVal.addHours(+6);
+            document.getElementById('dustin-plural').textContent = `${tVal.formatTime(true)}`;
+            // formatTime(ExcellenT, true, 0); // GMT+7
+            
+            // let dimitryTime = 
+            tVal.addHours(-4);
+            document.getElementById('dmitry').textContent = `${tVal.formatTime(true)}`;
+            // formatTime(ExcellenT, true, -4); // GMT+7-4
         }
 
         // initial render
@@ -426,12 +438,6 @@
 
         // refresh every second
         setInterval(updateTimes, 1000);
-
-        function convertReversedCurrentYear(yearStr) {
-            const match = yearStr.match(/^current_year([+-]\d+)$/);
-
-            return CURRENT_YEAR + Number(match?.[1] ?? 0);
-        }
 
         function removePurple4Months() {
             let mt = document.getElementById("monthNames").children;
