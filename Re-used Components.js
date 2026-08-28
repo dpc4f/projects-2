@@ -583,9 +583,9 @@ class TimeValues {
     }
 
     addHours(additionalHours) {
-        let r = additionalHours % 24;
+        let tmp = (this.h + additionalHours) % 24;
 
-        this.h = (this.h + r) >= 0 ? this.h : 24 + this.h;
+        this.h = tmp >= 0 ? tmp : 24 + tmp;
     }
 
     formatTime(bSecond = false) {
