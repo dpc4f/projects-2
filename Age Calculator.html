@@ -126,6 +126,10 @@
         .align-right {
             text-align: right;
         }
+
+        .hidden, .invisible {
+            display: none;
+        }
     </style>
 </head>
 
@@ -140,7 +144,9 @@
                 <button class="convertToElte" onclick="copyPASTE()">COPYpaste</button>
             </div>
             <div class="note">Note: a day's duration [in seconds] may vary depending on situations 
-                like seasons on Earth; sun operations; moon's affections; other stars; meteors gravitational co-attraction; etc.</div>
+                like seasons on Earth; sun operations; moon's affections; other stars; meteors gravitational co-attraction; etc.
+                <div class="hidden">số lượng thời gian của 1 ngày tính theo giây ...</div>
+            </div>
         </div>
 
         <input type="text" id="birthDate" placeholder="Input your birth date">
