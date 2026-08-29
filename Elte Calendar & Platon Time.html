@@ -582,15 +582,15 @@
             let form = FULL_FORM_DATE;
             let duration = 10000; // here; it's one minute
             let index = 1;
-
-            infor.innerText = getDateValuesTimeStamp(0, 0); // first time
+            
             setInterval(() => {
                 infor.innerText = getDateValuesTimeStamp(form, index);
-                if (++index == DATE_FORMAT_STRINGS[0].length) {
+                if (++index == DATE_FORMAT_COUNT) {
                     index = 0;
                     if (++form > SHORT_FORM_DATE) form = FULL_FORM_DATE;
                 }
             }, duration);
+            infor.innerText = getDateValuesTimeStamp(FULL_FORM_DATE, 0); // first time
             
             // bShortForm = !bShortForm;
 
