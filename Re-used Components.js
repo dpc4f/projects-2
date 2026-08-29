@@ -583,19 +583,28 @@ class TimeValues {
         this.s = date.getSeconds();
     }
 
-    addHours(additionalHours) {
-        let tmp = (this.h + additionalHours) % 24;
-
-        this.h = tmp >= 0 ? tmp : 24 + tmp;
+    addHours(hours) {
+        if (hours <= 0) 
+            return;
+        this.h = (this.h + hours) % 24;
     }
 
-    formatTime(bSecond = false) {
-        let hh = String(this.h).padStart(2, '0');
+    subtractInRangeHours(hours) {
+        if (hours <= 0 || hours > this.h)
+            return;
+
+        this.h -= hours;
+    }
+
+    formatTime(additionalHours = 0, bSecond = false) {
+        if (additionalHours < 0) 
+            return;
+
+        let hh = String((this.h + additionalHours) % 24).padStart(2, '0');
         let mm = String(this.m).padStart(2, '0');
         let ss = String(this.s).padStart(2, '0');
-        let retStr = `${hh}:${mm}` + (bSecond ? `:${ss}` : '');
     
-        return retStr;
+        return `${hh}:${mm}` + (bSecond ? `:${ss}` : '');
     }
 }
 

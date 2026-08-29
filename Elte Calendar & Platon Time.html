@@ -419,8 +419,9 @@
          * */ // --> done
 
 
+        let excellenT = new Date();
         function updateTimes() {
-            let excellenT = new Date();
+            
             let tVal = new TimeValues(excellenT);
 
             // oxakaSeoulTime = 
@@ -681,6 +682,12 @@
         // window.addEventListener('focus', callback);
         // window.addEventListener('blur', callback);
         renderCalendar(currentYear, currentMonth);   
+
+        window.addEventListener('onload', renderCalendar);
+        window.addEventListener('onload', updateTimes);
+        // window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
+
+
     </script>
 
 </body>
