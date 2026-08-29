@@ -399,7 +399,7 @@
             callback_time();
 
             recursive(callback_date); // date timestamp
-            recursive_2(callback_time); // time timestamp
+            updateTimeWithIntervalOneMinute(callback_time); // time timestamp
         }
 
         function recursive(callback) {
@@ -439,27 +439,6 @@
                 }
             }, duration); // first time
         }
-
-        // handle time string in, HH:MM
-        // [; nr] fix a bug <-- done
-        let idcb = null;    
-        function recursive_2(callback) { // for time value; in HH:MM
-            const ONE_MINUTE_IN_SECONDS = 60;
-            const ONE_MINUTE_IN_MILLISECONDS = 60000;
-            const Today = new Date();
-            let fractionOfAMinuteInSecond = Today.getSeconds() % ONE_MINUTE_IN_SECONDS;
-            let duration = (ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
-            let timeStr = '', oldTimeStr = getCurrentTime_HHMM();
-            
-            if (idcb) 
-                clearInterval(idcb);
-
-            setTimeout(() => { 
-                callback();
-                idcb = setInterval(callback, ONE_MINUTE_IN_MILLISECONDS);
-            }, duration);
-        }
-
 
         /*** Athen is a goddess, wife of Zeus */
 

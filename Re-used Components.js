@@ -567,7 +567,7 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
 }
 
 class TimeValues {
-    
+
     constructor(date) {
         this.h = date.getHours();
         this.m = date.getMinutes();
@@ -599,3 +599,21 @@ class TimeValues {
     }
 }
 
+// handle time string in, HH:MM
+// [; nr] fix a bug <-- done
+let idcb = null;    
+function updateTimeWithIntervalOneMinute(callback) { // for time value; in HH:MM
+    const ONE_MINUTE_IN_SECONDS = 60;
+    const ONE_MINUTE_IN_MILLISECONDS = 60000;
+    const Today = new Date();
+    let fractionOfAMinuteInSecond = Today.getSeconds() % ONE_MINUTE_IN_SECONDS;
+    let duration = (ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
+    
+    if (idcb) 
+        clearInterval(idcb);
+
+    setTimeout(() => { 
+        callback();
+        idcb = setInterval(callback, ONE_MINUTE_IN_MILLISECONDS);
+    }, duration);
+}
