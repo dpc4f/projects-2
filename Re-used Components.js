@@ -573,6 +573,8 @@ class TimeValues {
         this.m = date.getMinutes();
         this.s = date.getSeconds();
         this.ms = date.getMilliseconds();
+        this.callback = null;
+        this.idcb = null;
     }
 
     timeTheCurrent() {
@@ -606,6 +608,37 @@ class TimeValues {
         let ss = String(this.s).padStart(2, '0');
     
         return `${hh}:${mm}` + (bSecond ? `:${ss}` : '');
+    }
+
+    increase_second() {
+        ++this.s;
+        if (this.s == 60) {
+            this.s = 0;
+            ++this.m;
+            if (this.m == 60) {
+                this.m = 0;
+                ++this.h;
+                if (this.h == 24)
+                    this.h = 0;
+            }
+        }
+        
+        this.callback(this);
+    }
+
+    updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
+        const ONE_SECOND_IN_MILLISECONDS = 1000;
+        let fractionOfASecond = (new Date()).getMilliseconds() % ONE_SECOND_IN_MILLISECONDS;
+        let duration = (ONE_SECOND_IN_MILLISECONDS - fractionOfASecond); // elapsed time in milliseconds
+        this.callback = callback;
+        
+        if (this.idcb) 
+            clearInterval(this.idcb);
+
+        setTimeout(() => { 
+            this.idcb = setInterval(() => this.increase_second(), ONE_SECOND_IN_MILLISECONDS);
+            this.increase_second();
+        }, duration);
     }
 }
 

@@ -421,25 +421,29 @@
         function updateTimes() {
             let excellenT = new Date();
             let tVal = new TimeValues(excellenT);
+            
+            tVal.updateTimeWithIntervalOneSecond(updatePlatonTime);
+        }
+
+        function updatePlatonTime(timeVal) {
             // oxakaSeoulTime = 
-            document.getElementById('oxaka-seoul').textContent = `${tVal.formatTime(2, true)}`;
+            document.getElementById('oxaka-seoul').textContent = `${timeVal.formatTime(2, true)}`;
             
             // let beijingTime = 
-            document.getElementById('beijing').textContent = `${tVal.formatTime(-5, true)}`;
+            document.getElementById('beijing').textContent = `${timeVal.formatTime(19, true)}`; // -5
             
             // let rainingTime = 
-            document.getElementById('narana').textContent = `${tVal.formatTime(-6, true)}`;
+            document.getElementById('narana').textContent = `${timeVal.formatTime(18, true)}`; // -6
             
             // let dacetTime = 
-            document.getElementById('dustin-plural').textContent = `${tVal.formatTime(0, true)}`;
+            document.getElementById('dustin-plural').textContent = `${timeVal.formatTime(0, true)}`;
             
             // let dimitryTime = 
-            tVal.addHours(-4);
-            document.getElementById('dmitry').textContent = `${tVal.formatTime(-4, true)}`;
+            document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
         }
 
         // refresh every second
-        setInterval(updateTimes, 1000);
+        // setInterval(updateTimes, 1000);
         // initial render
         updateTimes();
 
