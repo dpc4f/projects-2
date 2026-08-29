@@ -418,36 +418,24 @@
          * 
          * */ // --> done
 
-
-        let excellenT = new Date();
         function updateTimes() {
-            
+            let excellenT = new Date();
             let tVal = new TimeValues(excellenT);
-
             // oxakaSeoulTime = 
-            tVal.addHours(2);
-            document.getElementById('oxaka-seoul').textContent = `${tVal.formatTime(true)}`;
-            // formatTime(ExcellenT, true, 2); // GMT+7+2
+            document.getElementById('oxaka-seoul').textContent = `${tVal.formatTime(2, true)}`;
             
             // let beijingTime = 
-            tVal.addHours(-7);
-            document.getElementById('beijing').textContent = `${tVal.formatTime(true)}`;
-            // formatTime(ExcellenT, true, -5); // GMT+7+1 --> GMT+7-5; switch to Madrid time
+            document.getElementById('beijing').textContent = `${tVal.formatTime(-5, true)}`;
             
             // let rainingTime = 
-            tVal.addHours(-1);
-            document.getElementById('narana').textContent = `${tVal.formatTime(true)}`;
-            // formatTime(ExcellenT, true, -6); // GMT+7-6
+            document.getElementById('narana').textContent = `${tVal.formatTime(-6, true)}`;
             
             // let dacetTime = 
-            tVal.addHours(+6);
-            document.getElementById('dustin-plural').textContent = `${tVal.formatTime(true)}`;
-            // formatTime(ExcellenT, true, 0); // GMT+7
+            document.getElementById('dustin-plural').textContent = `${tVal.formatTime(0, true)}`;
             
             // let dimitryTime = 
             tVal.addHours(-4);
-            document.getElementById('dmitry').textContent = `${tVal.formatTime(true)}`;
-            // formatTime(ExcellenT, true, -4); // GMT+7-4
+            document.getElementById('dmitry').textContent = `${tVal.formatTime(-4, true)}`;
         }
 
         // refresh every second

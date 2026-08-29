@@ -597,10 +597,11 @@ class TimeValues {
     }
 
     formatTime(additionalHours = 0, bSecond = false) {
-        if (additionalHours < 0) 
+        let tmp = this.h + additionalHours;
+        if (tmp < 0) 
             return;
 
-        let hh = String((this.h + additionalHours) % 24).padStart(2, '0');
+        let hh = String(tmp % 24).padStart(2, '0');
         let mm = String(this.m).padStart(2, '0');
         let ss = String(this.s).padStart(2, '0');
     
