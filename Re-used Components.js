@@ -628,6 +628,7 @@ class TimeValues {
 
     updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
         const ONE_SECOND_IN_MILLISECONDS = 1000;
+        const TEN_MINUTE = 600000; // 900000;
         let fractionOfASecond = (new Date()).getMilliseconds() % ONE_SECOND_IN_MILLISECONDS;
         let duration = (ONE_SECOND_IN_MILLISECONDS - fractionOfASecond); // elapsed time in milliseconds
         this.callback = callback;
@@ -637,6 +638,7 @@ class TimeValues {
 
         setTimeout(() => { 
             this.idcb = setInterval(() => this.increase_second(), ONE_SECOND_IN_MILLISECONDS);
+            setInterval(() => timeTheCurrent(), TEN_MINUTE);
             this.increase_second();
         }, duration);
     }
