@@ -187,7 +187,6 @@
 </head>
 
 <body>
-
     <div class="scene">
         <div class="beam"></div>
         <div class="panel left">
@@ -348,16 +347,21 @@
 
         setInterval(createSpark, 4120);
 
-        //let bFirstTime = true;
-        setInterval(() => {
-            buildCharacters(sofiaContainer, sofiaSequence, 3);
-            buildCharacters(yaoContainer, infantaSequence, 0);
+        function doTransforming() {
+            setInterval(() => {
+                buildCharacters(sofiaContainer, sofiaSequence, 3);
+                buildCharacters(yaoContainer, infantaSequence, 0);
 
-            setTimeout(() => {
-                morphSofiaToAnnabel();
-                // bFirstTime = false;
-            }, 1000);
-        }, 16000);
+                setTimeout(() => {
+                    morphSofiaToAnnabel();
+                    // bFirstTime = false;
+                }, 1000);
+            }, 16000);
+        }
+
+        doTransforming();
+        // window.addEventListener('onload', doTransforming);
+        window.addEventListener('onblur', doTransforming);
     </script>
 
 </body>
