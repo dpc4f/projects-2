@@ -573,16 +573,18 @@ class TimeValues {
         this.m = date.getMinutes();
         this.s = date.getSeconds();
         this.ms = date.getMilliseconds();
+        this.Today = new Date();
         this.callback = null;
         this.idcb = null;
     }
 
     timeTheCurrent() {
-        let date = (new Date()).getDate();
-        
-        this.h = date.getHours();
-        this.m = date.getMinutes()
-        this.s = date.getSeconds();
+        this.Today = new Date();
+        this.h = this.Today.getHours();
+        this.m = this.Today.getMinutes()
+        this.s = this.Today.getSeconds();
+
+        console.log(`${this.h}:${this.m}:${this.s}`);
     }
 
     addHours(hours) {
@@ -618,8 +620,10 @@ class TimeValues {
             if (this.m == 60) {
                 this.m = 0;
                 ++this.h;
-                if (this.h == 24)
+                if (this.h == 24) {
                     this.h = 0;
+                    this.Today = new Date();
+                }
             }
         }
         
@@ -628,7 +632,7 @@ class TimeValues {
 
     updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
         const ONE_SECOND_IN_MILLISECONDS = 1000;
-        const TEN_MINUTE = 600000; // 900000;
+        const TWO_HOURS = 7200000; // 900000;
         let fractionOfASecond = (new Date()).getMilliseconds() % ONE_SECOND_IN_MILLISECONDS;
         let duration = (ONE_SECOND_IN_MILLISECONDS - fractionOfASecond); // elapsed time in milliseconds
         this.callback = callback;
@@ -638,7 +642,7 @@ class TimeValues {
 
         setTimeout(() => { 
             this.idcb = setInterval(() => this.increase_second(), ONE_SECOND_IN_MILLISECONDS);
-            setInterval(() => timeTheCurrent(), TEN_MINUTE);
+            setInterval(() => this.timeTheCurrent(), TWO_HOURS);
             this.increase_second();
         }, duration);
     }
