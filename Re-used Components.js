@@ -586,7 +586,7 @@ class TimeValues {
         this.callback = null;
         this.idcb = null;
 
-        setInterval(() => this.timeTheCurrent(), TimeValues.Constants.TWO_HOURS);
+        setInterval(() => this.timeTheCurrent(), TimeValues.Constants.TWO_HOURS_IN_MILLISECONDS);
     }
 
     timeTheCurrent() {
@@ -699,7 +699,7 @@ class TimeValues {
 TimeValues.Constants = class {
    constructor() {
         this.__ONE_SECOND_IN_MILLISECONDS = 1000;
-        this.__1_CANH_GIỜ = 7200000; // 1_CANH_GIỜ
+        this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LI_GIÂY = 7200000; // two hours, 1_CANH_GIỜ
         this.__ONE_MINUTE_IN_SECONDS = 60;
         this.__ONE_MINUTE_IN_MILLISECONDS = 60000;
     }
@@ -708,8 +708,8 @@ TimeValues.Constants = class {
         return this.__ONE_SECOND_IN_MILLISECONDS;
     }
 
-    static get TWO_HOURS() {
-        return this.__1_CANH_GIỜ;
+    static get TWO_HOURS_IN_MILLISECONDS() {
+        return this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LI_GIÂY;
     }
 
     static get ONE_MINUTE_IN_SECONDS() {
