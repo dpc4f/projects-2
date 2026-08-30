@@ -567,6 +567,10 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
 }
 
 class TimeValues {
+    static ONE_SECOND_IN_MILLISECONDS = 1000;
+    static TWO_HOURS = 7200000; //
+    static ONE_MINUTE_IN_SECONDS = 60;
+    static ONE_MINUTE_IN_MILLISECONDS = 60000;
 
     constructor() {
         this.Today = new Date();
@@ -578,6 +582,8 @@ class TimeValues {
         
         this.callback = null;
         this.idcb = null;
+
+        setInterval(() => this.timeTheCurrent(), TWO_HOURS);
     }
 
     timeTheCurrent() {
@@ -648,9 +654,6 @@ class TimeValues {
     }
 
     updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
-        const ONE_SECOND_IN_MILLISECONDS = 1000;
-        const TWO_HOURS = 7200000; //
-
         let fractionOfASecond = ((new Date()).getMilliseconds()) % ONE_SECOND_IN_MILLISECONDS;
         let duration = ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
         this.callback = callback;
@@ -660,7 +663,6 @@ class TimeValues {
 
         setTimeout(() => { 
             this.idcb = setInterval(() => this.increaseSecond(), ONE_SECOND_IN_MILLISECONDS);
-            setInterval(() => this.timeTheCurrent(), TWO_HOURS);
             this.increaseSecond();
         }, duration);
     }
@@ -670,8 +672,6 @@ class TimeValues {
         // let fractionOfAMinute = ((new Date()).getMilliseconds()) % ONE_MINUTE_IN_MILLISECONDS;
         // let duration = ONE_MINUTE_IN_MILLISECONDS - fractionOfAMinute; // will be elapsed duration in milliseconds
        
-        const ONE_MINUTE_IN_SECONDS = 60;
-        const ONE_MINUTE_IN_MILLISECONDS = 60000;
         let fractionOfAMinuteInSecond = (new Date()).getSeconds() % ONE_MINUTE_IN_SECONDS;
         let duration = (ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
         
@@ -680,11 +680,10 @@ class TimeValues {
         if (this.idcb) 
             clearInterval(this.idcb);
 
-        setTimeout(() => { 
-            this.idcb = setInterval(() => this.increaseMinute(), ONE_MINUTE_IN_MILLISECONDS);
-            // setInterval(() => this.timeTheCurrent(), TWO_HOURS);
+        setTimeout(() => {
             this.s = 0;
-            this.increaseMinute();
+            this.increaseMinute(); // doesn't cost much
+            this.idcb = setInterval(() => this.increaseMinute(), ONE_MINUTE_IN_MILLISECONDS);
         }, duration);
     }
 }
