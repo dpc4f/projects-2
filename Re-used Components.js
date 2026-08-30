@@ -568,12 +568,14 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
 
 class TimeValues {
 
-    constructor(date) {
-        this.h = date.getHours();
-        this.m = date.getMinutes();
-        this.s = date.getSeconds();
-        this.ms = date.getMilliseconds();
+    constructor() {
         this.Today = new Date();
+        
+        this.h = this.Today.getHours();
+        this.m = this.Today.getMinutes();
+        this.s = this.Today.getSeconds();
+        this.ms = this.Today.getMilliseconds();
+        
         this.callback = null;
         this.idcb = null;
     }

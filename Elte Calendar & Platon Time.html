@@ -419,8 +419,7 @@
          * */ // --> done
 
         function updateTimes() {
-            let excellenT = new Date();
-            let tVal = new TimeValues(excellenT);
+            let tVal = new TimeValues();
             
             tVal.updateTimeWithIntervalOneSecond(updatePlatonTime);
         }
@@ -454,11 +453,6 @@
             for (; i<mt.length; i++) { // remove Purple the current month colour
                 mt[i].style.color = "";
             } 
-        }
-
-        function callback() {
-            Today = new Date();
-            renderCalendar();
         }
 
         function renderCalendar(year = Today.getFullYear(), month = Today.getMonth()) {
@@ -654,32 +648,18 @@
              * 
              * */
 
-
-
-
-
-        
-
         }
-
 
 
         let bTimeCombined = false;
         let form = FULL_FORM_DATE;
-
-
         let currentMonth = TODAY.getMonth();
         let currentYear = TODAY.getFullYear();
         
-        // window.addEventListener('focus', callback);
-        // window.addEventListener('blur', callback);
         renderCalendar(currentYear, currentMonth);   
 
-        window.addEventListener('onload', renderCalendar);
-        window.addEventListener('onload', updateTimes);
+        window.addEventListener('blur', updateTimes);
         // window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
-
-
     </script>
 
 </body>
