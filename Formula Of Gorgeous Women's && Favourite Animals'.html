@@ -285,19 +285,19 @@
         <div type="text" id="ANI-4" class="colourAnimal invisible"></div>
     </div>
     <div class="beloved old-db-record">
-        <div type="text" class="名前" disabled>พิชฌามลณ์ โอภาสนิพัทธ์ (Pitchamon Opatniputh)
-            
+        <div type="text" class="名前" disabled>
+            พิชฌามลณ์ โอภาสนิพัทธ์ (Pitchamon Opatniputh)           
         </div>
         <div type="text" id="DOB-5" class="dob" disabled>Jan 4 2007</div>
         <div type="text" id="ANI-5" class="colourAnimal old-db-record"></div>
     </div>
-    <div class="beloved">
+    <div class="beloved old-db-record">
         <div hidden>Нарана Эрдынеева //na ran na/ + /ơ đi nie va//</div>
         <div type="text" class="名前" disabled>
             Narana
         </div>
         <div type="text" id="DOB-7" class="dob" disabled>Apr 1 1997</div>
-        <div type="text" id="ANI-7" class="colourAnimal"></div>
+        <div type="text" id="ANI-7" class="colourAnimal old-db-record"></div>
     </div>
         <div class="beloved">
         <div type="text" class="名前" disabled>姚安娜 (Anna Giang)</div>
@@ -357,10 +357,10 @@
             // document.getElementById('ANI-6').innerHTML =
             //     exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
             document.getElementById('ANI-7').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2])) +
-                ` / <span class='bear'>Bear</span>` +
-                ` / <span class='lioness'>Lioness</span>` +
-                ` / <span class='sa^u'>Worm</span>`; /* specially 4 Infanta Sapphire */;
+                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]));
+                // + ` / <span class='bear'>Bear</span>` +
+                // ` / <span class='lioness'>Lioness</span>` +
+                // ` / <span class='sa^u'>Worm</span>`; /* specially 4 Infanta Sapphire */;
             document.getElementById('ANI-8').innerHTML =
                 exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-8').innerHTML.split(' ')[2])) +
                 ` / <span class='quail'>Quail</span>`;
