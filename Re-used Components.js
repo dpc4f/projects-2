@@ -566,12 +566,33 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
     return valuesStr;
 }
 
-class TimeValues {
-    static ONE_SECOND_IN_MILLISECONDS = 1000;
-    static TWO_HOURS = 7200000; //
-    static ONE_MINUTE_IN_SECONDS = 60;
-    static ONE_MINUTE_IN_MILLISECONDS = 60000;
+// [; nr] implement using read-only properties
+class TimeConstants {
+    constructor() {
+        this._ONE_SECOND_IN_MILLISECONDS = 1000;
+        this._TWO_HOURS = 7200000; //
+        this._ONE_MINUTE_IN_SECONDS = 60;
+        this._ONE_MINUTE_IN_MILLISECONDS = 60000;
+    }
+    
+    get ONE_SECOND_IN_MILLISECONDS() {
+        return this._ONE_SECOND_IN_MILLISECONDS;
+    }
 
+    get TWO_HOURS() {
+        return this._TWO_HOURS;
+    }
+
+    get ONE_MINUTE_IN_SECONDS() {
+        return this._ONE_MINUTE_IN_SECONDS;
+    }
+
+    get ONE_MINUTE_IN_MILLISECONDS() {
+        return this._ONE_MINUTE_IN_MILLISECONDS;
+    }
+}
+
+class TimeValues {
     constructor() {
         this.Today = new Date();
         
@@ -582,6 +603,7 @@ class TimeValues {
         
         this.callback = null;
         this.idcb = null;
+        this.Constants = new TimeConstants();
 
         setInterval(() => this.timeTheCurrent(), TimeValues.TWO_HOURS);
     }
@@ -654,15 +676,15 @@ class TimeValues {
     }
 
     updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
-        let fractionOfASecond = ((new Date()).getMilliseconds()) % TimeValues.ONE_SECOND_IN_MILLISECONDS;
-        let duration = TimeValues.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
+        let fractionOfASecond = ((new Date()).getMilliseconds()) % this.Constants.ONE_SECOND_IN_MILLISECONDS;
+        let duration = this.Constants.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
         this.callback = callback;
         
         if (this.idcb) 
             clearInterval(this.idcb);
 
         setTimeout(() => { 
-            this.idcb = setInterval(() => this.increaseSecond(), TimeValues.ONE_SECOND_IN_MILLISECONDS);
+            this.idcb = setInterval(() => this.increaseSecond(), this.Constants.ONE_SECOND_IN_MILLISECONDS);
             this.increaseSecond();
         }, duration);
     }
@@ -672,8 +694,8 @@ class TimeValues {
         // let fractionOfAMinute = ((new Date()).getMilliseconds()) % ONE_MINUTE_IN_MILLISECONDS;
         // let duration = ONE_MINUTE_IN_MILLISECONDS - fractionOfAMinute; // will be elapsed duration in milliseconds
        
-        let fractionOfAMinuteInSecond = (new Date()).getSeconds() % TimeValues.ONE_MINUTE_IN_SECONDS;
-        let duration = (TimeValues.ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
+        let fractionOfAMinuteInSecond = (new Date()).getSeconds() % this.Constants.ONE_MINUTE_IN_SECONDS;
+        let duration = (this.Constants.ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
         
         this.callback = callback;
         
@@ -683,7 +705,7 @@ class TimeValues {
         setTimeout(() => {
             this.s = 0;
             this.increaseMinute(); // doesn't cost much
-            this.idcb = setInterval(() => this.increaseMinute(), TimeValues.ONE_MINUTE_IN_MILLISECONDS);
+            this.idcb = setInterval(() => this.increaseMinute(), this.Constants.ONE_MINUTE_IN_MILLISECONDS);
         }, duration);
     }
 }
