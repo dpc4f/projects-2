@@ -568,7 +568,10 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
 
 // [; nr] implement using read-only properties <-- done
 class TimeConstants {
-/*** has been moved to a class belongs to TimeValues class */
+    /*** 
+     * has been moved to a class belongs to TimeValues class 
+     * 
+     * */
 }
 
 class TimeValues {
@@ -592,13 +595,15 @@ class TimeValues {
         this.h = this.Today.getHours();
         this.m = this.Today.getMinutes()
         this.s = this.Today.getSeconds();
+        this.ms = this.Today.getMilliseconds();
 
-        console.log(`${this.h}:${this.m}:${this.s}`);
+        console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
     }
 
     addHours(hours) {
         if (hours <= 0) 
             return;
+
         this.h = (this.h + hours) % 24;
     }
 
@@ -611,14 +616,17 @@ class TimeValues {
 
     formatTime(additionalHours = 0, bSecond = false) {
         let tmp = this.h + additionalHours;
-        if (tmp < 0) 
-            return;
-
-        let hh = String(tmp % 24).padStart(2, '0');
-        let mm = String(this.m).padStart(2, '0');
-        let ss = String(this.s).padStart(2, '0');
-    
-        return `${hh}:${mm}` + (bSecond ? `:${ss}` : '');
+        let ret = '';
+        
+        if (tmp >= 0) { 
+            let hh = String(tmp % 24).padStart(2, '0');
+            let mm = String(this.m).padStart(2, '0');
+            let ss = String(this.s).padStart(2, '0');
+            
+            ret = `${hh}:${mm}` + (bSecond ? `:${ss}` : '');
+        }
+        
+        return ret;
     }
 
     increaseSecond() {
@@ -690,26 +698,26 @@ class TimeValues {
 
 TimeValues.Constants = class {
    constructor() {
-        this._ONE_SECOND_IN_MILLISECONDS = 1000;
-        this._TWO_HOURS = 7200000; //
-        this._ONE_MINUTE_IN_SECONDS = 60;
-        this._ONE_MINUTE_IN_MILLISECONDS = 60000;
+        this.__ONE_SECOND_IN_MILLISECONDS = 1000;
+        this.__1_CANH_GIỜ = 7200000; // 1_CANH_GIỜ
+        this.__ONE_MINUTE_IN_SECONDS = 60;
+        this.__ONE_MINUTE_IN_MILLISECONDS = 60000;
     }
     
     static get ONE_SECOND_IN_MILLISECONDS() {
-        return this._ONE_SECOND_IN_MILLISECONDS;
+        return this.__ONE_SECOND_IN_MILLISECONDS;
     }
 
     static get TWO_HOURS() {
-        return this._TWO_HOURS;
+        return this.__1_CANH_GIỜ;
     }
 
     static get ONE_MINUTE_IN_SECONDS() {
-        return this._ONE_MINUTE_IN_SECONDS;
+        return this.__ONE_MINUTE_IN_SECONDS;
     }
 
     static get ONE_MINUTE_IN_MILLISECONDS() {
-        return this._ONE_MINUTE_IN_MILLISECONDS;
+        return this.__ONE_MINUTE_IN_MILLISECONDS;
     }
 }
 
