@@ -582,6 +582,7 @@ class TimeValues {
 
     timeTheCurrent() {
         this.Today = new Date();
+
         this.h = this.Today.getHours();
         this.m = this.Today.getMinutes()
         this.s = this.Today.getSeconds();
@@ -614,7 +615,7 @@ class TimeValues {
         return `${hh}:${mm}` + (bSecond ? `:${ss}` : '');
     }
 
-    increase_second() {
+    increaseSecond() {
         ++this.s;
         if (this.s == 60) {
             this.s = 0;
@@ -632,39 +633,58 @@ class TimeValues {
         this.callback(this);
     }
 
+    increaseMinute() {
+        ++this.m;
+        if (this.m == 60) {
+            this.m = 0;
+            ++this.h;
+            if (this.h == 24) {
+                this.h = 0;
+                this.Today = new Date();
+            }
+        }
+
+        this.callback(this);
+    }
+
     updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
         const ONE_SECOND_IN_MILLISECONDS = 1000;
-        const TWO_HOURS = 7200000; // 900000;
-        let fractionOfASecond = (new Date()).getMilliseconds() % ONE_SECOND_IN_MILLISECONDS;
-        let duration = (ONE_SECOND_IN_MILLISECONDS - fractionOfASecond); // elapsed time in milliseconds
+        const TWO_HOURS = 7200000; //
+
+        let fractionOfASecond = ((new Date()).getMilliseconds()) % ONE_SECOND_IN_MILLISECONDS;
+        let duration = ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
         this.callback = callback;
         
         if (this.idcb) 
             clearInterval(this.idcb);
 
         setTimeout(() => { 
-            this.idcb = setInterval(() => this.increase_second(), ONE_SECOND_IN_MILLISECONDS);
+            this.idcb = setInterval(() => this.increaseSecond(), ONE_SECOND_IN_MILLISECONDS);
             setInterval(() => this.timeTheCurrent(), TWO_HOURS);
-            this.increase_second();
+            this.increaseSecond();
         }, duration);
     }
-}
 
-// handle time string in, HH:MM
-// [; nr] fix a bug <-- done
-let idcb = null;    
-function updateTimeWithIntervalOneMinute(callback) { // for time value; in HH:MM
-    const ONE_MINUTE_IN_SECONDS = 60;
-    const ONE_MINUTE_IN_MILLISECONDS = 60000;
-    const Today = new Date();
-    let fractionOfAMinuteInSecond = Today.getSeconds() % ONE_MINUTE_IN_SECONDS;
-    let duration = (ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
-    
-    if (idcb) 
-        clearInterval(idcb);
+    updateTimeWithIntervalOneMinute(callback) {
+        // const ONE_MINUTE_IN_MILLISECONDS = 60000;
+        // let fractionOfAMinute = ((new Date()).getMilliseconds()) % ONE_MINUTE_IN_MILLISECONDS;
+        // let duration = ONE_MINUTE_IN_MILLISECONDS - fractionOfAMinute; // will be elapsed duration in milliseconds
+       
+        const ONE_MINUTE_IN_SECONDS = 60;
+        const ONE_MINUTE_IN_MILLISECONDS = 60000;
+        let fractionOfAMinuteInSecond = (new Date()).getSeconds() % ONE_MINUTE_IN_SECONDS;
+        let duration = (ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
+        
+        this.callback = callback;
+        
+        if (this.idcb) 
+            clearInterval(this.idcb);
 
-    setTimeout(() => { 
-        callback();
-        idcb = setInterval(callback, ONE_MINUTE_IN_MILLISECONDS);
-    }, duration);
+        setTimeout(() => { 
+            this.idcb = setInterval(() => this.increaseMinute(), ONE_MINUTE_IN_MILLISECONDS);
+            // setInterval(() => this.timeTheCurrent(), TWO_HOURS);
+            this.s = 0;
+            this.increaseMinute();
+        }, duration);
+    }
 }

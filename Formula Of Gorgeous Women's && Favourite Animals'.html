@@ -370,9 +370,9 @@
             periodicalUpdateDateTime_TimeStamp();
         }
 
-        function callback_time(timeStr = '') {
+        function callback_time(timeVal) {
             let ele = document.getElementById('time_HHMM');
-            ele.innerText = timeStr ? timeStr : getCurrentTime_HHMM();
+            ele.textContent = `${timeVal.formatTime()}`;
         }
 
         function callback_date(dateStr = '') {
@@ -400,10 +400,14 @@
             // first time
             CurrentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
             callback_date();
-            callback_time();
+            // callback_time();
 
             recursive(callback_date); // date timestamp
-            updateTimeWithIntervalOneMinute(callback_time); // time timestamp
+            // updateTimeWithIntervalOneMinute(callback_time); // time timestamp
+            
+            let tVal = new TimeValues();
+            callback_time(tVal);
+            tVal.updateTimeWithIntervalOneMinute(callback_time);
         }
 
         function recursive(callback) {
