@@ -418,10 +418,15 @@
          * 
          * */ // --> done
 
+        let tVal = null;
         function updateTimes() {
-            let tVal = new TimeValues();
-            
+            tVal = new TimeValues();
             tVal.updateTimeWithIntervalOneSecond(updatePlatonTime);
+        }
+
+        function updateTimeToCurrentMoment() {
+            if (tVal)
+                tVal.timeTheCurrent();
         }
 
         function updatePlatonTime(timeVal) {
@@ -658,7 +663,7 @@
         
         renderCalendar(currentYear, currentMonth);   
 
-        window.addEventListener('blur', updateTimes);
+        window.addEventListener('blur', updateTimeToCurrentMoment);
         // window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
     </script>
 
