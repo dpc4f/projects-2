@@ -566,7 +566,7 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
     return valuesStr;
 }
 
-// [; nr] implement using read-only properties
+// [; nr] implement using read-only properties <-- done
 class TimeConstants {
     constructor() {
         this._ONE_SECOND_IN_MILLISECONDS = 1000;
@@ -605,7 +605,7 @@ class TimeValues {
         this.idcb = null;
         this.Constants = new TimeConstants();
 
-        setInterval(() => this.timeTheCurrent(), TimeValues.TWO_HOURS);
+        setInterval(() => this.timeTheCurrent(), this.Constants.TWO_HOURS);
     }
 
     timeTheCurrent() {
@@ -695,7 +695,7 @@ class TimeValues {
         // let duration = ONE_MINUTE_IN_MILLISECONDS - fractionOfAMinute; // will be elapsed duration in milliseconds
        
         let fractionOfAMinuteInSecond = (new Date()).getSeconds() % this.Constants.ONE_MINUTE_IN_SECONDS;
-        let duration = (this.Constants.ONE_MINUTE_IN_SECONDS - fractionOfAMinuteInSecond) * 1000; // elapsed time in milliseconds
+        let duration = (60 - fractionOfAMinuteInSecond) * this.Constants.ONE_SECOND_IN_MILLISECONDS; // elapsed time in milliseconds
         
         this.callback = callback;
         
