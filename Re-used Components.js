@@ -535,11 +535,11 @@ const DATE_FORMAT_STRINGS = [
     // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
 
     /** [; nr] including week numbers */
-        [false, false, false, true], // current_year+6 31
-        [true, false, false, true], // SEPT current_year+6 31
-        [true, true, false, true], // SEPT 1 current_year+6 31
-        [true, true, true, false, true], // SEPT 1 current_year+6 31 Thaw
-        [true, true, true, true, true] // SEPT 1 current_year+6 31 Thaw iTa 
+        [false, false, false, true], // current_year+6 28
+        [true, false, false, true], // SEPT current_year+6 28
+        [true, true, false, true], // SEPT 1 current_year+6 28
+        [true, true, true, false, true], // SEPT 1 current_year+6 28 Thaw
+        [true, true, true, true, true] // SEPT 1 current_year+6 28 Thaw iTa 
 
 ];
 
