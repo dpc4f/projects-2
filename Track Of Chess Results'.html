@@ -278,9 +278,9 @@
                  */
 
                 case 0:
-                    ret = [["Biện thị", thoa], 
+                    ret = [["Tào thị", thoa], 
                         // ["Anna Giang", "yao"], 
-                        ["Tào thị", dao], 
+                        ["Biện thị", dao], 
                         ["Lưu phi", sofıa], 
                         ["", "blank"]];
                     break;
@@ -421,7 +421,7 @@
             const tr = document.createElement("tr");
             const RET = playTheDice(2); // once; to define which queen will make a move first
 
-            if (RET) {
+            if (true) { // fixed
                 tr.innerHTML = createQueenCell(order[0][0], order[0][1]) +
                     createQueenCell(order[1][0], order[1][1]) +
                     createQueenCell(order[2][0], order[2][1]) +
