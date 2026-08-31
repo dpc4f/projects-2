@@ -516,15 +516,15 @@ function toTuesdayFirst(day) {
 
 const DATE_FORMAT_STRINGS = [
     /** full forms */ 
-    // **month **{ date in month } year **{{ day in week } **{ shift in day }} **{ week number }
-        [false, false, false], // current_year+6
-        [true, false, false], // Yune current_year+6
-        [true, true, false], // Yune 22 current_year+6
-        [true, true, true, false], // Yune 22 current_year+6 Sat
-        [true, true, true, true] // Yune 22 current_year+6 Sat iTa 
+    // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
+        [false, false, false, false], // current_year+6
+        [true, false, false, false], // Yune current_year+6
+        [true, true, false, false], // Yune 22 current_year+6
+        [true, true, true, false, false], // Yune 22 current_year+6 Sat
+        [true, true, true, true, false] // Yune 22 current_year+6 Sat iTa 
 
     /** mid forms */
-    // **month **{ date in month } year **{{ day in week } **{ shift in day }} **{ week number }
+    // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
         // cy+6
         // Du cy+6 (Duo current_year+6); DE cy+6 (DEC current_year+6)
         // Yu 22 cy+6
@@ -532,10 +532,14 @@ const DATE_FORMAT_STRINGS = [
         // Yu 23 cy+6 H Ta
 
     /** short forms */
-    // **month **{ date in month } year **{{ day in week } **{ shift in day }} **{ week number }
+    // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
 
     /** [; nr] including week numbers */
-
+        [false, false, false, true], // current_year+6 31
+        [true, false, false, true], // SEPT current_year+6 31
+        [true, true, false, true], // SEPT 1 current_year+6 31
+        [true, true, true, false, true], // SEPT 1 current_year+6 31 Thaw
+        [true, true, true, true, true] // SEPT 1 current_year+6 31 Thaw iTa 
 
 ];
 
