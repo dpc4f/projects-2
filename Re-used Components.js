@@ -428,7 +428,7 @@ function convertReversedCurrentYear(yearStr) {
     return CURRENT_YEAR + Number(match?.[1] ?? 0);
 }
 
-function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false) {
+function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
     const TODAY = new Date();
     let month = TODAY.getMonth();
     let soleDate = TODAY.getDate();
@@ -440,8 +440,9 @@ function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = fals
     let elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
+    let weekNo = '35';
 
-    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${dayInWeek} ${shift}`;
+    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
     return retStr;
 }
@@ -490,8 +491,8 @@ function getCurrentTime_HHMM() {
     return `${hh}:${mm}`;
 }
 
-function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWeek = false) {
-    let dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWeek = false, bWeekNumber = false) {
+    let dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bWeekNumber);
     let hourStr = getCurrentTime_HHMM();
 
     return dateStr + ' ' + hourStr;
@@ -515,7 +516,7 @@ function toTuesdayFirst(day) {
 
 const DATE_FORMAT_STRINGS = [
     /** full forms */ 
-    // **month **{ date in month } year **{{ day in week } **{ shift in day }}
+    // **month **{ date in month } year **{{ day in week } **{ shift in day }} **{ week number }
         [false, false, false], // current_year+6
         [true, false, false], // Yune current_year+6
         [true, true, false], // Yune 22 current_year+6
@@ -523,7 +524,7 @@ const DATE_FORMAT_STRINGS = [
         [true, true, true, true] // Yune 22 current_year+6 Sat iTa 
 
     /** mid forms */
-    // **month **{ date in month } year **{{ day in week } **{ shift in day }}
+    // **month **{ date in month } year **{{ day in week } **{ shift in day }} **{ week number }
         // cy+6
         // Du cy+6 (Duo current_year+6); DE cy+6 (DEC current_year+6)
         // Yu 22 cy+6
@@ -531,7 +532,10 @@ const DATE_FORMAT_STRINGS = [
         // Yu 23 cy+6 H Ta
 
     /** short forms */
-    // **month **{ date in month } year **{{ day in week } **{ shift in day }}
+    // **month **{ date in month } year **{{ day in week } **{ shift in day }} **{ week number }
+
+    /** [; nr] including week numbers */
+
 
 ];
 
@@ -544,11 +548,12 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
     let bDateInMonth = DATE_FORMAT_STRINGS[index][1]; 
     let bDayInWeek = DATE_FORMAT_STRINGS[index][2]; 
     let bShiftInADay = bDayInWeek ? DATE_FORMAT_STRINGS[index][3] : false;
+    let bWeekNumber = true; // will modify later
     let valuesStr = '';
 
     switch (formLength) {
         case FULL_FORM_DATE:
-            valuesStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay);
+            valuesStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
             break;
 
         case MID_FORM_DATE:
