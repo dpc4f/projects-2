@@ -463,6 +463,7 @@
                 <div class="zipped-label">[water][only species] Octopus, bacteria related</div>
                 <div class="note">follow Rule 841 as strictly as possible</div>
                 <div class="zipped-label">Tiếng Việt (VNMese), nữ thần [xinh tươi trẻ đẹp]</div>
+                <div class="zipped-label">English [both], nam thần</div>
             </div>
             <div class="extended-3">
                 <div class="note">Virus</div>
@@ -1255,8 +1256,10 @@
             if (isAutoCycling) { // Handle Timing Cycles
                 const now = Date.now();
                 const elapsed = now - lastStateTime;
-                let timeToNextLap = cycleDuration + (currentStateIndex < DENNIS_KINGDOM ? currentStateIndex + 1 : 
-                                        (DENNIS_KINGDOM+2)) * cycleDuration / 1.9;
+                let timeToNextLap = cycleDuration + (currentStateIndex < DENNIS_KINGDOM 
+                                        ? currentStateIndex + 1 
+                                        : (DENNIS_KINGDOM + 2)) * cycleDuration / 1.9;
+                
                 cycleProgress = Math.min(elapsed / timeToNextLap, 1);
 
                 // timeToNextLap = cycleDuration + (currentStateIndex>=DENNIS_KINGDOM ? 1000 : cycleDuration); // a temporary formuler; will change
@@ -1298,7 +1301,7 @@
                 ele.classList.remove('hidden');
             else
                 ele.classList.add('hidden');
-        }, 20000);
+        }, 10000);
         
         window.addEventListener('DOMContentLoaded', () => {
             resize();
