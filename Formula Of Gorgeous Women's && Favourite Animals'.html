@@ -483,10 +483,9 @@
         }
 
         function exchange2Animal(birthYear) {
-            while (birthYear < CURRENT_YEAR)
-                birthYear += 12;
+            let tmp = Math.abs(CURRENT_YEAR - birthYear) % 12;
 
-            return ANIMAL_NAMES[(birthYear - CURRENT_YEAR) % 12];
+            return ANIMA_NAMES[tmp];
         }
 
         window.addEventListener('focus', periodicalUpdateDateTime_TimeStamp);
