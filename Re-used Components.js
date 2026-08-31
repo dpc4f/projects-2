@@ -684,10 +684,13 @@ class TimeValues {
 
     updateTimeWithIntervalOneMinute(callback) {
         
-        /*** [; nr] consider to implement using milliseconds instead  */
-        
-        let fractionOfAMinuteInSecond = ((new Date()).getSeconds()) % this.constants.ONE_MINUTE_IN_SECONDS;
-        let duration = (60 - fractionOfAMinuteInSecond) * this.constants.ONE_SECOND_IN_MILLISECONDS; // elapsed time in milliseconds
+        /*** [; nr] consider to implement using milliseconds instead  */ 
+        /// --> done
+
+        const StartTime = Date.now();
+        const FractionOfAMinuteInMillisecond = StartTime % this.constants.ONE_MINUTE_IN_MILLISECONDS;
+        let duration = this.constants.ONE_MINUTE_IN_MILLISECONDS - FractionOfAMinuteInMillisecond; // elapsed time in milliseconds
+        // console.log(duration);
         
         this.callback = callback;
         
