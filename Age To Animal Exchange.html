@@ -117,17 +117,13 @@
         *  
         * */ // --> done
 
-        const CURRENT_YEAR = 2020;
-        const TODAY = new Date();
-        const DAYS_IN_YEAR = 365.25;
 
         // { dragon; Dragon }, 'Lý Dần' ð Snake */ /* Reindeer <> Goat
 
-        let currentMonth = TODAY.getMonth();
-        let currentYear = TODAY.getFullYear();
-
         function convertCurrentYear() {
+            let currentYear = (new Date()).getFullYear();
             let subtract = currentYear - CURRENT_YEAR;
+            
             return 'current_year+' + subtract.toString();
         }
 
