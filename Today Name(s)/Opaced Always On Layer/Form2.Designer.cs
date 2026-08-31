@@ -42,7 +42,7 @@
             this.textBox1.ForeColor = System.Drawing.Color.MidnightBlue;
             this.textBox1.Location = new System.Drawing.Point(0, 10);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(406, 13);
+            this.textBox1.Size = new System.Drawing.Size(460, 13);
             this.textBox1.TabIndex = 10;
             this.textBox1.TabStop = false;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -62,7 +62,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Desktop;
-            this.ClientSize = new System.Drawing.Size(407, 73);
+            this.ClientSize = new System.Drawing.Size(462, 73);
             this.Controls.Add(this.textBox1);
             this.ForeColor = System.Drawing.SystemColors.Desktop;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
