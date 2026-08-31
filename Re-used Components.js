@@ -699,7 +699,7 @@ class TimeValues {
 TimeValues.Constants = class {
    constructor() {
         this.__ONE_SECOND_IN_MILLISECONDS = 1000;
-        this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LI_GIÂY = 7200000; // two hours, 1_CANH_GIỜ
+        this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY = 7200000; // two hours, 1_CANH_GIỜ
         this.__ONE_MINUTE_IN_SECONDS = 60;
         this.__ONE_MINUTE_IN_MILLISECONDS = 60000;
     }
@@ -709,7 +709,7 @@ TimeValues.Constants = class {
     }
 
     static get TWO_HOURS_IN_MILLISECONDS() {
-        return this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LI_GIÂY;
+        return this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY;
     }
 
     static get ONE_MINUTE_IN_SECONDS() {
@@ -720,4 +720,13 @@ TimeValues.Constants = class {
         return this.__ONE_MINUTE_IN_MILLISECONDS;
     }
 }
+
+/***
+    [; nr] write code 4 JS class DateValues to use in Elte Calendar
+
+
+ */
+
+
+
 

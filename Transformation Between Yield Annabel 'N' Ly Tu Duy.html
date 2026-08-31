@@ -175,12 +175,12 @@
 
         .hint {
             position: absolute;
-            bottom: 20px;
+            bottom: 2px;
             width: 100%;
             text-align: center;
             color: rgba(255, 255, 255, .65);
             letter-spacing: 2px;
-            font-size: 14px;
+            font-size: 27px;
         }
 
         .ambitious-odin {
@@ -244,12 +244,12 @@
         function morphSofiaToAnnabel() {
             const current = sofiaContainer.querySelectorAll(".char");
 
-            /*
-                anchor:
-                'L' in Ly Tu
-                morphs into
-                'l' in Annabel
-            */
+            /***
+             *    anchor:
+             *   'L' in Ly Tu
+             *   morphs into
+             *   'l' in Annabel
+             */
 
             const anchor = current[0];
             anchor.style.transition = "all 2.4s cubic-bezier(.2,.8,.2,1)";
@@ -296,16 +296,17 @@
         }
 
         function morphYaoToInfanta() {
+
+            /***
+             *   anchor:
+             *   'd' in Yield
+             *   morphs into
+             *   'D' in Duy
+             */
+            
             const current = duyContainer.querySelectorAll(".char");
-
-            /*
-                anchor:
-                'd' in Yield
-                morphs into
-                'D' in Duy
-            */
-
             const anchor = current[0];
+
             anchor.style.transition = "all 2.4s cubic-bezier(.2,.8,.2,1)";
             anchor.style.transform = "translateY(-12px) scale(1.35) rotate(10deg)";
             anchor.style.color = "#ffe38f";
@@ -359,6 +360,7 @@
         }
 
         setInterval(createSpark, 120);
+
         setInterval(() => {
             buildCharacters(sofiaContainer, sofiaSequence, 0);
             buildCharacters(duyContainer, duySequence, 0);
