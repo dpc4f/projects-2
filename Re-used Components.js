@@ -580,6 +580,7 @@ class TimeConstants {
 }
 
 class TimeValues {
+
     constructor() {
         this.Today = new Date();
         
@@ -682,11 +683,10 @@ class TimeValues {
     }
 
     updateTimeWithIntervalOneMinute(callback) {
-        // const ONE_MINUTE_IN_MILLISECONDS = 60000;
-        // let fractionOfAMinute = ((new Date()).getMilliseconds()) % ONE_MINUTE_IN_MILLISECONDS;
-        // let duration = ONE_MINUTE_IN_MILLISECONDS - fractionOfAMinute; // will be elapsed duration in milliseconds
-       
-        let fractionOfAMinuteInSecond = ((new Date()).getSeconds()) % 60;
+        
+        /*** [; nr] consider to implement using milliseconds instead  */
+        
+        let fractionOfAMinuteInSecond = ((new Date()).getSeconds()) % this.constants.ONE_MINUTE_IN_SECONDS;
         let duration = (60 - fractionOfAMinuteInSecond) * this.constants.ONE_SECOND_IN_MILLISECONDS; // elapsed time in milliseconds
         
         this.callback = callback;
@@ -703,6 +703,7 @@ class TimeValues {
 }
 
 TimeValues.Constants = class {
+
    constructor() {
         this.__ONE_SECOND_IN_MILLISECONDS = 1000;
         this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY = 7200000; // two hours, 1_CANH_GIỜ
@@ -728,9 +729,9 @@ TimeValues.Constants = class {
 }
 
 /***
-    [; nr] write code 4 JS class DateValues to use in Elte Calendar
-
-
+ *   [; nr] write code 4 JS class DateValues to use in Elte Calendar
+ *
+ *
  */
 
 
