@@ -107,7 +107,7 @@
         }
 
         .note-big {
-            font-size: 42px;
+            font-size: 24px;
             font-weight: 800;
             font-family: Courier, Helvetica, sans-serif, system-ui;
         }
@@ -172,10 +172,10 @@
     <div class="layout">
         <div class="side"></div>
         <div class="main">
-            <div class="depre">DEPRECATED</div>
+            <div class="depre">DEPRECATED !!</div>
             <h1>♔ Queens' Status 'N' Ending Result Tracker ♔</h1>
             <div class="section">
-                <button id="createRowBtn" disabled>
+                <button id="createRowBtn">
                     Add Queen Row
                 </button>
                 <div class="note right-align invisible">there's only 3 queens. always.</div>
@@ -199,15 +199,15 @@
             </div>
             <div class="section">
                 <div>
-                    <button id="kingBtn" disabled>
+                    <button id="kingBtn">
                         King Endly Checked
                     </button>
-                    <div class="right-align sutta">The King, A Horcrux Of { Grand Bee Emperor, Great King Ant, Mahà Sudassana }</div>
-                    <div class="hidden">The King, Đại vương Đại Thiện Kiến</div>
+                    <div class="right-align sutta invisible">The King, A Horcrux Of { Grand Bee Emperor, Great King Ant, Mahà Sudassana }</div>
+                    <div class="hidden">The King, Đại vương Đại Thiện Kiến [VNMese]</div>
                 </div>
                 <div id="kingStatus"></div>
-                <div class="note note-big hidden">
-                    [Li, Li Piáo]
+                <div class="note note-big">
+                    [Li, Li Piáo]<br/>
                     vào năm Gia Tĩnh triều Ink<br/>
                     4 phương vắng lặng 2 kinh vững vàng<br/>
                     có người lao động họ Li<br/>
@@ -262,7 +262,7 @@
         }
 
         function getQueenOrder() {
-            let order = playTheDice(11);
+            let order = playTheDice(1); // one value only
             let dao = ++rowCounter % 2 == 0 ? 'yao' : 'yao-1';
             let sofıa = rowCounter % 2 == 0 ? 'sofia' : 'sofia-1';
             let thoa = 'thoa';
@@ -278,10 +278,10 @@
                  */
 
                 case 0:
-                    ret = [["tigress 'Kim Anna'", thoa], 
+                    ret = [["Biện thị", thoa], 
                         // ["Anna Giang", "yao"], 
-                        ["Naran Erdyneeva (Нарана Эрдынеева)", dao], 
-                        ["Infanta Sofı'a Of Spain", sofıa], 
+                        ["Tào thị", dao], 
+                        ["Lưu phi", sofıa], 
                         ["", "blank"]];
                     break;
            
