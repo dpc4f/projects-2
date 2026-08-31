@@ -440,7 +440,7 @@ function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = fals
     let elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
-    let weekNo = '35';
+    let weekNo = '30';
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
