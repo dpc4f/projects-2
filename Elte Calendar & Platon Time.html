@@ -579,9 +579,11 @@
             
             setInterval(() => {
                 infor.innerText = getDateValuesTimeStamp(form, index);
-                if (++index == DATE_FORMAT_COUNT) {
+                ++index;
+                if (index == DATE_FORMAT_COUNT) {
                     index = 0;
-                    if (++form > SHORT_FORM_DATE) form = FULL_FORM_DATE;
+                    ++form;
+                    if (form > SHORT_FORM_DATE) form = FULL_FORM_DATE;
                 }
             }, duration);
             infor.innerText = getDateValuesTimeStamp(FULL_FORM_DATE, 0); // first time
