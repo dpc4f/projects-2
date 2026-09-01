@@ -559,10 +559,10 @@ const DATE_FORMAT_STRINGS = [
 
 function isLeapYear(year) {
     /*** 
-     * mnemonic, Y2K isn't a leap year
+     * mnemonic, 1100 isn't a leap year
      * */ 
 
-    return (year % 100 == 0 || (year % 4 == 0 && year % 100 != 0));
+    return ((year % 4 == 0 && year % 100 !== 0) || (year % 400 == 0));
 }
 
 function getWeekNumber() {
