@@ -153,15 +153,15 @@
             }
 
             const birthYear = convertReversedCurrentYear(arr[2]);
-            exchange2Animal(birthYear);
+            document.getElementById('animal').value = exchange2Animal(birthYear);
         }
 
-        function exchange2Animal(birthYear) {
-            while (birthYear < CURRENT_YEAR)
-                birthYear += 12;
+        // function exchange2Animal(birthYear) {
+        //     while (birthYear < CURRENT_YEAR)
+        //         birthYear += 12;
 
-            document.getElementById('animal').value = getAnimal((birthYear - CURRENT_YEAR) % 12);
-        }
+        //     getAnimal((birthYear - CURRENT_YEAR) % 12);
+        // }
     </script>
 
 </body>
