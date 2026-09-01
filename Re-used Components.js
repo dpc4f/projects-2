@@ -427,11 +427,6 @@ function getAnimal(idx) {
     return ret;
 }
 
-function convertReversedCurrentYear(yearStr) {
-    const match = yearStr.match(/^current_year([+-]\d+)$/);
-    return CURRENT_YEAR + Number(match?.[1] ?? 0);
-}
-
 function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
     const TODAY = new Date();
     let month = TODAY.getMonth();
@@ -445,14 +440,14 @@ function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = fals
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
     let dateVal = new DateValues();
-    let weekNo = dateVal.wk;
+    let weekNo = bWeekNumber ? dateVal.wk : '';
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
     return retStr;
 }
 
-function getDateMidForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false) {
+function getDateMidForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
     const TODAY = new Date();
     let month = TODAY.getMonth();
     let soleDate = TODAY.getDate();
@@ -464,13 +459,15 @@ function getDateMidForm(bMonth = false, bDateInMonth = false, bDayInWeek = false
     let elteYear = 'cur_yea+' + (year - CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(MID_FORM_SHIFT) : '';
+    let dateVal = new DateValues();
+    let weekNo = bWeekNumber ? dateVal.wk : '';
 
-    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${dayInWeek} ${shift}`;
+    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
     return retStr;
 }
 
-function getDateShortForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false) {
+function getDateShortForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
     const TODAY = new Date();
     let month = TODAY.getMonth();
     let soleDate = TODAY.getDate();
@@ -482,8 +479,10 @@ function getDateShortForm(bMonth = false, bDateInMonth = false, bDayInWeek = fal
     let elteYear = year == CURRENT_YEAR ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - CURRENT_YEAR).toString());
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(SHORT_FORM_SHIFT) : '';
+    let dateVal = new DateValues();
+    let weekNo = bWeekNumber ? dateVal.wk : '';
 
-    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${dayInWeek} ${shift}`;
+    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
     return retStr;
 }
@@ -503,8 +502,8 @@ function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWee
     return dateStr + ' ' + hourStr;
 }
 
-function convertCurrentYear() {
-    let subtract = currentYear - CURRENT_YEAR;
+function convertCurrentYear(year) {
+    let subtract = year - CURRENT_YEAR;
 
     return 'current_year+' + subtract.toString();
 }
@@ -632,7 +631,7 @@ function getCurrentWeekNumber(requiredDate = null) {
     return 0;
 }
 
-const DATE_FORMAT_COUNT = 5; // temporarily use hard-coded value
+const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length; // temporarily use hard-coded value
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
@@ -641,7 +640,7 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
     let bDateInMonth = DATE_FORMAT_STRINGS[index][1]; 
     let bDayInWeek = DATE_FORMAT_STRINGS[index][2]; 
     let bShiftInADay = bDayInWeek ? DATE_FORMAT_STRINGS[index][3] : false;
-    let bWeekNumber = true; // will modify later
+    let bWeekNumber = DATE_FORMAT_STRINGS[index][4];
     let valuesStr = '';
 
     switch (formLength) {
@@ -650,11 +649,11 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
             break;
 
         case MID_FORM_DATE:
-            valuesStr = getDateMidForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay);
+            valuesStr = getDateMidForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
             break;
 
         case SHORT_FORM_DATE:
-            valuesStr = getDateShortForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay);
+            valuesStr = getDateShortForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
             break;
 
         default:
