@@ -525,7 +525,7 @@ const DATE_FORMAT_STRINGS = [
         [true, false, false, false], // Yune current_year+6
         [true, true, false, false], // Yune 22 current_year+6
         [true, true, true, false, false], // Yune 22 current_year+6 Sat
-        [true, true, true, true, false] // Yune 22 current_year+6 Sat iTa 
+        [true, true, true, true, false], // Yune 22 current_year+6 Sat iTa 
 
     /** mid forms */
     // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
