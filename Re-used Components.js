@@ -632,7 +632,7 @@ function getCurrentWeekNumber(requiredDate = null) {
     return 0;
 }
 
-const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
+const DATE_FORMAT_COUNT = 5; // temporarily use hard-coded value
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
