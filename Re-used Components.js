@@ -540,8 +540,57 @@ const DATE_FORMAT_STRINGS = [
         [true, true, false, true], // SEPT 1 current_year+6 28
         [true, true, true, false, true], // SEPT 1 current_year+6 28 Thaw
         [true, true, true, true, true] // SEPT 1 current_year+6 28 Thaw iTa 
+        
+        /***
+         * [an algorithm]
+         * get the first date of the year w/ the day
+         * continuously add it to 7
+         * if the result is greater than number of days in the month
+         * subtract it by the number of days in the month
+         * repeat the steps until come to the current month
+         * there if the result is smaller than OR equal to the current day; return the week number
+         * if the result is greater; return week number plus 1
+         * 
+         * 
+         * 
+         */
 
 ];
+
+function isLeapYear(year) {
+    /*** 
+     * mnemonic, Y2K isn't a leap year
+     * */ 
+
+    return (year % 100 == 0 || (year % 4 == 0 && year % 100 != 0));
+}
+
+function getWeekNumber() {
+
+    /***
+     * only-date, 1
+     * month-date, SEPT 1
+     * { Date, full-date }, SEPT 1 current_year+6
+     * 
+     *  
+     */
+
+    const DayCountInMonths = [ 
+        31, 30, 
+        31, 30, 31, 31,
+        30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of February
+    ];
+
+    const Today = new Date();
+    let year = Today.getFullYear(), month = Today.getMonth();
+    const FirstDateOfTheYear = new Date(year, 1, 1);
+    const StartIndex = toTuesdayFirst(FirstDateOfTheYear.getDay());
+    let weekNo = 0;
+
+    if (StartIndex < daysInAMonth[monthCount]) {
+        StartIndex += 7;
+    }
+}
 
 const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
 
