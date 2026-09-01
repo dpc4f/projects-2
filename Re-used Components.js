@@ -794,8 +794,11 @@ TimeValues.Constants = class {
 
 function exchange2Animal(birthYear) {
     let tmp = Math.abs(CURRENT_YEAR - birthYear) % 12;
-
-    return getAnimal(tmp);
+    
+    if (birthYear < CURRENT_YEAR) 
+        return ANIMAL_NAMES[11 - tmp];
+    else
+        return ANIMAL_NAMES[tmp];
 }
 
 
