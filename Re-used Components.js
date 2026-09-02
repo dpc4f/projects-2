@@ -561,75 +561,6 @@ const DATE_FORMAT_STRINGS = [
 
 ];
 
-function isLeapYear(year) {
-    /*** 
-     * mnemonic, 1100 isn't a leap year
-     * */ 
-
-    return ((year % 4 == 0 && year % 100 !== 0) || (year % 400 == 0));
-}
-
-function getCurrentWeekNumber(dateVal) {
-
-    /***
-     * sole-date, soleDate, sodate, 1
-     * moth-date, mothDate, modate, SEPT 1
-     * { datE, ful-date }, SEPT 1 current_year+6
-     * 
-     *  
-     */
-
-    
-    let DayCountInMonths = dateVal.DayCountInMonths;
-
-    // let datE = '';
-    // --> const DatE = '';  
-
-    const Today = dateVal.Today;
-    const HereYear = Today.getFullYear();
-    // const IsLeapYear = isLeapYear(HereYear);
-    const HereMonth = convertToElteMonth(Today.getMonth());
-    const FirstDateOfHereYear = new Date(HereYear, 1, 1);
-    const FirstDateIndex = toTuesdayFirst(FirstDateOfHereYear.getDay()); // position of first day of the year in the first week; in 0..6
-    
-    const HereIndex = toTuesdayFirst(Today.getDay()); // index of the day in its week; in 0..6
-    const HereSoleDate = Today.getDate(); // only the date's number in its month; starts from 1
-    let weekNo = 1; // the first week of the year; at most fifty three weeks in a year
-    let monthCount = 0; // Athen
-    let dayCount = 1; // the first day of the year
-    const Distance = Math.abs(FirstDateIndex - HereIndex);
-
-    do {
-        if (monthCount == HereMonth) {
-            if (Distance == Math.abs(dayCount - HereSoleDate))
-                return weekNo;
-            
-            while (dayCount <= DayCountInMonths[monthCount]) { /*** [; nr] revise to consider the case of leap year */ // <-- done
-                dayCount += 7; // seven days in a week
-                ++weekNo;
-                
-                if (Distance == Math.abs(dayCount - HereSoleDate))
-                    return weekNo;
-            }
-        }
-
-        while (dayCount <= DayCountInMonths[monthCount]) {
-            dayCount += 7; // seven days in a week
-            ++weekNo;
-            
-            if (Distance == Math.abs(dayCount - HereSoleDate))
-                return weekNo;
-        }
-        
-        // here; reach the next month
-        // 
-        dayCount -= DayCountInMonths[monthCount];
-        ++monthCount;
-    } while (monthCount <= HereMonth);
-
-    return 0;
-}
-
 const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
@@ -843,8 +774,8 @@ class DateValues {
             30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
         ];
 
-        this.isLeapYear = isLeapYear(this.yr);
-        this.wk = getCurrentWeekNumber(this);
+        this.isLeapYear = this.isLeapYear();
+        this.wk = this.getCurrentWeekNumber();
         
 
         /*** 
@@ -863,6 +794,73 @@ class DateValues {
             this.dayCountInMonths[DateValues.Hose]++;
         
         return this.dayCountInMonths;
+    }
+
+    
+    getCurrentWeekNumber() {
+
+        /***
+         * sole-date, soleDate, sodate, 1
+         * moth-date, mothDate, modate, SEPT 1
+         * { datE, ful-date }, SEPT 1 current_year+6
+         * 
+         *  
+         */
+        
+        // let datE = '';
+        // --> const DatE = '';  
+
+        const Today = this.Today;
+        const HereYear = Today.getFullYear();
+        const HereMonth = convertToElteMonth(Today.getMonth());
+        const FirstDateOfHereYear = new Date(HereYear, 1, 1);
+        const FirstDateIndex = toTuesdayFirst(FirstDateOfHereYear.getDay()); // position of first day of the year in the first week; in 0..6
+        
+        const HereIndex = toTuesdayFirst(Today.getDay()); // index of the day in its week; in 0..6
+        const HereSoleDate = Today.getDate(); // only the date's number in its month; starts from 1
+        let weekNo = 1; // the first week of the year; at most fifty three weeks in a year
+        let monthCount = 0; // Athen
+        let dayCount = 1; // the first day of the year
+        const Distance = Math.abs(FirstDateIndex - HereIndex);
+
+        do {
+            if (monthCount == HereMonth) {
+                if (Distance == Math.abs(dayCount - HereSoleDate))
+                    return weekNo;
+                
+                while (dayCount <= this.DayCountInMonths[monthCount]) { /*** [; nr] revise to consider the case of leap year */ // <-- done
+                    dayCount += 7; // seven days in a week
+                    ++weekNo;
+                    
+                    if (Distance == Math.abs(dayCount - HereSoleDate))
+                        return weekNo;
+                }
+            }
+
+            while (dayCount <= this.DayCountInMonths[monthCount]) {
+                dayCount += 7; // seven days in a week
+                ++weekNo;
+                
+                if (Distance == Math.abs(dayCount - HereSoleDate))
+                    return weekNo;
+            }
+            
+            // here; reach the next month
+            // 
+            dayCount -= this.DayCountInMonths[monthCount];
+            ++monthCount;
+        } while (monthCount <= HereMonth);
+
+        return 0;
+    }
+
+    isLeapYear() {
+
+        /*** 
+         * mnemonic, 1100 isn't a leap year
+         * */ 
+
+        return ((this.yr % 4 == 0 && this.yr % 100 !== 0) || (this.yr % 400 == 0));
     }
 }
 

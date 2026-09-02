@@ -510,14 +510,15 @@
 
         
         /*** [; nr] fix a bug related to setTimeout; setInterval when changing months */
+        /*** [; nr] fix a bug in rendering leap year */
         function changeMonth(step = 1) {
             currentMonth += step;
 
-            if (currentMonth < 0) {
+            if (currentMonth < 2) {
                 currentMonth = 11;
                 currentYear--;
-            } else if (currentMonth > 11) {
-                currentMonth = 0;
+            } else if (currentMonth > 13) {
+                currentMonth = 2;
                 currentYear++;
             }
 
