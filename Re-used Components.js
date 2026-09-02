@@ -838,11 +838,14 @@ class DateValues {
         this.yr = this.Today.getFullYear();
         this.wk = getCurrentWeekNumber(this.Today);
 
+        /*** 
+         * when an instance of this class is created it will know when the current day ends
+         * when the current day comes to finish it should update date values to the next day
+         * --> use class TimeValues to keep track of time when it's been initialized;
+         *          'N' when current day completes
+         * 
+         */
         // setInterval
-        // when an instance of this class is created it will know when the current day ends
-        // when the current day comes to finish it should update values 4 the next new day
-        // --> use class TimeValues to keep track of time when it's been initialized
-
 
     }
 }
