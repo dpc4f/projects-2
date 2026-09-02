@@ -569,7 +569,7 @@ function isLeapYear(year) {
     return ((year % 4 == 0 && year % 100 !== 0) || (year % 400 == 0));
 }
 
-function getCurrentWeekNumber(requiredDate = null) {
+function getCurrentWeekNumber(dateVal) {
 
     /***
      * sole-date, soleDate, sodate, 1
@@ -579,27 +579,22 @@ function getCurrentWeekNumber(requiredDate = null) {
      *  
      */
 
-    const DayCountInMonths = [ 
-        31, 30, // Athen Duo
-        31, 30, 31, 31, // 
-        30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
-    ];
+    
+    let DayCountInMonths = dateVal.DayCountInMonths;
 
     // let datE = '';
     // --> const DatE = '';  
 
-    const Today = requiredDate ? requiredDate : new Date();
+    const Today = dateVal.Today;
     const HereYear = Today.getFullYear();
+    // const IsLeapYear = isLeapYear(HereYear);
     const HereMonth = convertToElteMonth(Today.getMonth());
     const FirstDateOfHereYear = new Date(HereYear, 1, 1);
     const FirstDateIndex = toTuesdayFirst(FirstDateOfHereYear.getDay()); // position of first day of the year in the first week; in 0..6
     
-    
     const HereIndex = toTuesdayFirst(Today.getDay()); // index of the day in its week; in 0..6
-    
-    
-    const HereSoleDate = Today.getDate(); // only the day's number in its month; starts from 1
-    let weekNo = 1; // the first week of the year
+    const HereSoleDate = Today.getDate(); // only the date's number in its month; starts from 1
+    let weekNo = 1; // the first week of the year; at most fifty three weeks in a year
     let monthCount = 0; // Athen
     let dayCount = 1; // the first day of the year
     const Distance = Math.abs(FirstDateIndex - HereIndex);
@@ -609,7 +604,7 @@ function getCurrentWeekNumber(requiredDate = null) {
             if (Distance == Math.abs(dayCount - HereSoleDate))
                 return weekNo;
             
-            while (dayCount <= DayCountInMonths[monthCount]) { /*** [; nr] revise to consider the case of leap year */
+            while (dayCount <= DayCountInMonths[monthCount]) { /*** [; nr] revise to consider the case of leap year */ // <-- done
                 dayCount += 7; // seven days in a week
                 ++weekNo;
                 
@@ -833,6 +828,7 @@ TimeValues.Constants = class {
  *
  */
 class DateValues {
+    static Hose = 11;
 
     constructor() {
         this.Today = new Date();
@@ -840,7 +836,16 @@ class DateValues {
         this.dt = this.Today.getDate();
         this.mt = this.Today.getMonth();
         this.yr = this.Today.getFullYear();
-        this.wk = getCurrentWeekNumber(this.Today);
+        
+        this.dayCountInMonths = [ 
+            31, 30, // Athen Duo
+            31, 30, 31, 31, // 
+            30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
+        ];
+
+        this.isLeapYear = isLeapYear(this.yr);
+        this.wk = getCurrentWeekNumber(this);
+        
 
         /*** 
          * when an instance of this class is created it will know when the current day ends
@@ -851,6 +856,13 @@ class DateValues {
          */
         // setInterval
 
+    }
+
+    get DayCountInMonths() {
+        if (this.isLeapYear == true) 
+            this.dayCountInMonths[DateValues.Hose]++;
+        
+        return this.dayCountInMonths;
     }
 }
 
