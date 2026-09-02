@@ -610,12 +610,12 @@ class TimeValues {
         this.m = this.Today.getMinutes();
         this.s = this.Today.getSeconds();
         this.ms = this.Today.getMilliseconds();
-        this.constants = new TimeValues.Constants();
+        TimeValues.Constants = new TimeValues.Constants();
         
         this.callback = null;
         this.idcb = null;
 
-        setInterval(() => this.timeTheCurrent(), this.constants.TWO_HOURS_IN_MILLISECONDS);
+        setInterval(() => this.timeTheCurrent(), TimeValues.Constants.TWO_HOURS_IN_MILLISECONDS);
     }
 
     timeTheCurrent() {
@@ -691,15 +691,15 @@ class TimeValues {
     }
 
     updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
-        let fractionOfASecond = ((new Date()).getMilliseconds()) % this.constants.ONE_SECOND_IN_MILLISECONDS;
-        let duration = this.constants.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
+        let fractionOfASecond = ((new Date()).getMilliseconds()) % TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS;
+        let duration = TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
         this.callback = callback;
         
         if (this.idcb) 
             clearInterval(this.idcb);
 
         setTimeout(() => { 
-            this.idcb = setInterval(() => this.increaseSecond(), this.constants.ONE_SECOND_IN_MILLISECONDS);
+            this.idcb = setInterval(() => this.increaseSecond(), TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS);
             this.increaseSecond();
         }, duration);
     }
@@ -710,46 +710,43 @@ class TimeValues {
         /// --> done
 
         const StartTime = Date.now();
-        const FractionOfAMinuteInMillisecond = StartTime % this.constants.ONE_MINUTE_IN_MILLISECONDS;
-        let duration = this.constants.ONE_MINUTE_IN_MILLISECONDS - FractionOfAMinuteInMillisecond; // elapsed time in milliseconds
+        const FractionOfAMinuteInMillisecond = StartTime % TimeValues.Constants.ONE_MINUTE_IN_MILLISECONDS;
+        let duration = TimeValues.Constants.ONE_MINUTE_IN_MILLISECONDS - FractionOfAMinuteInMillisecond; // elapsed time in milliseconds
         // console.log(duration);
         
         this.callback = callback;
         
-        if (this.idcb) 
+        if (this.idcb)
             clearInterval(this.idcb);
 
         setTimeout(() => {
             this.s = 0;
             this.increaseMinute(); // doesn't cost much
-            this.idcb = setInterval(() => this.increaseMinute(), this.constants.ONE_MINUTE_IN_MILLISECONDS);
+            this.idcb = setInterval(() => this.increaseMinute(), TimeValues.Constants.ONE_MINUTE_IN_MILLISECONDS);
         }, duration);
     }
 }
 
 TimeValues.Constants = class {
-
-   constructor() {
-        this.__ONE_SECOND_IN_MILLISECONDS = 1000;
-        this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY = 7200000; // two hours, 1_CANH_GIỜ
-        this.__ONE_MINUTE_IN_SECONDS = 60;
-        this.__ONE_MINUTE_IN_MILLISECONDS = 60000;
-    }
+    static WAN_SECOND_IN_MILLISECONDS = 1000;
+    static CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY = 7200000; // two hours, 1_CANH_GIỜ
+    static WAN_MINUTE_IN_SECONDS = 60;
+    static WAN_MINUTE_IN_MILLISECONDS = 60000;
     
-    get ONE_SECOND_IN_MILLISECONDS() {
-        return this.__ONE_SECOND_IN_MILLISECONDS;
+    static get ONE_SECOND_IN_MILLISECONDS() {
+        return TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
     }
 
-    get TWO_HOURS_IN_MILLISECONDS() {
-        return this.__1_CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY;
+    static get TWO_HOURS_IN_MILLISECONDS() {
+        return TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY;
     }
 
-    get ONE_MINUTE_IN_SECONDS() {
-        return this.__ONE_MINUTE_IN_SECONDS;
+    static get ONE_MINUTE_IN_SECONDS() {
+        return TimeValues.Constants.WAN_MINUTE_IN_SECONDS;
     }
 
-    get ONE_MINUTE_IN_MILLISECONDS() {
-        return this.__ONE_MINUTE_IN_MILLISECONDS;
+    static get ONE_MINUTE_IN_MILLISECONDS() {
+        return TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS;
     }
 }
 
