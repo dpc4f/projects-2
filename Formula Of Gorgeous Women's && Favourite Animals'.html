@@ -419,6 +419,10 @@
         }
 
         function recursive(callback) {
+            /***
+             * [; nr] fix a bug in this function
+             */
+            
             let nowInMilliSeconds = Date.now() + 2000; // 2 seconds added
             let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
             let dateStr = '', oldDateStr = getDateFullForm(true, true, true);
