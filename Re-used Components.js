@@ -593,7 +593,11 @@ function getCurrentWeekNumber(requiredDate = null) {
     const HereMonth = convertToElteMonth(Today.getMonth());
     const FirstDateOfHereYear = new Date(HereYear, 1, 1);
     const FirstDateIndex = toTuesdayFirst(FirstDateOfHereYear.getDay()); // position of first day of the year in the first week; in 0..6
+    
+    
     const HereIndex = toTuesdayFirst(Today.getDay()); // index of the day in its week; in 0..6
+    
+    
     const HereSoleDate = Today.getDate(); // only the day's number in its month; starts from 1
     let weekNo = 1; // the first week of the year
     let monthCount = 0; // Athen
@@ -605,7 +609,7 @@ function getCurrentWeekNumber(requiredDate = null) {
             if (Distance == Math.abs(dayCount - HereSoleDate))
                 return weekNo;
             
-            while (dayCount <= DayCountInMonths[monthCount]) {
+            while (dayCount <= DayCountInMonths[monthCount]) { /*** [; nr] revise to consider the case of leap year */
                 dayCount += 7; // seven days in a week
                 ++weekNo;
                 
@@ -631,7 +635,7 @@ function getCurrentWeekNumber(requiredDate = null) {
     return 0;
 }
 
-const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length; // temporarily use hard-coded value
+const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
