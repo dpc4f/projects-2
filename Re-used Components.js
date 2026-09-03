@@ -708,20 +708,19 @@ class TimeValues {
         /*** [; nr] consider to implement using milliseconds instead  */ 
         /// --> done
 
-        const StartTime = Date.now();
-        const FractionOfAMinuteInMillisecond = StartTime % TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS;
-        let duration = TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS - FractionOfAMinuteInMillisecond; // elapsed time in milliseconds
+        const StartTime = (new Date()).getMilliseconds(); // count from beginning of the day until the current moment; in milliseconds
+        const FractionOfAMinuteInMillisecond = StartTime % TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS; // StartTime % (60 * 1000)
+        let duration = TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS - FractionOfAMinuteInMillisecond; // elapsed time to be used in setTimeout
         // console.log(duration);
         
         this.callback = callback;
-        
         if (this.idcb)
             clearInterval(this.idcb);
 
         setTimeout(() => {
             this.s = 0;
+            this.idcb = setInterval(() => this.increaseMinute(), TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS);
             this.increaseMinute(); // doesn't cost much
-            this.idcb = setInterval(() => TimeValues.increaseMinute(), TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS);
         }, duration);
     }
 }
