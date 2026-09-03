@@ -614,6 +614,7 @@ class TimeValues {
         this.callback = null;
         this.idcb = null;
 
+        this.constants = new TimeValues.Constants();
         setInterval(() => this.timeTheCurrent(), TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY);
     }
 
@@ -690,15 +691,15 @@ class TimeValues {
     }
 
     updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
-        let fractionOfASecond = ((new Date()).getMilliseconds()) % TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
-        let duration = TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
+        let fractionOfASecond = ((new Date()).getMilliseconds()) % TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS;
+        let duration = TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
         this.callback = callback;
         
         if (this.idcb) 
             clearInterval(this.idcb);
 
         setTimeout(() => { 
-            this.idcb = setInterval(() => this.increaseSecond(), TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS);
+            this.idcb = setInterval(() => this.increaseSecond(), TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS);
             this.increaseSecond();
         }, duration);
     }
@@ -713,8 +714,8 @@ class TimeValues {
         const PassingMilliseconds = Today.getMilliseconds(); // passing milliseconds of the current second
 
         // elapsed time to be used in setTimeout
-        const OneMinute = TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS;
-        const OneThousand = TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
+        const OneMinute = this.constants.WAN_MINUTE_IN_MILLISECONDS;
+        const OneThousand = this.constants.WAN_SECOND_IN_MILLISECONDS;
         const RemainingOfAMinuteInMilliseconds = OneMinute - (PassingSeconds * OneThousand + PassingMilliseconds); 
         
         console.log(RemainingOfAMinuteInMilliseconds);
@@ -725,7 +726,7 @@ class TimeValues {
 
         setTimeout(() => {
             this.s = 0;
-            this.idcb = setInterval(() => this.increaseMinute(), TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS);
+            this.idcb = setInterval(() => this.increaseMinute(), this.constants.WAN_MINUTE_IN_MILLISECONDS);
             this.increaseMinute(); // doesn't cost much
         }, RemainingOfAMinuteInMilliseconds);
     }
@@ -737,7 +738,14 @@ TimeValues.Constants = class {
     // static WAN_MINUTE_IN_SECONDS = 60;
     // static WAN_MINUTE_IN_MILLISECONDS = 60000;
 
-    static get WAN_SECOND_IN_MILLISECONDS() {
+    #oneSecondInMilliseconds = 1000;
+    #oneMinuteInMilliseconds = 60000;
+
+    get WAN_SECOND_IN_MILLISECONDS() {
+        return this.#oneSecondInMilliseconds;
+    }
+
+    static get ONE_SECOND_IN_MILLISECONDS() {
         return 1000;
     }
 
@@ -749,7 +757,11 @@ TimeValues.Constants = class {
         return 60;
     }
 
-    static get WAN_MINUTE_IN_MILLISECONDS() {
+    get WAN_MINUTE_IN_MILLISECONDS() {
+        return this.#oneMinuteInMilliseconds;
+    }
+
+    static get ONE_MINUTE_IN_MILLISECONDS() {
         return 60000;
     }
 }
@@ -772,7 +784,7 @@ class DateValues {
         this.mt = this.Today.getMonth();
         this.yr = this.Today.getFullYear();
         
-        this.dayCountInMonths = [ 
+        this.dayCountInMonths = [
             31, 30, // Athen Duo
             31, 30, 31, 31, // 
             30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
@@ -861,7 +873,9 @@ class DateValues {
     isLeapYear() {
 
         /*** 
-         * mnemonic, 1100 isn't a leap year
+         * [mnemonic]
+         * year 1100 isn't a leap one
+         * 
          * */ 
 
         return ((this.yr % 4 == 0 && this.yr % 100 !== 0) || (this.yr % 400 == 0));
