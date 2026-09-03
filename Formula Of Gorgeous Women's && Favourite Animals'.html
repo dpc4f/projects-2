@@ -421,7 +421,7 @@
         function recursive(callback) {
             /***
              * [; nr] fix a bug in this function
-             */
+             */ // --> done
             
             let nowInMilliSeconds = Date.now() + 2000; // 2 seconds added
             let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
@@ -437,7 +437,7 @@
 
                     duration = 86395 * 1000; // up to the last 5 seconds of the new day; in milliseconds
                     setTimeout(() => {
-                        dateStr = getDateWithTimeCombined(true, true, true);
+                        dateStr = getDateFullForm(true, true, true);
                         callback(dateStr);
                     }, duration);
                 } else {
