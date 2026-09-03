@@ -423,9 +423,11 @@
              * [; nr] fix a bug in this function
              */ // --> done
             
-            let nowInMilliSeconds = Date.now() + 2000; // 2 seconds added
-            let duration = 86400 * 1000 - nowInMilliSeconds; // elapsed time in milliseconds
-            let dateStr = '', oldDateStr = getDateFullForm(true, true, true);
+            const ONE_DAY_IN_MILLISECONDS = 86400000;
+            let nowInMilliSeconds = (Date.now() % ONE_DAY_IN_MILLISECONDS) + 2000; // 2 seconds added
+            let duration = ONE_DAY_IN_MILLISECONDS - nowInMilliSeconds; // elapsed time in milliseconds
+            let oldDateStr = getDateFullForm(true, true, true);
+            let dateStr = '';
             
             setTimeout(() => {
                 dateStr = getDateFullForm(true, true, true);
@@ -453,7 +455,7 @@
                             clearInterval(idcb);
                             duration = 12 * 60 * 1000; // set duration to 12 minutes
                             
-                            setTimeout(recursive, duration);
+                            setTimeout(() => recursive(callback), duration);        
                         }
                     }, duration);
                 }
