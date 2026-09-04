@@ -629,6 +629,19 @@ class TimeValues {
         console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
     }
 
+    remainingTimeTillEndOfTheDay(level = 0) {
+
+        /***
+         * level = 0 --> hours
+         * level = 1 --> minutes
+         * level = 2 --> seconds
+         * level = 3 --> milliseconds
+         * level = 4 --> milliseconds+1
+         * 
+         */
+
+    }
+
     addHours(hours) {
         if (hours <= 0) 
             return;
@@ -690,7 +703,7 @@ class TimeValues {
         this.callback(this);
     }
 
-    updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM
+    updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM:SS
         let fractionOfASecond = ((new Date()).getMilliseconds()) % TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS;
         let duration = TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
         this.callback = callback;
@@ -704,7 +717,7 @@ class TimeValues {
         }, duration);
     }
 
-    updateTimeWithIntervalOneMinute(callback) {
+    updateTimeWithIntervalOneMinute(callback) { // for time value; in HH:MM
         
         /*** [; nr] consider to implement using milliseconds instead  */ 
         /// --> done
@@ -768,6 +781,34 @@ TimeValues.Constants = class {
 
 // Object.freeze(TimeValues.Constants);
 
+TimeValues.FreshTimeLevels = class {
+    #levelBig = 0;
+    #levelOne = 1;
+    #levelTwo = 2;
+    #levelThree = 3;
+    #levelFour = 4;
+
+    get LevelBig() {
+        return this.#levelBig;
+    }
+
+    get LevelOne() {
+        return this.#levelOne;
+    }
+
+    get LevelTwo() {
+        return this.#levelTwo;
+    }
+
+    get LevelThree() {
+        return this.#levelThree;
+    }
+
+    get LevelFour() {
+        return this.#levelFour;
+    }
+}
+
 
 /***
  *   [; nr] write code 4 JS class DateValues to use in Elte Calendar
@@ -801,6 +842,7 @@ class DateValues {
          *          'N' when current day completes
          * 
          */
+        this.timeVal = new TimeValues();
         // setInterval
 
     }
