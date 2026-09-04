@@ -641,7 +641,7 @@ class TimeValues {
          * 
          */
 
-        timeTheCurrent();
+        this.timeTheCurrent();
 
         let ret = 0;
         let passedTime = 0;
@@ -863,18 +863,15 @@ class DateValues {
     static Hose = 11;
 
     constructor(updateGUIWebCalendar = null) {
-        
-        timeTheDay();
-        this.callback = updateGUIWebCalendar;
-        
+
         this.dayCountInMonths = [
             31, 30, // Athen Duo
             31, 30, 31, 31, // 
             30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
         ];
 
-        this.isLeapYear = this.isLeapYear();
-        this.wk = this.getCurrentWeekNumber();
+        this.callback = updateGUIWebCalendar;
+        this.timeTheDay();
         
 
         /*** 
@@ -884,8 +881,9 @@ class DateValues {
          *          'N' when current day completes
          * 
          */
+
         this.timeVal = new TimeValues();
-        let duration = timeVal.remainingTimeTillEndOfTheDay(this.timeVal.freshTimeLevels.LevelThree);
+        let duration = this.timeVal.remainingTimeTillEndOfTheDay(this.timeVal.freshTimeLevels.LevelThree);
         this.constants = new DateValues.Constants();
 
         setTimeout(() => {
@@ -902,7 +900,7 @@ class DateValues {
         return this.dayCountInMonths;
     }
 
-    timeTheDay() {
+    timeTheDay(bUpdateGUI = true) {
         this.Today = new Date();
 
         this.dy = this.Today.getDay();
@@ -910,10 +908,24 @@ class DateValues {
         this.mt = this.Today.getMonth();
         this.yr = this.Today.getFullYear();
 
-        if (this.callback)
+        if (bUpdateGUI && this.callback)
             this.callback(); // to render the calendar when the day's values change
+
+        this.isLeapYear = this.isLeapYear();
+        this.wk = this.getCurrentWeekNumber();
     }
 
+    getCurrentMonth() {
+        return this.mt;
+    }
+
+    getCurrentDay() {
+        return this.dy;
+    }
+
+    getCurrentYear() {
+        return this.yr;
+    }
     
     getCurrentWeekNumber() {
 

@@ -460,7 +460,10 @@
             } 
         }
 
-        function renderCalendar(year = Today.getFullYear(), month = Today.getMonth()) {
+        function renderCalendar(dateVal) {
+            let year = dateVal.getCurrentYear();
+            let month = dateVal.getCurrentMonth();
+
             let mt = document.getElementById("monthNames").children;
 
             document.getElementById("monthYear").textContent = getMonth(month < 2 ? month + 10 : month - 2) 
@@ -511,18 +514,18 @@
         
         /*** [; nr] fix a bug related to setTimeout; setInterval when changing months */
         /*** [; nr] fix a bug in rendering leap year */
-        function changeMonth(step = 1) {
-            currentMonth += step;
+        function changeMonth(dateVal, step = 1) {
+            dateVal.mt += step;
 
             if (currentMonth < 2) {
-                currentMonth = 11;
-                currentYear--;
+                dateVal.mt = 11;
+                dateVal.yr--;
             } else if (currentMonth > 13) {
-                currentMonth = 2;
-                currentYear++;
+                dateVal.mt = 2;
+                dateVal.yr++;
             }
 
-            renderCalendar(currentYear, currentMonth);
+            renderCalendar(dateVal);
         }
 
         function renderDateTimeVarieties() {
@@ -665,10 +668,11 @@
 
         let bTimeCombined = false;
         let form = FULL_FORM_DATE;
-        let currentMonth = TODAY.getMonth();
-        let currentYear = TODAY.getFullYear();
+        // let currentMonth = TODAY.getMonth();
+        // let currentYear = TODAY.getFullYear();
+        let dateVal = new DateValues();
         
-        renderCalendar(currentYear, currentMonth);   
+        renderCalendar(dateVal);   
 
         window.addEventListener('blur', updateTimeToCurrentMoment);
         // window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
