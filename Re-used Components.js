@@ -615,6 +615,7 @@ class TimeValues {
         this.idcb = null;
 
         this.constants = new TimeValues.Constants();
+        this.freshTimeLevels = new TimeValues.FreshTimeLevels();
         setInterval(() => this.timeTheCurrent(), TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY);
     }
 
@@ -629,7 +630,7 @@ class TimeValues {
         console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
     }
 
-    remainingTimeTillEndOfTheDay(level = 0) {
+    remainingTimeTillEndOfTheDay(level = this.freshTimeLevels.LevelBig) {
 
         /***
          * level = 0 --> hours
@@ -640,6 +641,36 @@ class TimeValues {
          * 
          */
 
+        timeTheCurrent();
+
+        let ret = 0;
+        let passedTime = 0;
+        switch (level) {
+            case this.freshTimeLevels.LevelOne:
+                ret = DateValues.Constants.ONE_DAY_IN_MINUTES - (this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m);
+                break;
+
+            case this.freshTimeLevels.LevelTwo:
+                passedTime = this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m * this.constants.WAN_MINUTE_IN_SECONDS + this.s;
+                ret = DateValues.Constants.ONE_DAY_IN_SECONDS - passedTime;
+                break;
+
+            case this.freshTimeLevels.LevelThree:
+                passedTime = this.h*TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m*this.constants.WAN_MINUTE_IN_SECONDS + this.s*this.constants.WAN_SECOND_IN_MILLISECONDS;
+                ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - passedTime;
+                break;
+
+            case this.freshTimeLevels.LevelFour:
+                passedTime = this.h*TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m*this.constants.WAN_MINUTE_IN_SECONDS + this.s*this.constants.WAN_SECOND_IN_MILLISECONDS;
+                ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - (passedTime + 1);
+                break;
+
+            default: // this.freshTimeLevels.LevelBig
+                ret = this.constants.WAN_DAY_IN_HOURS - this.h;
+                break;
+        }
+
+        return ret;
     }
 
     addHours(hours) {
@@ -754,6 +785,7 @@ TimeValues.Constants = class {
     #oneSecondInMilliseconds = 1000;
     #oneMinuteInMilliseconds = 60000;
     #oneDayInMilliseconds = 86400000;
+    #oneMinuteInSeconds = 60;
 
 
     get WAN_SECOND_IN_MILLISECONDS() {
@@ -768,8 +800,8 @@ TimeValues.Constants = class {
         return 7200000;
     }
 
-    static get WAN_MINUTE_IN_SECONDS() {
-        return 60;
+    get WAN_MINUTE_IN_SECONDS() {
+        return this.#oneMinuteInSeconds;
     }
 
     get WAN_MINUTE_IN_MILLISECONDS() {
@@ -782,6 +814,10 @@ TimeValues.Constants = class {
 
     get WAN_DAY_IN_MILLISECONDS() {
         return this.#oneDayInMilliseconds;
+    }
+
+    static get ONE_HOUR_IN_MINUTES() {
+        return 60;
     }
 }
 
@@ -826,9 +862,10 @@ TimeValues.FreshTimeLevels = class {
 class DateValues {
     static Hose = 11;
 
-    constructor() {
+    constructor(updateGUIWebCalendar = null) {
         
-        timeTheCurrentMoment();
+        timeTheDay();
+        this.callback = updateGUIWebCalendar;
         
         this.dayCountInMonths = [
             31, 30, // Athen Duo
@@ -848,11 +885,12 @@ class DateValues {
          * 
          */
         this.timeVal = new TimeValues();
-        let duration = timeVal.remainingTimeTillEndOfTheDay();
+        let duration = timeVal.remainingTimeTillEndOfTheDay(this.timeVal.freshTimeLevels.LevelThree);
+        this.constants = new DateValues.Constants();
 
         setTimeout(() => {
-            this.timeTheCurrentMoment();
-            setInterval(() => this.timeTheCurrentMoment(), this.timeVal.WAN_DAY_IN_MILLISECONDS)
+            setInterval(() => this.timeTheDay(), this.timeVal.WAN_DAY_IN_MILLISECONDS);
+            this.timeTheDay();
         }, duration);
 
     }
@@ -864,13 +902,16 @@ class DateValues {
         return this.dayCountInMonths;
     }
 
-    timeTheCurrentMoment() {
+    timeTheDay() {
         this.Today = new Date();
-        
+
         this.dy = this.Today.getDay();
         this.dt = this.Today.getDate();
         this.mt = this.Today.getMonth();
         this.yr = this.Today.getFullYear();
+
+        if (this.callback)
+            this.callback(); // to render the calendar when the day's values change
     }
 
     
@@ -940,6 +981,31 @@ class DateValues {
          * */ 
 
         return ((this.yr % 4 == 0 && this.yr % 100 !== 0) || (this.yr % 400 == 0));
+    }
+}
+
+
+DateValues.Constants = class {
+    #oneDayInHours = 24;
+
+    get WAN_DAY_IN_HOURS() {
+        return this.#oneDayInHours;
+    }
+
+    static get ONE_DAY_IN_HOURS() {
+        return 24;
+    }
+
+    static get ONE_DAY_IN_MINUTES() {
+        return 1440;
+    }
+
+    static get ONE_DAY_IN_SECONDS() {
+        return 86400;
+    }
+
+    static get ONE_DAY_IN_MILLISECONDS() {
+        return 86400000;
     }
 }
 
