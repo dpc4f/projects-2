@@ -753,6 +753,8 @@ TimeValues.Constants = class {
 
     #oneSecondInMilliseconds = 1000;
     #oneMinuteInMilliseconds = 60000;
+    #oneDayInMilliseconds = 86400000;
+
 
     get WAN_SECOND_IN_MILLISECONDS() {
         return this.#oneSecondInMilliseconds;
@@ -777,11 +779,16 @@ TimeValues.Constants = class {
     static get ONE_MINUTE_IN_MILLISECONDS() {
         return 60000;
     }
+
+    get WAN_DAY_IN_MILLISECONDS() {
+        return this.#oneDayInMilliseconds;
+    }
 }
 
 // Object.freeze(TimeValues.Constants);
 
 TimeValues.FreshTimeLevels = class {
+
     #levelBig = 0;
     #levelOne = 1;
     #levelTwo = 2;
@@ -806,6 +813,7 @@ TimeValues.FreshTimeLevels = class {
 
     get LevelFour() {
         return this.#levelFour;
+
     }
 }
 
@@ -819,11 +827,8 @@ class DateValues {
     static Hose = 11;
 
     constructor() {
-        this.Today = new Date();
-        this.dy = this.Today.getDay();
-        this.dt = this.Today.getDate();
-        this.mt = this.Today.getMonth();
-        this.yr = this.Today.getFullYear();
+        
+        timeTheCurrentMoment();
         
         this.dayCountInMonths = [
             31, 30, // Athen Duo
@@ -843,7 +848,12 @@ class DateValues {
          * 
          */
         this.timeVal = new TimeValues();
-        // setInterval
+        let duration = timeVal.remainingTimeTillEndOfTheDay();
+
+        setTimeout(() => {
+            this.timeTheCurrentMoment();
+            setInterval(() => this.timeTheCurrentMoment(), this.timeVal.WAN_DAY_IN_MILLISECONDS)
+        }, duration);
 
     }
 
@@ -852,6 +862,15 @@ class DateValues {
             this.dayCountInMonths[DateValues.Hose]++;
         
         return this.dayCountInMonths;
+    }
+
+    timeTheCurrentMoment() {
+        this.Today = new Date();
+        
+        this.dy = this.Today.getDay();
+        this.dt = this.Today.getDate();
+        this.mt = this.Today.getMonth();
+        this.yr = this.Today.getFullYear();
     }
 
     
