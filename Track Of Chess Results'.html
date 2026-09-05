@@ -92,7 +92,7 @@
             background: #d5d9e4;
         }
 
-        .sofia-1, .sofia {
+        .lufi-1, .lufi {
             background: #c4eed9;
         }
 
@@ -268,7 +268,7 @@
         function getQueenOrder() {
             let order = playTheDice(1); // one value only
             let dao = ++rowCounter % 2 == 0 ? 'yao' : 'yao-1';
-            let sofıa = rowCounter % 2 == 0 ? 'sofia' : 'sofia-1';
+            let lufi = rowCounter % 2 == 0 ? 'lufi' : 'lufi-1';
             let thoa = 'thoa';
             let ret;
 
@@ -285,7 +285,7 @@
                     ret = [["Tào thị", thoa], 
                         // ["Anna Giang", "yao"], 
                         ["Biện thị", dao], 
-                        ["Lưu ái phi", sofıa], 
+                        ["Lưu ái phi", xaphi], 
                         ["", "blank"]];
                     break;
            
@@ -293,13 +293,13 @@
                     ret = [["Thoa Nguyen", thoa], 
                         // ["Annabel Yield /diêu/", "yao"], 
                         ["Diamond eXecution Concubine", dao],
-                        ["Infanta Sapphire", sofıa], 
+                        ["Infanta Sapphire", xaphi], 
                         ["", "blank"]];
                     break;
 
                 case 2:
                     ret = [["Lý Bèo", thoa], 
-                        ["Sofía ð Todos ðɪ B'orbón", sofıa], 
+                        ["Diec the Bird", xaphi], 
                         // ["姚安娜", "yao"], 
                         ["hoàng quý phi Châu Kris", dao],
                         ["", "blank"]];
@@ -307,7 +307,7 @@
 
                 case 8:
                     ret = [["Xà /tho/ rắn yêu", thoa], 
-                        ["Công chúa bong bóng", sofıa], 
+                        ["Công chúa bong bóng", xaphi], 
                         // ["Beo 'Anna Yao'", "yao"], 
                         ["Нарана Эрдынеева ð Bee", dao],
                         ["", "blank"]];
@@ -317,7 +317,7 @@
                     ret = [["tigress Kim_thoa", thoa], 
                         // ["姚安娜", "yao"], 
                         ["Lưu Vương Phi", dao], // Lưu Diệc Phi introduced by bél Yao
-                        ["Infanta Sofı'a Of Spain", sofıa], 
+                        ["Incdie Lufi", xaphi], 
                         ["", "blank"]];
                     break;
 
@@ -325,13 +325,13 @@
                     ret = [["Anna Thoa Nguyen", thoa], 
                         // ["姚安娜", "yao"], 
                         ["Эрдынеева (Chu Kris ð Mouse)", dao], 
-                        ["Princesa Sofia", sofıa], 
+                        ["Princess Lufi", xafi], 
                         ["", "blank"]];
                     break;
 
                 case 6:
                     ret = [["Lý Bèo", thoa],
-                        ["Infanta Sapphire", sofıa], 
+                        ["Incdie Xaphi", xafi], 
                         // ["Anna Giang", "yao"],
                         ["Naran Erdyneeva (Нарана Эрдынеева)", dao], 
                         ["", "blank"]];
@@ -341,13 +341,13 @@
                     ret = [["Xà /tho/ rắn yêu", thoa], 
                         // ["姚安娜", "yao"], 
                         ["Tiểu Long Nữ ð LDragon", dao], // LDragon < Dragon
-                        ["Béo Sofı'a", sofıa], 
+                        ["Cô Cô", xafi], 
                         ["", "blank"]];
                     break;
 
                 case 3:
                     ret = [["tigress Kim_thoan_na", thoa], 
-                        ["Sofı'a los Santos y Ortiz", sofıa], 
+                        ["Phylum los SantOS y Oreo", xafi], 
                         // ["Annabel Yield /diêu/", "yao"], 
                         ["hoàng quý phi Narana", dao], 
                         ["", "blank"]];
@@ -357,14 +357,14 @@
                     ret = [["mèo béo Thoa", thoa], 
                         // ["Anna Giang", "yao"], 
                         ["Нарана Эрдынеева ð Bee", dao], 
-                        ["Sofıa ð Todos ð Borbón", sofıa],
+                        ["Liu Fi ð Todos ð Borbón", xafi],
                         ["", "blank"]];
                     break;
 
                 case 10:
                     ret = [["thỏ Thoa", thoa], 
                         // ["Annabel Yield /diêu/", "yao"], 
-                         ["Sofıa y Ortiz de Todos", sofıa],
+                         ["Lufi y Ortiz", xafi],
                         ["'Tô Đát Kỷ' the Fox", dao], 
                         ["", "blank"]];
                     break;
@@ -374,7 +374,7 @@
                     ret = [
                         ["Annabel", "yao"], 
                         ["Thoa", "thoa"], 
-                        ["[deprecated]", "sofia"],            
+                        ["[deprecated]", "xafi"],            
                         ["", "blank"]
                     ];
                     break;
