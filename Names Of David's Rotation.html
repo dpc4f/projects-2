@@ -6,6 +6,20 @@
     <title>Names Of { David, Davod } Rotation</title>
 
     <style>
+        body {
+            display: flex;
+        }
+
+        .left-pane {
+            flex: 1;
+            width: 200px;
+        }
+    
+        .right-pane {
+            flex: 2;
+            color: lightblue;
+        }
+
         input {
             margin-left: 80px;
             margin-top: 10px;
@@ -48,11 +62,16 @@
 </head>
 
 <body>
-    <h2>today name is, FAs</h2><br />
-    <div id="name" disabled class="capitalize-last invisible"></div>
-    <h5 class="note">Names need to have meaning(s).</h5>
-    <h5 class="hidden">[a fact][alphabet] chữ i của Æ khi uppercase lên đâu mất tiêu cái dấu nhìn giống y chang chữ l hahah ...</h5>
-    <h6>will be used to learn Regular Expression in JavaScript</h6>
+    <div class="left-pane">
+        <h2>today name is, FAs</h2><br />
+        <div id="name" disabled class="capitalize-last invisible"></div>
+        <h5 class="note">Names need to have meaning(s).</h5>
+        <h5 class="hidden">[a fact][alphabet] chữ i của Æ khi uppercase lên đâu mất tiêu cái dấu nhìn giống y chang chữ l hahah ...</h5>
+        <h6>will be used to learn Regular Expression in JavaScript</h6>
+    </div>
+    <div class="right-pane">
+
+    </div>
 
     <script>
         function getRandomName(names) {
