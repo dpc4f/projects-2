@@ -15,7 +15,7 @@
             width: 200px;
         }
     
-        .right-pane {
+        .regex-pane {
             flex: 2;
             background-color: rgb(13, 119, 155);
             width: 100%;
@@ -64,8 +64,10 @@
 </head>
 
 <body>
-    <div class="right-pane">
+    <div class="regex-pane">
 
+        <div id="regex-1"></div>
+        <div id="regex-2"></div>
     </div>
 
     <script>
@@ -73,13 +75,20 @@
         window.addEventListener('load', executeRegExs);
 
         function executeRegExs() {
-            let tag = prompt("What tag do you want to find?", "h2");
-
+            let tag = "h2";
             let regexp = new RegExp(`<${tag}>`);
 
             let bodyInnerHTML = document.getElementsByTagName('body')[0].innerHTML;
-            console.log(bodyInnerHTML.match(regexp));
+            let result = bodyInnerHTML.match(regexp);
+            let div1 = document.getElementById('regex-1');
+            div1.textContent = result;
+
+            let str = "We will, we will rock you";
+            let div2 = document.getElementById('regex-2');
+            div2.textContent = str.match(/we/gi); // We,we (an array of 2 substrings that match)
         }
+
+         
     </script>
 
     <div id="testdata" class="left-pane">
