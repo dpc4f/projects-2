@@ -64,18 +64,34 @@
 </head>
 
 <body>
-    <div class="left-pane">
+    <div class="right-pane">
+
+    </div>
+
+    <script>
+
+        window.addEventListener('load', executeRegExs);
+
+        function executeRegExs() {
+            let tag = prompt("What tag do you want to find?", "h2");
+
+            let regexp = new RegExp(`<${tag}>`);
+
+            let bodyInnerHTML = document.getElementsByTagName('body')[0].innerHTML;
+            console.log(bodyInnerHTML.match(regexp));
+        }
+    </script>
+
+    <div id="testdata" class="left-pane">
         <h2>today name is, FAs</h2><br />
         <div id="name" disabled class="capitalize-last invisible"></div>
         <h5 class="note">Names need to have meaning(s).</h5>
         <h5 class="hidden">[a fact][alphabet] chữ i của Æ khi uppercase lên đâu mất tiêu cái dấu nhìn giống y chang chữ l hahah ...</h5>
         <h6>will be used to learn Regular Expression in JavaScript</h6>
     </div>
-    <div class="right-pane">
-
-    </div>
 
     <script>
+
         function getRandomName(names) {
             if (!Array.isArray(names) || names.length === 0)
                 throw new Error("Please provide a non-empty array.");
