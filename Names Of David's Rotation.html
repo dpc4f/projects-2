@@ -68,6 +68,11 @@
 
         <div id="regex-1"></div>
         <div id="regex-2"></div>
+        <div id="regex-3"></div>
+        <div id="regex-6">
+            <div id="regex-61"></div>
+            <div id="regex-6-2"></div>
+        </div>
     </div>
 
     <script>
@@ -75,17 +80,69 @@
         window.addEventListener('load', executeRegExs);
 
         function executeRegExs() {
+
+            /*** excerpt 1 */
             let tag = "h2";
             let regexp = new RegExp(`<${tag}>`);
-
             let bodyInnerHTML = document.getElementsByTagName('body')[0].innerHTML;
             let result = bodyInnerHTML.match(regexp);
             let div1 = document.getElementById('regex-1');
+            
             div1.textContent = result;
 
+            
+            
+            /*** excerpt 2 */
             let str = "We will, we will rock you";
             let div2 = document.getElementById('regex-2');
+            
             div2.textContent = str.match(/we/gi); // We,we (an array of 2 substrings that match)
+
+            
+            
+            /*** excerpt 3 */
+            let str2 = "We will, we will rock you";
+            let result2 = str.match(/we/i); // without flag g
+            let div3 = document.getElementById('regex-3');
+
+            div3.textContent = result2[0] + ':' + result2.length + ':' + result2.index + ':' + result2.input;
+
+            
+            
+            /*** excerpt 4 */
+            let matches_exc4 = "JavaScript".match(/HTML/); // == null
+
+            try {
+                if (!matches_exc4.length) { // <-- Error: Cannot read property 'length' of null
+                    console.log("Error in the line above");
+                }
+            } catch {
+
+            }
+
+
+            /*** excerpt 5 */
+            let matches_exc5 = "JavaScript".match(/HTML/) || [];
+
+            if (!matches_exc5.length) {
+                alert("No matches"); // <-- now it works
+            }
+
+
+            /*** excerpt 6 */
+            // no flag g
+            let div61 = document.getElementById('regex-61');
+            div61.textContent = "We will, we will".replace(/we/i, "I"); // I will, we will
+
+            // with flag g
+            let div62 = document.getElementById('regex-6-1');
+            div62.textContent = ("We will, we will".replace(/we/ig, "I")); // I will, I will
+
+
+
+            
+
+
         }
 
          
