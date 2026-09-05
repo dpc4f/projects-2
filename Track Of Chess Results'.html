@@ -85,15 +85,15 @@
         }
 
         .yao, .yao-1 {
-            background: #c4eec7;
+            background: #5c9960;
         }
 
         .yao-1 {
-            background: #d5d9e4;
+            background: #7086c4;
         }
 
         .lufi-1, .lufi {
-            background: #c4eed9;
+            background: #a3e7c5;
         }
 
         .blank {
@@ -248,12 +248,12 @@
                 queenBody.innerHTML = rows;
             rowCounter = parseInt(localStorage.getItem("davios_counter") || "0");
 
-            const ARR = status.trim().split(/\s+/);
             let status = localStorage.getItem("davios_king_status");
+            const ARR = status ? status.trim().split(/\s+/) : null;
             
             document.getElementById("kingStatus").innerHTML = status || "";
             
-            if (ARR.length > 5) { // do check if passing 4 days from being checked endly
+            if (ARR && ARR.length > 5) { // do check if passing 4 days from being checked endly
                 const TODAY = new Date();
                 let date = new Date(ARR[ARR.length-1]);
                 
@@ -266,9 +266,11 @@
         }
 
         function getQueenOrder() {
+
+            let nCount = rowCounter ? rowCounter : 0;
             let order = playTheDice(1); // one value only
-            let dao = ++rowCounter % 2 == 0 ? 'yao' : 'yao-1';
-            let lufi = rowCounter % 2 == 0 ? 'lufi' : 'lufi-1';
+            let dao = ++nCount % 2 == 0 ? 'yao' : 'yao-1';
+            let xaphi = nCount % 2 == 0 ? 'lufi' : 'lufi-1';
             let thoa = 'thoa';
             let ret;
 
@@ -325,13 +327,13 @@
                     ret = [["Anna Thoa Nguyen", thoa], 
                         // ["姚安娜", "yao"], 
                         ["Эрдынеева (Chu Kris ð Mouse)", dao], 
-                        ["Princess Lufi", xafi], 
+                        ["Princess Lufi", xaphi], 
                         ["", "blank"]];
                     break;
 
                 case 6:
                     ret = [["Lý Bèo", thoa],
-                        ["Incdie Xaphi", xafi], 
+                        ["Incdie Xaphi", xaphi], 
                         // ["Anna Giang", "yao"],
                         ["Naran Erdyneeva (Нарана Эрдынеева)", dao], 
                         ["", "blank"]];
@@ -341,13 +343,13 @@
                     ret = [["Xà /tho/ rắn yêu", thoa], 
                         // ["姚安娜", "yao"], 
                         ["Tiểu Long Nữ ð LDragon", dao], // LDragon < Dragon
-                        ["Cô Cô", xafi], 
+                        ["Cô Cô", xaphi], 
                         ["", "blank"]];
                     break;
 
                 case 3:
                     ret = [["tigress Kim_thoan_na", thoa], 
-                        ["Phylum los SantOS y Oreo", xafi], 
+                        ["Phylum los SantOS y Oreo", xaphi], 
                         // ["Annabel Yield /diêu/", "yao"], 
                         ["hoàng quý phi Narana", dao], 
                         ["", "blank"]];
@@ -357,14 +359,14 @@
                     ret = [["mèo béo Thoa", thoa], 
                         // ["Anna Giang", "yao"], 
                         ["Нарана Эрдынеева ð Bee", dao], 
-                        ["Liu Fi ð Todos ð Borbón", xafi],
+                        ["Liu Fi ð Todos ð Borbón", xaphi],
                         ["", "blank"]];
                     break;
 
                 case 10:
                     ret = [["thỏ Thoa", thoa], 
                         // ["Annabel Yield /diêu/", "yao"], 
-                         ["Lufi y Ortiz", xafi],
+                         ["Lufi y Ortiz", xaphi],
                         ["'Tô Đát Kỷ' the Fox", dao], 
                         ["", "blank"]];
                     break;
@@ -374,7 +376,7 @@
                     ret = [
                         ["Annabel", "yao"], 
                         ["Thoa", "thoa"], 
-                        ["[deprecated]", "xafi"],            
+                        ["[deprecated]", "xaphi"],            
                         ["", "blank"]
                     ];
                     break;
