@@ -651,17 +651,30 @@ class TimeValues {
                 break;
 
             case this.freshTimeLevels.LevelTwo:
-                passedTime = this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m * this.constants.WAN_MINUTE_IN_SECONDS + this.s;
+                passedTime = this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
+                                + this.m * this.constants.WAN_MINUTE_IN_SECONDS 
+                                + this.s;
                 ret = DateValues.Constants.ONE_DAY_IN_SECONDS - passedTime;
                 break;
 
             case this.freshTimeLevels.LevelThree:
-                passedTime = this.h*TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m*this.constants.WAN_MINUTE_IN_SECONDS + this.s*this.constants.WAN_SECOND_IN_MILLISECONDS;
+                passedTime = this.h * this.constants.WAN_HOUR_IN_MILLISECONDS
+                                + this.m * this.constants.WAN_MINUTE_IN_MILLISECONDS 
+                                + this.s * this.constants.WAN_SECOND_IN_MILLISECONDS
+                                + this.ms;
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - passedTime;
+
+                // console.log('passed hours: ' + this.h);
+                // console.log('pass minutes: ' + this.m);
+                // console.log('pass seconds: ' + this.s);
+                // console.log('passed ms: ' + this.ms);                
+                // console.log('remaining time till end of the day: ' + ret);
                 break;
 
             case this.freshTimeLevels.LevelFour:
-                passedTime = this.h*TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m*this.constants.WAN_MINUTE_IN_SECONDS + this.s*this.constants.WAN_SECOND_IN_MILLISECONDS;
+                passedTime = this.h*TimeValues.Constants.ONE_HOUR_IN_MINUTES 
+                                + this.m*this.constants.WAN_MINUTE_IN_SECONDS 
+                                + this.s*this.constants.WAN_SECOND_IN_MILLISECONDS;
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - (passedTime + 1);
                 break;
 
@@ -786,7 +799,7 @@ TimeValues.Constants = class {
     #oneMinuteInMilliseconds = 60000;
     #oneDayInMilliseconds = 86400000;
     #oneMinuteInSeconds = 60;
-
+    #oneHourInMilliseconds = 3600000; 
 
     get WAN_SECOND_IN_MILLISECONDS() {
         return this.#oneSecondInMilliseconds;
@@ -818,6 +831,10 @@ TimeValues.Constants = class {
 
     static get ONE_HOUR_IN_MINUTES() {
         return 60;
+    }
+
+    get WAN_HOUR_IN_MILLISECONDS() {
+        return this.#oneHourInMilliseconds;
     }
 }
 
