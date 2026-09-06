@@ -941,6 +941,13 @@ class DateValues {
     getCurrentYear() {
         return this.yr;
     }
+
+    getYearNumberOnly(date) {
+        if (date instanceof Date) 
+            return date.getFullYear();
+
+        return (new Date()).getFullYear();
+    }
     
     getCurrentWeekNumber() {
 
