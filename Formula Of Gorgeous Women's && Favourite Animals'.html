@@ -9,11 +9,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 10px;
             background: #f9f9f9;
             width: 50%;
             margin: auto;
-            margin-top: 20px;
+            margin-top: 17px;
         }
 
         .buttonCalculate {
@@ -256,7 +255,7 @@
 <body>
     <h1 class="center">Gorgeous Women && Favourite Animals</h1>
     <div class="beloved">
-        <div type="text" class="名前" disabled>Thoa Nguyen<span class="pink-text" class="colourAnimal-1">Thuna</span>
+        <div type="text" class="名前" disabled>Kym Thoa Nguyen<span class="pink-text" class="colourAnimal-1">Thuna</span>
         </div>
         <div type="text" id="DOB-1" class="dob" disabled>Oct 5 1987</div>
         <div type="text" id="ANI-1" class="colourAnimal">* <span class="exception">[except Elephant Clan]</span></div>
@@ -364,28 +363,27 @@
             //     exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-1').innerHTML.split(' ')[2])) +
             //     ` / <span class='sa^u'>Con Cua</span>`;
             document.getElementById('ANI-2').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2])) +
+                exchange2AnimalByLunar(convertReversedCurrentYear(document.getElementById('DOB-2').innerHTML.split(' ')[2])) +
                 ` / <span class='elephale'>Whale clan</span>` + 
                 ` / <span class='diec-phi'>Chim Diệc</span>`; /* specially 4 péo Phi */
             document.getElementById('ANI-3').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
+                exchange2AnimalByLunar(convertReversedCurrentYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
             document.getElementById('ANI-4').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
+                exchange2AnimalByLunar(convertReversedCurrentYear(document.getElementById('DOB-4').innerHTML.split(' ')[2]));
             document.getElementById('ANI-5').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
+                exchange2AnimalByLunar(convertReversedCurrentYear(document.getElementById('DOB-5').innerHTML.split(' ')[2]));
             // document.getElementById('ANI-6').innerHTML =
             //     exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-6').innerHTML.split(' ')[2]));
             document.getElementById('ANI-7').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]));
+                exchange2AnimalByLunar(convertReversedCurrentYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]));
                 // + ` / <span class='bear'>Bear</span>` +
                 // ` / <span class='lioness'>Lioness</span>` +
                 // ` / <span class='sa^u'>Worm</span>`; /* specially 4 Infanta Sapphire */;
             document.getElementById('ANI-8').innerHTML =
-                exchange2Animal(convertReversedCurrentYear(document.getElementById('DOB-8').innerHTML.split(' ')[2])) +
+                exchange2AnimalByLunar(convertReversedCurrentYear(document.getElementById('DOB-8').innerHTML.split(' ')[2])) +
                 ` / <span class='quail'>Quail</span>`;
 
            
-            exchange2Animal();
             periodicalUpdateDateTime_TimeStamp();
         }
 
