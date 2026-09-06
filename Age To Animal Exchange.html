@@ -127,7 +127,7 @@
              * 
              * */
 
-             
+
             let currentYear = (new Date()).getFullYear();
             let subtract = currentYear - CURRENT_YEAR;
             
@@ -160,15 +160,8 @@
             }
 
             const birthYear = convertReversedCurrentYear(arr[2]);
-            document.getElementById('animal').value = exchange2Animal(birthYear);
+            document.getElementById('animal').value = exchange2AnimalByLunar(birthYear);
         }
-
-        // function exchange2Animal(birthYear) {
-        //     while (birthYear < CURRENT_YEAR)
-        //         birthYear += 12;
-
-        //     getAnimal((birthYear - CURRENT_YEAR) % 12);
-        // }
     </script>
 
 </body>

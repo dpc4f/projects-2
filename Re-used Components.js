@@ -1044,7 +1044,7 @@ DateValues.Constants = class {
 }
 
 
-function exchange2Animal(birthYear) {
+function exchange2AnimalByLunar(birthYear) {
     let tmp = Math.abs(CURRENT_YEAR - birthYear) % 12;
     
     if (birthYear < CURRENT_YEAR) 
