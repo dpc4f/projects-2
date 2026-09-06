@@ -909,7 +909,7 @@ class DateValues {
     }
 
     get DayCountInMonths() {
-        if (this.isLeapYear == true) 
+        if (this.leapYear == true) 
             this.dayCountInMonths[DateValues.Hose]++;
         
         return this.dayCountInMonths;
@@ -926,7 +926,7 @@ class DateValues {
         if (bUpdateGUI && this.callback)
             this.callback(); // to render the calendar when the day's values change
 
-        this.isLeapYear = this.isLeapYear();
+        this.leapYear = this.isLeapYear();
         this.wk = this.getCurrentWeekNumber();
     }
 
