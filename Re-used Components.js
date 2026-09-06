@@ -661,13 +661,11 @@ class TimeValues {
                 passedTime = this.h * this.constants.WAN_HOUR_IN_MILLISECONDS
                                 + this.m * this.constants.WAN_MINUTE_IN_MILLISECONDS 
                                 + this.s * this.constants.WAN_SECOND_IN_MILLISECONDS
-                                + this.ms;
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - passedTime;
 
                 // console.log('passed hours: ' + this.h);
                 // console.log('pass minutes: ' + this.m);
-                // console.log('pass seconds: ' + this.s);
-                // console.log('passed ms: ' + this.ms);                
+                // console.log('pass seconds: ' + this.s);              
                 // console.log('remaining time till end of the day: ' + ret);
                 break;
 
@@ -675,7 +673,7 @@ class TimeValues {
                 passedTime = this.h*TimeValues.Constants.ONE_HOUR_IN_MINUTES 
                                 + this.m*this.constants.WAN_MINUTE_IN_SECONDS 
                                 + this.s*this.constants.WAN_SECOND_IN_MILLISECONDS;
-                ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - (passedTime + 1);
+                ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - (passedTime + 10);
                 break;
 
             default: // this.freshTimeLevels.LevelBig
