@@ -937,6 +937,11 @@ class DateValues {
             console.log('function callback is called; to render the calendar');
         }
     }
+    
+    getDurationForDateForms() {
+        // divide to have time slots equally
+        return Math.floor(this.constants.WAN_DAY_IN_HOURS * this.timeVal.constants.WAN_HOUR_IN_MILLISECONDS/ DATE_FORMAT_STRINGS.length);
+    } // <-- a red leopard function <3
 
     getCurrentMonth() {
         return this.mt;
