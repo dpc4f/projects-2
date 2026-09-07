@@ -21,7 +21,7 @@ const ANIMAL_NAMES = [
     "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
 ]; 
 
-function getMonth(month, form = FULL_FORM_DATE) {
+function getElteMonth(month, form = FULL_FORM_DATE) {
     let ret = '';
 
     switch (month) {
@@ -232,7 +232,7 @@ function convertToElte_ShortForm(aDate) {
     let month = date.getMonth();
     let day = date.getDate();
     let year = date.getFullYear();
-    let elteMonth = getMonth(month < 2 ? month + 10 : month - 2, false);
+    let elteMonth = getElteMonth(month < 2 ? month + 10 : month - 2, false);
     let elteYear;
     let elteDOB;
 
@@ -274,7 +274,7 @@ function convertToElte(aDate, bFromDavid = false) {
     
     let elteYear;
     let elteDOB;
-    let elteMonth = !bFromDavid ? getMonth(convertToElteMonth(month)) : getMonth(month);
+    let elteMonth = !bFromDavid ? getElteMonth(convertToElteMonth(month)) : getElteMonth(month);
 
     if (bFromDavid == true) 
         year -= 2;
@@ -434,7 +434,7 @@ function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = fals
     let year = TODAY.getFullYear();
     let day = TODAY.getDay();
 
-    let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2) : '';
+    let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
@@ -454,7 +454,7 @@ function getDateMidForm(bMonth = false, bDateInMonth = false, bDayInWeek = false
     let year = TODAY.getFullYear();
     let day = TODAY.getDay();
 
-    let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2, MID_FORM_DATE) : '';
+    let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, MID_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'cur_yea+' + (year - CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
@@ -474,7 +474,7 @@ function getDateShortForm(bMonth = false, bDateInMonth = false, bDayInWeek = fal
     let year = TODAY.getFullYear();
     let day = TODAY.getDay();
 
-    let elteMonth = bMonth ? getMonth(month < 2 ? month+10 : month-2, SHORT_FORM_DATE) : '';
+    let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, SHORT_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = year == CURRENT_YEAR ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - CURRENT_YEAR).toString());
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
@@ -885,8 +885,8 @@ class DateValues {
             30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
         ];
 
-        this.callback = updateGUIWebCalendar;
         this.timeTheDay();
+        this.callback = updateGUIWebCalendar;
         
 
         /*** 
@@ -902,8 +902,12 @@ class DateValues {
         this.constants = new DateValues.Constants();
 
         setTimeout(() => {
-            setInterval(() => this.timeTheDay(), this.timeVal.WAN_DAY_IN_MILLISECONDS);
-            this.timeTheDay();
+            
+            setInterval(() => {
+                this.timeTheDay(true);
+            }, this.timeVal.constants.WAN_DAY_IN_MILLISECONDS);
+            
+            this.timeTheDay(true);
         }, duration);
 
     }
@@ -915,27 +919,43 @@ class DateValues {
         return this.dayCountInMonths;
     }
 
-    timeTheDay(bUpdateGUI = true) {
+    timeTheDay(bUpdateGUI = false) {
         this.Today = new Date();
+
+        console.log("timeTheDay gets called; " + this.Today.toString());
 
         this.dy = this.Today.getDay();
         this.dt = this.Today.getDate();
         this.mt = this.Today.getMonth();
         this.yr = this.Today.getFullYear();
 
-        if (bUpdateGUI && this.callback)
-            this.callback(); // to render the calendar when the day's values change
-
         this.leapYear = this.isLeapYear();
         this.wk = this.getCurrentWeekNumber();
+
+        if (bUpdateGUI == true && this.callback) {
+            this.callback(this); // to render the calendar when the day's values change
+            console.log('function callback is called; to render the calendar');
+        }
     }
 
     getCurrentMonth() {
         return this.mt;
     }
 
+    getCurrentElteMonth() {
+        // return the Elte Month
+    }
+
     getCurrentDay() {
         return this.dy;
+    }
+
+    getCurrentDate() {
+        return this.dt;
+    }
+
+    getCurrentWeekFall() {
+        return whichDayIsToday(this.dy);
     }
 
     getCurrentYear() {
@@ -1015,6 +1035,10 @@ class DateValues {
          * */ 
 
         return ((this.yr % 4 == 0 && this.yr % 100 !== 0) || (this.yr % 400 == 0));
+    }
+
+    isToday(date = -1, month = this.mt, year = this.yr) {
+        return (date === this.dt && month === this.mt && year === this.yr);
     }
 }
 

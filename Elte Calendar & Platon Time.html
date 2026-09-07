@@ -469,12 +469,13 @@
         }
 
         function renderCalendar(dateVal) {
+            
             let year = dateVal.getCurrentYear();
             let month = dateVal.getCurrentMonth();
 
             let mt = document.getElementById("monthNames").children;
 
-            document.getElementById("monthYear").textContent = getMonth(month < 2 ? month + 10 : month - 2) 
+            document.getElementById("monthYear").textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
                                                                 + " " + convertCurrentYear(year);
             removePurple4Months();
             mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
@@ -503,7 +504,7 @@
                     } else {
                         cell.textContent = date;
 
-                        if (date === TODAY.getDate() && month === TODAY.getMonth() && year === TODAY.getFullYear())
+                        if (dateVal.isToday(date))
                             cell.classList.add("TODAY");
                         
                         date++;
@@ -586,7 +587,7 @@
 
             const infor = document.getElementById("dateWithoutTime");
             let form = FULL_FORM_DATE;
-            let duration = 10000; // here; it's one minute
+            let duration = 10000000; // temporarily increase to a big amount to test updating GUI when tomorrow comes
             let index = 1;
             
             setInterval(() => {
@@ -678,7 +679,7 @@
         let form = FULL_FORM_DATE;
         // let currentMonth = TODAY.getMonth();
         // let currentYear = TODAY.getFullYear();
-        let dateVal = new DateValues();
+        let dateVal = new DateValues(renderCalendar);
         
         renderCalendar(dateVal);   
 
