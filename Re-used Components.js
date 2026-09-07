@@ -795,7 +795,6 @@ TimeValues.Constants = class {
 
     #oneSecondInMilliseconds = 1000;
     #oneMinuteInMilliseconds = 60000;
-    #oneDayInMilliseconds = 86400000;
     #oneMinuteInSeconds = 60;
     #oneHourInMilliseconds = 3600000; 
 
@@ -821,10 +820,6 @@ TimeValues.Constants = class {
 
     static get ONE_MINUTE_IN_MILLISECONDS() {
         return 60000;
-    }
-
-    get WAN_DAY_IN_MILLISECONDS() {
-        return this.#oneDayInMilliseconds;
     }
 
     static get ONE_HOUR_IN_MINUTES() {
@@ -905,7 +900,7 @@ class DateValues {
             
             setInterval(() => {
                 this.timeTheDay(true);
-            }, this.timeVal.constants.WAN_DAY_IN_MILLISECONDS);
+            }, this.constants.WAN_DAY_IN_MILLISECONDS);
             
             this.timeTheDay(true);
         }, duration);
@@ -1050,6 +1045,7 @@ class DateValues {
 
 DateValues.Constants = class {
     #oneDayInHours = 24;
+    #oneDayInMilliseconds = 86400000;
 
     get WAN_DAY_IN_HOURS() {
         return this.#oneDayInHours;
@@ -1069,6 +1065,10 @@ DateValues.Constants = class {
 
     static get ONE_DAY_IN_MILLISECONDS() {
         return 86400000;
+    }
+
+    get WAN_DAY_IN_MILLISECONDS() {
+        return this.#oneDayInMilliseconds;
     }
 }
 
