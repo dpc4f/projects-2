@@ -119,17 +119,17 @@
 
 
         // { dragon; Dragon }, 'Lý Dần' ð Snake */ /* Reindeer <> Goat
+        let dateVal = new DateValues();
 
         function convertCurrentYear() {
 
             /***
              * [; nr] update this function using DateValues
              * 
-             * */
+             * */ // --> done
 
-
-            let currentYear = (new Date()).getFullYear();
-            let subtract = currentYear - CURRENT_YEAR;
+            let currentYear = dateVal.getCurrentYear();
+            let subtract = currentYear - DateValues.Constants.CURRENT_YEAR;
             
             return 'current_year+' + subtract.toString();
         }
@@ -152,7 +152,7 @@
 
             const elteDOB = document.getElementById('birthYear-2').value;
             const arr = elteDOB.trim().split(/\s+/);
-            const m = getMonth(arr[0]);
+            const m = getElteMonth(arr[0]);
 
             if (m === -1 || arr.length < 3) {
                 alert('Please use the format "M1 27 current_year+6"');

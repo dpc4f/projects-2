@@ -1070,6 +1070,10 @@ DateValues.Constants = class {
     get WAN_DAY_IN_MILLISECONDS() {
         return this.#oneDayInMilliseconds;
     }
+
+    static get CURRENT_YEAR() {
+        return 2020;
+    }
 }
 
 
