@@ -441,7 +441,8 @@
          * */ // --> done
 
         let tVal = null;
-        function updateTimes() {
+
+        function initiatePlatonTime() {
             tVal = new TimeValues();
             tVal.updateTimeWithIntervalOneSecond(updatePlatonTime);
         }
@@ -451,9 +452,10 @@
                 tVal.timeTheCurrent();
         }
 
+        // refresh every second
         function updatePlatonTime(timeVal) {
             // oxakaSeoulTime = 
-            document.getElementById('oxaka-seoul').textContent = `${timeVal.formatTime(2, true)}`;
+            document.getElementById('oxaka-seoul').textContent = `${timeVal.formatTime(2, true)}`; // +2
             
             // let beijingTime = 
             document.getElementById('beijing').textContent = `${timeVal.formatTime(1, true)}`; // +1
@@ -468,10 +470,8 @@
             document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
         }
 
-        // refresh every second
-        // setInterval(updateTimes, 1000);
         // initial render
-        updateTimes();
+        initiatePlatonTime();
 
         function removePurple4Months() {
             let mt = document.getElementById("monthNames").children;
@@ -482,11 +482,9 @@
             } 
         }
 
-        function renderCalendar(dateVal) {
-            
+        function renderCalendar(dateVal) {        
             let year = dateVal.getCurrentYear();
             let month = dateVal.getCurrentMonth();
-
             let mt = document.getElementById("monthNames").children;
 
             document.getElementById("monthYear").textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
@@ -536,7 +534,7 @@
 
         
         /*** [; nr] fix a bug related to setTimeout; setInterval when changing months */
-        /*** [; nr] fix a bug in rendering leap year */
+        /*** [; nr] fix a bug in rendering leap year */ // <-- done
         function changeMonth(dateVal, step = 1) {
             dateVal.mt += step;
 
@@ -597,7 +595,7 @@
              * y 22 +6 S A
              * Yune 22 current_year+6 Sat iTa
              * 
-             * */
+             * */ // <-- done
 
             const infor = document.getElementById("dateWithoutTime");
             let form = FULL_FORM_DATE;
@@ -617,16 +615,9 @@
             }, duration);
 
             infor.innerText = getDateValuesTimeStamp(FULL_FORM_DATE, 0); // first time
-            
-            // bShortForm = !bShortForm;
-
-            // setInterval(() => {
-            //     infor.innerText = convertToElteWithDayName(bShortForm);
-            //     bShortForm = !bShortForm; 
-            // }, 10000);
         }
 
-        function formatElteDateString() {
+        function formatElteDateString() { // leave this method here 'cause of a historic reason
 
             /***
              * full form = 0
@@ -689,13 +680,7 @@
 
         }
 
-
-        let bTimeCombined = false;
-        let form = FULL_FORM_DATE;
-        // let currentMonth = TODAY.getMonth();
-        // let currentYear = TODAY.getFullYear();
         let dateVal = new DateValues(renderCalendar);
-        
         renderCalendar(dateVal);   
 
         window.addEventListener('blur', updateTimeToCurrentMoment);
