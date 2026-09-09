@@ -391,6 +391,7 @@
             </div>
             <div id="dateWithoutTime" class="date-wo-time"></div>
             <b>lịch Voi giờ Rết</b>
+            <span class="invisible">chân ngắn cần cố gắng</span>
         </div>
         
         <div class="right-panel">
@@ -684,8 +685,9 @@
         renderCalendar(dateVal);   
 
         window.addEventListener('blur', updateTimeToCurrentMoment);
-        // window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
+        window.addEventListener('focus', updateTimeToCurrentMoment);
     </script>
 
 </body>
 </html>
+
