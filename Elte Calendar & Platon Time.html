@@ -339,6 +339,12 @@
             display: flex;
             width: auto;
         }
+
+        #dateTextbox {
+            width: 270px;
+            height: auto;
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -384,10 +390,11 @@
                         <div class="note right-note-2">Xử Nữ. Song Tử. Bọ Cạp. Aquarius.</div>
                     </div>
                 </div>
-                <div class="nav">
+                <div class="nav invisible">
                     <button onclick="changeMonth(-1)">Prev Month</button>
                     <button onclick="changeMonth(1)">Next Month</button>
                 </div>
+                <input type="text" id="dateTextbox" placeholder="SEPT 10 current_year+6">
             </div>
             <div id="dateWithoutTime" class="date-wo-time"></div>
             <b>lịch Voi giờ Rết</b>
