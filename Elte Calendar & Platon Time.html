@@ -394,7 +394,7 @@
                     <button onclick="changeMonth(-1)">Prev Month</button>
                     <button onclick="changeMonth(1)">Next Month</button>
                 </div>
-                <input type="text" id="dateTextbox" placeholder="SEPT 10 current_year+6">
+                <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33">
             </div>
             <div id="dateWithoutTime" class="date-wo-time"></div>
             <b>lịch Voi giờ Rết</b>
@@ -450,10 +450,13 @@
 
         let tVal = null;
 
-        function initiatePlatonTime() {
+        function initializePlatonTime() {
             tVal = new TimeValues();
             tVal.updateTimeWithIntervalOneSecond(updatePlatonTime);
         }
+
+        // initial render
+        initializePlatonTime();
 
         function updateTimeToCurrentMoment() {
             if (tVal)
@@ -477,9 +480,26 @@
             // let dimitryTime = 
             document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
         }
+        
 
-        // initial render
-        initiatePlatonTime();
+
+        let dateVal = null;
+        dateVal = new DateValues(renderCalendar);
+
+        function initializeHereDate() {
+            const COMMONLY_USED = 2;
+            let hereDateCommonlyUsedForm = getDateValuesTimeStamp(FULL_FORM_DATE, COMMONLY_USED); // first time
+            // console.log(hereDateCommonlyUsedForm); // 4 debugging purpose
+            
+            let ele = document.getElementById("dateTextbox");
+            ele.value = hereDateCommonlyUsedForm.trim();
+
+            /***
+             * [; nr] fix a minor bug related to function getDateValuesTimeStamp() <-- need to trim
+             * 
+             * 
+             * */
+        }
 
         function removePurple4Months() {
             let mt = document.getElementById("monthNames").children;
@@ -497,6 +517,8 @@
 
             document.getElementById("monthYear").textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
                                                                 + " " + convertCurrentYear(year);
+
+            initializeHereDate();
             removePurple4Months();
             mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
             
@@ -688,11 +710,11 @@
 
         }
 
-        let dateVal = new DateValues(renderCalendar);
         renderCalendar(dateVal);   
 
         window.addEventListener('blur', updateTimeToCurrentMoment);
         window.addEventListener('focus', updateTimeToCurrentMoment);
+    
     </script>
 
 </body>
