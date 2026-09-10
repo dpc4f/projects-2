@@ -349,6 +349,10 @@
             text-align: right;
             margin-top: -20px;
         }
+
+        .currentMoment {
+            color: rgb(10, 134, 134);
+        }
     </style>
 </head>
 
@@ -519,10 +523,15 @@
             let year = dateVal.getCurrentYear();
             let month = dateVal.getCurrentMonth();
             let mt = document.getElementById("monthNames").children;
+            let monthYearEle = document.getElementById("monthYear");
+            let spanEle = document.createElement('span');
+            let temp = convertCurrentYear(year).split('+');
 
-            document.getElementById("monthYear").textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
-                                                                + " " + convertCurrentYear(year);
-
+            spanEle.classList.add('currentMoment');
+            spanEle.textContent = temp[1];
+            monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
+                                                                + " " + temp[0] + "+";
+            monthYearEle.appendChild(spanEle);
             initializeHereDate();
             removePurple4Months();
             mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
