@@ -10,7 +10,6 @@ const DATE_FULL_FORM = 0;
 const DATE_MID_FORM = 1;
 const DATE_SHORT_FORM = 2;
 
-const CURRENT_YEAR = 2020;
 const DAYS_IN_A_YEAR = 365.25;
 const TODAY = new Date();
 
@@ -238,10 +237,10 @@ function convertToElte_ShortForm(aDate) {
 
     if (month < 2) // month is Jan OR Feb
         year--;
-    if (year > CURRENT_YEAR)
-        elteYear = '+' + (year - CURRENT_YEAR).toString();
-    else if (year < CURRENT_YEAR)
-        elteYear = '-' + (CURRENT_YEAR - year).toString();
+    if (year > DateValues.Constants.CURRENT_YEAR)
+        elteYear = '+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
+    else if (year < DateValues.Constants.CURRENT_YEAR)
+        elteYear = '-' + (DateValues.Constants.CURRENT_YEAR - year).toString();
     else
         elteYear = 'O';
     
@@ -281,10 +280,10 @@ function convertToElte(aDate, bFromDavid = false) {
     else if (month < 2) // month is Jan OR Feb
         year--;
     
-    if (year > CURRENT_YEAR)
-        elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
-    else if (year < CURRENT_YEAR)
-        elteYear = 'current_year-' + (CURRENT_YEAR - year).toString();
+    if (year > DateValues.Constants.CURRENT_YEAR)
+        elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
+    else if (year < DateValues.Constants.CURRENT_YEAR)
+        elteYear = 'current_year-' + (DateValues.Constants.CURRENT_YEAR - year).toString();
     else
         elteYear = 'current_year';
     
@@ -436,7 +435,7 @@ function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = fals
 
     let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
-    let elteYear = 'current_year+' + (year - CURRENT_YEAR).toString();
+    let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
     let dateVal = new DateValues();
@@ -456,7 +455,7 @@ function getDateMidForm(bMonth = false, bDateInMonth = false, bDayInWeek = false
 
     let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, MID_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
-    let elteYear = 'cur_yea+' + (year - CURRENT_YEAR).toString();
+    let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(MID_FORM_SHIFT) : '';
     let dateVal = new DateValues();
@@ -476,7 +475,8 @@ function getDateShortForm(bMonth = false, bDateInMonth = false, bDayInWeek = fal
 
     let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, SHORT_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
-    let elteYear = year == CURRENT_YEAR ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - CURRENT_YEAR).toString());
+    let elteYear = year == DateValues.Constants.CURRENT_YEAR ? 'O' 
+                                : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(SHORT_FORM_SHIFT) : '';
     let dateVal = new DateValues();
@@ -503,7 +503,7 @@ function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWee
 }
 
 function convertCurrentYear(year) {
-    let subtract = year - CURRENT_YEAR;
+    let subtract = year - DateValues.Constants.CURRENT_YEAR;
 
     return 'current_year+' + subtract.toString();
 }
@@ -511,7 +511,7 @@ function convertCurrentYear(year) {
 function convertReversedCurrentYear(yearStr, addOneYear = false) {
     const match = yearStr.match(/^current_year([+-]\d+)$/);
     
-    return CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
+    return DateValues.Constants.CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
 }
 
 function toTuesdayFirst(day) {
@@ -870,9 +870,14 @@ TimeValues.FreshTimeLevels = class {
  *
  */
 class DateValues {
+    
+    /** Here Date Values */
+    
+    /* Set Date Values */
+
     static Hose = 11;
 
-    constructor(updateGUIWebCalendar = null) {
+    constructor(yr = -1, mt = -1, dt = -1, weekOfTheYear = -1, updateGUIWebCalendar = null) {
 
         this.dayCountInMonths = [
             31, 30, // Athen Duo
@@ -880,7 +885,42 @@ class DateValues {
             30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
         ];
 
-        this.timeTheDay();
+        if (yr == -1)
+            this.timeTheDay(); // get Here Date Values
+        else {
+            /* use Set Date Values */
+
+            this.syr = yr; // yr > -1
+
+            if (mt > -1) 
+                this.smt = mt;
+            else
+                this.smt = 0;
+            
+            if (dt > -1) 
+                this.sdt = dt;
+            else
+                this.sdt = 1;
+            
+
+            
+            
+            
+            if (weekOfTheYear > -1) {
+                this.swk = weekOfTheYear;
+
+                /**
+                 * [; nr] from this.swk calculate current month of the year
+                 * 
+                 * 
+                 */
+            }
+            else if (this.sdt > -1 && this.smt > -1) {
+                // this.swk = this.getCurrentWeekNumber(); // <-- modify OR code a new function
+            }
+        }
+     
+        
         this.callback = updateGUIWebCalendar;
         
 
@@ -1046,6 +1086,7 @@ class DateValues {
 DateValues.Constants = class {
     #oneDayInHours = 24;
     #oneDayInMilliseconds = 86400000;
+    static #Thời_Khắc_Hiện_Tại_Là_Năm_2020 = 2020; /** CURRENT_YEAR */
 
     get WAN_DAY_IN_HOURS() {
         return this.#oneDayInHours;
@@ -1071,16 +1112,19 @@ DateValues.Constants = class {
         return this.#oneDayInMilliseconds;
     }
 
+    // static get CURRENT_YEAR() {
+    //     return 2020;
+    // }
+
     static get CURRENT_YEAR() {
-        return 2020;
+        return DateValues.Constants.#Thời_Khắc_Hiện_Tại_Là_Năm_2020;
     }
 }
 
-
 function exchange2AnimalByLunar(birthYear) {
-    let tmp = Math.abs(CURRENT_YEAR - birthYear) % 12;
+    let tmp = Math.abs(DateValues.Constants.CURRENT_YEAR - birthYear) % 12;
     
-    if (birthYear < CURRENT_YEAR)
+    if (birthYear < DateValues.Constants.CURRENT_YEAR)
         return ANIMAL_NAMES[12 - tmp];
     else
         return ANIMAL_NAMES[tmp];
