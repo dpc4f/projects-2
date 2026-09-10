@@ -877,7 +877,7 @@ class DateValues {
 
     static Hose = 11;
 
-    constructor(yr = -1, mt = -1, dt = -1, weekOfTheYear = -1, updateGUIWebCalendar = null) {
+    constructor(yr = -1, mt = -1, dt = -1, weekOfTheYear = -1) {
 
         this.dayCountInMonths = [
             31, 30, // Athen Duo
@@ -900,12 +900,8 @@ class DateValues {
             if (dt > -1) 
                 this.sdt = dt;
             else
-                this.sdt = 1;
-            
-
-            
-            
-            
+                this.sdt = 1; 
+                   
             if (weekOfTheYear > -1) {
                 this.swk = weekOfTheYear;
 
@@ -920,8 +916,7 @@ class DateValues {
             }
         }
      
-        
-        this.callback = updateGUIWebCalendar;
+ 
         
 
         /*** 
@@ -954,6 +949,10 @@ class DateValues {
         return this.dayCountInMonths;
     }
 
+    set CallBackUpdateGUI(f) {
+        this.updateGUIWebCalendar = f;
+    }
+
     timeTheDay(bUpdateGUI = false) {
         this.Today = new Date();
 
@@ -967,8 +966,8 @@ class DateValues {
         this.leapYear = this.isLeapYear();
         this.wk = this.getCurrentWeekNumber();
 
-        if (bUpdateGUI == true && this.callback) {
-            this.callback(this); // to render the calendar when the day's values change
+        if (bUpdateGUI == true && this.updateGUIWebCalendar) {
+            this.updateGUIWebCalendar(this); // to render the calendar when the day's values change
             console.log('function callback is called; to render the calendar');
         }
     }

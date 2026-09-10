@@ -493,7 +493,8 @@
 
 
         let dateVal = null;
-        dateVal = new DateValues(renderCalendar);
+        dateVal = new DateValues();
+        dateVal.CallBackUpdateGUI = renderCalendar;
 
         function initializeHereDate() {
             const COMMONLY_USED = 2;
