@@ -31,13 +31,16 @@
         }
 
         button {
-            padding: 6px 10px;
-            font-size: 36px;
+            font-size: 12px;
             border: none;
-            border-radius: 6px;
-            background: darkgoldenrod;
-            color: lightblue;
+            background: honeydew;
+            color: blue;
             cursor: pointer;
+            height: auto;
+            width: 20px;
+            display: inline;
+            margin-top: -20px;
+            position: absolute;
         }
 
         button:active {
@@ -344,6 +347,7 @@
             width: 270px;
             height: auto;
             text-align: right;
+            margin-top: -20px;
         }
     </style>
 </head>
@@ -395,6 +399,7 @@
                     <button onclick="changeMonth(1)">Next Month</button>
                 </div>
                 <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33">
+                <button onclick="changeDate()">T e f o</button>
             </div>
             <div id="dateWithoutTime" class="date-wo-time"></div>
             <b>lịch Voi giờ Rết</b>
@@ -577,6 +582,10 @@
             }
 
             renderCalendar(dateVal);
+        }
+
+        function changeDate() {
+            alert('to be implemented ...');
         }
 
         function renderDateTimeVarieties(dateVal) {
