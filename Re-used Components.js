@@ -997,7 +997,13 @@ class DateValues {
     }
 
     getCurrentElteMonth() {
-        // return the Elte Month
+        
+        /*** 
+         * [; nr] return the Elte Month
+         * 
+         * 
+         * */
+
     }
 
     getCurrentDay() {
