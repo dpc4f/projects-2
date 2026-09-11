@@ -881,7 +881,7 @@ class DateValues {
     
     /** Here Date Values */
     
-    /* Set Date Values */
+    /** Set Date Values */
 
     static Hose = 11;
 
@@ -1125,6 +1125,8 @@ class DateValues {
         return (date === this.dt && month === this.mt && year === this.yr);
     }
 }
+
+Object.freeze(DateValues.Hose);
 
 
 DateValues.Constants = class {
