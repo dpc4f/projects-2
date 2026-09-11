@@ -526,14 +526,14 @@
             let mt = document.getElementById("monthNames").children;
             let monthYearEle = document.getElementById("monthYear");
             let spanEle = document.createElement('span');
-            let temp = convertCurrentYear(year).split('+');
+            let temp = convertCurrentYear(year).slice(12);
 
             if (bHereDate == true)
             {
                 spanEle.classList.add('currentMoment');
-                spanEle.textContent = temp[1];
+                spanEle.textContent = temp;
                 monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
-                                                                + " " + temp[0] + "+";
+                                                                + " current_year";
                 monthYearEle.appendChild(spanEle);
             } else {
                 monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
