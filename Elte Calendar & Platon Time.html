@@ -403,8 +403,8 @@
                     <button onclick="changeMonth(-1)">Prev Month</button>
                     <button onclick="changeMonth(1)">Next Month</button>
                 </div>
-                <button onclick="changeDate(true)">C u d a</button>
-                <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33">
+                <button onclick="changeDate('true')">C u d a</button>
+                <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33" value="">
                 <button onclick="changeDate()">T e f o</button>
             </div>
             <div id="dateWithoutTime" class="date-wo-time"></div>
@@ -491,20 +491,18 @@
             // let dimitryTime = 
             document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
         }
-        
-
 
         let dateVal = null;
         dateVal = new DateValues();
         dateVal.CallBackUpdateGUI = renderCalendar;
 
-        function initializeHereDate() {
+        function initializeToHereDate() {
             const COMMONLY_USED = 2;
             let hereDateCommonlyUsedForm = getDateValuesTimeStamp(FULL_FORM_DATE, COMMONLY_USED); // first time
             // console.log(hereDateCommonlyUsedForm); // 4 debugging purpose
             
             let ele = document.getElementById("dateTextbox");
-            ele.value = hereDateCommonlyUsedForm.trim();
+            ele.placeholder = hereDateCommonlyUsedForm.trim();
 
             /***
              * [; nr] fix a minor bug related to function getDateValuesTimeStamp() <-- need to trim
@@ -522,7 +520,7 @@
             } 
         }
 
-        function renderCalendar(dateVal) {        
+        function renderCalendar(dateVal, bHereDate = true) {        
             let year = dateVal.getCurrentYear();
             let month = dateVal.getCurrentMonth();
             let mt = document.getElementById("monthNames").children;
@@ -530,12 +528,19 @@
             let spanEle = document.createElement('span');
             let temp = convertCurrentYear(year).split('+');
 
-            spanEle.classList.add('currentMoment');
-            spanEle.textContent = temp[1];
-            monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
+            if (bHereDate == true)
+            {
+                spanEle.classList.add('currentMoment');
+                spanEle.textContent = temp[1];
+                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
                                                                 + " " + temp[0] + "+";
-            monthYearEle.appendChild(spanEle);
-            initializeHereDate();
+                monthYearEle.appendChild(spanEle);
+            } else {
+                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
+                                                                + " " + convertCurrentYear(year);
+            }
+
+            initializeToHereDate();
             removePurple4Months();
             // mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
             mt[6].style.color = 'purple';
@@ -599,10 +604,19 @@
 
         function changeDate(bHereDate = false) {
             
-            if (bHereDate == true)
+            if (bHereDate == true || bHereDate == 'true')
                 updateTimeToCurrentMoment();
             else {
-                alert('to be implemented ...');
+                const elteDateStr = document.getElementById('dateTextbox').value;
+                const arr = elteDateStr.trim().split(/\s+/);
+
+                let setYear = convertReversedCurrentYear(arr[2]);
+                let setMonth = convertReversedCurrentMonth(arr[0]);
+                let setSoleDate = Number(arr[1]);
+
+                let dateVal = new DateValues(setYear, setMonth, setSoleDate);
+                dateVal.CallBackUpdateGUI = renderCalendar;
+                renderCalendar(dateVal, false);
             }
 
         }
