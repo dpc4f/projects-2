@@ -403,7 +403,7 @@
                     <button onclick="changeMonth(-1)">Prev Month</button>
                     <button onclick="changeMonth(1)">Next Month</button>
                 </div>
-                <button onclick="changeDate(true)">C u y e</button>
+                <button onclick="changeDate(true)">C u d a</button>
                 <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33">
                 <button onclick="changeDate()">T e f o</button>
             </div>
@@ -598,7 +598,13 @@
         }
 
         function changeDate(bHereDate = false) {
-            alert('to be implemented ...');
+            
+            if (bHereDate == true)
+                updateTimeToCurrentMoment();
+            else {
+                alert('to be implemented ...');
+            }
+
         }
 
         function renderDateTimeVarieties(dateVal) {
