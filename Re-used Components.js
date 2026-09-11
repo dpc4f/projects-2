@@ -504,9 +504,10 @@ function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWee
 
 function convertToElteYear(year) {
     const d = year - DateValues.Constants.CURRENT_YEAR;
+    const c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
     const str = d>0 ? '+'+d.toString() : d.toString();
 
-    return (d==0 ? 'current_year' : 'current_year'+str);
+    return (d==0 ? c_y_str : c_y_str+str);
 }
 
 function revertElteYear(yearStr, addOneYear = false) {
@@ -1155,6 +1156,10 @@ DateValues.Constants = class {
 
     static get CURRENT_YEAR() {
         return DateValues.Constants.#Thời_Khắc_Hiện_Tại_Là_Năm_2020;
+    }
+
+    static get CURRENT_YEAR_STRING() {
+        return 'current_year';
     }
 }
 
