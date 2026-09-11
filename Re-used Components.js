@@ -504,7 +504,7 @@ function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWee
 
 function convertCurrentYear(year) {
     const d = year - DateValues.Constants.CURRENT_YEAR;
-    const str = d.toString();
+    const str = d>0 ? '+'+d.toString() : d.toString();
 
     return (d==0 ? 'current_year' : 'current_year'+str);
 }
