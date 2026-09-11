@@ -612,6 +612,13 @@ class TimeConstants {
 class TimeValues {
 
     constructor() {
+
+        /***
+         * [; nr] re-write this ctor using APIs to query time sever(s) to have precise values
+         * 
+         * 
+         */
+
         this.Today = new Date();
         
         this.h = this.Today.getHours();
@@ -668,7 +675,7 @@ class TimeValues {
             case this.freshTimeLevels.LevelThree:
                 passedTime = this.h * this.constants.WAN_HOUR_IN_MILLISECONDS
                                 + this.m * this.constants.WAN_MINUTE_IN_MILLISECONDS 
-                                + this.s * this.constants.WAN_SECOND_IN_MILLISECONDS
+                                + this.s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - passedTime;
 
                 // console.log('passed hours: ' + this.h);
@@ -680,7 +687,7 @@ class TimeValues {
             case this.freshTimeLevels.LevelFour:
                 passedTime = this.h*TimeValues.Constants.ONE_HOUR_IN_MINUTES 
                                 + this.m*this.constants.WAN_MINUTE_IN_SECONDS 
-                                + this.s*this.constants.WAN_SECOND_IN_MILLISECONDS;
+                                + this.s*TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - (passedTime + 10);
                 break;
 
@@ -778,7 +785,7 @@ class TimeValues {
 
         // elapsed time to be used in setTimeout
         const OneMinute = this.constants.WAN_MINUTE_IN_MILLISECONDS;
-        const OneThousand = this.constants.WAN_SECOND_IN_MILLISECONDS;
+        const OneThousand = TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
         const RemainingOfAMinuteInMilliseconds = OneMinute - (PassingSeconds * OneThousand + PassingMilliseconds); 
         
         console.log(RemainingOfAMinuteInMilliseconds);
@@ -801,12 +808,12 @@ TimeValues.Constants = class {
     // static WAN_MINUTE_IN_SECONDS = 60;
     // static WAN_MINUTE_IN_MILLISECONDS = 60000;
 
-    #oneSecondInMilliseconds = 1000;
+    static #oneSecondInMilliseconds = 1000;
     #oneMinuteInMilliseconds = 60000;
     #oneMinuteInSeconds = 60;
     #oneHourInMilliseconds = 3600000; 
 
-    get WAN_SECOND_IN_MILLISECONDS() {
+    static get WAN_SECOND_IN_MILLISECONDS() {
         return this.#oneSecondInMilliseconds;
     }
 
@@ -839,7 +846,8 @@ TimeValues.Constants = class {
     }
 }
 
-// Object.freeze(TimeValues.Constants);
+// make class' properties constants
+Object.freeze(TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS);
 
 TimeValues.FreshTimeLevels = class {
 
@@ -1126,6 +1134,7 @@ class DateValues {
     }
 }
 
+// make class' properties constants
 Object.freeze(DateValues.Hose);
 
 
