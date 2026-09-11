@@ -502,20 +502,20 @@ function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWee
     return dateStr + ' ' + hourStr;
 }
 
-function convertCurrentYear(year) {
+function convertToElteYear(year) {
     const d = year - DateValues.Constants.CURRENT_YEAR;
     const str = d>0 ? '+'+d.toString() : d.toString();
 
     return (d==0 ? 'current_year' : 'current_year'+str);
 }
 
-function convertReversedCurrentYear(yearStr, addOneYear = false) {
+function revertElteYear(yearStr, addOneYear = false) {
     const match = yearStr.match(/^current_year([+-]\d+)$/);
     
     return DateValues.Constants.CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
 }
 
-function convertReversedCurrentMonth(monthStr) {
+function revertElteMonth(monthStr) {
     const idx = getIndexFromElteMonth(monthStr);
 
     return (idx + 2) % 12;

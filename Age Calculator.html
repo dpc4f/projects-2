@@ -226,7 +226,7 @@
             }
 
             const birthMonthName = MONTH_NAMES[m];     
-            const birthYear = convertReversedCurrentYear(arr[2], m < 2);
+            const birthYear = revertElteYear(arr[2], m < 2);
             const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
             const TODAY = new Date();

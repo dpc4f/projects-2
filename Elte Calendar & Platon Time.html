@@ -525,7 +525,7 @@
             let mt = document.getElementById("monthNames").children;
             let monthYearEle = document.getElementById("monthYear");
             let spanEle = document.createElement('span');
-            let temp = convertCurrentYear(year).slice(12);
+            let temp = convertToElteYear(year).slice(12);
 
             if (bHereDate == true)
             {
@@ -536,7 +536,7 @@
                 monthYearEle.appendChild(spanEle);
             } else {
                 monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
-                                                                + " " + convertCurrentYear(year);
+                                                                + " " + convertToElteYear(year);
             }
 
             initializeToHereDate();
@@ -609,8 +609,8 @@
                 const elteDateStr = document.getElementById('dateTextbox').value;
                 const arr = elteDateStr.trim().split(/\s+/);
 
-                let setYear = convertReversedCurrentYear(arr[2]);
-                let setMonth = convertReversedCurrentMonth(arr[0]);
+                let setYear = revertElteYear(arr[2]);
+                let setMonth = revertElteMonth(arr[0]);
                 let setSoleDate = Number(arr[1]);
 
                 let dateVal = new DateValues(setYear, setMonth, setSoleDate);

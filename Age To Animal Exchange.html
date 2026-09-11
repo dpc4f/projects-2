@@ -121,18 +121,18 @@
         // { dragon; Dragon }, 'Lý Dần' ð Snake */ /* Reindeer <> Goat
         let dateVal = new DateValues();
 
-        function convertCurrentYear() {
+        // function convertCurrentYear() {
 
-            /***
-             * [; nr] update this function using DateValues
-             * 
-             * */ // --> done
+        //     /***
+        //      * [; nr] update this function using DateValues
+        //      * 
+        //      * */ // --> done
 
-            let currentYear = dateVal.getCurrentYear();
-            let subtract = currentYear - DateValues.Constants.CURRENT_YEAR;
+        //     let currentYear = dateVal.getCurrentYear();
+        //     let subtract = currentYear - DateValues.Constants.CURRENT_YEAR;
             
-            return 'current_year+' + subtract.toString();
-        }
+        //     return 'current_year+' + subtract.toString();
+        // }
 
         window.onload = function() {
             document.getElementById('birthYear-2').value = convertToElte(new Date());
@@ -159,7 +159,7 @@
                 return;
             }
 
-            const birthYear = convertReversedCurrentYear(arr[2]);
+            const birthYear = revertElteYear(arr[2]);
             document.getElementById('animal').value = exchange2AnimalByLunar(birthYear);
         }
     </script>
