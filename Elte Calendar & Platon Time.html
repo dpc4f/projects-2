@@ -403,7 +403,7 @@
                     <button onclick="changeMonth(-1)">Prev Month</button>
                     <button onclick="changeMonth(1)">Next Month</button>
                 </div>
-                <button onclick="changeDate('true')">C u d a</button>
+                <button onclick="changeDate(true)">C u d a</button>
                 <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33" value="">
                 <button onclick="changeDate()">T e f o</button>
             </div>
@@ -472,6 +472,12 @@
         function updateTimeToCurrentMoment() {
             if (tVal)
                 tVal.timeTheCurrent();
+        }
+
+        function updateToHereDate() {
+            dateVal = new DateValues();
+            dateVal.CallBackUpdateGUI = renderCalendar;
+            renderCalendar(dateVal);
         }
 
         // refresh every second
@@ -605,7 +611,7 @@
         function changeDate(bHereDate = false) {
             
             if (bHereDate == true || bHereDate == 'true')
-                updateTimeToCurrentMoment();
+                updateToHereDate();
             else {
                 const elteDateStr = document.getElementById('dateTextbox').value;
                 const arr = elteDateStr.trim().split(/\s+/);
