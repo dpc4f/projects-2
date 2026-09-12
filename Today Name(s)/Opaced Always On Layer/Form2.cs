@@ -58,7 +58,7 @@ namespace Opaced_Always_On_Layer
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            this.textBox1.Text = "Krisdash Nai Chúa bậc Đế NGưu Đấng Y vương hiệu Nam Hải Long Vương mộc Rồng Xanh";
+            this.textBox1.Text = "Krisdas Nai Chúa bậc Đế NGưu Đấng Y vương hiệu Nam Hải Long Vương mộc Rồng Xanh";
             colour = LIGHT_YELLOW;
             notifyIcon1.Visible = true;
             this.Left = 1510 - 40;
