@@ -71,6 +71,7 @@
         <div id="regex-3"></div>
         <div id="regex-6">
             <div id="regex-61"></div>
+            <div id="regex-6-1"></div>
             <div id="regex-6-2"></div>
         </div>
     </div>
@@ -182,6 +183,7 @@
         <h2>today name is, FAs</h2><br />
         <div id="name" disabled class="capitalize-last invisible"></div>
         <h5 class="note">Names need to have meaning(s).</h5>
+        <h6 id="totalNumber" class="note">Total names, </h6>
         <h5 class="hidden">[a fact][alphabet] chữ i của Æ khi uppercase lên đâu mất tiêu cái dấu nhìn giống y chang chữ l hahah ...</h5>
         <h6>will be used to learn Regular Expression in JavaScript</h6>
     </div>
@@ -214,6 +216,10 @@
             // div.innerHTML = "Diac Formica as known as, H<sub>2</sub>CO<sub>2</sub>";
             div.innerHTML= val;
             document.getElementById('name').append(div);
+
+            let total = document.getElementById("totalNumber");
+            // total += THE_NAMES.length;
+            console.log("total names of Davis, " + THE_NAMES.length.toString());
         }
 
         const THE_NAMES = [
