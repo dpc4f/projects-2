@@ -101,8 +101,8 @@
 
         .ghost {
             opacity: 0;
-            filter: blur(14px);
-            transform: translateY(60px) scale(.4) rotate(30deg);
+            filter: blur(17px);
+            transform: translateY(60px) scale(.3) rotate(30deg);
         }
 
         .anchor {
@@ -241,13 +241,13 @@
         <!-- Replace ONLY the two morph functions below -->
 
         function morphSofiaToAnnabel() {
-            const current = sofiaContainer.querySelectorAll(".char");
+            const current = sofiaContainer.querySelectorAll(".char"); // ["L", "y", " ", "T", "u"];
 
             /***
              *    anchor:
-             *   'L' in Ly Tu
+             *   'L' in Ly Tu; index zero
              *   morphs into
-             *   'l' in Annabel
+             *   'l' in Annabel; last character
              */
 
             const anchor = current[0];
@@ -255,11 +255,9 @@
             anchor.style.transform = "translateY(-10px) scale(1.25) rotate(-8deg)";
             anchor.style.letterSpacing = "3px";
             anchor.style.color = "#fff6bf";
+            anchor.textContent = "L";
+            anchor.style.transform = "translateY(0px) scale(1.05) rotate(0deg)";
 
-            setTimeout(() => {
-                anchor.textContent = "L";
-                anchor.style.transform = "translateY(0px) scale(1.05) rotate(0deg)";
-            }, 850);
 
             current.forEach((char, index) => {
                 if (index !== 0)
@@ -291,7 +289,7 @@
                 setTimeout(() => {
                     morphYaoToInfanta();
                 }, 3300);
-            }, 1250);
+            }, 250);
         }
 
         function morphYaoToInfanta() {
@@ -367,7 +365,7 @@
             setTimeout(() => {
                 morphSofiaToAnnabel();
             }, 1250);
-        }, 12550);
+        }, 14580);
     </script>
 
 </body>
