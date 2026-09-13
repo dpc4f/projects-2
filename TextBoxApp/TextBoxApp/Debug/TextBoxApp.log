@@ -1,0 +1,5 @@
+﻿  MyForm.cpp
+d:\projects-2\textboxapp\textboxapp\myform.cpp(14): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+  .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
+  MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  TextBoxApp.vcxproj -> D:\projects-2\TextBoxApp\Debug\TextBoxApp.exe
