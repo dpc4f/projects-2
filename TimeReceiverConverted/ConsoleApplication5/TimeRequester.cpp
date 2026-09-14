@@ -11,18 +11,16 @@ using namespace System::Net::Sockets;
 System::DateTime TimeRequester::GetNetworkTime()
 {
 	// Use the closest regional pool or Cloudflare
-	const String^ ntpServer = "time.windows.com";
+	String^ ntpServer = "time.windows.com";
 
 	//// NTP message size is 48 bytes
-	array<Byte>^ ntpDate = gcnew array<Byte>(48);
-	
-
+	array<Byte>^ ntpData = gcnew array<Byte>(48);
 
 	//// Setting Leap Indicator, Version Number, and Mode (Client = 3)
-	//ntpData[0] = 0x1B;
+	ntpData[0] = 0x1B;
 
-	//var addresses = Dns.GetHostAddresses(ntpServer);
-	//var ipEndPoint = new IPEndPoint(addresses[0], 123);
+	array<System::Net::IPAddress^>^ addresses = Dns::GetHostAddresses(ntpServer);
+	IPEndPoint^ ipEndPoint = gcnew IPEndPoint(addresses[0], 123);
 
 	//using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp))
 	//{
