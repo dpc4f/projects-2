@@ -111,6 +111,8 @@ int main_2() {
 
 	for (i = 0; i < ARRAY_SIZE; i++)
 		Console::WriteLine("MyStruct1[{0}] = {1}", i, MyStruct1[i].m_i);
+
+	return 0;
 }
 
 

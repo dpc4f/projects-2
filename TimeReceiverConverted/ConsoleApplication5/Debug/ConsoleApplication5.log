@@ -1,4 +1,5 @@
-﻿  TimeRequester.cpp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (ConsoleApplication5.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  ConsoleApplication5.cpp
   .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
   AssemblyInfo.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  ConsoleApplication5.vcxproj -> C:\Users\david\source\repos\ConsoleApplication5\Debug\ConsoleApplication5.exe
+  ConsoleApplication5.vcxproj -> D:\projects-2\TimeReceiverConverted\Debug\TimeRequesterConverted.exe

@@ -11,9 +11,10 @@ using namespace System::Net::Sockets;
 System::DateTime TimeRequester::GetNetworkTime()
 {
 	// Use the closest regional pool or Cloudflare
-	const String^ ntpServer = "pool.ntp.org";
+	const String^ ntpServer = "time.windows.com";
 
 	//// NTP message size is 48 bytes
+	array<Byte>^ ntpDate = gcnew array<Byte>(48);
 	
 
 
