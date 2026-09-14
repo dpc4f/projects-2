@@ -7,7 +7,6 @@ using namespace System::Net;
 using namespace System::Net::Sockets;
 
 
-
 System::DateTime TimeRequester::GetNetworkTime()
 {
 	// Use the closest regional pool or Cloudflare
@@ -21,33 +20,37 @@ System::DateTime TimeRequester::GetNetworkTime()
 
 	array<System::Net::IPAddress^>^ addresses = Dns::GetHostAddresses(ntpServer);
 	IPEndPoint^ ipEndPoint = gcnew IPEndPoint(addresses[0], 123);
+	Socket^ socket = gcnew Socket(AddressFamily::InterNetwork, SocketType::Dgram, ProtocolType::Udp);
 
-	//using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp))
+	//using (String^ tmp = gcnew String("abcd"))
 	//{
-	//	socket.Connect(ipEndPoint);
-	//	socket.ReceiveTimeout = 3000; // 3 seconds timeout
-	//	socket.Send(ntpData);
-	//	socket.Receive(ntpData);
-	//}
+		socket->Connect(ipEndPoint);
+		socket->ReceiveTimeout = 3000; // 3 seconds timeout
+		socket->Send(ntpData);
+		socket->Receive(ntpData);
+	/*}*/
 
 	//// Transmit Timestamp starts at byte 40 (Seconds and Fractions)
-	//ulong intPart = BitConverter.ToUInt32(ntpData, 40);
-	//ulong fractPart = BitConverter.ToUInt32(ntpData, 44);
+	UInt64 intPart = BitConverter::ToUInt32(ntpData, 40);
+	UInt64 fractPart = BitConverter::ToUInt32(ntpData, 44);
 
 	//// Convert from Big-Endian to Little-Endian (Network to Host byte order)
-	//intPart = SwapEndianness(intPart);
-	//fractPart = SwapEndianness(fractPart);
+	intPart = SwapEndianness(intPart);
+	fractPart = SwapEndianness(fractPart);
 
-	//var milliseconds = (intPart * 1000) + ((fractPart * 1000) / 0x100000000L);
+	UInt64 milliseconds = (intPart * 1000L) + ((fractPart * 1000L) / 0x100000000L);
 
 	//// NTP time starts on Jan 1, 1900
-	//var networkDateTime = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds((long)milliseconds);
+	DateTime^ networkDateTime = (gcnew DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind::Utc))
+		->AddMilliseconds((UInt64) milliseconds);
 
-	//return networkDateTime.ToLocalTime();
-	return System::DateTime::Now;
+	delete socket;
+
+	return networkDateTime->ToLocalTime();
+	// return System::DateTime::Now;
 }
 
-System::UInt64 TimeRequester::SwapEndianness(UInt64 x)
+System::UInt32 TimeRequester::SwapEndianness(UInt64 x)
 {
 	return (int)(((x & 0x000000ff) << 24) |
 		((x & 0x0000ff00) << 8) |

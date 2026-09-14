@@ -12,6 +12,6 @@ public:
 	DateTime GetNetworkTime();
 
 private:
-	System::UInt64 SwapEndianness(UInt64 x);
+	System::UInt32 SwapEndianness(UInt64 x);
 
 };
