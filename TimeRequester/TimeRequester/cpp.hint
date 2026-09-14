@@ -1,0 +1,2 @@
+#define TIMEREQUESTER_API __declspec(dllexport)
+#define TIMEREQUESTER_API __declspec(dllimport)
