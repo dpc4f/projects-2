@@ -8,8 +8,7 @@ using namespace TimeRequester2;
 
 System::DateTime TimeRequester::GetNetworkTime()
 {
-	// Use the closest regional pool or Cloudflare
-	String^ ntpServer = "time.windows.com";
+	String^ ntpServer = "time.windows.com"; // Use the closest regional pool or Cloudflare
 	array<Byte>^ ntpData = gcnew array<Byte>(48); // NTP message size is 48 bytes
 	ntpData[0] = 0x1B; // Setting Leap Indicator, Version Number, and Mode (Client = 3)
 
@@ -17,7 +16,6 @@ System::DateTime TimeRequester::GetNetworkTime()
 	IPEndPoint^ ipEndPoint = gcnew IPEndPoint(addresses[0], 123);
 	Socket^ socket = gcnew Socket(AddressFamily::InterNetwork, SocketType::Dgram, ProtocolType::Udp);
 	DateTime^ networkDateTime = nullptr;
-	Exception ex;
 
 	try {
 		socket->Connect(ipEndPoint);
