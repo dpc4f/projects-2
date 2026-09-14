@@ -21,33 +21,40 @@ System::DateTime TimeRequester::GetNetworkTime()
 	array<System::Net::IPAddress^>^ addresses = Dns::GetHostAddresses(ntpServer);
 	IPEndPoint^ ipEndPoint = gcnew IPEndPoint(addresses[0], 123);
 	Socket^ socket = gcnew Socket(AddressFamily::InterNetwork, SocketType::Dgram, ProtocolType::Udp);
+	DateTime^ networkDateTime = nullptr;
+	Exception ex;
 
-	//using (String^ tmp = gcnew String("abcd"))
-	//{
+	try {
+		//using (String^ tmp = gcnew String("abcd"))
+		//{
 		socket->Connect(ipEndPoint);
 		socket->ReceiveTimeout = 3000; // 3 seconds timeout
 		socket->Send(ntpData);
 		socket->Receive(ntpData);
-	/*}*/
+		/*}*/
 
-	//// Transmit Timestamp starts at byte 40 (Seconds and Fractions)
-	UInt64 intPart = BitConverter::ToUInt32(ntpData, 40);
-	UInt64 fractPart = BitConverter::ToUInt32(ntpData, 44);
+		//// Transmit Timestamp starts at byte 40 (Seconds and Fractions)
+		UInt64 intPart = BitConverter::ToUInt32(ntpData, 40);
+		UInt64 fractPart = BitConverter::ToUInt32(ntpData, 44);
 
-	//// Convert from Big-Endian to Little-Endian (Network to Host byte order)
-	intPart = SwapEndianness(intPart);
-	fractPart = SwapEndianness(fractPart);
+		//// Convert from Big-Endian to Little-Endian (Network to Host byte order)
+		intPart = SwapEndianness(intPart);
+		fractPart = SwapEndianness(fractPart);
 
-	UInt64 milliseconds = (intPart * 1000L) + ((fractPart * 1000L) / 0x100000000L);
+		UInt64 milliseconds = (intPart * 1000L) + ((fractPart * 1000L) / 0x100000000L);
 
-	//// NTP time starts on Jan 1, 1900
-	DateTime^ networkDateTime = (gcnew DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind::Utc))
-		->AddMilliseconds((UInt64) milliseconds);
+		//// NTP time starts on Jan 1, 1900
+		networkDateTime = (gcnew DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind::Utc))
+			->AddMilliseconds((UInt64)milliseconds);
+	}
+	catch (Exception^ ex) {
 
-	delete socket;
+	}
+	finally {
+		delete socket;
+	}
 
 	return networkDateTime->ToLocalTime();
-	// return System::DateTime::Now;
 }
 
 System::UInt32 TimeRequester::SwapEndianness(UInt64 x)
