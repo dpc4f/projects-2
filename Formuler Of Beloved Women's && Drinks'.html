@@ -62,12 +62,38 @@
             bottom: 40px;
         }
 
-        .image-size {
+        .image-position {
             position: absolute;
             left: 900px;
             top: 100px;
             
         }
+
+        /* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* Add dots under the hoverable text */
+  cursor: pointer;
+}
+
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden; /* Hidden by default */
+  width: 155px;
+  background-color: rgb(219, 191, 32);
+  color: honeydew;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1; /* Ensure tooltip is displayed above content */
+}
+
+/* Show the tooltip text on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
     </style>
 </head>
 
@@ -75,8 +101,13 @@
     <div class="y-oreo-cake">hiệu trà <-- béo</div>
     <div class="anna-bel">[Coca Cola, Coke /cok/ ~ cock]<br/>tổng Cock <-- bél</div>
     <div class="liu-fi">tích Fanta <-- péo</div>
-    <img id="imageOfWife" class="image-size image-name-card" src="E:\Luu Diec Phi 39.jpg" alt="davis' wife">
-    <div class="note invisible bottom-left">
+    <div class="image-position">
+        <div class="tooltip">
+            <img id="imageOfWife" class="image-name-card" src="E:\Luu Diec Phi 39.jpg" alt="davis' wife">
+            <span class="tooltiptext">Liu Balo ð Beautiful</span>
+        </div>
+    </div>
+    <div class="note bottom-left">
         girl-friend, a friend who is a female in gender<br/>
         girlfriend, a lover / closely-related girl-friend
     </div>
