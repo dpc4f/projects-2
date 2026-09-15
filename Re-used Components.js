@@ -643,14 +643,24 @@ class TimeValues {
         // this.ms = this.Today.getMilliseconds();
 
         console.log("timeTheCurrent gets called");
+     
 
         fetch('http://localhost:8080/api/TimeRequester')
             .then(response => response.json())
-            .then(data => {
-                console.log("Response from DLL: " + data);
+            .then(dateString => {
+                const [datepart, timePart] = dateString.split(" ");
+                const [hours, minutes, seconds] = timePart.split(":");
+
+                this.h = hours;
+                this.m = minutes;
+                this.s = seconds;
+                // this.ms = tmp.getMilliseconds();
+
+                console.log("Response from DLL: " + dateString);
+                console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
             })
             .catch(error => console.error('Error:', error));
-                console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
+                
     }
 
     remainingTimeTillEndOfTheDay(level = this.freshTimeLevels.LevelBig) {
