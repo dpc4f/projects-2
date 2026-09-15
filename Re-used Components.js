@@ -635,14 +635,22 @@ class TimeValues {
     }
 
     timeTheCurrent() {
-        this.Today = new Date();
+        // this.Today = new Date();
 
-        this.h = this.Today.getHours();
-        this.m = this.Today.getMinutes()
-        this.s = this.Today.getSeconds();
-        this.ms = this.Today.getMilliseconds();
+        // this.h = this.Today.getHours();
+        // this.m = this.Today.getMinutes()
+        // this.s = this.Today.getSeconds();
+        // this.ms = this.Today.getMilliseconds();
 
-        console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
+        console.log("timeTheCurrent gets called");
+
+        fetch('http://localhost:8080/api/TimeRequester')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response from DLL: " + data);
+            })
+            .catch(error => console.error('Error:', error));
+                console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
     }
 
     remainingTimeTillEndOfTheDay(level = this.freshTimeLevels.LevelBig) {
