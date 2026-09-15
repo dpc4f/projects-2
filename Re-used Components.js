@@ -598,7 +598,7 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
             break;
     }
 
-    return valuesStr;
+    return valuesStr.trim();
 }
 
 // [; nr] implement using read-only properties <-- done

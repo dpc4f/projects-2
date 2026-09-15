@@ -528,7 +528,7 @@
              * [; nr] fix a minor bug related to function getDateValuesTimeStamp() <-- need to trim
              * 
              * 
-             * */
+             * */ // --> done
         }
 
         function removePurple4Months() {
@@ -548,6 +548,10 @@
             let spanEle = document.createElement('span');
             let temp = convertToElteYear(year).slice(12);
 
+            initializeToHereDate();
+            removePurple4Months();
+            mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
+            
             if (bHereDate == true)
             {
                 spanEle.classList.add('currentMoment');
@@ -559,11 +563,6 @@
                 monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
                                                                 + " " + convertToElteYear(year);
             }
-
-            initializeToHereDate();
-            removePurple4Months();
-            // mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
-            mt[6].style.color = 'purple';
             
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());

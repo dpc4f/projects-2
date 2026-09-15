@@ -1,5 +1,5 @@
 ﻿  TimeRequester-2.cpp
-d:\projects-2\timerequester-2\timerequester-2\timerequester-2.cpp(40): warning C4244: 'argument': conversion from 'unsigned __int64' to 'double', possible loss of data
-d:\projects-2\timerequester-2\timerequester-2\timerequester-2.cpp(42): warning C4101: 'ex': unreferenced local variable
+d:\projects-2\timerequester-2\timerequester-2\timerequester-2.cpp(38): warning C4244: 'argument': conversion from 'unsigned __int64' to 'double', possible loss of data
+d:\projects-2\timerequester-2\timerequester-2\timerequester-2.cpp(40): warning C4101: 'ex': unreferenced local variable
   AssemblyInfo.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   TimeRequester-2.vcxproj -> D:\projects-2\TimeRequester-2\Debug\TimeRequester-2.dll
