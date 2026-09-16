@@ -476,21 +476,25 @@
         let tVal = null;
 
         function initializePlatonTime() {
-            tVal = new TimeValues();
-            tVal.updateTimeWithIntervalOneSecond(updatePlatonTime);
+            tVal = new TimeValues(updatePlatonTime);
+            tVal.callback = updatePlatonTime;
+            tVal.updateTimeWithIntervalOneSecond();
         }
 
         // initial render
         initializePlatonTime();
 
         function updateTimeToCurrentMoment() {
-            if (tVal)
+            if (tVal) {
+                tVal.callback = updatePlatonTime;
                 tVal.timeTheCurrent();
+            }
         }
 
         function updateToHereDate() {
             dateVal = new DateValues();
             dateVal.CallBackUpdateGUI = renderCalendar;
+            dateVal.timeVal.callback = updatePlatonTime;
             renderCalendar(dateVal);
         }
 
@@ -514,6 +518,7 @@
 
         let dateVal = null;
         dateVal = new DateValues();
+        dateVal.timeVal.callback = updatePlatonTime;
         dateVal.CallBackUpdateGUI = renderCalendar;
 
         function initializeToHereDate() {
@@ -770,6 +775,7 @@
              * */
 
         }
+
 
         renderCalendar(dateVal);   
 

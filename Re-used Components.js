@@ -611,7 +611,7 @@ class TimeConstants {
 
 class TimeValues {
 
-    constructor() {
+    constructor(updatePlatonTime = null) {
 
         /***
          * [; nr] re-write this ctor using APIs to query time sever(s) to have precise values
@@ -626,7 +626,7 @@ class TimeValues {
         this.s = this.Today.getSeconds();
         this.ms = this.Today.getMilliseconds();
         
-        this.callback = null;
+        this.callback = updatePlatonTime;
         this.idcb = null;
 
         this.constants = new TimeValues.Constants();
@@ -651,13 +651,16 @@ class TimeValues {
                 const [datepart, timePart] = dateString.split(" ");
                 const [hours, minutes, seconds] = timePart.split(":");
 
-                this.h = hours;
-                this.m = minutes;
-                this.s = seconds;
+                this.h = parseInt(hours);
+                this.m = parseInt(minutes);
+                this.s = parseInt(seconds);
                 // this.ms = tmp.getMilliseconds();
 
                 console.log("Response from DLL: " + dateString);
                 console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
+
+                if (this.callback)
+                    this.callback(this);
             })
             .catch(error => console.error('Error:', error));
                 
@@ -761,7 +764,8 @@ class TimeValues {
             }
         }
         
-        this.callback(this);
+        if (this.callback) 
+            this.callback(this);
     }
 
     increaseMinute() {
@@ -775,13 +779,14 @@ class TimeValues {
             }
         }
 
-        this.callback(this);
+        if (this.callback)
+            this.callback(this);
     }
 
-    updateTimeWithIntervalOneSecond(callback) { // for time value; in HH:MM:SS
+    updateTimeWithIntervalOneSecond() { // for time value; in HH:MM:SS
         let fractionOfASecond = ((new Date()).getMilliseconds()) % TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS;
         let duration = TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
-        this.callback = callback;
+        // this.callback = callback;
         
         if (this.idcb) 
             clearInterval(this.idcb);
@@ -792,7 +797,7 @@ class TimeValues {
         }, duration);
     }
 
-    updateTimeWithIntervalOneMinute(callback) { // for time value; in HH:MM
+    updateTimeWithIntervalOneMinute() { // for time value; in HH:MM
         
         /*** [; nr] consider to implement using milliseconds instead  */ 
         /// --> done
@@ -808,7 +813,7 @@ class TimeValues {
         
         console.log(RemainingOfAMinuteInMilliseconds);
         
-        this.callback = callback;
+        // this.callback = callback;
         if (this.idcb)
             clearInterval(this.idcb);
 
