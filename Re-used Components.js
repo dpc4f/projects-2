@@ -922,7 +922,7 @@ class DateValues {
 
     static Hose = 11;
 
-    constructor(yr = -1, mt = -1, dt = -1, weekOfTheYear = -1) {
+    constructor(callbackUpdateGUI = null, yr = -1, mt = -1, dt = -1, weekOfTheYear = -1) {
 
         this.dayCountInMonths = [
             31, 30, // Athen Duo
@@ -932,8 +932,10 @@ class DateValues {
 
         if (yr < -1 || yr == 0) return; // invalid parameters
         
+        this.Heredate = null;
+        this.callbackUpdateGUI = callbackUpdateGUI;
         if (yr == -1)
-            this.timeTheDay(); // use Here Date Values
+            this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
         else {
             /* use Set Date Values */
 
@@ -967,7 +969,7 @@ class DateValues {
                 this.swk = this.getSetWeekNumber(); // <-- modify OR code a new function // <-- new function implemented
             }
 
-            this.useCalculatingProps();
+            this.useSetValues();
         }
         
 
@@ -1002,26 +1004,39 @@ class DateValues {
     }
 
     set CallBackUpdateGUI(f) {
-        this.updateGUIWebCalendar = f;
+        this.callbackUpdateGUI = f;
     }
 
     timeTheDay(bUpdateGUI = false) {
-        this.Today = new Date();
+        console.log("timeTheDay gets called");
 
-        console.log("timeTheDay gets called; " + this.Today.toString());
+        fetch('http://localhost:8080/api/TimeRequester')
+            .then(response => response.json())
+            .then(dateString => {
+                let thoiGianString = dateString;
+                console.log(thoiGianString);
+                const [ngayThang, thoiGio] = thoiGianString.split(" ");
+                // Fixing a "DD/MM/YYYY" format
+                const [day, month, year] = ngayThang.split("/");
 
-        this.dy = this.Today.getDay();
-        this.dt = this.Today.getDate();
-        this.mt = this.Today.getMonth();
-        this.yr = this.Today.getFullYear();
+                // Rearrange into standard "YYYY-MM-DD"
+                this.Heredate = new Date(`${year}-${month}-${day}`);
+                this.dy = this.Heredate.getDay();
+                this.dt = this.Heredate.getDate();
+                this.mt = this.Heredate.getMonth();
+                this.yr = this.Heredate.getFullYear();
 
-        this.leapYear = this.isLeapYear();
-        this.wk = this.getCurrentWeekNumber();
+                console.log("Response from DLL: " + thoiGianString);
 
-        if (bUpdateGUI == true && this.updateGUIWebCalendar) {
-            this.updateGUIWebCalendar(this); // to render the calendar when the day's values change
-            console.log('function callback is called; to render the calendar');
-        }
+                this.leapYear = this.isLeapYear();
+                this.wk = this.getHereWeekNumber();
+
+                if (bUpdateGUI == true && this.callbackUpdateGUI) {
+                    this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+                    console.log('function callback is called; to render the calendar');
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
     
     getDurationForDateForms() {
@@ -1029,11 +1044,11 @@ class DateValues {
         return Math.floor(this.constants.WAN_DAY_IN_HOURS * this.timeVal.constants.WAN_HOUR_IN_MILLISECONDS/ DATE_FORMAT_STRINGS.length);
     } // <-- a red leopard function <3
 
-    getCurrentMonth() {
+    getHereMonth() {
         return this.mt;
     }
 
-    getCurrentElteMonth() {
+    getHereElteMonth() {
         
         /*** 
          * [; nr] return the Elte Month
@@ -1043,27 +1058,28 @@ class DateValues {
 
     }
 
-    getCurrentDay() {
+    getHereDay() {
         return this.dy;
     }
 
-    getCurrentDate() {
-        return this.dt;
+    getDateOfHereMonth() {
+        return this.dt; // day of the month
     }
 
-    getCurrentWeekFall() {
+    getHereWeekFall() {
         return whichDayIsToday(this.dy);
     }
 
-    getCurrentYear() {
+    getHereYear() {
         return this.yr;
     }
 
-    getYearNumberOnly(date = null) {
+    getHereYearNumberOnly(date = null) {
         if (date && date instanceof Date) 
             return date.getFullYear();
 
-        return (new Date()).getFullYear();
+        // return (new Date()).getFullYear();
+        return this.getHereYear();
     }
 
     getWeekNumberWithProvidedParameters(Distance, Month, SoleDate) {
@@ -1115,7 +1131,7 @@ class DateValues {
         return this.getWeekNumberWithProvidedParameters(Distance, SetMonth, SetSoleDate);
     }
     
-    getCurrentWeekNumber() { /** getHereWeekNumber */
+    getHereWeekNumber() { /** getHereWeekNumber */
 
         /***
          * sole-date, soleDate, sodate, 1
@@ -1128,7 +1144,7 @@ class DateValues {
         // let datE = '';
         // --> const DatE = '';  
 
-        const Today = this.Today;
+        const Today = this.Heredate;
         const HereYear = Today.getFullYear();
         const HereMonth = convertToElteMonth(Today.getMonth());
         const FirstDateOfHereYear = new Date(HereYear, 1, 1);
@@ -1141,7 +1157,7 @@ class DateValues {
         return this.getWeekNumberWithProvidedParameters(Distance, HereMonth, HereSoleDate);
     }
 
-    useCalculatingProps() {
+    useSetValues() {
         this.yr = this.syr;
         this.mt = this.smt;
         this.dt = this.sdt;
