@@ -457,6 +457,7 @@
             
             let tVal = new TimeValues(callback_time);
             callback_time(tVal);
+            tVal.timeTheCurrent();
             tVal.updateTimeWithIntervalOneMinute(callback_time);
         }
 
