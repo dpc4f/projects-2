@@ -448,7 +448,7 @@
             recursive(callback_date); // date timestamp
             // updateTimeWithIntervalOneMinute(callback_time); // time timestamp
             
-            let tVal = new TimeValues();
+            let tVal = new TimeValues(callback_time);
             callback_time(tVal);
             tVal.updateTimeWithIntervalOneMinute(callback_time);
         }
