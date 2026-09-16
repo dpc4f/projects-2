@@ -578,7 +578,7 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
     let bDateInMonth = DATE_FORMAT_STRINGS[index][1]; 
     let bDayInWeek = DATE_FORMAT_STRINGS[index][2]; 
     let bShiftInADay = bDayInWeek ? DATE_FORMAT_STRINGS[index][3] : false;
-    let bWeekNumber = DATE_FORMAT_STRINGS[index][4];
+    let bWeekNumber = DATE_FORMAT_STRINGS[index].length > 4 ? DATE_FORMAT_STRINGS[index][4] : false;
     let valuesStr = '';
 
     switch (formLength) {
@@ -1009,12 +1009,17 @@ class DateValues {
 
     timeTheDay(bUpdateGUI = false) {
         console.log("timeTheDay gets called");
+        this.Heredate = new Date();
+        this.dy = this.Heredate.getDay();
+        this.dt = this.Heredate.getDate();
+        this.mt = this.Heredate.getMonth();
+        this.yr = this.getYearNumberOnly(this.Heredate);
+        this.leapYear = this.isLeapYear();
+        this.wk = this.getHereWeekNumber();
 
         fetch('http://localhost:8080/api/TimeRequester')
             .then(response => response.json())
-            .then(dateString => {
-                let thoiGianString = dateString;
-                console.log(thoiGianString);
+            .then(thoiGianString => {
                 const [ngayThang, thoiGio] = thoiGianString.split(" ");
                 // Fixing a "DD/MM/YYYY" format
                 const [day, month, year] = ngayThang.split("/");
@@ -1024,7 +1029,7 @@ class DateValues {
                 this.dy = this.Heredate.getDay();
                 this.dt = this.Heredate.getDate();
                 this.mt = this.Heredate.getMonth();
-                this.yr = this.Heredate.getFullYear();
+                this.yr = this.getYearNumberOnly(this.Heredate);
 
                 console.log("Response from DLL: " + thoiGianString);
 
@@ -1036,7 +1041,8 @@ class DateValues {
                     console.log('function callback is called; to render the calendar');
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.log('Error:', error));
+   
     }
     
     getDurationForDateForms() {
@@ -1074,12 +1080,11 @@ class DateValues {
         return this.yr;
     }
 
-    getHereYearNumberOnly(date = null) {
+    getYearNumberOnly(date = null) {
         if (date && date instanceof Date) 
             return date.getFullYear();
 
-        // return (new Date()).getFullYear();
-        return this.getHereYear();
+        return -1;
     }
 
     getWeekNumberWithProvidedParameters(Distance, Month, SoleDate) {
@@ -1144,14 +1149,14 @@ class DateValues {
         // let datE = '';
         // --> const DatE = '';  
 
-        const Today = this.Heredate;
-        const HereYear = Today.getFullYear();
-        const HereMonth = convertToElteMonth(Today.getMonth());
-        const FirstDateOfHereYear = new Date(HereYear, 1, 1);
-        const FirstDateIndex = toTuesdayFirst(FirstDateOfHereYear.getDay()); // position of first day of the year in the first week; in 0..6
+        const HereYear = this.getHereYear();
         
-        const HereIndex = toTuesdayFirst(Today.getDay()); // index of the day in its week; in 0..6
-        const HereSoleDate = Today.getDate(); // only the date's number in its month; starts from 1
+        const FirstDateOfHereYear = new Date(HereYear, 1, 1);
+        const FirstDateIndex = toTuesdayFirst(FirstDateOfHereYear.getDay()); // the year's first day's index in the first week; 0..6
+        
+        const HereMonth = convertToElteMonth(this.getHereMonth());
+        const HereIndex = toTuesdayFirst(this.getHereDay()); // index of the day in its week; in 0..6
+        const HereSoleDate = this.getDateOfHereMonth(); // only the date's number in its month; starts from 1
         const Distance = Math.abs(FirstDateIndex - HereIndex);
 
         return this.getWeekNumberWithProvidedParameters(Distance, HereMonth, HereSoleDate);
@@ -1174,7 +1179,7 @@ class DateValues {
         return ((this.yr % 4 == 0 && this.yr % 100 !== 0) || (this.yr % 400 == 0));
     }
 
-    isToday(date = -1, month = this.mt, year = this.yr) {
+    isHereDay(date = -1, month = this.mt, year = this.yr) {
         return (date === this.dt && month === this.mt && year === this.yr);
     }
 }

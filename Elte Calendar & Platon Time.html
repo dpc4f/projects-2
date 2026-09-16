@@ -107,7 +107,7 @@
             height: 40px;
         }
 
-        .TODAY {
+        .HereDay {
             background: lightblue;
             border-radius: 0%;
             font-weight: bold;
@@ -493,9 +493,9 @@
         }
 
         function updateToHereDate() {
-            dateVal = new DateValues();
-            dateVal.CallBackUpdateGUI = renderCalendar;
+            dateVal = new DateValues(renderCalendar);
             dateVal.timeVal.callback = updatePlatonTime;
+
             renderCalendar(dateVal);
         }
 
@@ -552,7 +552,7 @@
             let monthYearEle = document.getElementById("monthYear");
             let spanEle = document.createElement('span');
             let temp = convertToElteYear(year).slice(12);
-            let hereYear = dateVal.getHereYearNumberOnly();
+            let hereYear = dateVal.getHereYear();
 
             if (year == null || month == null || temp == null || hereYear == null) 
                 return;
@@ -597,8 +597,8 @@
                     } else {
                         cell.textContent = date;
 
-                        if (dateVal.isToday(date))
-                            cell.classList.add("TODAY");
+                        if (dateVal.isHereDay(date))
+                            cell.classList.add("HereDay");
                         
                         date++;
                     }
@@ -610,7 +610,10 @@
                 if (date > daysInMonth) break;
             }
             
-            renderDateTimeVarieties(dateVal);
+            setTimeout(
+                () => renderDateTimeVarieties(dateVal), 
+                2000);
+
         }
 
         
