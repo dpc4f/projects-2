@@ -553,12 +553,13 @@
             let monthYearEle = document.getElementById("monthYear");
             let spanEle = document.createElement('span');
             let temp = convertToElteYear(year).slice(12);
+            let hereYear = dateVal.getYearNumberOnly();
 
             initializeToHereDate();
             removePurple4Months();
             mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
             
-            if (bHereDate == true)
+            if (year == hereYear || bHereDate == true)
             {
                 spanEle.classList.add('currentMoment');
                 spanEle.textContent = temp;

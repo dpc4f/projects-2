@@ -1059,8 +1059,8 @@ class DateValues {
         return this.yr;
     }
 
-    getYearNumberOnly(date) {
-        if (date instanceof Date) 
+    getYearNumberOnly(date = null) {
+        if (date && date instanceof Date) 
             return date.getFullYear();
 
         return (new Date()).getFullYear();
