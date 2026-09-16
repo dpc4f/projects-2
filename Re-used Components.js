@@ -611,6 +611,12 @@ class TimeConstants {
 
 class TimeValues {
 
+    /***
+     * [; nr] check how many ways to construct a JavaScript class; is there things like ctor overloading .?
+     * 
+     * 
+     */
+
     constructor(updatePlatonTime = null) {
 
         /***
