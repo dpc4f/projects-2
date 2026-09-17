@@ -14,11 +14,11 @@
         }
 
         .calendar-container {
-            max-width: 96%;
+            max-width: 100%;
             margin: auto;
             margin-top: 100px;
             background: white;
-            border-radius: 4px;
+            border-radius: 5px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             padding: 10px;
         }
@@ -336,7 +336,6 @@
 
         #dateWithoutTime {
             color: #DE5D4E; /* decent tomato <-- Date w/o Time */
-            margin-right: 7px;
         }
 
         .notes-bottom {
@@ -400,16 +399,15 @@
                         <div class="note right-note-2">Xử Nữ. Song Tử. Bọ Cạp. Aquarius.</div>
                     </div>
                 </div>
-                <div class="nav invisible">
-                    <button onclick="changeMonth(-1)">Prev Month</button>
-                    <button onclick="changeMonth(1)">Next Month</button>
-                </div>
                 <button onclick="changeDate(true)">C u d a</button>
                 <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33" value="">
                 <button onclick="changeDate()">T e f o</button>
             </div>
-            <div id="dateWithoutTime" class="date-wo-time"></div>
-            <b>lịch Voi giờ Rết</b>
+            <div>
+                <div id="dateWithoutTime" class="date-wo-time"></div>
+                <b style="display: inline-block; justify-content: left;">lịch Voi giờ Rết</b>
+                <div class="note">Lưu ý: năm âm lịch chỉ có 360 ngày</div>
+            </div>
             <span class="invisible">chân ngắn cần cố gắng</span>
         </div>
         
@@ -611,10 +609,7 @@
                 if (date > daysInMonth) break;
             }
             
-            setTimeout(
-                () => renderDateTimeVarieties(dateVal), 
-                2000);
-
+            renderDateTimeVarieties(dateVal); 
         }
 
         
