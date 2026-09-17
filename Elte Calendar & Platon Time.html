@@ -476,7 +476,6 @@
 
         function initializePlatonTime() {
             tVal = new TimeValues(updatePlatonTime);
-            tVal.callback = updatePlatonTime;
             tVal.updateTimeWithIntervalOneSecond();
         }
 
@@ -485,16 +484,20 @@
 
         function updateTimeToCurrentMoment() {
             if (tVal) {
-                tVal.callback = updatePlatonTime;
+                tVal.CallBack = updatePlatonTime;
                 tVal.timeTheCurrent();
             }
         }
 
         function updateToHereDate() {
             dateVal = new DateValues(renderCalendar);
-            dateVal.timeVal.callback = updatePlatonTime;
 
             renderCalendar(dateVal);
+        }
+
+        function updateToHereTime() {
+            tVal = new TimeValues(updatePlatonTIme);
+            tVal.timeTheCurrent();
         }
 
         // refresh every second
@@ -517,7 +520,6 @@
 
         let dateVal = null;
         dateVal = new DateValues(renderCalendar);
-        dateVal.timeVal.callback = updatePlatonTime;
 
         function initializeToHereDate() {
             const COMMONLY_USED = 2;
@@ -615,19 +617,19 @@
         
         /*** [; nr] fix a bug related to setTimeout; setInterval when changing months */
         /*** [; nr] fix a bug in rendering leap year */ // <-- done
-        function changeMonth(dateVal, step = 1) {
-            dateVal.mt += step;
+        // function changeMonth(dateVal, step = 1) {
+        //     dateVal.mt += step;
 
-            if (currentMonth < 2) {
-                dateVal.mt = 11;
-                dateVal.yr--;
-            } else if (currentMonth > 13) {
-                dateVal.mt = 2;
-                dateVal.yr++;
-            }
+        //     if (currentMonth < 2) {
+        //         dateVal.mt = 11;
+        //         dateVal.yr--;
+        //     } else if (currentMonth > 13) {
+        //         dateVal.mt = 2;
+        //         dateVal.yr++;
+        //     }
 
-            renderCalendar(dateVal);
-        }
+        //     renderCalendar(dateVal);
+        // }
 
         function changeDate(bHereDay = false) {
             
@@ -696,7 +698,7 @@
 
             const infor = document.getElementById("dateWithoutTime");
             let form = FULL_FORM_DATE;
-            let duration = dateVal.getDurationForDateForms(); // temporarily increase to a big amount to test updating GUI when tomorrow comes
+            let duration = dateVal.getDuration4SwitchingDateForms(); // temporarily increase to a big amount to test updating GUI when tomorrow comes
             let index = 1;
             
             duration = 10000; // 10 seconds 4 testing purpose

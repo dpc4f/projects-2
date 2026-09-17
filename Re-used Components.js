@@ -617,6 +617,8 @@ class TimeValues {
      * 
      */
 
+    #callback = null;
+
     constructor(updatePlatonTime = null) {
 
         /***
@@ -632,7 +634,7 @@ class TimeValues {
         this.s = this.Today.getSeconds();
         this.ms = this.Today.getMilliseconds();
         
-        this.callback = updatePlatonTime;
+        this.#callback = updatePlatonTime;
         this.idcb = null;
 
         this.constants = new TimeValues.Constants();
@@ -640,16 +642,12 @@ class TimeValues {
         setInterval(() => this.timeTheCurrent(), TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY);
     }
 
+    set CallBack(f) {
+        this.#callback = f;
+    }
+
     timeTheCurrent() {
-        // this.Today = new Date();
-
-        // this.h = this.Today.getHours();
-        // this.m = this.Today.getMinutes()
-        // this.s = this.Today.getSeconds();
-        // this.ms = this.Today.getMilliseconds();
-
         console.log("timeTheCurrent gets called");
-     
 
         fetch('http://localhost:8080/api/TimeRequester')
             .then(response => response.json())
@@ -660,16 +658,14 @@ class TimeValues {
                 this.h = parseInt(hours);
                 this.m = parseInt(minutes);
                 this.s = parseInt(seconds);
-                // this.ms = tmp.getMilliseconds();
 
-                console.log("Response from DLL: " + dateString);
-                console.log(`${this.h}:${this.m}:${this.s}:${this.ms}`);
+                console.log("Response from DLL: " + dateString 
+                    + ` ---- ${this.h}:${this.m}:${this.s}:${this.ms}`);
 
-                if (this.callback)
-                    this.callback(this);
+                if (this.#callback)
+                    this.#callback(this);
             })
-            .catch(error => console.error('Error:', error));
-                
+            .catch(error => console.error('Error:', error));       
     }
 
     remainingTimeTillEndOfTheDay(level = this.freshTimeLevels.LevelBig) {
@@ -770,8 +766,8 @@ class TimeValues {
             }
         }
         
-        if (this.callback) 
-            this.callback(this);
+        if (this.#callback) 
+            this.#callback(this);
     }
 
     increaseMinute() {
@@ -785,14 +781,13 @@ class TimeValues {
             }
         }
 
-        if (this.callback)
-            this.callback(this);
+        if (this.#callback)
+            this.#callback(this);
     }
 
     updateTimeWithIntervalOneSecond() { // for time value; in HH:MM:SS
         let fractionOfASecond = ((new Date()).getMilliseconds()) % TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS;
         let duration = TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
-        // this.callback = callback;
         
         if (this.idcb) 
             clearInterval(this.idcb);
@@ -819,7 +814,6 @@ class TimeValues {
         
         console.log(RemainingOfAMinuteInMilliseconds);
         
-        // this.callback = callback;
         if (this.idcb)
             clearInterval(this.idcb);
 
@@ -938,6 +932,7 @@ class DateValues {
         
         this.Heredate = null;
         this.callbackUpdateGUI = callbackUpdateGUI;
+
         if (yr == -1)
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
         else {
@@ -971,11 +966,9 @@ class DateValues {
                  * 
                  */
             }
-            else if (this.sdt > -1 && this.smt > -1) {
+            else {
                 this.swk = this.getWeekNumber(); // <-- modify OR code a new function // <-- new function implemented
             }
-
-            
         }
         
 
@@ -1060,7 +1053,7 @@ class DateValues {
         this.wk = this.getWeekNumber();
     }
     
-    getDurationForDateForms() {
+    getDuration4SwitchingDateForms() {
         // divide to have time slots equally
         return Math.floor(this.constants.WAN_DAY_IN_HOURS 
             * this.timeVal.constants.WAN_HOUR_IN_MILLISECONDS 
@@ -1097,7 +1090,8 @@ class DateValues {
         return this.yr;
     }
 
-    getYearNumberOnly(date = null) { // to correct the name of the get year function
+    // to correct the name of the get year function
+    getYearNumberOnly(date = null) {
         if (date && date instanceof Date) 
             return date.getFullYear(); // <-- return year number only
 
@@ -1137,35 +1131,8 @@ class DateValues {
 
         return weekNo;
     }
-
-    // getSetWeekNumber() {
-    //     const dateStr = this.syr + '-' + this.smt + '-' + this.sdt;
-    //     let setToday = new Date(dateStr); // new Date("2022-03-25");
-    //     const SetYear = setToday.getFullYear();
-    //     const SetMonth = convertToElteMonth(setToday.getMonth());
-    //     const FirstDateOfSetYear = new Date(SetYear, 1, 1);
-    //     const FirstSetDateIndex = toTuesdayFirst(FirstDateOfSetYear.getDay()); // position of first day of the year in the first week; in 0..6
-        
-    //     const SetIndex = toTuesdayFirst(setToday.getDay()); // index of the day in its week; in 0..6
-    //     const SetSoleDate = setToday.getDate(); // only the date's number in its month; starts from 1
-    //     const Distance = Math.abs(FirstSetDateIndex - SetIndex);
-
-    //     return this.getWeekNumberWithProvidedParameters(Distance, SetMonth, SetSoleDate);
-    // }
     
-    getWeekNumber() { /** getHereWeekNumber */
-
-        /***
-         * sole-date, soleDate, sodate, 1
-         * moth-date, mothDate, modate, SEPT 1
-         * { datE, ful-date }, SEPT 1 current_year+6
-         * 
-         *  
-         */
-        
-        // let datE = '';
-        // --> const DatE = '';  
-
+    getWeekNumber() {
         const TheYear = this.getYear();
         
         const FirstDateOfTheYear = new Date(TheYear, 1, 1);
@@ -1183,7 +1150,7 @@ class DateValues {
         this.yr = this.syr;
         this.mt = this.smt;
         this.dt = this.sdt;
-        this.dy = (new Date(this.syr, this.smt, this.sdt)).getDay(); // index of the day in its week; in 0..6
+        this.dy = (new Date(this.syr, this.smt, this.sdt)).getDay(); // index of the day in its week; 0..6
     }
 
     useHereValues() {
