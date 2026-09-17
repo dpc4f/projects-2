@@ -107,7 +107,7 @@
             height: 40px;
         }
 
-        .HereDay {
+        .TheDay {
             background: lightblue;
             border-radius: 0%;
             font-weight: bold;
@@ -545,7 +545,7 @@
             } 
         }
 
-        function renderCalendar(dateVal, bHereDate = true) {        
+        function renderCalendar(dateVal, bHereDay = true) {        
             let year = dateVal.getYear();
             let month = dateVal.getMonth();
             let mtNamesEle = document.getElementById("monthNames").children;
@@ -561,7 +561,7 @@
             removePurple4Months();
             mtNamesEle[month < 2 ? month + 10 : month - 2].style.color = "purple";
             
-            if (year == hereYear || bHereDate == true)
+            if (year == hereYear || bHereDay == true)
             {
                 spanEle.classList.add('currentMoment');
                 spanEle.textContent = temp;
@@ -597,8 +597,9 @@
                     } else {
                         cell.textContent = date;
 
-                        if (dateVal.isHereDay(date))
-                            cell.classList.add("HereDay");
+                        if ((bHereDay && dateVal.isHereDay(date, month, year))
+                         || (bHereDay == false && dateVal.isSetDay(date, month, year)))
+                            cell.classList.add("TheDay");
                         
                         date++;
                     }
@@ -633,9 +634,9 @@
             renderCalendar(dateVal);
         }
 
-        function changeDate(bHereDate = false) {
+        function changeDate(bHereDay = false) {
             
-            if (bHereDate == true || bHereDate == 'true')
+            if (bHereDay == true)
                 updateToHereDate();
             else {
                 const elteDateStr = document.getElementById('dateTextbox').value;
@@ -648,7 +649,6 @@
                 let dateVal = new DateValues(renderCalendar, setYear, setMonth, setSoleDate);
                 renderCalendar(dateVal, false);
             }
-
         }
 
         function renderDateTimeVarieties(dateVal) {

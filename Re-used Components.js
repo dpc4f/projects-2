@@ -1204,8 +1204,12 @@ class DateValues {
         return ((this.yr % 4 == 0 && this.yr % 100 !== 0) || (this.yr % 400 == 0));
     }
 
-    isHereDay(date = -1, month = this.mt, year = this.yr) {
+    isHereDay(date, month, year) {
         return (date === this.hdt && month === this.hmt && year === this.hyr);
+    }
+
+    isSetDay(date, month, year) {
+        return (date === this.sdt && month === this.smt && year === this.syr);
     }
 }
 
