@@ -546,20 +546,20 @@
         }
 
         function renderCalendar(dateVal, bHereDate = true) {        
-            let year = dateVal.getHereYear();
-            let month = dateVal.getHereMonth();
-            let mt = document.getElementById("monthNames").children;
+            let year = dateVal.getYear();
+            let month = dateVal.getMonth();
+            let mtNamesEle = document.getElementById("monthNames").children;
             let monthYearEle = document.getElementById("monthYear");
             let spanEle = document.createElement('span');
             let temp = convertToElteYear(year).slice(12);
-            let hereYear = dateVal.getHereYear();
+            let hereYear = (new Date()).getYear();
 
             if (year == null || month == null || temp == null || hereYear == null) 
                 return;
             
             initializeToHereDate();
             removePurple4Months();
-            mt[month < 2 ? month + 10 : month - 2].style.color = "purple";
+            mtNamesEle[month < 2 ? month + 10 : month - 2].style.color = "purple";
             
             if (year == hereYear || bHereDate == true)
             {
@@ -645,8 +645,7 @@
                 let setMonth = revertElteMonth(arr[0]);
                 let setSoleDate = Number(arr[1]);
 
-                let dateVal = new DateValues(setYear, setMonth, setSoleDate);
-                dateVal.CallBackUpdateGUI = renderCalendar;
+                let dateVal = new DateValues(renderCalendar, setYear, setMonth, setSoleDate);
                 renderCalendar(dateVal, false);
             }
 

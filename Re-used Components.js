@@ -922,6 +922,10 @@ class DateValues {
 
     static Hose = 11;
 
+    static CURRENT_YEAR = 2020;
+    static CURRENT_MONTH = 'Cô Độc Mình Ên';
+    static CURRENT_DAY = 'Đang Ngồi Thư Viện';
+
     constructor(callbackUpdateGUI = null, yr = -1, mt = -1, dt = -1, weekOfTheYear = -1) {
 
         this.dayCountInMonths = [
@@ -955,6 +959,8 @@ class DateValues {
                 this.sdt = dt;
             else
                 this.sdt = 1; 
+
+            this.useSetValues();
                    
             if (weekOfTheYear > -1) {
                 this.swk = weekOfTheYear;
@@ -966,10 +972,10 @@ class DateValues {
                  */
             }
             else if (this.sdt > -1 && this.smt > -1) {
-                this.swk = this.getSetWeekNumber(); // <-- modify OR code a new function // <-- new function implemented
+                this.swk = this.getWeekNumber(); // <-- modify OR code a new function // <-- new function implemented
             }
 
-            this.useSetValues();
+            
         }
         
 
@@ -1009,13 +1015,7 @@ class DateValues {
 
     timeTheDay(bUpdateGUI = false) {
         console.log("timeTheDay gets called");
-        this.Heredate = new Date();
-        this.dy = this.Heredate.getDay();
-        this.dt = this.Heredate.getDate();
-        this.mt = this.Heredate.getMonth();
-        this.yr = this.getYearNumberOnly(this.Heredate);
-        this.leapYear = this.isLeapYear();
-        this.wk = this.getHereWeekNumber();
+        let bSuccess = false;
 
         fetch('http://localhost:8080/api/TimeRequester')
             .then(response => response.json())
@@ -1026,15 +1026,18 @@ class DateValues {
 
                 // Rearrange into standard "YYYY-MM-DD"
                 this.Heredate = new Date(`${year}-${month}-${day}`);
-                this.dy = this.Heredate.getDay();
-                this.dt = this.Heredate.getDate();
-                this.mt = this.Heredate.getMonth();
-                this.yr = this.getYearNumberOnly(this.Heredate);
+                bSuccess = true;
+                
+                this.hdy = this.Heredate.getDay();
+                this.hdt = this.Heredate.getDate();
+                this.hmt = this.Heredate.getMonth();
+                this.hyr = this.getYearNumberOnly(this.Heredate);
+                this.useHereValues();
 
                 console.log("Response from DLL: " + thoiGianString);
 
                 this.leapYear = this.isLeapYear();
-                this.wk = this.getHereWeekNumber();
+                this.wk = this.getWeekNumber();
 
                 if (bUpdateGUI == true && this.callbackUpdateGUI) {
                     this.callbackUpdateGUI(this); // to render the calendar when the day's values change
@@ -1042,19 +1045,33 @@ class DateValues {
                 }
             })
             .catch(error => console.log('Error:', error));
-   
+
+        if (bSuccess == true) 
+            return;
+
+        this.Heredate = new Date();
+        
+        this.hdy = this.Heredate.getDay();
+        this.hdt = this.Heredate.getDate();
+        this.hmt = this.Heredate.getMonth();
+        this.hyr = this.getYearNumberOnly(this.Heredate);
+        this.useHereValues();
+        this.leapYear = this.isLeapYear();
+        this.wk = this.getWeekNumber();
     }
     
     getDurationForDateForms() {
         // divide to have time slots equally
-        return Math.floor(this.constants.WAN_DAY_IN_HOURS * this.timeVal.constants.WAN_HOUR_IN_MILLISECONDS/ DATE_FORMAT_STRINGS.length);
+        return Math.floor(this.constants.WAN_DAY_IN_HOURS 
+            * this.timeVal.constants.WAN_HOUR_IN_MILLISECONDS 
+            / DATE_FORMAT_STRINGS.length);
     } // <-- a red leopard function <3
 
-    getHereMonth() {
+    getMonth() {
         return this.mt;
     }
 
-    getHereElteMonth() {
+    getElteMonth() {
         
         /*** 
          * [; nr] return the Elte Month
@@ -1064,25 +1081,25 @@ class DateValues {
 
     }
 
-    getHereDay() {
+    getDay() {
         return this.dy;
     }
 
-    getDateOfHereMonth() {
+    getDateOfTheMonth() {
         return this.dt; // day of the month
     }
 
-    getHereWeekFall() {
+    getWeekFall() {
         return whichDayIsToday(this.dy);
     }
 
-    getHereYear() {
+    getYear() {
         return this.yr;
     }
 
-    getYearNumberOnly(date = null) {
+    getYearNumberOnly(date = null) { // to correct the name of the get year function
         if (date && date instanceof Date) 
-            return date.getFullYear();
+            return date.getFullYear(); // <-- return year number only
 
         return -1;
     }
@@ -1121,22 +1138,22 @@ class DateValues {
         return weekNo;
     }
 
-    getSetWeekNumber() {
-        const dateStr = this.syr + '-' + this.smt + '-' + this.sdt;
-        let setToday = new Date(dateStr); // new Date("2022-03-25");
-        const SetYear = setToday.getFullYear();
-        const SetMonth = convertToElteMonth(setToday.getMonth());
-        const FirstDateOfSetYear = new Date(SetYear, 1, 1);
-        const FirstSetDateIndex = toTuesdayFirst(FirstDateOfSetYear.getDay()); // position of first day of the year in the first week; in 0..6
+    // getSetWeekNumber() {
+    //     const dateStr = this.syr + '-' + this.smt + '-' + this.sdt;
+    //     let setToday = new Date(dateStr); // new Date("2022-03-25");
+    //     const SetYear = setToday.getFullYear();
+    //     const SetMonth = convertToElteMonth(setToday.getMonth());
+    //     const FirstDateOfSetYear = new Date(SetYear, 1, 1);
+    //     const FirstSetDateIndex = toTuesdayFirst(FirstDateOfSetYear.getDay()); // position of first day of the year in the first week; in 0..6
         
-        const SetIndex = toTuesdayFirst(setToday.getDay()); // index of the day in its week; in 0..6
-        const SetSoleDate = setToday.getDate(); // only the date's number in its month; starts from 1
-        const Distance = Math.abs(FirstSetDateIndex - SetIndex);
+    //     const SetIndex = toTuesdayFirst(setToday.getDay()); // index of the day in its week; in 0..6
+    //     const SetSoleDate = setToday.getDate(); // only the date's number in its month; starts from 1
+    //     const Distance = Math.abs(FirstSetDateIndex - SetIndex);
 
-        return this.getWeekNumberWithProvidedParameters(Distance, SetMonth, SetSoleDate);
-    }
+    //     return this.getWeekNumberWithProvidedParameters(Distance, SetMonth, SetSoleDate);
+    // }
     
-    getHereWeekNumber() { /** getHereWeekNumber */
+    getWeekNumber() { /** getHereWeekNumber */
 
         /***
          * sole-date, soleDate, sodate, 1
@@ -1149,23 +1166,31 @@ class DateValues {
         // let datE = '';
         // --> const DatE = '';  
 
-        const HereYear = this.getHereYear();
+        const TheYear = this.getYear();
         
-        const FirstDateOfHereYear = new Date(HereYear, 1, 1);
-        const FirstDateIndex = toTuesdayFirst(FirstDateOfHereYear.getDay()); // the year's first day's index in the first week; 0..6
+        const FirstDateOfTheYear = new Date(TheYear, 1, 1);
+        const FirstDateIndex = toTuesdayFirst(FirstDateOfTheYear.getDay()); // the year's first day's index in the first week; 0..6
         
-        const HereMonth = convertToElteMonth(this.getHereMonth());
-        const HereIndex = toTuesdayFirst(this.getHereDay()); // index of the day in its week; in 0..6
-        const HereSoleDate = this.getDateOfHereMonth(); // only the date's number in its month; starts from 1
-        const Distance = Math.abs(FirstDateIndex - HereIndex);
+        const TheMonth = convertToElteMonth(this.getMonth());
+        const TheDayIndex = toTuesdayFirst(this.getDay()); // index of the day in its week; in 0..6
+        const TheSoleDate = this.getDateOfTheMonth(); // only the date's number in its month; starts from 1
+        const Distance = Math.abs(FirstDateIndex - TheDayIndex);
 
-        return this.getWeekNumberWithProvidedParameters(Distance, HereMonth, HereSoleDate);
+        return this.getWeekNumberWithProvidedParameters(Distance, TheMonth, TheSoleDate);
     }
 
     useSetValues() {
         this.yr = this.syr;
         this.mt = this.smt;
         this.dt = this.sdt;
+        this.dy = (new Date(this.syr, this.smt, this.sdt)).getDay(); // index of the day in its week; in 0..6
+    }
+
+    useHereValues() {
+        this.yr = this.hyr;
+        this.mt = this.hmt;
+        this.dt = this.hdt;
+        this.dy = this.hdy;
     }
 
     isLeapYear() {
@@ -1180,12 +1205,15 @@ class DateValues {
     }
 
     isHereDay(date = -1, month = this.mt, year = this.yr) {
-        return (date === this.dt && month === this.mt && year === this.yr);
+        return (date === this.hdt && month === this.hmt && year === this.hyr);
     }
 }
 
 // make class' properties constants
 Object.freeze(DateValues.Hose);
+Object.freeze(DateValues.CURRENT_YEAR);
+Object.freeze(DateValues.CURRENT_MONTH);
+Object.freeze(DateValues.CURRENT_DAY);
 
 
 DateValues.Constants = class {
