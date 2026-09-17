@@ -1092,33 +1092,33 @@ class DateValues {
         let monthCount = 0; // Athen
         let dayCount = 1; // the first day of the year
 
-        do {
-            if (monthCount == Month) {
-                if (Distance == Math.abs(dayCount - SoleDate))
-                    return weekNo;
-                
-                while (dayCount <= this.DayCountInMonths[monthCount]) { /*** [; nr] revise to consider the case of leap year */ // <-- done
-                    dayCount += 7; // seven days in a week
-                    ++weekNo;
-                    
-                    if (Distance == Math.abs(dayCount - SoleDate))
-                        return weekNo;
-                }
-            }
-
+        while (monthCount < Month) {
             while (dayCount <= this.DayCountInMonths[monthCount]) {
                 dayCount += 7; // seven days in a week
                 ++weekNo;
-                
-                if (Distance == Math.abs(dayCount - SoleDate))
-                    return weekNo;
             }
             
             // here; reach the next month
             // 
             dayCount -= this.DayCountInMonths[monthCount];
             ++monthCount;
-        } while (monthCount <= Month);
+        }
+
+        /*** monthCount == Month */ 
+        if (Distance == Math.abs(dayCount - SoleDate))
+            return weekNo;
+        else {
+            while (dayCount <= this.DayCountInMonths[monthCount]) { 
+                /*** [; nr] revise to consider the case of leap year */ // <-- done
+                dayCount += 7; // seven days in a week
+                ++weekNo;
+                
+                if (Distance == Math.abs(dayCount - SoleDate))
+                    break;
+            }
+        }
+
+        return weekNo;
     }
 
     getSetWeekNumber() {
