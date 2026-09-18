@@ -544,37 +544,38 @@
             } 
         }
 
+        function renderCalendarHeading(bHereYear, suffixStr, month, year) {
+            if (bHereYear) {
+                let spanEle = document.createElement('span');
+                spanEle.classList.add('currentMoment');
+                spanEle.textContent = suffixStr;
+
+                let monthYearEle = document.getElementById("monthYear");
+                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " current_year";
+                monthYearEle.appendChild(spanEle);
+            } else {
+                let monthYearEle = document.getElementById("monthYear");
+                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " " + convertToElteYear(year);
+            }
+        }
+
         function renderCalendar(dateVal, bHereDay = true) {        
             let year = dateVal.getYear();
             let month = dateVal.getMonth();
             let mtNamesEle = document.getElementById("monthNames").children;
-            let monthYearEle = document.getElementById("monthYear");
-            let spanEle = document.createElement('span');
-            let temp = convertToElteYear(year).slice(12);
+            let suffixStr = convertToElteYear(year).slice(12);
             let hereYear = (new Date()).getYear();
+            let bHereYear = (year == hereYear || bHereDay);
 
-            if (year == null || month == null || temp == null || hereYear == null) 
+            if (year == null || month == null || suffixStr == null || hereYear == null) 
                 return;
             
             initializeToHereDate(); // <-- feature to remove Next Month; Previous Month buttons
             removePurple4Months();
             mtNamesEle[month < 2 ? month + 10 : month - 2].style.color = "purple";
             
-            // if (year == hereYear || bHereDay == true)
-            // {
-            //     spanEle.classList.add('currentMoment');
-            //     spanEle.textContent = temp;
-            //     monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
-            //                                                     + " current_year";
-            //     monthYearEle.appendChild(spanEle);
-            // } else {
-            //     monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
-            //                                                     + " " + convertToElteYear(year);
-            // } // <-- fix this segment later
-
-            monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
-                                                                + " " + convertToElteYear(year);
-            
+            renderCalendarHeading(bHereYear, suffixStr, month, year);
+ 
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
             const daysInMonth = new Date(year, month + 1, 0).getDate();
