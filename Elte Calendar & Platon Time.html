@@ -611,7 +611,7 @@
                 if (date > daysInMonth) break;
             }
             
-            renderDateTimeVarieties(); 
+             
         }
 
         
@@ -780,12 +780,11 @@
 
         }
 
-
-        renderCalendar(dateVal);   
+        renderCalendar(dateVal);
+        renderDateTimeVarieties();
 
         window.addEventListener('blur', updateTimeToCurrentMoment);
         window.addEventListener('focus', updateTimeToCurrentMoment);
-    
     </script>
 
 </body>
