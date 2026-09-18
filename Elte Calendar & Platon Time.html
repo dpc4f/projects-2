@@ -560,17 +560,20 @@
             removePurple4Months();
             mtNamesEle[month < 2 ? month + 10 : month - 2].style.color = "purple";
             
-            if (year == hereYear || bHereDay == true)
-            {
-                spanEle.classList.add('currentMoment');
-                spanEle.textContent = temp;
-                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
-                                                                + " current_year";
-                monthYearEle.appendChild(spanEle);
-            } else {
-                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
+            // if (year == hereYear || bHereDay == true)
+            // {
+            //     spanEle.classList.add('currentMoment');
+            //     spanEle.textContent = temp;
+            //     monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
+            //                                                     + " current_year";
+            //     monthYearEle.appendChild(spanEle);
+            // } else {
+            //     monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
+            //                                                     + " " + convertToElteYear(year);
+            // } // <-- fix this segment later
+
+            monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) 
                                                                 + " " + convertToElteYear(year);
-            }
             
             const firstDay = new Date(year, month, 1);
             const startIndex = toTuesdayFirst(firstDay.getDay());
@@ -636,12 +639,13 @@
                 const elteDateStr = document.getElementById('dateTextbox').value;
                 const arr = elteDateStr.trim().split(/\s+/);
 
-                let setYear = revertElteYear(arr[2]);
-                let setMonth = revertElteMonth(arr[0]);
                 let setSoleDate = Number(arr[1]);
+                let setMonth = revertElteMonth(arr[0]);
+                let bAddOneYear = setMonth < 2 ? true : false;
+                let setYear = revertElteYear(arr[2], bAddOneYear);
 
                 let dateVal = new DateValues(renderCalendar, setYear, setMonth, setSoleDate);
-                // renderCalendar(dateVal, false);
+                renderCalendar(dateVal, false);
             }
         }
 
