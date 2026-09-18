@@ -927,7 +927,8 @@ class DateValues {
     static #DayCountInMonths = [
         31, 30, // Athen Duo
         31, 30, 31, 31, // 
-        30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
+        30, 31, 30, 31, 31, 
+        28 // <-- 29 if it's leap year 4 Hose the Month
     ];
 
     constructor(callbackUpdateGUI = null, yr = -1, mt = -1, dt = -1, weekOfTheYear = -1) {
@@ -1001,7 +1002,9 @@ class DateValues {
 
     static get DayCountInMonths() {
         if (this.leapYear == true) 
-            DateValues.#DayCountInMonths[DateValues.Hose]++;
+            DateValues.#DayCountInMonths[DateValues.Hose] = 29;
+        else
+            DateValues.#DayCountInMonths[DateValues.Hose] = 28;
         
         return DateValues.#DayCountInMonths;
     }
