@@ -426,12 +426,11 @@ function getAnimal(idx) {
     return ret;
 }
 
-function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
-    const TODAY = new Date();
-    let month = TODAY.getMonth();
-    let soleDate = TODAY.getDate();
-    let year = TODAY.getFullYear();
-    let day = TODAY.getDay();
+function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
+    let month = Today.getMonth();
+    let soleDate = Today.getDate();
+    let year = Today.getFullYear();
+    let day = Today.getDay();
 
     let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
@@ -446,12 +445,11 @@ function getDateFullForm(bMonth = false, bDateInMonth = false, bDayInWeek = fals
     return retStr;
 }
 
-function getDateMidForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
-    const TODAY = new Date();
-    let month = TODAY.getMonth();
-    let soleDate = TODAY.getDate();
-    let year = TODAY.getFullYear();
-    let day = TODAY.getDay();
+function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
+    let month = Today.getMonth();
+    let soleDate = Today.getDate();
+    let year = Today.getFullYear();
+    let day = Today.getDay();
 
     let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, MID_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
@@ -466,12 +464,11 @@ function getDateMidForm(bMonth = false, bDateInMonth = false, bDayInWeek = false
     return retStr;
 }
 
-function getDateShortForm(bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
-    const TODAY = new Date();
-    let month = TODAY.getMonth();
-    let soleDate = TODAY.getDate();
-    let year = TODAY.getFullYear();
-    let day = TODAY.getDay();
+function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
+    let month = Today.getMonth();
+    let soleDate = Today.getDate();
+    let year = Today.getFullYear();
+    let day = Today.getDay();
 
     let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, SHORT_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
@@ -573,7 +570,7 @@ const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
-function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
+function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0, today = new Date()) {
     let bMonth = DATE_FORMAT_STRINGS[index][0]; 
     let bDateInMonth = DATE_FORMAT_STRINGS[index][1]; 
     let bDayInWeek = DATE_FORMAT_STRINGS[index][2]; 
@@ -583,15 +580,15 @@ function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0) {
 
     switch (formLength) {
         case FULL_FORM_DATE:
-            valuesStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+            valuesStr = getDateFullForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
             break;
 
         case MID_FORM_DATE:
-            valuesStr = getDateMidForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+            valuesStr = getDateMidForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
             break;
 
         case SHORT_FORM_DATE:
-            valuesStr = getDateShortForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+            valuesStr = getDateShortForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
             break;
 
         default:
