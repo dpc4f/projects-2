@@ -611,7 +611,7 @@
                 if (date > daysInMonth) break;
             }
             
-            renderDateTimeVarieties(dateVal); 
+            renderDateTimeVarieties(); 
         }
 
         
@@ -648,7 +648,7 @@
             }
         }
 
-        function renderDateTimeVarieties(dateVal) {
+        function renderDateTimeVarieties() {
             
             /***
              * [; nr] make varieties of Date Time in the calendar
@@ -698,10 +698,10 @@
 
             const infor = document.getElementById("dateWithoutTime");
             let form = FULL_FORM_DATE;
-            let duration = dateVal.getDuration4SwitchingDateForms(); // temporarily increase to a big amount to test updating GUI when tomorrow comes
+            // dateValue.getDuration4SwitchingDateForms(); // temporarily increase to a big amount to test updating GUI when tomorrow comes
             let index = 1;
             
-            duration = 10000; // 10 seconds 4 testing purpose
+            let duration = 10000; // 10 seconds 4 testing purpose
             // console.log(duration); // 4 testing purpose
             setInterval(() => {
                 infor.innerText = getDateValuesTimeStamp(form, index);
