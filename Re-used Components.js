@@ -962,6 +962,7 @@ class DateValues {
 
             this.useSetValues();
                    
+            this.leapYear = this.isLeapYear();
             if (weekOfTheYear > -1) {
                 this.swk = weekOfTheYear;
 
@@ -973,6 +974,11 @@ class DateValues {
             }
             else {
                 this.swk = DateValues.getWeekNumber(this.syr, this.smt, this.sdt, this.sdy); // <-- modify OR code a new function // <-- new function implemented
+            }
+
+            if (this.callbackUpdateGUI) {
+                this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+                console.log('function callback is called; to render the calendar');
             }
         }
         
@@ -992,10 +998,10 @@ class DateValues {
         setTimeout(() => {
             
             setInterval(() => {
-                this.timeTheDay(true);
-            }, this.constants.WAN_DAY_IN_MILLISECONDS);
+                this.timeTheDay(callbackUpdateGUI ? true : false);
+            }, this.constants.WAN_DAY_IN_MILLISECONDS); // will be run every day after the first day
             
-            this.timeTheDay(true);
+            this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
         }, duration);
 
     }

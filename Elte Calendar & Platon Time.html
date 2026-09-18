@@ -491,7 +491,6 @@
 
         function updateToHereDate() {
             dateVal = new DateValues(renderCalendar);
-
             renderCalendar(dateVal);
         }
 
@@ -557,7 +556,7 @@
             if (year == null || month == null || temp == null || hereYear == null) 
                 return;
             
-            initializeToHereDate();
+            initializeToHereDate(); // <-- feature to remove Next Month; Previous Month buttons
             removePurple4Months();
             mtNamesEle[month < 2 ? month + 10 : month - 2].style.color = "purple";
             
@@ -610,8 +609,6 @@
                 body.appendChild(row);
                 if (date > daysInMonth) break;
             }
-            
-             
         }
 
         
@@ -644,7 +641,7 @@
                 let setSoleDate = Number(arr[1]);
 
                 let dateVal = new DateValues(renderCalendar, setYear, setMonth, setSoleDate);
-                renderCalendar(dateVal, false);
+                // renderCalendar(dateVal, false);
             }
         }
 
