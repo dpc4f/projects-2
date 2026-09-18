@@ -427,12 +427,13 @@ function getAnimal(idx) {
 }
 
 
-function getWeekOfADay(date) {
-    
-    // Use 'en-US' for US week numbering or 'en-GB' / 'default' for ISO week numbering
-    const weekNumber = new Intl.DateTimeFormat('en-US', { week: 'numeric' }).format(date);
+function getWeekNoInTheYear(theDate) {
+    let month = theDate.getMonth();
+    let soleDate = theDate.getDate();
+    let year = theDate.getFullYear();
+    let day = theDate.getDay(); 
 
-    return parseInt(weekNumber); // returns the week number as a string (e.g., "38")
+    return DateValues.getWeekNumber(year, month, soleDate, day);
 }
 
 function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
@@ -446,8 +447,7 @@ function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek
     let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
-    // let dateVal = new DateValues();
-    let weekNo = Today.getWeek(); // bWeekNumber ? dateVal.wk : '';
+    let weekNo = getWeekNoInTheYear(Today); //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
@@ -465,8 +465,7 @@ function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek 
     let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(MID_FORM_SHIFT) : '';
-    // let dateVal = new DateValues();
-    let weekNo = getWeekOfADay(Today); // bWeekNumber ? dateVal.wk : '';
+    let weekNo = getWeekNoInTheYear(Today); //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
@@ -485,8 +484,7 @@ function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWee
                                 : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(SHORT_FORM_SHIFT) : '';
-    // let dateVal = new DateValues();
-    let weekNo = getWeekOfADay(Today); // bWeekNumber ? dateVal.wk : '';
+    let weekNo = getWeekNoInTheYear(Today); //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
@@ -973,7 +971,7 @@ class DateValues {
                  */
             }
             else {
-                this.swk = this.getWeekNumber(); // <-- modify OR code a new function // <-- new function implemented
+                this.swk = DateValues.getWeekNumber(this.syr, this.smt, this.sdt, this.sdy); // <-- modify OR code a new function // <-- new function implemented
             }
         }
         
@@ -1036,7 +1034,7 @@ class DateValues {
                 console.log("Response from DLL: " + thoiGianString);
 
                 this.leapYear = this.isLeapYear();
-                this.wk = this.getWeekNumber();
+                this.wk = DateValues.getWeekNumber(this.hyr, this.hmt, this.hdt, this.hdy);
 
                 if (bUpdateGUI == true && this.callbackUpdateGUI) {
                     this.callbackUpdateGUI(this); // to render the calendar when the day's values change
@@ -1056,7 +1054,7 @@ class DateValues {
         this.hyr = this.getYearNumberOnly(this.Heredate);
         this.useHereValues();
         this.leapYear = this.isLeapYear();
-        this.wk = this.getWeekNumber();
+        this.wk = DateValues.getWeekNumber(this.hyr, this.hmt, this.hdt, this.hdy);
     }
     
     getDuration4SwitchingDateForms() {
@@ -1104,7 +1102,7 @@ class DateValues {
         return -1;
     }
 
-    getWeekNumberWithProvidedParameters(Distance, Month, SoleDate) {
+    static getWeekNumberWithProvidedParameters(Distance, Month, SoleDate) {
         let weekNo = 1; // the first week of the year; at most fifty three weeks in a year
         let monthCount = 0; // Athen
         let dayCount = 1; // the first day of the year
@@ -1138,25 +1136,24 @@ class DateValues {
         return weekNo;
     }
     
-    getWeekNumber() {
+    static getWeekNumber(year, month, soleDate, day) {
 
         /***
          * [; nr] convert this method into the static method of class
          * 
          * 
-         */
+         */ // --> done
 
-        const TheYear = this.getYear();
-        
+        const TheYear = year; 
         const FirstDateOfTheYear = new Date(TheYear, 1, 1);
         const FirstDateIndex = toTuesdayFirst(FirstDateOfTheYear.getDay()); // the year's first day's index in the first week; 0..6
         
-        const TheMonth = convertToElteMonth(this.getMonth());
-        const TheDayIndex = toTuesdayFirst(this.getDay()); // index of the day in its week; in 0..6
-        const TheSoleDate = this.getDateOfTheMonth(); // only the date's number in its month; starts from 1
+        const TheMonth = convertToElteMonth(month);
+        const TheDayIndex = toTuesdayFirst(day); // index of the day in its week; in 0..6
+        const TheSoleDate = soleDate; // only the date's number in its month; starts from 1
         const Distance = Math.abs(FirstDateIndex - TheDayIndex);
 
-        return this.getWeekNumberWithProvidedParameters(Distance, TheMonth, TheSoleDate);
+        return DateValues.getWeekNumberWithProvidedParameters(Distance, TheMonth, TheSoleDate);
     }
 
     useSetValues() {
