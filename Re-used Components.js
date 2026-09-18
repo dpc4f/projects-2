@@ -426,6 +426,15 @@ function getAnimal(idx) {
     return ret;
 }
 
+
+function getWeekOfADay(date) {
+    
+    // Use 'en-US' for US week numbering or 'en-GB' / 'default' for ISO week numbering
+    const weekNumber = new Intl.DateTimeFormat('en-US', { week: 'numeric' }).format(date);
+
+    return parseInt(weekNumber); // returns the week number as a string (e.g., "38")
+}
+
 function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
     let month = Today.getMonth();
     let soleDate = Today.getDate();
@@ -437,8 +446,8 @@ function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek
     let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
-    let dateVal = new DateValues();
-    let weekNo = bWeekNumber ? dateVal.wk : '';
+    // let dateVal = new DateValues();
+    let weekNo = Today.getWeek(); // bWeekNumber ? dateVal.wk : '';
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
@@ -456,8 +465,8 @@ function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek 
     let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(MID_FORM_SHIFT) : '';
-    let dateVal = new DateValues();
-    let weekNo = bWeekNumber ? dateVal.wk : '';
+    // let dateVal = new DateValues();
+    let weekNo = getWeekOfADay(Today); // bWeekNumber ? dateVal.wk : '';
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
@@ -476,8 +485,8 @@ function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWee
                                 : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
     let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(SHORT_FORM_SHIFT) : '';
-    let dateVal = new DateValues();
-    let weekNo = bWeekNumber ? dateVal.wk : '';
+    // let dateVal = new DateValues();
+    let weekNo = getWeekOfADay(Today); // bWeekNumber ? dateVal.wk : '';
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
@@ -1130,6 +1139,13 @@ class DateValues {
     }
     
     getWeekNumber() {
+
+        /***
+         * [; nr] convert this method into the static method of class
+         * 
+         * 
+         */
+
         const TheYear = this.getYear();
         
         const FirstDateOfTheYear = new Date(TheYear, 1, 1);
