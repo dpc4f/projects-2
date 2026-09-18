@@ -924,13 +924,13 @@ class DateValues {
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
     static CURRENT_DAY = 'Đang Ngồi Thư Viện';
 
-    constructor(callbackUpdateGUI = null, yr = -1, mt = -1, dt = -1, weekOfTheYear = -1) {
+    static #DayCountInMonths = [
+        31, 30, // Athen Duo
+        31, 30, 31, 31, // 
+        30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
+    ];
 
-        this.dayCountInMonths = [
-            31, 30, // Athen Duo
-            31, 30, 31, 31, // 
-            30, 31, 30, 31, 31, 28 // <-- if it's leap year; need to add 1 in case of Hose
-        ];
+    constructor(callbackUpdateGUI = null, yr = -1, mt = -1, dt = -1, weekOfTheYear = -1) {
 
         if (yr < -1 || yr == 0) return; // invalid parameters
         
@@ -999,11 +999,11 @@ class DateValues {
 
     }
 
-    get DayCountInMonths() {
+    static get DayCountInMonths() {
         if (this.leapYear == true) 
-            this.dayCountInMonths[DateValues.Hose]++;
+            DateValues.#DayCountInMonths[DateValues.Hose]++;
         
-        return this.dayCountInMonths;
+        return DateValues.#DayCountInMonths;
     }
 
     set CallBackUpdateGUI(f) {
@@ -1108,14 +1108,14 @@ class DateValues {
         let dayCount = 1; // the first day of the year
 
         while (monthCount < Month) {
-            while (dayCount <= this.DayCountInMonths[monthCount]) {
+            while (dayCount <= DateValues.DayCountInMonths[monthCount]) {
                 dayCount += 7; // seven days in a week
                 ++weekNo;
             }
             
             // here; reach the next month
             // 
-            dayCount -= this.DayCountInMonths[monthCount];
+            dayCount -= DateValues.DayCountInMonths[monthCount];
             ++monthCount;
         }
 
@@ -1123,7 +1123,7 @@ class DateValues {
         if (Distance == Math.abs(dayCount - SoleDate))
             return weekNo;
         else {
-            while (dayCount <= this.DayCountInMonths[monthCount]) { 
+            while (dayCount <= DateValues.DayCountInMonths[monthCount]) { 
                 /*** [; nr] revise to consider the case of leap year */ // <-- done
                 dayCount += 7; // seven days in a week
                 ++weekNo;
