@@ -555,7 +555,7 @@
                 monthYearEle.appendChild(spanEle);
             } else {
                 let monthYearEle = document.getElementById("monthYear");
-                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " " + convertToElteYear(year);
+                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " " + convertToElteYear(year, month);
             }
         }
 
@@ -563,7 +563,8 @@
             let year = dateVal.getYear();
             let month = dateVal.getMonth();
             let mtNamesEle = document.getElementById("monthNames").children;
-            let suffixStr = convertToElteYear(year).slice(12);
+            let elteYear = convertToElteYear(year, month);
+            let suffixStr = elteYear.slice(12);
             let hereYear = (new Date()).getYear();
             let bHereYear = (year == hereYear || bHereDay);
 
@@ -633,19 +634,15 @@
         // }
 
         function changeDate(bHereDay = false) {
-            
+            if (!dateVal) 
+                return;
+
             if (bHereDay == true)
                 updateToHereDate();
             else {
-                const elteDateStr = document.getElementById('dateTextbox').value;
-                const arr = elteDateStr.trim().split(/\s+/);
-
-                let setSoleDate = Number(arr[1]);
-                let setMonth = revertElteMonth(arr[0]);
-                let bAddOneYear = setMonth < 2 ? true : false;
-                let setYear = revertElteYear(arr[2], bAddOneYear);
-
-                let dateVal = new DateValues(renderCalendar, setYear, setMonth, setSoleDate);
+                let elteDateStr = document.getElementById('dateTextbox').value;
+                
+                dateVal.fromElteDate(elteDateStr);
                 renderCalendar(dateVal, false);
             }
         }

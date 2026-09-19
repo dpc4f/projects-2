@@ -506,10 +506,10 @@ function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWee
     return dateStr + ' ' + hourStr;
 }
 
-function convertToElteYear(year) {
-    const d = year - DateValues.Constants.CURRENT_YEAR;
-    const c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
-    const str = d>0 ? '+'+d.toString() : d.toString();
+function convertToElteYear(year, month = 12) {
+    let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
+    let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
+    let str = d>0 ? '+'+d.toString() : d.toString();
 
     return (d==0 ? c_y_str : c_y_str+str);
 }
@@ -1010,10 +1010,33 @@ class DateValues {
      * [; nr] code a function to convert back && forth from Gregorian to Elte Calendar date
      * 
      * 
-     */
+     */ // <-- done in converting Elte values to Gregorian values
 
-    fromGregorianDate() {
+    fromElteDate(dateStr) {
+        let arr = dateStr.trim().split(/\s+/); 
+        let d = parseInt(arr[1]);
+        let m = revertElteMonth(arr[0]);
 
+        if (m === -1 || arr.length < 3) {
+            console.log('Please use the format "M1 27 current_year+6"');
+            return;
+        }
+
+        let bAddOneYear = m < 2 ? true : false;
+        let y = revertElteYear(arr[2], bAddOneYear);
+
+        this.syr = y;
+        this.smt = m;
+        this.sdt = d;
+        this.useSetValues();
+            
+        this.leapYear = this.isLeapYear();
+        this.swk = DateValues.getWeekNumber(this.syr, this.smt, this.sdt, this.sdy); 
+
+        if (this.callbackUpdateGUI) {
+            this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+            console.log('function callback is called; to render the calendar');
+        }
     }
 
     static get DayCountInMonths() {
