@@ -1007,10 +1007,14 @@ class DateValues {
     }
 
     /***
-     * [; nr] code a function to convert back && forth from Grogregian to Elte Calendar date
+     * [; nr] code a function to convert back && forth from Gregorian to Elte Calendar date
      * 
      * 
      */
+
+    fromGregorianDate() {
+
+    }
 
     static get DayCountInMonths() {
         if (this.leapYear == true) 
