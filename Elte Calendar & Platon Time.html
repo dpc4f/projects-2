@@ -555,7 +555,10 @@
                 monthYearEle.appendChild(spanEle);
             } else {
                 let monthYearEle = document.getElementById("monthYear");
-                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " " + convertToElteYear(year, month);
+                let [elteMonth, elteYear] = dateVal.convertToElteMonthYear(year, month);
+                
+                // monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " " + convertToElteYear(year, month);
+                monthYearEle.textContent = elteMonth + ' ' + elteYear;
             }
         }
 

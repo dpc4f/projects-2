@@ -1039,6 +1039,43 @@ class DateValues {
         }
     }
 
+    convertToElteMonth(month) { // 0..11
+        const MONTH_COUNT = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+
+        if (month < 0 || month >= MONTH_COUNT) 
+            return;
+        
+        return month < 2 ? month + 10 : month - 2;
+    }
+
+    getElteMonthStr(month) {
+        let elteMonthIndex = this.convertToElteMonth(month);
+        
+        return getElteMonth(elteMonthIndex);
+    }
+
+    convertToElteMonthYear(year, month = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
+        let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
+        let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
+        let str = d > 0 ? '+'+d.toString() : d.toString();
+
+        return [this.getElteMonthStr(month), (d == 0 ? c_y_str : c_y_str+str)];
+    }
+
+    revertElteMonthYear(elteStr) { // to become Gregorian month 'N' year
+        let arr = elteStr.trim().split(/\s+/);
+        
+        let m = getIndexFromElteMonth(arr[0]);
+        if (m === -1 || arr.length < 3) {
+            console.log('Please use the format "M1 27 current_year+6"');
+            return;
+        }
+
+        let y = revertElteYear(arr[2], m < 2);
+        
+        return [m, y];
+    }
+
     static get DayCountInMonths() {
         if (this.leapYear == true) 
             DateValues.#DayCountInMonths[DateValues.Hose] = 29;
@@ -1243,7 +1280,7 @@ DateValues.Constants = class {
     #oneDayInHours = 24;
     #oneDayInMilliseconds = 86400000;
     static #Thời_Khắc_Hiện_Tại_Là_Năm_2020 = 2020; /** CURRENT_YEAR */
-
+    
     get WAN_DAY_IN_HOURS() {
         return this.#oneDayInHours;
     }
@@ -1279,7 +1316,12 @@ DateValues.Constants = class {
     static get CURRENT_YEAR_STRING() {
         return 'current_year';
     }
+
+    static NUMBER_OF_MONTHS_IN_A_YEAR = 12;
 }
+
+Object.freeze(DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR);
+
 
 function exchange2AnimalByLunar(birthYear) {
     let tmp = Math.abs(DateValues.Constants.CURRENT_YEAR - birthYear) % 12;
