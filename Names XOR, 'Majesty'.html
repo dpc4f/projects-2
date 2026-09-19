@@ -292,14 +292,18 @@
                 div.textContent = '';
 
                 let l = 0;
-                for (; l < arr.length; l++) { /* w/ each wording */  
+                for (; l < arr.length; l++) { /*** w/ each wording */  
                     let i = 0; 
-                    const rules = [ // the conversion rule // lowercase character 'a' first
-                        { regex: /a/g, replacement: ' ' }
+                    const rules = [ // the conversion rule // character 'Y'
+                        { regex: /Y/g, replacement: ' ' }
                     ];
 
                     convertedWifeName = arr[l].replace(rules[0].regex, rules[0].replacement);
                     partedConvertedWifeName = convertedWifeName.trim().split(/\s+/);
+
+                    // process the first character
+                    if (arr[l][0] == 'Y' && arr[l].length > 1)
+                        div.appendChild(getPurpleA());
 
                     let k = 0;  
                     for (; k < partedConvertedWifeName.length-1; ++k ) {
@@ -313,7 +317,7 @@
                     span4APart = document.createElement('span');
                     span4APart.textContent = partedConvertedWifeName[k];
                     div.appendChild(span4APart);
-                    if (arr[l][arr[l].length-1] == 'a') {
+                    if (arr[l][arr[l].length-1] == 'Y') {
                         div.appendChild(getPurpleA());
                     }
 
