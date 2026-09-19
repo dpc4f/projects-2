@@ -422,9 +422,9 @@
                 <span class="excellent">GMT+7</span>-4
             </div>
             <div id="dmitry" class="local-current-time"></div>
-            <div class="platon-time old-db-record">
-                <em class="forestry">서울</em><em class="city">Kyoto</em>
-                <span class="excellent">GMT+7</span>+2
+            <div class="platon-time">
+                <em class="city">Auckland</em>
+                <span class="excellent">GMT+7</span>+5
             </div>
             <div id="oxaka-seoul" class="local-current-time"></div>
             <div class="platon-time">
@@ -502,7 +502,7 @@
         // refresh every second
         function updatePlatonTime(timeVal) {
             // oxakaSeoulTime = 
-            document.getElementById('oxaka-seoul').textContent = `${timeVal.formatTime(2, true)}`; // +2
+            document.getElementById('oxaka-seoul').textContent = `${timeVal.formatTime(5, true)}`; // +5
             
             // let beijingTime = 
             document.getElementById('beijing').textContent = `${timeVal.formatTime(1, true)}`; // +1
