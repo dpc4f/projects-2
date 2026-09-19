@@ -1006,6 +1006,12 @@ class DateValues {
 
     }
 
+    /***
+     * [; nr] code a function to convert back && forth from Grogregian to Elte Calendar date
+     * 
+     * 
+     */
+
     static get DayCountInMonths() {
         if (this.leapYear == true) 
             DateValues.#DayCountInMonths[DateValues.Hose] = 29;
