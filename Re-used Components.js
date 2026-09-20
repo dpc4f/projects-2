@@ -1102,9 +1102,8 @@ class DateValues {
         fetch('http://localhost:8080/api/TimeRequester')
             .then(response => response.json())
             .then(thoiGianString => {
-                const [ngayThang, thoiGio] = thoiGianString.split(" ");
-                // Fixing a "DD/MM/YYYY" format
-                const [day, month, year] = ngayThang.split("/");
+                const [ngayThang,,] = thoiGianString.split(" ");
+                const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
 
                 // Rearrange into standard "YYYY-MM-DD"
                 this.Heredate = new Date(`${year}-${month}-${day}`);
