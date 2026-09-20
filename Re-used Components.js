@@ -1076,6 +1076,12 @@ class DateValues {
         return [m, y];
     }
 
+    getElteProvidingElteMonth(month) {
+        let elteYear = convertToElteYear(this.yr, this.mt);
+        
+        return month + ' ' + this.dt.toString() + ' ' + elteYear;
+    }
+
     static get DayCountInMonths() {
         if (this.leapYear == true) 
             DateValues.#DayCountInMonths[DateValues.Hose] = 29;
@@ -1145,6 +1151,19 @@ class DateValues {
 
     getMonth() {
         return this.mt;
+    }
+
+    set Month(monthIdx) {
+        /*** 
+         * do parameter's validation 
+         * 
+         * */
+        
+        this.mt = monthIdx;
+        this.dt = 1; // update date to the beginning of the month <-- will revise later
+
+        if (this.callbackUpdateGUI != null)
+            this.callbackUpdateGUI(this);
     }
 
     getElteMonth() {

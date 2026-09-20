@@ -30,7 +30,7 @@
             margin-top: 10px;
         }
 
-        button {
+        .button-4-time {
             font-size: 12px;
             border: none;
             background: honeydew;
@@ -41,6 +41,13 @@
             display: inline;
             margin-top: -20px;
             position: absolute;
+        }
+
+        .months {
+            font-size: 20px;
+            color: goldenrod;
+            background: white;
+            text-align: center;
         }
 
         button:active {
@@ -361,18 +368,18 @@
     <div class="flex-container">
         
         <div class="flex-months month" id="monthNames">
-            <div class="center dry-season">Athen <span class="mini-creature">1</span></div>
-            <div class="center dry-season">Duo</div>
-            <div class="center dry-season">Magha</div>
-            <div class="center raining-season">Qaru</div>
-            <div class="center raining-season">Felle</div>
-            <div class="center raining-season">Yune</div>
-            <div class="center raining-season">SEPT</div>
-            <div class="center raining-season">OCT</div>
-            <div class="center raining-season">NOV</div>
-            <div class="center dry-season">DEC</div>
-            <div class="center dry-season">Palm</div>
-            <div class="center dry-season">Hose</div>
+            <button class="months center dry-season" onclick="changeMonth('Athen')">Athen <span class="mini-creature">1</span></button>
+            <button class="months center dry-season" onclick="changeMonth('Duo')">Duo</button>
+            <button class="months center dry-season" onclick="changeMonth('Magha')">Magha</button>
+            <button class="months center raining-season" onclick="changeMonth('Qaru')">Qaru</button>
+            <button class="months center raining-season" onclick="changeMonth('Felle')">Felle</button>
+            <button class="months center raining-season" onclick="changeMonth('Yune')">Yune</button>
+            <button class="months center raining-season" onclick="changeMonth('SEPT')">SEPT</button>
+            <button class="months center raining-season" onclick="changeMonth('OCT')">OCT</button>
+            <button class="months center raining-season" onclick="changeMonth('NOV')">NOV</button>
+            <button class="months center dry-season" onclick="changeMonth('DEC')">DEC</button>
+            <button class="months center dry-season" onclick="changeMonth('Palm')">Palm</button>
+            <button class="months center dry-season" onclick="changeMonth('Hose')">Hose</button>
         </div>
         
         <div class="left-panel">
@@ -399,9 +406,9 @@
                         <div class="note right-note-2">Xử Nữ. Song Tử. Bọ Cạp. Aquarius.</div>
                     </div>
                 </div>
-                <button onclick="changeDate(true)">C u d a</button>
+                <button class="button-4-time" onclick="changeDate(true)">C u d a</button>
                 <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33" value="">
-                <button onclick="changeDate()">T e f o</button>
+                <button class="button-4-time" onclick="changeDate()">T e f o</button>
             </div>
             <div>
                 <div id="dateWithoutTime" class="date-wo-time"></div>
@@ -622,19 +629,12 @@
         
         /*** [; nr] fix a bug related to setTimeout; setInterval when changing months */
         /*** [; nr] fix a bug in rendering leap year */ // <-- done
-        // function changeMonth(dateVal, step = 1) {
-        //     dateVal.mt += step;
-
-        //     if (currentMonth < 2) {
-        //         dateVal.mt = 11;
-        //         dateVal.yr--;
-        //     } else if (currentMonth > 13) {
-        //         dateVal.mt = 2;
-        //         dateVal.yr++;
-        //     }
-
-        //     renderCalendar(dateVal);
-        // }
+        function changeMonth(elteMonth) {
+            let elteFullDate = dateVal.getElteProvidingElteMonth(elteMonth);
+            
+            document.getElementById('dateTextbox').value = elteFullDate;
+            changeDate();
+        }
 
         function changeDate(bHereDay = false) {
             if (!dateVal) 
@@ -651,53 +651,6 @@
         }
 
         function renderDateTimeVarieties() {
-            
-            /***
-             * [; nr] make varieties of Date Time in the calendar
-             * 
-             * 
-             * Yune 22 current_year+6
-             * Yune 22 current_year+6 Sat
-             * y 22 +6 S
-             * y 22 +6
-             * yu cy+6
-             * current_year+6
-             * cy+6
-             * Yune current_year+6
-             * Yune current_year+6 Sat
-             * y +6 S
-             * 
-             * d +6 (Duo current_year+6)
-             * D +6 (DEC current_year+6)
-             * du cy+6 (Duo current_year+6)
-             * DE cy+6 (DEC current_year+6)
-             * DE 22 cy+6 S
-             * DE 23 cy+6 H
-             * 
-             * 
-             * [combine w/ shits in a day]
-             * Yune 22 current_year+6 Sat iTa
-             * y 22 +6 S M
-             * D +6 N
-             * Yu 22 cy+6 S Tm
-             * 
-             * 
-             * [shift] 
-             * iTm <-- used 4, full stamp <-- in the morning
-             * Tm <-- used 4, 2 characters month stamp <-- in the morning
-             * M <-- used 4, short stamp <-- in the morning
-             * 
-             * iTa, Ta, a (in the afternoon)
-             * iTe, Te, E (in the evening)
-             * iTn, Tn, n (in the night)
-             * aMn, Mn, 4 (4b mid-night)
-             * 
-             * 
-             * y 22 +6 S A
-             * Yune 22 current_year+6 Sat iTa
-             * 
-             * */ // <-- done
-
             const infor = document.getElementById("dateWithoutTime");
             let form = FULL_FORM_DATE;
             // dateValue.getDuration4SwitchingDateForms(); // temporarily increase to a big amount to test updating GUI when tomorrow comes
