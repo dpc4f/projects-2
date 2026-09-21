@@ -1080,6 +1080,11 @@ class DateValues {
     timeTheDay(bUpdateGUI = false) {
         console.log("timeTheDay gets called");
 
+        /***
+         * [; nr] fix a bug on this fetch() funtion
+         * 
+         */
+
         fetch('http://localhost:8080/api/TimeRequester')
         .then(response => response.json())
         .then(thoiGianString => {
@@ -1094,7 +1099,6 @@ class DateValues {
             this.hdt = this.Heredate.getDate();
             this.hmt = this.Heredate.getMonth();
             this.hyr = this.getYearNumberOnly(this.Heredate);
-            this.useHereValues();
 
             console.log("Response from DLL: " + thoiGianString);
 
@@ -1109,11 +1113,12 @@ class DateValues {
             this.hdt = 1; // first day of Athen
             this.hmt = 0; // athen
             this.hyr = DateValues.CURRENT_YEAR;  
-            this.useHereValues();
             
             this.leapYear = true; // luckily 2020 is a leap year :-)
             this.wk = 1;
         });
+
+        this.useHereValues();
 
         if (bUpdateGUI == true && this.callbackUpdateGUI) {
             this.callbackUpdateGUI(this); // to render the calendar when the day's values change
