@@ -1100,11 +1100,6 @@ class DateValues {
 
             this.leapYear = this.isLeapYear();
             this.wk = DateValues.getWeekNumber(this.hyr, this.hmt, this.hdt, this.hdy);
-
-            if (bUpdateGUI == true && this.callbackUpdateGUI) {
-                this.callbackUpdateGUI(this); // to render the calendar when the day's values change
-                console.log('function callback is called; to render the calendar');
-            }
         })
         .catch(error => {
             console.log(error.toString());
@@ -1119,6 +1114,11 @@ class DateValues {
             this.leapYear = true; // luckily 2020 is a leap year :-)
             this.wk = 1;
         });
+
+        if (bUpdateGUI == true && this.callbackUpdateGUI) {
+            this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+            console.log('function callback is called; to render the calendar');
+        }
     }
 
     getDuration4SwitchingDateForms() {
