@@ -500,11 +500,6 @@
             }
         }
 
-        function updateToHereDate() {
-            dateVal = new DateValues(renderCalendar);
-            renderCalendar(dateVal);
-        }
-
         function updateToHereTime() {
             tVal = new TimeValues(updatePlatonTIme);
             tVal.timeTheCurrent();
@@ -528,8 +523,12 @@
             document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
         }
 
-        let dateVal = null;
-        dateVal = new DateValues(renderCalendar);
+        let dateVal = new DateValues(renderCalendar, false);
+
+        function updateToHereDate() {
+            dateVal = new DateValues(renderCalendar);
+            renderCalendar(dateVal);
+        }
 
         function initializeToHereDate() {
             const COMMONLY_USED = 2;

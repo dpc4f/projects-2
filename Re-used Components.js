@@ -403,7 +403,7 @@ function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek
     let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-    let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7) : '';
+    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? getShiftOfToday() : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
@@ -421,7 +421,7 @@ function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek 
     let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, MID_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-    let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
+    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(MID_FORM_SHIFT) : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
@@ -440,7 +440,7 @@ function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWee
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = year == DateValues.Constants.CURRENT_YEAR ? 'O' 
                                 : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
-    let dayInWeek = bDayInWeek ? whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
+    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
     let shift = bShiftInADay ? getShiftOfToday(SHORT_FORM_SHIFT) : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
