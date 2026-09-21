@@ -1134,7 +1134,10 @@ class DateValues {
         return this.yr;
     }
 
-    // set year
+    // set year <-- done
+    set Year(year) {
+        this.yr = year;
+    }
 
     get Month() {
         return this.mt;
@@ -1159,7 +1162,7 @@ class DateValues {
          * [; nr] return the Elte Month
          * 
          * 
-         * */
+         * */ // --> done
         
         return DateValues.convertToElteMonthIdx(this.mt);
     }
