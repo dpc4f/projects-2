@@ -1079,50 +1079,48 @@ class DateValues {
 
     timeTheDay(bUpdateGUI = false) {
         console.log("timeTheDay gets called");
-        let bSuccess = false;
 
         fetch('http://localhost:8080/api/TimeRequester')
-            .then(response => response.json())
-            .then(thoiGianString => {
-                const [ngayThang,,] = thoiGianString.split(" ");
-                const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
+        .then(response => response.json())
+        .then(thoiGianString => {
+            const [ngayThang,,] = thoiGianString.split(" ");
+            const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
 
-                // Rearrange into standard "YYYY-MM-DD"
-                this.Heredate = new Date(`${year}-${month}-${day}`);
-                bSuccess = true;
-                
-                this.hdy = this.Heredate.getDay();
-                this.hdt = this.Heredate.getDate();
-                this.hmt = this.Heredate.getMonth();
-                this.hyr = this.getYearNumberOnly(this.Heredate);
-                this.useHereValues();
+            // Rearrange into standard "YYYY-MM-DD"
+            this.Heredate = new Date(`${year}-${month}-${day}`);
 
-                console.log("Response from DLL: " + thoiGianString);
+            
+            this.hdy = this.Heredate.getDay();
+            this.hdt = this.Heredate.getDate();
+            this.hmt = this.Heredate.getMonth();
+            this.hyr = this.getYearNumberOnly(this.Heredate);
+            this.useHereValues();
 
-                this.leapYear = this.isLeapYear();
-                this.wk = DateValues.getWeekNumber(this.hyr, this.hmt, this.hdt, this.hdy);
+            console.log("Response from DLL: " + thoiGianString);
 
-                if (bUpdateGUI == true && this.callbackUpdateGUI) {
-                    this.callbackUpdateGUI(this); // to render the calendar when the day's values change
-                    console.log('function callback is called; to render the calendar');
-                }
-            })
-            .catch(error => console.log('Error:', error));
+            this.leapYear = this.isLeapYear();
+            this.wk = DateValues.getWeekNumber(this.hyr, this.hmt, this.hdt, this.hdy);
 
-        if (bSuccess == true) 
-            return;
+            if (bUpdateGUI == true && this.callbackUpdateGUI) {
+                this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+                console.log('function callback is called; to render the calendar');
+            }
+        })
+        .catch(error => {
+            console.log(error.toString());
+            console.log('Use a day of current_year as the replacement ..');
 
-        this.Heredate = new Date();
-        
-        this.hdy = this.Heredate.getDay();
-        this.hdt = this.Heredate.getDate();
-        this.hmt = this.Heredate.getMonth();
-        this.hyr = this.getYearNumberOnly(this.Heredate);
-        this.useHereValues();
-        this.leapYear = this.isLeapYear();
-        this.wk = DateValues.getWeekNumber(this.hyr, this.hmt, this.hdt, this.hdy);
+            this.hdy = 0; // thaw
+            this.hdt = 1; // first day of Athen
+            this.hmt = 0; // athen
+            this.hyr = DateValues.CURRENT_YEAR;  
+            this.useHereValues();
+            
+            this.leapYear = true; // luckily 2020 is a leap year :-)
+            this.wk = 1;
+        });
     }
-    
+
     getDuration4SwitchingDateForms() {
         // divide to have time slots equally
         return Math.floor(this.constants.WAN_DAY_IN_HOURS 
@@ -1159,7 +1157,7 @@ class DateValues {
     get ElteMonth() { // getter to return elte month index
         
         /*** 
-         * [; nr] return the Elte Month
+         * [; nr] return the Elte Montha
          * 
          * 
          * */ // --> done
