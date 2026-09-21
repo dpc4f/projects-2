@@ -523,8 +523,6 @@
             document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
         }
 
-        let dateVal = new DateValues(renderCalendar, false);
-
         function updateToHereDate() {
             dateVal = new DateValues(renderCalendar);
             renderCalendar(dateVal);
@@ -737,12 +735,16 @@
              * */
 
         }
+        
+        window.onload = function() {
+            renderDateTimeVarieties();
 
-        renderCalendar(dateVal);
-        renderDateTimeVarieties();
+            updateToHereDate();
+        }
 
         window.addEventListener('blur', updateTimeToCurrentMoment);
         window.addEventListener('focus', updateTimeToCurrentMoment);
+        window.addEventListener('focus', updateToHereDate);
     </script>
 
 </body>
