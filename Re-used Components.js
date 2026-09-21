@@ -20,10 +20,10 @@ const ANIMAL_NAMES = [
     "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
 ]; 
 
-function getElteMonth(month, form = FULL_FORM_DATE) {
+function getElteMonth(monthIndex, form = FULL_FORM_DATE) {
     let ret = '';
 
-    switch (month) {
+    switch (monthIndex) {
         case 0:
             ret = form == FULL_FORM_DATE ? 'Athen' : (form == MID_FORM_DATE ? 'At' : 'a');
             break;
@@ -79,44 +79,6 @@ function getElteMonth(month, form = FULL_FORM_DATE) {
     return ret;
 }
 
-function whichDayIsToday(day, form = FULL_FORM_DATE) {
-    let ret = '';
-
-    switch (day) {
-        case 0:
-            ret = form == FULL_FORM_DATE ? 'Thaw' : (form == MID_FORM_DATE ? 'th' : 'T');
-            break;
-        
-        case 1:
-            ret = form == FULL_FORM_DATE ? 'Wan' : (form == MID_FORM_DATE ? 'wa' : 'W');
-            break;
-
-        case 2:
-            ret = form == FULL_FORM_DATE ? 'Uth' : (form == MID_FORM_DATE ? 'ut' : 'U');
-            break;
-
-        case 3:
-            ret = form == FULL_FORM_DATE ? 'Fri' : (form == MID_FORM_DATE ? 'fr' : 'F');
-            break;
-
-        case 4:
-            ret = form == FULL_FORM_DATE ? 'Sat' : (form == MID_FORM_DATE ? 'sa' : 'S');
-            break;
-
-        case 5:
-            ret = form == FULL_FORM_DATE ? 'Hie' : (form == MID_FORM_DATE ? 'hi' : 'H');
-            break;
-
-        case 6:
-            ret = form == FULL_FORM_DATE ? 'Dak' : (form == MID_FORM_DATE ? 'da' : 'D');
-            break;
-
-        default:
-            break;
-    }
-
-    return ret;
-}
 
 function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
     const date = new Date();
@@ -249,10 +211,6 @@ function convertToElte_ShortForm(aDate) {
     return elteDOB;
 }
 
-function convertToElteMonth(month) {
-    return month < 2 ? month + 10 : month - 2;
-}
-
 function convertToElte(aDate, bFromDavid = false) {
     let date = '';
 
@@ -273,7 +231,7 @@ function convertToElte(aDate, bFromDavid = false) {
     
     let elteYear;
     let elteDOB;
-    let elteMonth = !bFromDavid ? getElteMonth(convertToElteMonth(month)) : getElteMonth(month);
+    let elteMonth = !bFromDavid ? getElteMonth(DateValues.convertToElteMonthIndex(month)) : getElteMonth(month);
 
     if (bFromDavid == true) 
         year -= 2;
@@ -920,6 +878,22 @@ class DateValues {
 
     static Hose = 11;
 
+    #yr;
+    #mt;
+    #dt;
+    #dy;
+
+    #hyr;
+    #hmt;
+    #hdt;
+    #hdy;
+
+    #syr;
+    #smt;
+    #sdt;
+    #sdy;
+
+
     static CURRENT_YEAR = 2020;
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
     static CURRENT_DAY = 'Đang Ngồi Thư Viện';
@@ -1039,17 +1013,23 @@ class DateValues {
         }
     }
 
-    convertToElteMonth(month) { // 0..11
-        const MONTH_COUNT = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+    static getElteMonth(elteMonthIdx) { // monthIdx = 0..11
 
-        if (month < 0 || month >= MONTH_COUNT) 
-            return;
         
-        return month < 2 ? month + 10 : month - 2;
+        return 
     }
 
-    getElteMonthStr(month) {
-        let elteMonthIndex = this.convertToElteMonth(month);
+    static convertToElteMonthIdx(monthIdx) { // monthIdx = 0..11
+        const MONTH_COUNT = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+
+        if (monthIdx < 0 || monthIdx >= MONTH_COUNT) 
+            return;
+        
+        return monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
+    }
+
+    getElteMonthStr(monthIdx) {
+        let elteMonthIndex = DateValues.convertToElteMonthIdx(monthIdx);
         
         return getElteMonth(elteMonthIndex);
     }
@@ -1148,7 +1128,13 @@ class DateValues {
             / DATE_FORMAT_STRINGS.length);
     } // <-- a red leopard function <3
 
-    getMonth() {
+    get Year() {
+        return this.yr;
+    }
+
+    // set year
+
+    get Month() {
         return this.mt;
     }
 
@@ -1165,31 +1151,30 @@ class DateValues {
             this.callbackUpdateGUI(this);
     }
 
-    getElteMonth() {
+    get ElteMonth() { // getter to return elte month index
         
         /*** 
          * [; nr] return the Elte Month
          * 
          * 
          * */
-
+        
+        return DateValues.convertToElteMonthIdx(this.mt);
     }
 
-    getDay() {
+    get Day() {
         return this.dy;
     }
 
-    getDateOfTheMonth() {
+    get WeekFall() {
+        return this.whichDayIsTheDay(this.dy);
+    }
+
+    get SoleDate() {
         return this.dt; // day of the month
     }
 
-    getWeekFall() {
-        return whichDayIsToday(this.dy);
-    }
 
-    getYear() {
-        return this.yr;
-    }
 
     // to correct the name of the get year function
     getYearNumberOnly(date = null) {
@@ -1245,12 +1230,55 @@ class DateValues {
         const FirstDateOfTheYear = new Date(TheYear, 1, 1);
         const FirstDateIndex = toTuesdayFirst(FirstDateOfTheYear.getDay()); // the year's first day's index in the first week; 0..6
         
-        const TheMonth = convertToElteMonth(month);
+        const TheMonth = DateValues.convertToElteMonthIdx(month);
         const TheDayIndex = toTuesdayFirst(day); // index of the day in its week; in 0..6
         const TheSoleDate = soleDate; // only the date's number in its month; starts from 1
         const Distance = Math.abs(FirstDateIndex - TheDayIndex);
 
         return DateValues.getWeekNumberWithProvidedParameters(Distance, TheMonth, TheSoleDate);
+    }
+
+    whichDayIsTheDay(form = FULL_FORM_DATE) {
+        return DateValues.whichDayIsToday(this.dy, form);
+    }
+
+    static whichDayIsToday(todayIndex, form = FULL_FORM_DATE) {
+        let ret = '';
+
+        switch (todayIndex) {
+            case 0:
+                ret = form == FULL_FORM_DATE ? 'Thaw' : (form == MID_FORM_DATE ? 'th' : 'T');
+                break;
+            
+            case 1:
+                ret = form == FULL_FORM_DATE ? 'Wan' : (form == MID_FORM_DATE ? 'wa' : 'W');
+                break;
+
+            case 2:
+                ret = form == FULL_FORM_DATE ? 'Uth' : (form == MID_FORM_DATE ? 'ut' : 'U');
+                break;
+
+            case 3:
+                ret = form == FULL_FORM_DATE ? 'Fri' : (form == MID_FORM_DATE ? 'fr' : 'F');
+                break;
+
+            case 4:
+                ret = form == FULL_FORM_DATE ? 'Sat' : (form == MID_FORM_DATE ? 'sa' : 'S');
+                break;
+
+            case 5:
+                ret = form == FULL_FORM_DATE ? 'Hie' : (form == MID_FORM_DATE ? 'hi' : 'H');
+                break;
+
+            case 6:
+                ret = form == FULL_FORM_DATE ? 'Dak' : (form == MID_FORM_DATE ? 'da' : 'D');
+                break;
+
+            default:
+                break;
+        }
+
+        return ret;
     }
 
     useSetValues() {
