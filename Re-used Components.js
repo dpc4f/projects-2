@@ -898,6 +898,8 @@ class DateValues {
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
     static CURRENT_DAY = 'Đang Ngồi Thư Viện';
 
+    static USE_HERE_DAY = -1;
+
     static #DayCountInMonths = [
         31, 30, // Athen Duo
         31, 30, 31, 31, // 
@@ -905,14 +907,14 @@ class DateValues {
         28 // <-- 29 if it's leap year 4 Hose the Month
     ];
 
-    constructor(callbackUpdateGUI = null, yr = -1, mt = -1, dt = -1, weekOfTheYear = -1) {
+    constructor(callbackUpdateGUI = null, yr = DateValues.USE_HERE_DAY, mt = -1, dt = -1, weekOfTheYear = -1) {
 
         if (yr < -1 || yr == 0) return; // invalid parameters
         
         this.Heredate = null;
         this.callbackUpdateGUI = callbackUpdateGUI;
 
-        if (yr == -1)
+        if (yr == DateValues.USE_HERE_DAY) // == -1
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
         else {
             /* use Set Date Values */
@@ -1320,6 +1322,7 @@ Object.freeze(DateValues.Hose);
 Object.freeze(DateValues.CURRENT_YEAR);
 Object.freeze(DateValues.CURRENT_MONTH);
 Object.freeze(DateValues.CURRENT_DAY);
+Object.freeze(DateValues.USE_HERE_DAY);
 
 
 DateValues.Constants = class {
