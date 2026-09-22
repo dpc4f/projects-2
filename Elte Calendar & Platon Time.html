@@ -413,6 +413,7 @@
                 <button class="button-4-time" onclick="changeDate(true)">C u d a</button>
                 <input type="text" id="dateTextbox" placeholder="Athen 25 current_year-33" value="">
                 <button class="button-4-time" onclick="changeDate()">T e f o</button>
+                <div id="weekOfSetYear" style="text-align: right; width: 280px; font-size: 12px; margin-top: -4px; color: indigo"></div>
             </div>
             <div>
                 <div id="dateWithoutTime" class="date-wo-time"></div>
@@ -648,6 +649,9 @@
                 
                 dateVal.fromElteDate(elteDateStr);
                 renderCalendar(dateVal, false);
+                
+                let wosyDiv = document.getElementById("weekOfSetYear");
+                wosyDiv.textContent = dateVal.Week.toString();
             }
         }
 

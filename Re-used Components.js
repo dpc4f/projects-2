@@ -910,7 +910,7 @@ class DateValues {
         28 // <-- 29 if it's leap year 4 Hose the Month
     ];
 
-    constructor(callbackUpdateGUI = null, yr = DateValues.USE_HERE_DAY, mt = -1, dt = -1, weekOfTheYear = -1) {
+    constructor(callbackUpdateGUI = null, yr = DateValues.USE_HERE_DAY, mt = -1, dt = -1) {
 
         if (yr < -1 || yr == 0) return; // invalid parameters
         
@@ -938,30 +938,18 @@ class DateValues {
                 this.#sdt = dt;
             else
                 this.#sdt = 1; 
-
-            this.useSetValues();
                    
             DateValues.#LeapYear = DateValues.isLeapYear(this.#syr);
-            if (weekOfTheYear > -1) {
-                this.#swk = weekOfTheYear;
+            this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy); // <-- modify OR code a new function 
+            // --> new function implemented
 
-                /**
-                 * [; nr] from this.swk calculate current month of the year
-                 * 
-                 * 
-                 */
-            }
-            else {
-                this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy); // <-- modify OR code a new function 
-                // // --> new function implemented
-            }
-
+            this.useSetValues();
+    
             if (this.callbackUpdateGUI) {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
                 console.log('function callback is called; to render the calendar');
             }
         }
-        
 
         /*** 
          * when an instance of this class is created it will know when the current day ends
@@ -1008,10 +996,10 @@ class DateValues {
         this.#syr = y;
         this.#smt = m;
         this.#sdt = d;
-        this.useSetValues();
-            
         DateValues.#LeapYear = DateValues.isLeapYear(this.#syr);
-        this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy); 
+        this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy);
+
+        this.useSetValues();
 
         if (this.callbackUpdateGUI) {
             this.callbackUpdateGUI(this, false); // to render the calendar when the day's values change
@@ -1108,7 +1096,7 @@ class DateValues {
                     console.log("Response from DLL: " + thoiGianString);
 
                     DateValues.#LeapYear = DateValues.isLeapYear(this.#hyr);
-                    this.wk = DateValues.getWeekNumber(this.#hyr, this.#hmt, this.#hdt, this.#hdy);
+                    this.#hwk = DateValues.getWeekNumber(this.#hyr, this.#hmt, this.#hdt, this.#hdy);
 
                     this.useHereValues();
 
@@ -1194,6 +1182,10 @@ class DateValues {
 
     get SoleDate() {
         return this.#dt; // day of the month
+    }
+
+    get Week() {
+        return this.#wk;
     }
 
     /*** to correct the name of the get year function  */ 
@@ -1306,6 +1298,7 @@ class DateValues {
         this.#mt = this.#smt;
         this.#dt = this.#sdt;
         this.#dy = (new Date(this.#syr, this.#smt, this.#sdt)).getDay(); // index of the day in its week; 0..6
+        this.#wk = this.#swk;
     }
 
     useHereValues() {
@@ -1313,6 +1306,7 @@ class DateValues {
         this.#mt = this.#hmt;
         this.#dt = this.#hdt;
         this.#dy = this.#hdy;
+        this.#wk = this.#hwk;
     }
 
     static isLeapYear(year) {
