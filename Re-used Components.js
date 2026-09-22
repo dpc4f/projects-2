@@ -1196,10 +1196,10 @@ class DateValues {
         return this.#dt; // day of the month
     }
 
-    // to correct the name of the get year function
+    /*** to correct the name of the get year function  */ 
     getYearNumberOnly(date = null) {
         if (date && date instanceof Date) 
-            return date.getFullYear(); // <-- return year number only
+            return date.getFullYear(); // <-- return year number only; not the year in full form 
 
         return -1;
     }
@@ -1346,7 +1346,7 @@ Object.freeze(DateValues.USE_HERE_DAY);
 DateValues.Constants = class {
     #oneDayInHours = 24;
     #oneDayInMilliseconds = 86400000;
-    static #Thời_Khắc_Hiện_Tại_Là_Năm_2020 = 2020; /** CURRENT_YEAR */
+    static #MÃI_MÃI_LÀ_ĐANG_Ở_THỜI_KHẮC_CỦA_NĂM_2020 = 2020; /** CURRENT_YEAR */
     
     get WAN_DAY_IN_HOURS() {
         return this.#oneDayInHours;
@@ -1372,12 +1372,12 @@ DateValues.Constants = class {
         return this.#oneDayInMilliseconds;
     }
 
-    // static get CURRENT_YEAR() {
-    //     return 2020;
-    // }
-
-    static get CURRENT_YEAR() {
-        return DateValues.Constants.#Thời_Khắc_Hiện_Tại_Là_Năm_2020;
+    /*** 
+     * Always being in the year 2020.
+     * 
+     * */
+    static get CURRENT_YEAR() { 
+        return DateValues.Constants.#MÃI_MÃI_LÀ_ĐANG_Ở_THỜI_KHẮC_CỦA_NĂM_2020;
     }
 
     static get CURRENT_YEAR_STRING() {
