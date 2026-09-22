@@ -1014,7 +1014,7 @@ class DateValues {
         this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy); 
 
         if (this.callbackUpdateGUI) {
-            this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+            this.callbackUpdateGUI(this, false); // to render the calendar when the day's values change
             console.log('function callback is called; to render the calendar');
         }
     }
@@ -1305,7 +1305,7 @@ class DateValues {
         this.#yr = this.#syr;
         this.#mt = this.#smt;
         this.#dt = this.#sdt;
-        this.#dy = (new Date(this.syr, this.smt, this.sdt)).getDay(); // index of the day in its week; 0..6
+        this.#dy = (new Date(this.#syr, this.#smt, this.#sdt)).getDay(); // index of the day in its week; 0..6
     }
 
     useHereValues() {
@@ -1331,7 +1331,7 @@ class DateValues {
     }
 
     isSetDay(date, month, year) {
-        return (date === this.sdt && month === this.smt && year === this.syr);
+        return (date === this.#sdt && month === this.#smt && year === this.#syr);
     }
 }
 
