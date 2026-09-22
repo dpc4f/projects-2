@@ -882,23 +882,26 @@ class DateValues {
     #mt;
     #dt;
     #dy;
+    #wk;
 
     #hyr;
     #hmt;
     #hdt;
     #hdy;
+    #hwk;
 
     #syr;
     #smt;
     #sdt;
     #sdy;
-
+    #swk;
 
     static CURRENT_YEAR = 2020;
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
     static CURRENT_DAY = 'Đang Ngồi Thư Viện';
 
     static USE_HERE_DAY = -1;
+    static #LeapYear = false;
 
     static #DayCountInMonths = [
         31, 30, // Athen Duo
@@ -924,23 +927,23 @@ class DateValues {
              * 
              */
 
-            this.syr = yr; // yr > -1
+            this.#syr = yr; // yr > -1
 
             if (mt > -1) 
-                this.smt = mt;
+                this.#smt = mt;
             else
-                this.smt = 0;
+                this.#smt = 0;
             
             if (dt > -1) 
-                this.sdt = dt;
+                this.#sdt = dt;
             else
-                this.sdt = 1; 
+                this.#sdt = 1; 
 
             this.useSetValues();
                    
-            this.leapYear = this.isLeapYear();
+            DateValues.#LeapYear = DateValues.isLeapYear(this.#syr);
             if (weekOfTheYear > -1) {
-                this.swk = weekOfTheYear;
+                this.#swk = weekOfTheYear;
 
                 /**
                  * [; nr] from this.swk calculate current month of the year
@@ -949,7 +952,8 @@ class DateValues {
                  */
             }
             else {
-                this.swk = DateValues.getWeekNumber(this.syr, this.smt, this.sdt, this.sdy); // <-- modify OR code a new function // <-- new function implemented
+                this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy); // <-- modify OR code a new function 
+                // // --> new function implemented
             }
 
             if (this.callbackUpdateGUI) {
@@ -1001,13 +1005,13 @@ class DateValues {
         let bAddOneYear = m < 2 ? true : false;
         let y = revertElteYear(arr[2], bAddOneYear);
 
-        this.syr = y;
-        this.smt = m;
-        this.sdt = d;
+        this.#syr = y;
+        this.#smt = m;
+        this.#sdt = d;
         this.useSetValues();
             
-        this.leapYear = this.isLeapYear();
-        this.swk = DateValues.getWeekNumber(this.syr, this.smt, this.sdt, this.sdy); 
+        DateValues.#LeapYear = DateValues.isLeapYear(this.#syr);
+        this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy); 
 
         if (this.callbackUpdateGUI) {
             this.callbackUpdateGUI(this); // to render the calendar when the day's values change
@@ -1015,11 +1019,11 @@ class DateValues {
         }
     }
 
-    static getElteMonth(elteMonthIdx) { // monthIdx = 0..11
+    // static getElteMonth(elteMonthIdx) { // monthIdx = 0..11
 
         
-        return 
-    }
+    //     return getElteMonthStr
+    // }
 
     static convertToElteMonthIdx(monthIdx) { // monthIdx = 0..11
         const MONTH_COUNT = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
@@ -1059,13 +1063,13 @@ class DateValues {
     }
 
     getElteProvidingElteMonth(month) {
-        let elteYear = convertToElteYear(this.yr, this.mt);
+        let elteYear = convertToElteYear(this.#yr, this.#mt);
         
-        return month + ' ' + this.dt.toString() + ' ' + elteYear;
+        return month + ' ' + this.#dt.toString() + ' ' + elteYear;
     }
 
     static get DayCountInMonths() {
-        if (this.leapYear == true) 
+        if (DateValues.#LeapYear == true) 
             DateValues.#DayCountInMonths[DateValues.Hose] = 29;
         else
             DateValues.#DayCountInMonths[DateValues.Hose] = 28;
@@ -1103,7 +1107,7 @@ class DateValues {
 
                     console.log("Response from DLL: " + thoiGianString);
 
-                    this.leapYear = this.isLeapYear();
+                    DateValues.#LeapYear = DateValues.isLeapYear(this.#hyr);
                     this.wk = DateValues.getWeekNumber(this.#hyr, this.#hmt, this.#hdt, this.#hdy);
 
                     this.useHereValues();
@@ -1125,8 +1129,8 @@ class DateValues {
         this.#hmt = 0; // athen
         this.#hyr = DateValues.CURRENT_YEAR;  
         
-        this.leapYear = true; // luckily 2020 is a leap year :-)
-        this.wk = 1;
+        DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
+        this.#wk = 1;
         
         this.useHereValues();
 
@@ -1255,7 +1259,7 @@ class DateValues {
     }
 
     whichDayIsTheDay(form = FULL_FORM_DATE) {
-        return DateValues.whichDayIsToday(this.dy, form);
+        return DateValues.whichDayIsToday(this.#dy, form);
     }
 
     static whichDayIsToday(todayIndex, form = FULL_FORM_DATE) {
@@ -1311,7 +1315,7 @@ class DateValues {
         this.#dy = this.#hdy;
     }
 
-    isLeapYear() {
+    static isLeapYear(year) {
 
         /*** 
          * [mnemonic]
@@ -1319,7 +1323,7 @@ class DateValues {
          * 
          * */ 
 
-        return ((this.yr % 4 == 0 && this.yr % 100 !== 0) || (this.yr % 400 == 0));
+        return ((year % 4 == 0 && year % 100 !== 0) || (year % 400 == 0));
     }
 
     isHereDay(date, month, year) {
