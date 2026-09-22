@@ -876,7 +876,7 @@ class DateValues {
     
     /** Set Date Values */
 
-    static Hose = 11;
+    static HOSE = 11;
 
     #yr;
     #mt;
@@ -1070,9 +1070,9 @@ class DateValues {
 
     static get DayCountInMonths() {
         if (DateValues.#LeapYear == true) 
-            DateValues.#DayCountInMonths[DateValues.Hose] = 29;
+            DateValues.#DayCountInMonths[DateValues.HOSE] = 29;
         else
-            DateValues.#DayCountInMonths[DateValues.Hose] = 28;
+            DateValues.#DayCountInMonths[DateValues.HOSE] = 28;
         
         return DateValues.#DayCountInMonths;
     }
@@ -1336,7 +1336,7 @@ class DateValues {
 }
 
 // make class' properties constants
-Object.freeze(DateValues.Hose);
+Object.freeze(DateValues.HOSE);
 Object.freeze(DateValues.CURRENT_YEAR);
 Object.freeze(DateValues.CURRENT_MONTH);
 Object.freeze(DateValues.CURRENT_DAY);
