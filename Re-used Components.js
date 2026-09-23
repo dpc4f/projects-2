@@ -20,139 +20,6 @@ const ANIMAL_NAMES = [
     "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
 ]; 
 
-
-
-function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
-    const date = new Date();
-    const hr = date.getHours();
-    const mi = date.getMinutes();
-    
-    let sf = '';
-    if (4 <= hr && hr < 12) {
-        switch(longShort) {
-            case LONG_FORM_SHIFT:
-                sf = 'iTm';
-                break;
-
-            case MID_FORM_SHIFT:
-                sf = 'Tm';
-                break;
-
-            case SHORT_FORM_SHIFT:
-                sf = 'm';
-                break;
-
-            default: 
-                break;
-        }
-    } else if (12 <= hr && hr < 17) {
-        switch(longShort) {
-            case 0:
-                sf = 'iTa';
-                break;
-
-            case 1:
-                sf = 'Ta';
-                break;
-
-            case 2:
-                sf = 'a';
-                break;
-
-            default: 
-                break;
-        }
-    } else if ((17 <= hr && hr < 20) || (hr == 20 && mi < 30)) {
-        switch(longShort) {
-            case 0:
-                sf = 'iTe';
-                break;
-
-            case 1:
-                sf = 'Te';
-                break;
-
-            case 2:
-                sf = 'e';
-                break;
-
-            default: 
-                break;
-        }
-    } else if (20 <= hr && hr < 24) {
-        switch(longShort) {
-            case 0:
-                sf = 'iTn';
-                break;
-
-            case 1:
-                sf = 'Tn';
-                break;
-
-            case 2:
-                sf = 'n';
-                break;
-
-            default: 
-                break;
-        } 
-    } else {
-        switch(longShort) {
-            case 0:
-                sf = 'aMn';
-                break;
-
-            case 1:
-                sf = 'Mn';
-                break;
-
-            case 2:
-                sf = '4';
-                break;
-
-            default: 
-                break;
-        }
-    }
-    
-    return sf;
-}
-
-function convertToElte_ShortForm(aDate) {
-    let date = '';
-
-    if (aDate !== '' && aDate !== undefined) {
-        date = new Date(aDate);
-    } else {
-        date = new Date();
-    }
-
-    if (isNaN(date.getTime())) {
-        alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
-        return;
-    }
-
-    let month = date.getMonth();
-    let day = date.getDate();
-    let year = date.getFullYear();
-    let elteMonth = DateValues.getElteMonthStr(month, SHORT_FORM_DATE);
-    let elteYear;
-    let elteDOB;
-
-    if (month < 2) // month is Jan OR Feb
-        year--;
-    if (year > DateValues.Constants.CURRENT_YEAR)
-        elteYear = '+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-    else if (year < DateValues.Constants.CURRENT_YEAR)
-        elteYear = '-' + (DateValues.Constants.CURRENT_YEAR - year).toString();
-    else
-        elteYear = 'O';
-    
-    elteDOB = `${elteMonth} ${day} ${elteYear}`;
-
-    return elteDOB;
-}
-
 function convertToElte(aDate, bFromDavid = false) {
     let date = '';
 
@@ -190,16 +57,6 @@ function convertToElte(aDate, bFromDavid = false) {
     elteDOB = `${elteMonth} ${day} ${elteYear}`;
 
     return elteDOB;
-}
-
-function convertToElteWithDayName(bShortForm = false, aDate = '') {
-    const TODAY = new Date();
-
-    let elteDOB = bShortForm ? convertToElte_ShortForm(aDate != '' ? aDate : TODAY.toString()) :
-                    convertToElte(aDate != '' ? aDate : TODAY.toString());
-    let dayNameInAWeek = getDay((TODAY.getDay() + 5) % 7, !bShortForm);
-
-    return elteDOB + ' ' + dayNameInAWeek;    
 }
 
 function getIndexFromElteMonth(month) {
@@ -326,7 +183,6 @@ function getAnimal(idx) {
     return ret;
 }
 
-
 function getWeekNoInTheYear(theDate) {
     let month = theDate.getMonth();
     let soleDate = theDate.getDate();
@@ -346,7 +202,7 @@ function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7) : '';
-    let shift = bShiftInADay ? getShiftOfToday() : '';
+    let shift = bShiftInADay ? DateValues.getShiftOfToday() : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
@@ -364,7 +220,7 @@ function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek 
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
-    let shift = bShiftInADay ? getShiftOfToday(MID_FORM_SHIFT) : '';
+    let shift = bShiftInADay ? DateValues.getShiftOfToday(MID_FORM_SHIFT) : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
@@ -383,7 +239,7 @@ function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWee
     let elteYear = year == DateValues.Constants.CURRENT_YEAR ? 'O' 
                                 : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
-    let shift = bShiftInADay ? getShiftOfToday(SHORT_FORM_SHIFT) : '';
+    let shift = bShiftInADay ? DateValues.getShiftOfToday(SHORT_FORM_SHIFT) : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
@@ -949,12 +805,6 @@ class DateValues {
         }
     }
 
-    // static getElteMonth(elteMonthIdx) { // monthIdx = 0..11
-
-        
-    //     return getElteMonthStr
-    // }
-
     static convertToElteMonthIdx(monthIdx) { // monthIdx = 0..11
         const MONTH_COUNT = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
 
@@ -962,6 +812,102 @@ class DateValues {
             return;
         
         return monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
+    }
+
+    static getShiftOfToday(longShort = LONG_FORM_SHIFT) {
+        const date = new Date();
+        const hr = date.getHours();
+        const mi = date.getMinutes();
+        
+        let sf = '';
+        if (4 <= hr && hr < 12) {
+            switch(longShort) {
+                case LONG_FORM_SHIFT:
+                    sf = 'iTm';
+                    break;
+
+                case MID_FORM_SHIFT:
+                    sf = 'Tm';
+                    break;
+
+                case SHORT_FORM_SHIFT:
+                    sf = 'm';
+                    break;
+
+                default: 
+                    break;
+            }
+        } else if (12 <= hr && hr < 17) {
+            switch(longShort) {
+                case 0:
+                    sf = 'iTa';
+                    break;
+
+                case 1:
+                    sf = 'Ta';
+                    break;
+
+                case 2:
+                    sf = 'a';
+                    break;
+
+                default: 
+                    break;
+            }
+        } else if ((17 <= hr && hr < 20) || (hr == 20 && mi < 30)) {
+            switch(longShort) {
+                case 0:
+                    sf = 'iTe';
+                    break;
+
+                case 1:
+                    sf = 'Te';
+                    break;
+
+                case 2:
+                    sf = 'e';
+                    break;
+
+                default: 
+                    break;
+            }
+        } else if (20 <= hr && hr < 24) {
+            switch(longShort) {
+                case 0:
+                    sf = 'iTn';
+                    break;
+
+                case 1:
+                    sf = 'Tn';
+                    break;
+
+                case 2:
+                    sf = 'n';
+                    break;
+
+                default: 
+                    break;
+            } 
+        } else {
+            switch(longShort) {
+                case 0:
+                    sf = 'aMn';
+                    break;
+
+                case 1:
+                    sf = 'Mn';
+                    break;
+
+                case 2:
+                    sf = '4';
+                    break;
+
+                default: 
+                    break;
+            }
+        }
+        
+        return sf;
     }
 
     static #getElteMonthString(elteMonthIndex, form = FULL_FORM_DATE) {
