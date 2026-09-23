@@ -152,7 +152,7 @@
 
             const elteDOB = document.getElementById('birthYear-2').value;
             const arr = elteDOB.trim().split(/\s+/);
-            const m = getElteMonth(arr[0]);
+            const m = DateValues.getElteMonthStr(arr[0]);
 
             if (m === -1 || arr.length < 3) {
                 alert('Please use the format "M1 27 current_year+6"');

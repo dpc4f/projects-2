@@ -560,7 +560,7 @@
                 spanEle.textContent = suffixStr;
 
                 let monthYearEle = document.getElementById("monthYear");
-                monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " current_year";
+                monthYearEle.textContent = DateValues.getElteMonthStr(month) + " current_year";
                 monthYearEle.appendChild(spanEle);
             } else {
                 let monthYearEle = document.getElementById("monthYear");

@@ -20,64 +20,6 @@ const ANIMAL_NAMES = [
     "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
 ]; 
 
-function getElteMonth(monthIndex, form = FULL_FORM_DATE) {
-    let ret = '';
-
-    switch (monthIndex) {
-        case 0:
-            ret = form == FULL_FORM_DATE ? 'Athen' : (form == MID_FORM_DATE ? 'At' : 'a');
-            break;
-
-        case 1:
-            ret = form == FULL_FORM_DATE ? 'Duo' : (form == MID_FORM_DATE ? 'Du' : 'd');
-            break;
-
-        case 2:
-            ret = form == FULL_FORM_DATE ? 'Magha' : (form == MID_FORM_DATE ? 'Ma' : 'm');
-            break;
-
-        case 3:
-            ret = form == FULL_FORM_DATE ? 'Qaru' : (form == MID_FORM_DATE ? 'Qa' : 'q');
-            break;
-
-        case 4:
-            ret = form == FULL_FORM_DATE ? 'Felle' : (form == MID_FORM_DATE ? 'Fe' : 'f');
-            break;
-
-        case 5:
-            ret = form == FULL_FORM_DATE ? 'Yune' : (form == MID_FORM_DATE ? 'Yu' : 'y');
-            break;
-
-        case 6:
-            ret = form == FULL_FORM_DATE ? 'SEPT' : (form == MID_FORM_DATE ? 'SE' : 'S');
-            break;
-
-        case 7:
-            ret = form == FULL_FORM_DATE ? 'OCT' : (form == MID_FORM_DATE ? 'OC' : 'O');
-            break;
-
-        case 8:
-            ret = form == FULL_FORM_DATE ? 'NOV' : (form == MID_FORM_DATE ? 'NO' : 'N');
-            break;
-
-        case 9:
-            ret = form == FULL_FORM_DATE ? 'DEC' : (form == MID_FORM_DATE ? 'DE' : 'D');
-            break;
-
-        case 10:
-            ret = form == FULL_FORM_DATE ? 'Palm' : (form == MID_FORM_DATE ? 'Pa' : 'p');
-            break;
-
-        case 11:
-            ret = form == FULL_FORM_DATE ? 'Hose' : (form == MID_FORM_DATE ? 'Ho' : 'h');
-            break;
-
-        default:
-            break;
-    }
-
-    return ret;
-}
 
 
 function getShiftOfToday(longShort = LONG_FORM_SHIFT) {
@@ -193,7 +135,7 @@ function convertToElte_ShortForm(aDate) {
     let month = date.getMonth();
     let day = date.getDate();
     let year = date.getFullYear();
-    let elteMonth = getElteMonth(month < 2 ? month + 10 : month - 2, false);
+    let elteMonth = DateValues.getElteMonthStr(month, SHORT_FORM_DATE);
     let elteYear;
     let elteDOB;
 
@@ -231,7 +173,7 @@ function convertToElte(aDate, bFromDavid = false) {
     
     let elteYear;
     let elteDOB;
-    let elteMonth = !bFromDavid ? getElteMonth(DateValues.convertToElteMonthIndex(month)) : getElteMonth(month);
+    let elteMonth = !bFromDavid ? DateValues.getElteMonthStr(DateValues.convertToElteMonthIdx(month)) : DateValues.getElteMonthStr(month);
 
     if (bFromDavid == true) 
         year -= 2;
@@ -400,7 +342,7 @@ function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek
     let year = Today.getFullYear();
     let day = Today.getDay();
 
-    let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2) : '';
+    let elteMonth = bMonth ? DateValues.getElteMonthStr(month) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7) : '';
@@ -418,7 +360,7 @@ function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek 
     let year = Today.getFullYear();
     let day = Today.getDay();
 
-    let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, MID_FORM_DATE) : '';
+    let elteMonth = bMonth ? DateValues.getElteMonthStr(month, MID_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
@@ -436,7 +378,7 @@ function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWee
     let year = Today.getFullYear();
     let day = Today.getDay();
 
-    let elteMonth = bMonth ? getElteMonth(month < 2 ? month+10 : month-2, SHORT_FORM_DATE) : '';
+    let elteMonth = bMonth ? DateValues.getElteMonthStr(month, SHORT_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = year == DateValues.Constants.CURRENT_YEAR ? 'O' 
                                 : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
@@ -1022,10 +964,76 @@ class DateValues {
         return monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
     }
 
-    getElteMonthStr(monthIdx) {
+    static #getElteMonthString(elteMonthIndex, form = FULL_FORM_DATE) {
+        let ret = '';
+
+        switch (elteMonthIndex) {
+            case 0:
+                ret = form == FULL_FORM_DATE ? 'Athen' : (form == MID_FORM_DATE ? 'At' : 'a');
+                break;
+
+            case 1:
+                ret = form == FULL_FORM_DATE ? 'Duo' : (form == MID_FORM_DATE ? 'Du' : 'd');
+                break;
+
+            case 2:
+                ret = form == FULL_FORM_DATE ? 'Magha' : (form == MID_FORM_DATE ? 'Ma' : 'm');
+                break;
+
+            case 3:
+                ret = form == FULL_FORM_DATE ? 'Qaru' : (form == MID_FORM_DATE ? 'Qa' : 'q');
+                break;
+
+            case 4:
+                ret = form == FULL_FORM_DATE ? 'Felle' : (form == MID_FORM_DATE ? 'Fe' : 'f');
+                break;
+
+            case 5:
+                ret = form == FULL_FORM_DATE ? 'Yune' : (form == MID_FORM_DATE ? 'Yu' : 'y');
+                break;
+
+            case 6:
+                ret = form == FULL_FORM_DATE ? 'SEPT' : (form == MID_FORM_DATE ? 'SE' : 'S');
+                break;
+
+            case 7:
+                ret = form == FULL_FORM_DATE ? 'OCT' : (form == MID_FORM_DATE ? 'OC' : 'O');
+                break;
+
+            case 8:
+                ret = form == FULL_FORM_DATE ? 'NOV' : (form == MID_FORM_DATE ? 'NO' : 'N');
+                break;
+
+            case 9:
+                ret = form == FULL_FORM_DATE ? 'DEC' : (form == MID_FORM_DATE ? 'DE' : 'D');
+                break;
+
+            case 10:
+                ret = form == FULL_FORM_DATE ? 'Palm' : (form == MID_FORM_DATE ? 'Pa' : 'p');
+                break;
+
+            case 11:
+                ret = form == FULL_FORM_DATE ? 'Hose' : (form == MID_FORM_DATE ? 'Ho' : 'h');
+                break;
+
+            default:
+                break;
+        }
+
+        return ret;
+    }
+
+    static getElteMonthStr(monthIdx, form = FULL_FORM_DATE) { 
+        /***  
+         * 
+         * { Idx, Index }
+         * { idx, index }
+         *   
+         */
+        
         let elteMonthIndex = DateValues.convertToElteMonthIdx(monthIdx);
         
-        return getElteMonth(elteMonthIndex);
+        return DateValues.#getElteMonthString(elteMonthIndex, form);
     }
 
     convertToElteMonthYear(year, month = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
