@@ -729,9 +729,12 @@ class DateValues {
             /* use Set Date Values */
 
             /***
-             * [; nr] code a function check validity of parameters'
+             * [; nr] code a function to check validity of parameters'
              * 
-             */
+             */ // --> done
+
+            if (this.isValidGregorian(yr, mt, dt) == false) 
+                return;
 
             this.#syr = yr; // yr > -1
 
@@ -777,6 +780,19 @@ class DateValues {
             this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
         }, duration);
 
+    }
+
+    isValidGregorian(year, monthIdx, soleDate) {
+        let ret = true;
+        
+        if (year < 1) ret = false;
+        if (monthIdx < 0 || monthIdx > 11) ret = false;
+        
+        let elteMonthIdx = DateValues.convertToElteMonthIdx(monthIdx);
+        let dayCount = DateValues.DayCountInMonths[elteMonthIdx] + 1;
+        if (soleDate < 1 || soleDate > dayCount) ret = false;
+
+        return ret;
     }
 
     /***
