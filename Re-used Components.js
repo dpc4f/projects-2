@@ -203,7 +203,7 @@ function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek
     let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7) : '';
     let shift = bShiftInADay ? DateValues.getShiftOfToday() : '';
-    let weekNo = getWeekNoInTheYear(Today); //
+    let weekNo = bWeekNumber ? getWeekNoInTheYear(Today) : ''; //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 

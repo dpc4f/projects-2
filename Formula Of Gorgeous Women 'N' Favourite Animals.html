@@ -425,9 +425,9 @@
             ele.textContent = `${timeVal.formatTime()}`;
         }
 
-        function callback_date(dateStr = '') {
+        function callback_date(dateVal) {
             let ele = document.getElementById('dateWithoutTime');
-            ele.innerText = dateStr ? dateStr : getDateFullForm(true, true, true);
+            ele.innerText = getDateValuesTimeStamp(FULL_FORM_DATE, 2);
         }
 
         function periodicalUpdateDateTime_TimeStamp(bMonth = true, bDateInMonth = true, bDayInWeek = true) {
@@ -562,6 +562,10 @@
 
         let tVal = new TimeValues(callback_time);
         tVal.timeTheCurrent();
+
+        dateVal = new DateValues(callback_date);
+        dateVal.timeTheDay();
+
     </script>
 
 </body>
