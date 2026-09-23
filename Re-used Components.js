@@ -143,39 +143,51 @@ function getAnimal(idx) {
         case 0:
             ret = "Mouse / Rat / Capybara";
             break;
+
         case 1:
             ret = "Ox / Bull / Buffalo / Cow";
             break;
+
         case 2:
             ret = "Tiger / Leopard";
             break;
+
         case 3:
             ret = "Rabbit / Rapoo ð Computer Mouse";
             break;
+
         case 4:
             ret = "Long-dragon / Ant / Bee / Peacock";
             break;
+
         case 5:
             ret = "Snake Clan / Centipede";
             break;
+
         case 6:
             ret = "Horse / Sea-horse / Dragon";
             break;
+
         case 7:
             ret = "ma-Goat / Gorilla";
             break;
+
         case 8:
             ret = "Monkey / Ape";
             break;
+
         case 9:
             ret = "Rooster / Hen";
             break;
+
         case 10:
             ret = "Dodge / Deer / Reindeer / Duck";
             break;
+
         case 11:
-            break;
             ret = "Pig / Boar in ð Wilderness / Bear";
+            break;
+
         default:
             break;
     }
@@ -397,7 +409,6 @@ class TimeValues {
         this.#callback = updatePlatonTime;
         this.idcb = null;
 
-        this.constants = new TimeValues.Constants();
         this.freshTimeLevels = new TimeValues.FreshTimeLevels();
         setInterval(() => this.timeTheCurrent(), TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY);
     }
@@ -428,7 +439,7 @@ class TimeValues {
             .catch(error => console.error('Error:', error));       
     }
 
-    remainingTimeTillEndOfTheDay(level = this.freshTimeLevels.LevelBig) {
+    remainingTimeTillEndOfTheDay(level = TimeValues.FreshTimeLevels.LevelBig) {
 
         /***
          * level = 0 --> hours
@@ -444,20 +455,20 @@ class TimeValues {
         let ret = 0;
         let passedTime = 0;
         switch (level) {
-            case this.freshTimeLevels.LevelOne:
+            case TimeValues.FreshTimeLevels.LevelOne:
                 ret = DateValues.Constants.ONE_DAY_IN_MINUTES - (this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m);
                 break;
 
-            case this.freshTimeLevels.LevelTwo:
+            case TimeValues.FreshTimeLevels.LevelTwo:
                 passedTime = this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
-                                + this.m * this.constants.WAN_MINUTE_IN_SECONDS 
+                                + this.m * TimeValues.Constants.WAN_MINUTE_IN_SECONDS 
                                 + this.s;
                 ret = DateValues.Constants.ONE_DAY_IN_SECONDS - passedTime;
                 break;
 
-            case this.freshTimeLevels.LevelThree:
-                passedTime = this.h * this.constants.WAN_HOUR_IN_MILLISECONDS
-                                + this.m * this.constants.WAN_MINUTE_IN_MILLISECONDS 
+            case TimeValues.FreshTimeLevels.LevelThree:
+                passedTime = this.h * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS
+                                + this.m * TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS 
                                 + this.s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - passedTime;
 
@@ -467,15 +478,15 @@ class TimeValues {
                 // console.log('remaining time till end of the day: ' + ret);
                 break;
 
-            case this.freshTimeLevels.LevelFour:
-                passedTime = this.h*TimeValues.Constants.ONE_HOUR_IN_MINUTES 
-                                + this.m*this.constants.WAN_MINUTE_IN_SECONDS 
-                                + this.s*TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
+            case TimeValues.FreshTimeLevels.LevelFour:
+                passedTime = this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
+                                + this.m * TimeValues.Constants.WAN_MINUTE_IN_SECONDS 
+                                + this.s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - (passedTime + 10);
                 break;
 
             default: // this.freshTimeLevels.LevelBig
-                ret = this.constants.WAN_DAY_IN_HOURS - this.h;
+                ret = TimeValues.Constants.WAN_DAY_IN_HOURS - this.h;
                 break;
         }
 
@@ -568,7 +579,7 @@ class TimeValues {
         const PassingMilliseconds = Today.getMilliseconds(); // passing milliseconds of the current second
 
         // elapsed time to be used in setTimeout
-        const OneMinute = this.constants.WAN_MINUTE_IN_MILLISECONDS;
+        const OneMinute = TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS;
         const OneThousand = TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
         const RemainingOfAMinuteInMilliseconds = OneMinute - (PassingSeconds * OneThousand + PassingMilliseconds); 
         
@@ -579,7 +590,7 @@ class TimeValues {
 
         setTimeout(() => {
             this.s = 0;
-            this.idcb = setInterval(() => this.increaseMinute(), this.constants.WAN_MINUTE_IN_MILLISECONDS);
+            this.idcb = setInterval(() => this.increaseMinute(), TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS);
             this.increaseMinute(); // doesn't cost much
         }, RemainingOfAMinuteInMilliseconds);
     }
@@ -592,12 +603,12 @@ TimeValues.Constants = class {
     // static WAN_MINUTE_IN_MILLISECONDS = 60000;
 
     static #oneSecondInMilliseconds = 1000;
-    #oneMinuteInMilliseconds = 60000;
-    #oneMinuteInSeconds = 60;
-    #oneHourInMilliseconds = 3600000; 
+    static #oneMinuteInMilliseconds = 60000;
+    static #oneMinuteInSeconds = 60;
+    static #oneHourInMilliseconds = 3600000; 
 
     static get WAN_SECOND_IN_MILLISECONDS() {
-        return this.#oneSecondInMilliseconds;
+        return TimeValues.Constants.#oneSecondInMilliseconds;
     }
 
     static get ONE_SECOND_IN_MILLISECONDS() {
@@ -608,12 +619,12 @@ TimeValues.Constants = class {
         return 7200000;
     }
 
-    get WAN_MINUTE_IN_SECONDS() {
-        return this.#oneMinuteInSeconds;
+    static get WAN_MINUTE_IN_SECONDS() {
+        return TimeValues.Constants.#oneMinuteInSeconds;
     }
 
-    get WAN_MINUTE_IN_MILLISECONDS() {
-        return this.#oneMinuteInMilliseconds;
+    static get WAN_MINUTE_IN_MILLISECONDS() {
+        return TimeValues.Constants.#oneMinuteInMilliseconds;
     }
 
     static get ONE_MINUTE_IN_MILLISECONDS() {
@@ -624,43 +635,40 @@ TimeValues.Constants = class {
         return 60;
     }
 
-    get WAN_HOUR_IN_MILLISECONDS() {
-        return this.#oneHourInMilliseconds;
+    static get WAN_HOUR_IN_MILLISECONDS() {
+        return TimeValues.Constants.#oneHourInMilliseconds;
     }
 }
-
-// make class' properties constants
-Object.freeze(TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS);
 
 TimeValues.FreshTimeLevels = class {
 
-    #levelBig = 0;
-    #levelOne = 1;
-    #levelTwo = 2;
-    #levelThree = 3;
-    #levelFour = 4;
+    static #levelBig = 0;
+    static #levelOne = 1;
+    static #levelTwo = 2;
+    static #levelThree = 3;
+    static #levelFour = 4;
 
-    get LevelBig() {
-        return this.#levelBig;
+    static get LevelBig() {
+        return TimeValues.FreshTimeLevels.#levelBig;
     }
 
-    get LevelOne() {
-        return this.#levelOne;
+    static get LevelOne() {
+        return TimeValues.FreshTimeLevels.#levelOne;
     }
 
-    get LevelTwo() {
-        return this.#levelTwo;
+    static get LevelTwo() {
+        return TimeValues.FreshTimeLevels.#levelTwo;
     }
 
-    get LevelThree() {
-        return this.#levelThree;
+    static get LevelThree() {
+        return TimeValues.FreshTimeLevels.#levelThree;
     }
 
-    get LevelFour() {
-        return this.#levelFour;
-
+    static get LevelFour() {
+        return TimeValues.FreshTimeLevels.#levelFour;
     }
 }
+
 
 
 /***
@@ -759,13 +767,12 @@ class DateValues {
 
         this.timeVal = new TimeValues();
         let duration = this.timeVal.remainingTimeTillEndOfTheDay(this.timeVal.freshTimeLevels.LevelThree);
-        this.constants = new DateValues.Constants();
 
         setTimeout(() => {
             
             setInterval(() => {
                 this.timeTheDay(callbackUpdateGUI ? true : false);
-            }, this.constants.WAN_DAY_IN_MILLISECONDS); // will be run every day after the first day
+            }, DateValues.Constants.ONE_DAY_IN_MILLISECONDS); // will be run every day after the first day
             
             this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
         }, duration);
@@ -1084,8 +1091,8 @@ class DateValues {
 
     getDuration4SwitchingDateForms() {
         // divide to have time slots equally
-        return Math.floor(this.constants.WAN_DAY_IN_HOURS 
-            * this.timeVal.constants.WAN_HOUR_IN_MILLISECONDS 
+        return Math.floor(DateValues.Constants.ONE_DAY_IN_HOURS 
+            * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS 
             / DATE_FORMAT_STRINGS.length);
     } // <-- a red leopard function <3
 
