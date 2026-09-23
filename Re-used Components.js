@@ -1041,7 +1041,7 @@ class DateValues {
         let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
         let str = d > 0 ? '+'+d.toString() : d.toString();
 
-        return [this.getElteMonthStr(month), (d == 0 ? c_y_str : c_y_str+str)];
+        return [DateValues.getElteMonthStr(month), (d == 0 ? c_y_str : c_y_str+str)];
     }
 
     revertElteMonthYear(elteStr) { // to become Gregorian month 'N' year
