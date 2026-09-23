@@ -448,17 +448,16 @@
             * */
 
             // first time
-            CurrentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
-            callback_date();
+            // CurrentDateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek);
+            // callback_date();
             // callback_time();
 
-            recursive(callback_date); // date timestamp
+            // recursive(callback_date); // date timestamp
             // updateTimeWithIntervalOneMinute(callback_time); // time timestamp
             
-            let tVal = new TimeValues(callback_time);
-            callback_time(tVal);
-            tVal.timeTheCurrent();
-            tVal.updateTimeWithIntervalOneMinute(callback_time);
+            // let tVal = new TimeValues(callback_time);
+            // tVal.timeTheCurrent();
+            // tVal.updateTimeWithIntervalOneMinute(callback_time);
         }
 
         function recursive(callback) {
@@ -558,8 +557,11 @@
         applyTransparentBlend('#myImage', '#bodyTage', 0.56);
         modifyOldDBRecordToAdhereToBackgroundColour();
 
-        window.addEventListener('focus', periodicalUpdateDateTime_TimeStamp);
-        window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
+        // window.addEventListener('focus', periodicalUpdateDateTime_TimeStamp);
+        // window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
+
+        let tVal = new TimeValues(callback_time);
+        tVal.timeTheCurrent();
     </script>
 
 </body>
