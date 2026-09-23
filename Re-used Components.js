@@ -40,7 +40,7 @@ function convertToElte(aDate, bFromDavid = false) {
     
     let elteYear;
     let elteDOB;
-    let elteMonth = !bFromDavid ? DateValues.getElteMonthStr(DateValues.convertToElteMonthIdx(month)) : DateValues.getElteMonthStr(month);
+    let elteMonth = !bFromDavid ? DateValues.getElteMonthStr(month) : DateValues.getElteMonthStr(month);
 
     if (bFromDavid == true) 
         year -= 2;
