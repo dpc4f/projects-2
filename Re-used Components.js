@@ -979,8 +979,8 @@ class DateValues {
         let elteYear;
         let elteDOB;
         let elteMonth = !bFromDavid 
-                            ? DateValues.getElteMonthStr(DateValues.convertToElteMonthIdx(month)) 
-                            : DateValues.getElteMonthStr(month);
+                            ? DateValues.#getElteMonthString(DateValues.convertToElteMonthIdx(month))
+                            : DateValues.#getElteMonthString(month);
 
         if (bFromDavid == true) 
             year -= 2;
