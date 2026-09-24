@@ -20,45 +20,6 @@ const ANIMAL_NAMES = [
     "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
 ]; 
 
-function convertToElte(aDate, bFromDavid = false) {
-    let date = '';
-
-    if (aDate !== '' && aDate !== undefined) {
-        date = new Date(aDate);
-    } else {
-        date = new Date();
-    }
-
-    if (isNaN(date.getTime())) {
-        alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
-        return;
-    }
-
-    let month = date.getMonth();
-    let day = date.getDate();
-    let year = date.getFullYear();
-    
-    let elteYear;
-    let elteDOB;
-    let elteMonth = !bFromDavid ? DateValues.getElteMonthStr(month) : DateValues.getElteMonthStr(month);
-
-    if (bFromDavid == true) 
-        year -= 2;
-    else if (month < 2) // month is Jan OR Feb
-        year--;
-    
-    if (year > DateValues.Constants.CURRENT_YEAR)
-        elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-    else if (year < DateValues.Constants.CURRENT_YEAR)
-        elteYear = 'current_year-' + (DateValues.Constants.CURRENT_YEAR - year).toString();
-    else
-        elteYear = 'current_year';
-    
-    elteDOB = `${elteMonth} ${day} ${elteYear}`;
-
-    return elteDOB;
-}
-
 const MONTH_NAMES = [ // original months' name
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -996,6 +957,47 @@ class DateValues {
 
         return ret;
     }
+
+    
+    static convertToElte(aDate, bFromDavid = false) {
+        let date = '';
+
+        if (aDate !== '' && aDate !== undefined) {
+            date = new Date(aDate);
+        } else {
+            date = new Date();
+        }
+
+        if (isNaN(date.getTime())) {
+            alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
+            return;
+        }
+
+        let month = date.getMonth();
+        let day = date.getDate();
+        let year = date.getFullYear();
+        
+        let elteYear;
+        let elteDOB;
+        let elteMonth = !bFromDavid ? DateValues.getElteMonthStr(month) : DateValues.getElteMonthStr(month);
+
+        if (bFromDavid == true) 
+            year -= 2;
+        else if (month < 2) // month is Jan OR Feb
+            year--;
+        
+        if (year > DateValues.Constants.CURRENT_YEAR)
+            elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
+        else if (year < DateValues.Constants.CURRENT_YEAR)
+            elteYear = 'current_year-' + (DateValues.Constants.CURRENT_YEAR - year).toString();
+        else
+            elteYear = 'current_year';
+        
+        elteDOB = `${elteMonth} ${day} ${elteYear}`;
+
+        return elteDOB;
+    }
+
 
     static getElteMonthStr(monthIdx, form = FULL_FORM_DATE) { 
         /***  

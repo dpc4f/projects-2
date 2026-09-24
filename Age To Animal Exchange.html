@@ -135,13 +135,13 @@
         // }
 
         window.onload = function() {
-            document.getElementById('birthYear-2').value = convertToElte(new Date());
+            document.getElementById('birthYear-2').value = DateValues.convertToElte(new Date());
             fromElte();
         }
         
         function copypaste2BirthYear(aDate)
         {
-            document.getElementById('birthYear-2').value = convertToElte(new Date(aDate));
+            document.getElementById('birthYear-2').value = DateValues.convertToElte(new Date(aDate));
         }
         
         function fromElte() {
