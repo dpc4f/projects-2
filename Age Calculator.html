@@ -218,7 +218,7 @@
             }
 
             const arr = birthDate.trim().split(/\s+/);
-            const m = getIndexFromElteMonth(arr[0]);
+            const m = DateValues.getIndexFromElteMonth(arr[0]);
 
             if (m === -1 || arr.length < 3) {
                 resultDiv.textContent = 'Please use the format "M11 1 current_year±N"';
