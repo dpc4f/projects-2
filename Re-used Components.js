@@ -109,7 +109,7 @@ function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7) : '';
-    let shift = bShiftInADay ? DateValues.getShiftOfToday() : '';
+    let shift = bShiftInADay ? DateValues.getShiftOfTheday() : '';
     let weekNo = bWeekNumber ? getWeekNoInTheYear(Today) : ''; //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
@@ -127,7 +127,7 @@ function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek 
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
-    let shift = bShiftInADay ? DateValues.getShiftOfToday(MID_FORM_SHIFT) : '';
+    let shift = bShiftInADay ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
@@ -146,7 +146,7 @@ function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWee
     let elteYear = year == DateValues.Constants.CURRENT_YEAR ? 'O' 
                                 : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
     let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
-    let shift = bShiftInADay ? DateValues.getShiftOfToday(SHORT_FORM_SHIFT) : '';
+    let shift = bShiftInADay ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
@@ -696,8 +696,8 @@ class DateValues {
      * 
      */ // <-- done in converting Elte values to Gregorian values
 
-    fromElteDate(dateStr) {
-        let arr = dateStr.trim().split(/\s+/); 
+    fromElteDate(elteDateStr) {
+        let arr = elteDateStr.trim().split(/\s+/); 
         let d = parseInt(arr[1]);
         let m = revertElteMonth(arr[0]);
 
@@ -803,7 +803,7 @@ class DateValues {
         return ret;
     }
 
-    static getShiftOfToday(longShort = LONG_FORM_SHIFT) {
+    static getShiftOfTheday(longShort = LONG_FORM_SHIFT) {
         const date = new Date();
         const hr = date.getHours();
         const mi = date.getMinutes();
@@ -958,14 +958,13 @@ class DateValues {
         return ret;
     }
 
-    static convertToElte(aDate, bFromDavid = false) {
-        let date = '';
+    static convertToElte(dateStr, bFromDavid = false) {
+        let date = null;
 
-        if (aDate !== '' && aDate !== undefined) {
-            date = new Date(aDate);
-        } else {
+        if (dateStr !== '' && dateStr !== undefined && dateStr !== null)
+            date = new Date(dateStr);
+        else
             date = new Date();
-        }
 
         if (isNaN(date.getTime())) {
             alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
@@ -978,7 +977,7 @@ class DateValues {
         
         let elteYear;
         let elteDOB;
-        let elteMonth = !bFromDavid 
+        let elteMonth = bFromDavid == false
                             ? DateValues.#getElteMonthString(DateValues.convertToElteMonthIdx(month))
                             : DateValues.#getElteMonthString(month);
 
@@ -1137,7 +1136,10 @@ class DateValues {
         /*** 
          * do parameter's validation 
          * 
-         * */
+         * */ // --> done
+
+        if (monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR)
+            return;
         
         this.#mt = monthIdx;
         this.#dt = 1; // update date to the beginning of the month <-- will revise later
@@ -1146,10 +1148,10 @@ class DateValues {
             this.callbackUpdateGUI(this);
     }
 
-    get ElteMonth() { // getter to return elte month index
+    get ElteMonthIdx() { // getter to return elte month index
         
         /*** 
-         * [; nr] return the Elte Montha
+         * [; nr] return the Elte Month
          * 
          * 
          * */ // --> done
