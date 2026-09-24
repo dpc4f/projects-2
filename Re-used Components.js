@@ -958,7 +958,6 @@ class DateValues {
         return ret;
     }
 
-    
     static convertToElte(aDate, bFromDavid = false) {
         let date = '';
 
@@ -979,7 +978,9 @@ class DateValues {
         
         let elteYear;
         let elteDOB;
-        let elteMonth = !bFromDavid ? DateValues.getElteMonthStr(month) : DateValues.getElteMonthStr(month);
+        let elteMonth = !bFromDavid 
+                            ? DateValues.getElteMonthStr(DateValues.convertToElteMonthIdx(month)) 
+                            : DateValues.getElteMonthStr(month);
 
         if (bFromDavid == true) 
             year -= 2;
