@@ -76,83 +76,87 @@
         }
 
         .colours {
+            display: flex;
+          
             width: 100%;
-            height: 20%;
-            margin-bottom: 10px;
-            position: absolute;
-            text-align: center;
+            height: 100px;
+
+                 text-align: center;
+          
         }
 
         .yellow {
-            width: 11%;
+            flex: 1 ;
+          
             height: 100%;
             background-color: yellow;
-            display: inline-block;
-            margin: 0;
+       
+         
         }
 
         .light-yellow {
-            width: 11%;
+         flex: 1;
+        
             height: 100%;
             background-color: lightyellow;
-            display: inline-block;
-            margin: 0;
+         
+       
         }
 
         .orange {
-            width: 11%;
+           flex: 1;
+         
             height: 100%;
             background-color: orange;
-            display: inline-block;
-            margin: 0;
+         
+          
         }
 
         .dark-orange {
-            width: 11%;
+          flex: 1;
             height: 100%;
             background-color: darkorange;
-            display: inline-block;
-            margin: 0;
+            
         }
 
         .amber {
-            width: 11%;
+           flex: 1;
             height: 100%;
             background-color: #FFBF00;
-            display: inline-block;
-            margin: 0;
+       
+         
         }
 
         .golden-rod {
-            width: 11%;
+           flex: 1;
             height: 100%;
             background-color: goldenrod;
-            display: inline-block;
-            margin: 0;
+        
+     
         }
 
         .daffodil {
-            width: 11%;
+           flex: 1;
             height: 100%;
             background-color: #FFFF31;
-            display: inline-block;
-            margin: 0;
+          
+       
         }
 
         .yellow-lemon {
-            width: 11%;
+          flex: 1;
             height: 100%;
             background-color: #FFF44F;
             display: inline-block;
-            margin: 0;
+      
         }
 
         .honeybee {
-            width: 11%;
+           flex: 1;
             height: 100%;
             background-color: #FBD682;
-            display: inline-block;
-            margin: 0;
+          
+         
         }
     </style>
 </head>
@@ -165,7 +169,7 @@
 
     <!-- 
         [; nr]
-        fix a bug of why only 99% width causes discontinue colour block of spans 
+        fix a bug of why only 99% width causes dis-continuous colour block of spans 
     -->
     <div class="colours">
         <span class="yellow">YELLOW</span>
@@ -177,7 +181,9 @@
         <span class="daffodil">DAFFODIL</span>
         <span class="yellow-lemon">YELLOW-LEMON</span>
         <span class="honeybee">HONEY BEES</span>
+    
     </div>
+
     <div class="note invisible bottom-left">
         đường dài mới biết sức ngựa hay
     </div>
