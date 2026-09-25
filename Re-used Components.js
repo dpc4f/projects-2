@@ -664,7 +664,7 @@ class DateValues {
          */
 
         this.timeVal = new TimeValues();
-        let duration = this.timeVal.remainingTimeTillEndOfTheDay(this.timeVal.freshTimeLevels.LevelThree);
+        let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.FreshTimeLevels.LevelThree);
 
         setTimeout(() => {
             
