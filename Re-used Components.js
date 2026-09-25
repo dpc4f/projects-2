@@ -1053,62 +1053,53 @@ class DateValues {
         this.callbackUpdateGUI = f;
     }
 
-    timeTheDay(bUpdateGUI = false) {
+    async timeTheDay(bUpdateGUI = false) {
         console.log("timeTheDay gets called");
 
         /***
          * [; nr] fix a bug on this fetch() funtion
          * 
-         */
+         */ // --> done
 
         try {
-            fetch('http://localhost:8080/api/TimeRequester')
-                .then(response => response.json())
-                .then(thoiGianString => {
-                    const [ngayThang,,] = thoiGianString.split(" ");
-                    const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
+            const response = await fetch('http://localhost:8080/api/TimeRequester')
+            const thoiGianStr = await response.json();
+            const [ngayThang, ,] = thoiGianStr.split(" ");
+            const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
 
-                    // Rearrange into standard "YYYY-MM-DD"
-                    this.Heredate = new Date(`${year}-${month}-${day}`);
+            // Rearrange into standard "YYYY-MM-DD"
+            this.Heredate = new Date(`${year}-${month}-${day}`);
+            this.#hdy = this.Heredate.getDay();
+            this.#hdt = this.Heredate.getDate();
+            this.#hmt = this.Heredate.getMonth();
+            this.#hyr = this.getYearNumberOnly(this.Heredate);
 
-                    
-                    this.#hdy = this.Heredate.getDay();
-                    this.#hdt = this.Heredate.getDate();
-                    this.#hmt = this.Heredate.getMonth();
-                    this.#hyr = this.getYearNumberOnly(this.Heredate);
+            console.log("Response from DLL: " + thoiGianStr);
 
-                    console.log("Response from DLL: " + thoiGianString);
-
-                    DateValues.#LeapYear = DateValues.isLeapYear(this.#hyr);
-                    this.#hwk = DateValues.getWeekNumber(this.#hyr, this.#hmt, this.#hdt, this.#hdy);
-
-                    this.useHereValues();
-
-                    if (bUpdateGUI == true && this.callbackUpdateGUI) {
-                        this.callbackUpdateGUI(this); // to render the calendar when the day's values change
-                        console.log('function callback is called; to render the calendar');
-                    }
-                })
-                .catch(error => console.log(error.toString()));
+            DateValues.#LeapYear = DateValues.isLeapYear(this.#hyr);
+            this.#hwk = DateValues.getWeekNumber(this.#hyr, this.#hmt, this.#hdt, this.#hdy);
+            
         } catch (error) {
             // This catches the "Failed to fetch" error gracefully
             console.error('Network error or CORS issue occurred:', error);
-            console.log('Use a day of current_year as the replacement ..');   
-        }
+            console.log('Use a day of current_year as the replacement ..');
 
-        this.#hdy = 0; // thaw
-        this.#hdt = 1; // first day of Athen
-        this.#hmt = 0; // athen
-        this.#hyr = DateValues.CURRENT_YEAR;  
-        
-        DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
-        this.#wk = 1;
-        
-        this.useHereValues();
+            this.#hdy = 0; // thaw
+            this.#hdt = 1; // first day of Athen
+            this.#hmt = 0; // athen
+            this.#hyr = DateValues.CURRENT_YEAR;
+            DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
+            this.#wk = 1;
 
-        if (bUpdateGUI == true && this.callbackUpdateGUI) {
-            this.callbackUpdateGUI(this); // to render the calendar when the day's values change
-            console.log('function callback is called; to render the calendar');
+        } finally {
+
+            this.useHereValues();
+            
+            if (bUpdateGUI == true && this.callbackUpdateGUI) {
+                this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+                console.log('function callback is called; to render the calendar');
+            }
+
         }
     }
 
