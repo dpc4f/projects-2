@@ -97,6 +97,33 @@
             font-size: 3em;
         }
 
+        .character-T {
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif, system-ui;
+            font-style: normal;
+            position: relative;
+            left: 10px;
+        }
+
+        .character-R {
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif, system-ui;
+            font-style: normal;
+            position: relative;
+            left: 20px;
+        }
+
+        .character-right-part
+        {
+            position: relative;
+            left: 30px;
+        }
+
+        .character-N {
+            position: relative;
+            left: 40px;
+        }
+
         .container {
             display: inline-block;
             position: relative;
@@ -122,33 +149,51 @@
         .rotate-∩ {
             display: inline-block;
             transform-origin: center;
-            animation: rotate∩ 4s infinite ease-in-out;
+            animation: rotate∩ 15s infinite ease-in-out;
         }
 
-        .transform-TR::after {
-            content: 'tr';
-            animation: textSwap 4s linear infinite alternate;
+        .transform-T::after {
+            content: 't';
+            animation: textSwap-t 15s linear infinite alternate;
         }
 
-        @keyframes textSwap {
-            0%{
-                content: 'tr';  
+        @keyframes textSwap-t {
+            0% {
+                content: 't';  
             }
 
-            50%
-            {
-                content: 'TR';
+            50% {
+                content: 'T';
             }
 
-            100%{
-                content: 'tr';  
+            100% {
+                content: 't';  
+            }
+        }
+
+        .transform-R::after {
+            content: 't';
+            animation: textSwap-r 15s linear infinite alternate;
+        }
+
+        @keyframes textSwap-r {
+            0% {
+                content: 'r';  
+            }
+
+            50% {
+                content: 'R';
+            }
+
+            100% {
+                content: 'r';  
             }
         }
 
         .rotate-breve {
             display: inline-block;
             transform-origin: center;
-            animation: rotateBreve 4s infinite ease-in-out;
+            animation: rotateBreve 15s infinite ease-in-out;
         }
 
         .margin-up {
@@ -156,9 +201,9 @@
         }
 
         #rotation {
-            position: absolute;
-            left: 100px;
-            top: 200px;
+            position: fixed;
+            left: 1000px;
+            top: 100px;
         }
 
         @keyframes rotateBreve {
@@ -175,13 +220,13 @@
 
         @keyframes rotate∩ {
             0% {
-                transform: rotateX(0deg); /* translateY(-8px); */
+                transform: rotateX(0deg) scale(70%) translateX(-13px) translateY(6px); /* translateY(-8px); */
             }
             50% {
-                transform: rotateX(180deg) scale(100%);
+                transform: rotateX(180deg) scale(100%) translateY(2px);
             }
             100% {
-                transform: rotateX(360deg);
+                transform: rotateX(360deg) scale(70%) translateX(-13px) translateY(6px);
             }
         }
 
@@ -233,13 +278,14 @@
             <span class="last-char">}</span> 
         </div>
         <div id="rotation">
-            <span class='letter margin-up transform-TR'></span> 
-            <div class="container margin-up">
+            <span class='character-T margin-up transform-T'></span>
+            <span class='character-R margin-up transform-R'></span> 
+            <div class="character-right-part container margin-up">
                 <span class="letter breve rotate-breve">˘</span>
                 <span class="letter">a</span>
             </div>
             <!-- <span class='letter letter-U rotate-U'>ᴜ</span> -->
-            <span class='letter letter-∩ rotate-∩'><b>∩</b></span>
+            <span class='character-N letter-∩ rotate-∩'><b>∩</b></span>
         </div>
         <br/>
         <div class="note">TRâU, Rhinoceros the Animal</div>
