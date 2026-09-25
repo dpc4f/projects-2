@@ -285,6 +285,11 @@ class TimeValues {
      */
 
     #callback = null;
+    #h;
+    #m;
+    #s;
+    #ms;
+    #freshTimeLevels;
 
     constructor(updatePlatonTime = null) {
 
@@ -296,15 +301,15 @@ class TimeValues {
 
         this.Today = new Date();
         
-        this.h = this.Today.getHours();
-        this.m = this.Today.getMinutes();
-        this.s = this.Today.getSeconds();
-        this.ms = this.Today.getMilliseconds();
+        this.#h = this.Today.getHours();
+        this.#m = this.Today.getMinutes();
+        this.#s = this.Today.getSeconds();
+        this.#ms = this.Today.getMilliseconds();
         
         this.#callback = updatePlatonTime;
         this.idcb = null;
 
-        this.freshTimeLevels = new TimeValues.FreshTimeLevels();
+        this.#freshTimeLevels = new TimeValues.FreshTimeLevels();
         setInterval(() => this.timeTheCurrent(), TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY);
     }
 
@@ -312,7 +317,14 @@ class TimeValues {
         this.#callback = f;
     }
 
+   
     timeTheCurrent() {
+
+         /***
+         * [; nr] change this method to use async / await
+         * 
+         */
+
         console.log("timeTheCurrent gets called");
 
         fetch('http://localhost:8080/api/TimeRequester')
@@ -321,12 +333,12 @@ class TimeValues {
                 const [datepart, timePart] = dateString.split(" ");
                 const [hours, minutes, seconds] = timePart.split(":");
 
-                this.h = parseInt(hours);
-                this.m = parseInt(minutes);
-                this.s = parseInt(seconds);
+                this.#h = parseInt(hours);
+                this.#m = parseInt(minutes);
+                this.#s = parseInt(seconds);
 
                 console.log("Response from DLL: " + dateString 
-                    + ` ---- ${this.h}:${this.m}:${this.s}:${this.ms}`);
+                    + ` ---- ${this.#h}:${this.#m}:${this.#s}`);
 
                 if (this.#callback)
                     this.#callback(this);
@@ -351,20 +363,20 @@ class TimeValues {
         let passedTime = 0;
         switch (level) {
             case TimeValues.FreshTimeLevels.LevelOne:
-                ret = DateValues.Constants.ONE_DAY_IN_MINUTES - (this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.m);
+                ret = DateValues.Constants.ONE_DAY_IN_MINUTES - (this.#h * TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.#m);
                 break;
 
             case TimeValues.FreshTimeLevels.LevelTwo:
-                passedTime = this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
-                                + this.m * TimeValues.Constants.WAN_MINUTE_IN_SECONDS 
-                                + this.s;
+                passedTime = this.#h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
+                                + this.#m * TimeValues.Constants.WAN_MINUTE_IN_SECONDS 
+                                + this.#s;
                 ret = DateValues.Constants.ONE_DAY_IN_SECONDS - passedTime;
                 break;
 
             case TimeValues.FreshTimeLevels.LevelThree:
-                passedTime = this.h * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS
-                                + this.m * TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS 
-                                + this.s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS
+                passedTime = this.#h * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS
+                                + this.#m * TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS 
+                                + this.#s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - passedTime;
 
                 // console.log('passed hours: ' + this.h);
@@ -374,14 +386,14 @@ class TimeValues {
                 break;
 
             case TimeValues.FreshTimeLevels.LevelFour:
-                passedTime = this.h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
-                                + this.m * TimeValues.Constants.WAN_MINUTE_IN_SECONDS 
-                                + this.s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
+                passedTime = this.#h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
+                                + this.#m * TimeValues.Constants.WAN_MINUTE_IN_SECONDS 
+                                + this.#s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - (passedTime + 10);
                 break;
 
             default: // this.freshTimeLevels.LevelBig
-                ret = TimeValues.Constants.WAN_DAY_IN_HOURS - this.h;
+                ret = TimeValues.Constants.WAN_DAY_IN_HOURS - this.#h;
                 break;
         }
 
@@ -392,24 +404,24 @@ class TimeValues {
         if (hours <= 0) 
             return;
 
-        this.h = (this.h + hours) % 24;
+        this.#h = (this.#h + hours) % 24;
     }
 
     subtractInRangeHours(hours) {
-        if (hours <= 0 || hours > this.h)
+        if (hours <= 0 || hours > this.#h)
             return;
 
         this.h -= hours;
     }
 
     formatTime(additionalHours = 0, bSecond = false) {
-        let tmp = this.h + additionalHours;
+        let tmp = this.#h + additionalHours;
         let ret = '';
         
         if (tmp >= 0) { 
             let hh = String(tmp % 24).padStart(2, '0');
-            let mm = String(this.m).padStart(2, '0');
-            let ss = String(this.s).padStart(2, '0');
+            let mm = String(this.#m).padStart(2, '0');
+            let ss = String(this.#s).padStart(2, '0');
             
             ret = `${hh}:${mm}` + (bSecond ? `:${ss}` : '');
         }
@@ -418,15 +430,15 @@ class TimeValues {
     }
 
     increaseSecond() {
-        ++this.s;
-        if (this.s == 60) {
-            this.s = 0;
-            ++this.m;
-            if (this.m == 60) {
-                this.m = 0;
-                ++this.h;
-                if (this.h == 24) {
-                    this.h = 0;
+        ++this.#s;
+        if (this.#s == 60) {
+            this.#s = 0;
+            ++this.#m;
+            if (this.#m == 60) {
+                this.#m = 0;
+                ++this.#h;
+                if (this.#h == 24) {
+                    this.#h = 0;
                     this.Today = new Date();
                 }
             }
@@ -437,12 +449,12 @@ class TimeValues {
     }
 
     increaseMinute() {
-        ++this.m;
-        if (this.m == 60) {
-            this.m = 0;
-            ++this.h;
-            if (this.h == 24) {
-                this.h = 0;
+        ++this.#m;
+        if (this.#m == 60) {
+            this.#m = 0;
+            ++this.#h;
+            if (this.#h == 24) {
+                this.#h = 0;
                 this.Today = new Date();
             }
         }
@@ -484,7 +496,7 @@ class TimeValues {
             clearInterval(this.idcb);
 
         setTimeout(() => {
-            this.s = 0;
+            this.#s = 0;
             this.idcb = setInterval(() => this.increaseMinute(), TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS);
             this.increaseMinute(); // doesn't cost much
         }, RemainingOfAMinuteInMilliseconds);
