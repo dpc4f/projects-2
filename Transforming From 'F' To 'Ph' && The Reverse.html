@@ -20,7 +20,7 @@
             justify-content: center;
             align-items: center;
             background:
-                radial-gradient(circle at top left, #1463da 0%, transparent 35%),
+                radial-gradient(circle at top left, #14dda1 0%, transparent 35%),
                 radial-gradient(circle at bottom right, #eaee08, transparent 35%),
                 linear-gradient(153deg, #03edf5 0%, #eb25cd, #b1d60a);
             font-family: Arial, Helvetica, sans-serif;
@@ -125,6 +125,26 @@
             animation: rotate∩ 4s infinite ease-in-out;
         }
 
+        .transform-TR::after {
+            content: 'tr';
+            animation: textSwap 4s linear infinite alternate;
+        }
+
+        @keyframes textSwap {
+            0%{
+                content: 'tr';  
+            }
+
+            50%
+            {
+                content: 'TR';
+            }
+
+            100%{
+                content: 'tr';  
+            }
+        }
+
         .rotate-breve {
             display: inline-block;
             transform-origin: center;
@@ -154,6 +174,18 @@
         }
 
         @keyframes rotate∩ {
+            0% {
+                transform: rotateX(0deg); /* translateY(-8px); */
+            }
+            50% {
+                transform: rotateX(180deg) scale(100%);
+            }
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
+
+        @keyframes transformTR {
             0% {
                 transform: rotateX(0deg); /* translateY(-8px); */
             }
@@ -201,7 +233,7 @@
             <span class="last-char">}</span> 
         </div>
         <div id="rotation">
-            <span class='letter margin-up'>TR</span> 
+            <span class='letter margin-up transform-TR'></span> 
             <div class="container margin-up">
                 <span class="letter breve rotate-breve">˘</span>
                 <span class="letter">a</span>
