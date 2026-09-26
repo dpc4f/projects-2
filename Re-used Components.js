@@ -25,7 +25,7 @@ const MONTH_NAMES = [ // original months' name
     "July", "August", "September", "October", "November", "December"
 ];
 
-const MOTN_NAMES_TLA = [
+const MONTH_NAMES_TLA = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
 ];
