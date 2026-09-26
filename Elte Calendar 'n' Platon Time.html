@@ -486,6 +486,7 @@
 
           
         let tVal = null;
+        let dateVal = null;
 
         function initializePlatonTime() {
             tVal = new TimeValues(updatePlatonTime);
@@ -526,8 +527,14 @@
         }
 
         function updateToHereDate() {
-            dateVal = new DateValues(renderCalendar);
-            renderCalendar(dateVal);
+            if (!dateVal)
+                dateVal = new DateValues(renderCalendar);
+            else
+                dateVal.timeTheDay();
+            
+            // testing purpose
+            dateVal.Month = 2;
+            renderCalendar(dateVal, false);
         }
 
         function initializeToHereDate() {
@@ -578,7 +585,7 @@
             let mtNamesEle = document.getElementById("monthNames").children;
             let elteYear = convertToElteYear(year, month);
             let suffixStr = elteYear.slice(12);
-            let hereYear = (new Date()).getYear();
+            let hereYear = (new Date()).getFullYear();
             let bHereYear = (year == hereYear || bHereDay);
 
             if (year == null || month == null || suffixStr == null || hereYear == null) 

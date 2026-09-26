@@ -664,7 +664,8 @@ class DateValues {
          */
 
         this.timeVal = new TimeValues();
-        let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.FreshTimeLevels.LevelThree);
+        // let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.FreshTimeLevels.LevelThree);
+        let duration = 10000; // 10 seconds 4 testing purpose
 
         setTimeout(() => {
             
@@ -1135,8 +1136,8 @@ class DateValues {
         this.#mt = monthIdx;
         this.#dt = 1; // update date to the beginning of the month <-- will revise later
 
-        if (this.callbackUpdateGUI != null)
-            this.callbackUpdateGUI(this);
+        // if (this.callbackUpdateGUI != null)
+        //     this.callbackUpdateGUI(this);
     }
 
     get ElteMonthIdx() { // getter to return elte month index
