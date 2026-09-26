@@ -511,7 +511,7 @@
         // refresh every second
         function updatePlatonTime(timeVal) {
             // oxakaSeoulTime = 
-            document.getElementById('oxaka-seoul').textContent = `${timeVal.formatTime(5, true)}`; // +5
+            document.getElementById('oxaka-seoul').textContent = `${timeVal.formatTime(6, true)}`; // +5 --> +6 (GMT+7+6)
             
             // let beijingTime = 
             document.getElementById('beijing').textContent = `${timeVal.formatTime(1, true)}`; // +1
@@ -523,7 +523,7 @@
             document.getElementById('dustin-plural').textContent = `${timeVal.formatTime(0, true)}`;
             
             // let dimitryTime = 
-            document.getElementById('dmitry').textContent = `${timeVal.formatTime(21, true)}`; // -4 --> -3 (GMT+7+6)
+            document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
         }
 
         function updateToHereDate() {
