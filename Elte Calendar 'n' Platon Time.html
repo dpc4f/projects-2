@@ -530,11 +530,7 @@
             if (!dateVal)
                 dateVal = new DateValues(renderCalendar);
             else
-                dateVal.timeTheDay();
-            
-            // testing purpose
-            dateVal.Month = 2;
-            renderCalendar(dateVal, false);
+                dateVal.timeTheDay(true);
         }
 
         function initializeToHereDate() {

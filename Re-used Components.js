@@ -597,6 +597,8 @@ class DateValues {
     #sdy;
     #swk;
 
+    // #firstTimeCalledBySetTimeOut;
+
     static CURRENT_YEAR = 2020;
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
     static CURRENT_DAY = 'Đang Ngồi Thư Viện';
@@ -617,6 +619,7 @@ class DateValues {
         
         this.Heredate = null;
         this.callbackUpdateGUI = callbackUpdateGUI;
+        // this.#firstTimeCalledBySetTimeOut = false;
 
         if (yr == DateValues.USE_HERE_DAY) // == -1
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
@@ -668,12 +671,14 @@ class DateValues {
         let duration = 10000; // 10 seconds 4 testing purpose
 
         setTimeout(() => {
-            
+
             setInterval(() => {
                 this.timeTheDay(callbackUpdateGUI ? true : false);
             }, DateValues.Constants.ONE_DAY_IN_MILLISECONDS); // will be run every day after the first day
             
+            // this.#firstTimeCalledBySetTimeOut = true;
             this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
+
         }, duration);
 
     }
@@ -1062,6 +1067,22 @@ class DateValues {
          * 
          */ // --> done
 
+         if (!this.#hyr) {
+            this.#hdy = 0; // thaw
+            this.#hdt = 1; // first day of Athen
+            this.#hmt = 0; // athen
+            this.#hyr = DateValues.CURRENT_YEAR;
+            DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
+            this.#wk = 1;
+
+            this.useHereValues();
+            
+            if (bUpdateGUI == true && this.callbackUpdateGUI) {
+                this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+                console.log('function callback is called; to render the calendar');
+            }
+        }
+
         try {
             const response = await fetch('http://localhost:8080/api/TimeRequester')
             const thoiGianStr = await response.json();
@@ -1079,29 +1100,26 @@ class DateValues {
 
             DateValues.#LeapYear = DateValues.isLeapYear(this.#hyr);
             this.#hwk = DateValues.getWeekNumber(this.#hyr, this.#hmt, this.#hdt, this.#hdy);
-            
-        } catch (error) {
-            // This catches the "Failed to fetch" error gracefully
-            console.error('Network error or CORS issue occurred:', error);
-            console.log('Use a day of current_year as the replacement ..');
 
-            this.#hdy = 0; // thaw
-            this.#hdt = 1; // first day of Athen
-            this.#hmt = 0; // athen
-            this.#hyr = DateValues.CURRENT_YEAR;
-            DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
-            this.#wk = 1;
-
-        } finally {
+            // if (this.#firstTimeCalledBySetTimeOut == true) {
+            //     this.#hdt += 2;
+            //     this.#firstTimeCalledBySetTimeOut = false;
+            // }
 
             this.useHereValues();
-            
+        
             if (bUpdateGUI == true && this.callbackUpdateGUI) {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
                 console.log('function callback is called; to render the calendar');
             }
+                
+        } catch (error) {
 
-        }
+            // This catches the "Failed to fetch" error gracefully
+            console.error('Network error or CORS issue occurred:', error);
+            console.log('Use a day of current_year as the replacement ..');
+
+        } 
     }
 
     getDuration4SwitchingDateForms() {
