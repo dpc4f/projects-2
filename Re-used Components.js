@@ -294,10 +294,10 @@ class TimeValues {
     constructor(updatePlatonTime = null) {
 
         /***
-         * [; nr] re-write this ctor using APIs to query time sever(s) to have precise values
+         * [; nr] re-write this ctor using APIs to query time sever(s) to have up-to-date values
          * 
          * 
-         */
+         */ // --> done
 
         this.Today = new Date();
         
@@ -317,33 +317,34 @@ class TimeValues {
         this.#callback = f;
     }
 
-   
-    timeTheCurrent() {
 
-         /***
-         * [; nr] change this method to use async / await
-         * 
-         */
+    async timeTheCurrent() {
 
+        /***
+        * [; nr] change this method to use async / await
+        * 
+        */ // --> done
         console.log("timeTheCurrent gets called");
 
-        fetch('http://localhost:8080/api/TimeRequester')
-            .then(response => response.json())
-            .then(dateString => {
-                const [datepart, timePart] = dateString.split(" ");
-                const [hours, minutes, seconds] = timePart.split(":");
+        try {
+            const response = await fetch('http://localhost:8080/api/TimeRequester');
+            const thoiGianStr = await response.json();
 
-                this.#h = parseInt(hours);
-                this.#m = parseInt(minutes);
-                this.#s = parseInt(seconds);
+            const [, , timePart] = thoiGianStr.split(" ");
+            const [hours, minutes, seconds] = timePart.split(":");
 
-                console.log("Response from DLL: " + dateString 
-                    + ` ---- ${this.#h}:${this.#m}:${this.#s}`);
+            this.#h = parseInt(hours);
+            this.#m = parseInt(minutes);
+            this.#s = parseInt(seconds);
 
-                if (this.#callback)
-                    this.#callback(this);
-            })
-            .catch(error => console.error('Error:', error));       
+            console.log("[timePart] Response from DLL: " + timePart);
+
+            if (this.#callback)
+                this.#callback(this);
+
+        } catch (error) {
+            
+        }
     }
 
     remainingTimeTillEndOfTheDay(level = TimeValues.FreshTimeLevels.LevelBig) {
