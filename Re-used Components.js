@@ -667,8 +667,8 @@ class DateValues {
          */
 
         this.timeVal = new TimeValues();
-        // let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.FreshTimeLevels.LevelThree);
-        let duration = 10000; // 10 seconds 4 testing purpose
+        let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.FreshTimeLevels.LevelThree);
+        // let duration = 10000; // 10 seconds 4 testing purpose
 
         setTimeout(() => {
 
