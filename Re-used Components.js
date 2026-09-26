@@ -330,7 +330,7 @@ class TimeValues {
             const response = await fetch('http://localhost:8080/api/TimeRequester');
             const thoiGianStr = await response.json();
 
-            const [, , timePart] = thoiGianStr.split(" ");
+            const [, timePart] = thoiGianStr.split(" ");
             const [hours, minutes, seconds] = timePart.split(":");
 
             this.#h = parseInt(hours);
@@ -343,7 +343,7 @@ class TimeValues {
                 this.#callback(this);
 
         } catch (error) {
-            
+
         }
     }
 
