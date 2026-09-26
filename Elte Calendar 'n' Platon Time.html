@@ -436,7 +436,7 @@
             <div id="dmitry" class="local-current-time"></div>
             <div class="platon-time">
                 <em class="city">Auckland</em>
-                <span class="excellent">GMT+7</span>+5
+                <span class="excellent">GMT+7</span>+6
             </div>
             <div id="oxaka-seoul" class="local-current-time"></div>
             <div class="platon-time">
@@ -523,7 +523,7 @@
             document.getElementById('dustin-plural').textContent = `${timeVal.formatTime(0, true)}`;
             
             // let dimitryTime = 
-            document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
+            document.getElementById('dmitry').textContent = `${timeVal.formatTime(21, true)}`; // -4 --> -3 (GMT+7+6)
         }
 
         function updateToHereDate() {
