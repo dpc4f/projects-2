@@ -189,9 +189,7 @@ function revertElteMonth(monthStr) {
     return (idx + 2) % 12;
 }
 
-function toTuesdayFirst(day) {
-    return (day + 5) % 7;
-}
+
 
 const DATE_FORMAT_STRINGS = [
     /** full forms */ 
@@ -282,7 +280,7 @@ class TimeValues {
      * [; nr] check how many ways to construct a JavaScript class; is there things like ctor overloading .?
      * 
      * 
-     */
+     */ // --> done
 
     #callback = null;
     #h;
@@ -1239,6 +1237,10 @@ class DateValues {
 
         return weekNo;
     }
+
+    static toTuesdayFirst(dayIndex) {
+        return (dayIndex + 5) % 7;
+    }
     
     static getWeekNumber(year, month, soleDate, day) {
 
@@ -1250,10 +1252,10 @@ class DateValues {
 
         const TheYear = year; 
         const FirstDateOfTheYear = new Date(TheYear, 1, 1);
-        const FirstDateIndex = toTuesdayFirst(FirstDateOfTheYear.getDay()); // the year's first day's index in the first week; 0..6
+        const FirstDateIndex = DateValues.toTuesdayFirst(FirstDateOfTheYear.getDay()); // the year's first day's index in the first week; 0..6
         
         const TheMonth = DateValues.convertToElteMonthIdx(month);
-        const TheDayIndex = toTuesdayFirst(day); // index of the day in its week; in 0..6
+        const TheDayIndex = DateValues.toTuesdayFirst(day); // index of the day in its week; in 0..6
         const TheSoleDate = soleDate; // only the date's number in its month; starts from 1
         const Distance = Math.abs(FirstDateIndex - TheDayIndex);
 

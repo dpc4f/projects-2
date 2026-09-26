@@ -594,7 +594,7 @@
             renderCalendarHeading(bHereYear, suffixStr, month, year);
  
             const firstDay = new Date(year, month, 1);
-            const startIndex = toTuesdayFirst(firstDay.getDay());
+            const startIndex = DateValues.toTuesdayFirst(firstDay.getDay());
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
             const body = document.getElementById("calendarBody");
