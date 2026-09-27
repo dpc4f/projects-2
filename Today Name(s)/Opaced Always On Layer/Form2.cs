@@ -20,7 +20,9 @@ namespace Opaced_Always_On_Layer
         private static Color BLUE = Color.Blue;
         private static Color LIGHT_GREEN = Color.LightGreen;
         private static Color LIGHT_YELLOW = Color.LightYellow;
+        private static Color RED = Color.Red;
         private Color colour = LIGHT_YELLOW;
+
         private int timerTickInHours = 4;
 
         public Form2()
@@ -86,7 +88,7 @@ namespace Opaced_Always_On_Layer
             if (colour == LIGHT_YELLOW)
             {
                 colour = BLUE;
-                timerTickInHours = 8;
+                timerTickInHours = 6;
             }
             else if (colour == BLUE)
             {
@@ -95,9 +97,14 @@ namespace Opaced_Always_On_Layer
             }
             else if (colour == BLACK) {
                 colour = LIGHT_GREEN;
-                timerTickInHours = 8;
+                timerTickInHours = 6;
             }
             else if (colour == LIGHT_GREEN)
+            {
+                colour = RED;
+                timerTickInHours = 4;
+            }
+            else if (colour == RED)
             {
                 colour = LIGHT_YELLOW;
                 timerTickInHours = 4;
