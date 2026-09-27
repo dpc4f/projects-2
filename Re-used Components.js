@@ -169,20 +169,6 @@ function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWee
     return dateStr + ' ' + hourStr;
 }
 
-function convertToElteYear(year, month = 12) {
-    let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
-    let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
-    let str = d>0 ? '+'+d.toString() : d.toString();
-
-    return (d==0 ? c_y_str : c_y_str+str);
-}
-
-function revertElteYear(yearStr, addOneYear = false) {
-    const match = yearStr.match(/^current_year([+-]\d+)$/);
-    
-    return DateValues.Constants.CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
-}
-
 function revertElteMonth(monthStr) {
     const idx = DateValues.getIndexFromElteMonth(monthStr);
 
@@ -190,81 +176,7 @@ function revertElteMonth(monthStr) {
 }
 
 
-
-const DATE_FORMAT_STRINGS = [
-    /** full forms */ 
-    // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
-        [false, false, false, false], // current_year+6
-        [true, false, false, false], // Yune current_year+6
-        [true, true, false, false], // Yune 22 current_year+6
-        [true, true, true, false, false], // Yune 22 current_year+6 Sat
-        [true, true, true, true, false], // Yune 22 current_year+6 Sat iTa 
-
-    /** mid forms */
-    // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
-        // cy+6
-        // Du cy+6 (Duo current_year+6); DE cy+6 (DEC current_year+6)
-        // Yu 22 cy+6
-        // Yu 23 cy+6 H
-        // Yu 23 cy+6 H Ta
-
-    /** short forms */
-    // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
-
-    /** [; nr] including week numbers */
-        [false, false, false, true], // current_year+6 28
-        [true, false, false, true], // SEPT current_year+6 28
-        [true, true, false, true], // SEPT 1 current_year+6 28
-        [true, true, true, false, true], // SEPT 1 current_year+6 28 Thaw
-        [true, true, true, true, true] // SEPT 1 current_year+6 28 Thaw iTa 
-        
-        /***
-         * [an algorithm]
-         * get the first date of the year w/ the day
-         * continuously add it to 7
-         * if the result is greater than number of days in the month
-         * subtract it by the number of days in the month
-         * repeat the steps until come to the current month
-         * there if the result is smaller than OR equal to the current day; return the week number
-         * if the result is greater; return week number plus 1
-         * 
-         * 
-         * 
-         */
-
-];
-
-const DATE_FORMAT_COUNT = DATE_FORMAT_STRINGS.length;
-
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
-
-function getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0, today = new Date()) {
-    let bMonth = DATE_FORMAT_STRINGS[index][0]; 
-    let bDateInMonth = DATE_FORMAT_STRINGS[index][1]; 
-    let bDayInWeek = DATE_FORMAT_STRINGS[index][2]; 
-    let bShiftInADay = bDayInWeek ? DATE_FORMAT_STRINGS[index][3] : false;
-    let bWeekNumber = DATE_FORMAT_STRINGS[index].length > 4 ? DATE_FORMAT_STRINGS[index][4] : false;
-    let valuesStr = '';
-
-    switch (formLength) {
-        case FULL_FORM_DATE:
-            valuesStr = getDateFullForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
-            break;
-
-        case MID_FORM_DATE:
-            valuesStr = getDateMidForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
-            break;
-
-        case SHORT_FORM_DATE:
-            valuesStr = getDateShortForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
-            break;
-
-        default:
-            break;
-    }
-
-    return valuesStr.trim();
-}
 
 // [; nr] implement using read-only properties <-- done
 class TimeConstants {
@@ -724,7 +636,7 @@ class DateValues {
         }
 
         let bAddOneYear = m < 2 ? true : false;
-        let y = revertElteYear(arr[2], bAddOneYear);
+        let y = UnytValues.revertElteYear(arr[2], bAddOneYear);
 
         this.#syr = y;
         this.#smt = m;
@@ -1046,13 +958,13 @@ class DateValues {
             return;
         }
 
-        let y = revertElteYear(arr[2], m < 2);
+        let y = UnytValues.revertElteYear(arr[2], m < 2);
         
         return [m, y];
     }
 
     getElteProvidingElteMonth(month) {
-        let elteYear = convertToElteYear(this.#yr, this.#mt);
+        let elteYear = UnytValues.convertToElteYear(this.#yr, this.#mt);
         
         return month + ' ' + this.#dt.toString() + ' ' + elteYear;
     }
@@ -1410,23 +1322,101 @@ class UnytValues {
     
     /***
      * 1 Unyt == 3 yrs + 1 leap yr
-     * here it is a Cula-unyt
+     * this is a Cula-unit
      * 
      * 
      */
 
 
+    #years = [ 2017, 2018, 2019, 2020 ]; // <-- for example
 
+    static DATE_FORMAT_STRINGS = [
+        // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
+        [false, false, false, false], // current_year+6
+        [true, false, false, false], // Yune current_year+6
+        [true, true, false, false], // Yune 22 current_year+6
+        [true, true, true, false, false], // Yune 22 current_year+6 Sat
+        [true, true, true, true, false], // Yune 22 current_year+6 Sat iTa 
+
+        [false, false, false, true], // current_year+6 28
+        [true, false, false, true], // SEPT current_year+6 28
+        [true, true, false, true], // SEPT 1 current_year+6 28
+        [true, true, true, false, true], // SEPT 1 current_year+6 28 Thaw
+        [true, true, true, true, true] // SEPT 1 current_year+6 28 Thaw iTa 
+    ];
+
+    static DATE_FORMAT_COUNT = UnytValues.DATE_FORMAT_STRINGS.length;
+
+    
+    static getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0, today = new Date()) {
+        let bMonth = UnytValues.DATE_FORMAT_STRINGS[index][0]; 
+        let bDateInMonth = UnytValues.DATE_FORMAT_STRINGS[index][1]; 
+        let bDayInWeek = UnytValues.DATE_FORMAT_STRINGS[index][2]; 
+        let bShiftInADay = bDayInWeek ? UnytValues.DATE_FORMAT_STRINGS[index][3] : false;
+        let bWeekNumber = UnytValues.DATE_FORMAT_STRINGS[index].length > 4 ? UnytValues.DATE_FORMAT_STRINGS[index][4] : false;
+        let valuesStr = '';
+
+        switch (formLength) {
+            case FULL_FORM_DATE:
+                valuesStr = getDateFullForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                break;
+
+            case MID_FORM_DATE:
+                valuesStr = getDateMidForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                break;
+
+            case SHORT_FORM_DATE:
+                valuesStr = getDateShortForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                break;
+
+            default:
+                break;
+        }
+
+        return valuesStr.trim();
+    }
+
+
+    static convertToElteYear(year, month = 12) {
+        let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
+        let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
+        let str = d>0 ? '+'+d.toString() : d.toString();
+
+        return (d==0 ? c_y_str : c_y_str+str);
+    }
+
+    static revertElteYear(yearStr, addOneYear = false) {
+        const match = yearStr.match(/^current_year([+-]\d+)$/);
+        
+        return DateValues.Constants.CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
+    }
+
+    leapYear() {
+
+        /***
+         * return the last year in the array
+         * 
+         */
+
+        return this.#years[this.#years.length-1];
+    }
 
 }
+
+Object.freeze(UnytValues.DATE_FORMAT_STRINGS);
+Object.freeze(UnytValues.DATE_FORMAT_COUNT);
+
+
+
 
 
 class GroupUnytValues {
 
     /***
      * 15 Unyts == 1 group of Unyts
+     * this is a unit
      * 
-     * unyt
+     * 
      */
 
 
@@ -1438,8 +1428,8 @@ class GrandUnytValues {
 
     /***
      * 1 group of Unyts + 15 yrs == 1 grand Unyt
+     * this is a Maha-unit
      * 
-     * Maha-unyt
      * 
      */
 
