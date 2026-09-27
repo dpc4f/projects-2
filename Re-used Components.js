@@ -1317,14 +1317,16 @@ function exchange2AnimalByLunar(birthYear) {
 class UnytValues {
     
     /***
-     * 1 Unyt == 3 yrs + 1 leap yr
+     * 1 Unyt == 1 leap yr + 3 normal yrs
+     * [ 2020, 2021, 2022, 2023 ]; // <-- for example
      * this is a Cula-unit
      * 
      * 
      */
 
 
-    #years = [ 2017, 2018, 2019, 2020 ]; // <-- for example
+    #years; // == 2024 for example; the rest will be get by addding 1..3 
+
 
     static DATE_FORMAT_STRINGS = [
         // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
@@ -1391,14 +1393,21 @@ class UnytValues {
         return DateValues.Constants.CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
     }
 
-    leapYear() {
+    get Year() {
+        return this.#years;
+    }
 
-        /***
-         * return the last year in the array
-         * 
-         */
+    Year(step = 0) {
+        let ret = step >= 0 ? step < 4 ? this.#years + step : -1 : -1;
+        return ret;
+    }
 
-        return this.#years[this.#years.length-1];
+    DaysOfYear(step = 0) {
+        if (step == 0) // the first year
+            return 366;
+        
+        let ret = step > 0 ? step < 4 ? 365 : -1 : -1;
+        return ret;
     }
 
 }
