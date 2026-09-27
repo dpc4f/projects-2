@@ -186,7 +186,6 @@
 
         .ambitious-odin {
             color: purple;
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -223,15 +222,14 @@
             container.innerHTML = "";
             chars.forEach((c, index) => {
                 const span = document.createElement("span");
-                span.textContent = c;
-
-                if (c == 'a')
-                    span.className = "char";
-                else
-                span.className = "char ambitious-odin";
+                span.textContent = c;                
+                span.className = "char";
 
                 if (index === anchorIndex)
                     span.classList.add("anchor");
+
+                if (c == 'a')
+                    span.classList.add("ambitious-odin");
 
                 container.appendChild(span);
             });
@@ -263,6 +261,8 @@
             current.forEach((char) => {
                 if (char !== 'a')
                     char.classList.add("ghost");
+
+                
             });
 
             setTimeout(() => {
@@ -278,6 +278,9 @@
                         span.style.filter = "blur(0)";
                         span.style.transform = "translateY(0) scale(1)";
                     }
+
+                    if (c == 'a')
+                        span.classList.add("ambitious-odin");
 
                     sofiaContainer.appendChild(span);
 
