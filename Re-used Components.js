@@ -1454,7 +1454,7 @@ class Life {
      * 
      * người ta theo lẽ thường tính dư chứ chẳng ai tính thiếu
      * may guá có trừ hao <-- tính dư
-     * địt mẹ nó thiếu có chút xíu <-- tính thiếu
+     * cmnr chỉ thiếu có chút xíu <-- tính thiếu
      * --> do đó sử dụng dấu + chứ ko dùng dấu -
      * hahah ...
      * 
