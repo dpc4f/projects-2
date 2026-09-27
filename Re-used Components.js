@@ -1406,6 +1406,84 @@ function exchange2AnimalByLunar(birthYear) {
 }
 
 
+class UnytValues {
+    
+    /***
+     * 1 Unyt == 3 yrs + 1 leap yr
+     * here it is a Cula-unyt
+     * 
+     * 
+     */
+
+
+
+
+}
+
+
+class GroupUnytValues {
+
+    /***
+     * 15 Unyts == 1 group of Unyts
+     * 
+     * unyt
+     */
+
+
+
+}
+
+
+class GrandUnytValues {
+
+    /***
+     * 1 group of Unyts + 15 yrs == 1 grand Unyt
+     * 
+     * Maha-unyt
+     * 
+     */
+
+
+
+}
+
+class Life {
+
+    /***
+     * 1 GrandUnyt+ == 1 grand Unyt + 5 years == 1 life
+     * 
+     * 
+     * 
+     *  em ơi có bao nhiêu
+     *  60 năm cuộc đời
+     *  --> [6 --> 8] 60, 80
+     * 
+     */
+
+
+
+}
+
+
+class World {
+    
+    /***
+     * 300 lives == 1 world
+     * 
+     * 
+     * 1000 thế giới rung động --> 300000 the number
+     * a Big BUDDHA has 3000 lives
+     *   --> a buddha has { 300 lives ~ a world }
+     * 
+     * 
+     */
+
+
+}
+
+
+
+
 
 
 
