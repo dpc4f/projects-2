@@ -1405,9 +1405,9 @@ class UnytValues {
 
 Object.freeze(UnytValues.DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.DATE_FORMAT_COUNT);
-Object.freeze(UnytValues.UnytValues.FULL_FORM_DATE);
-Object.freeze(UnytValues.UnytValues.MID_FORM_DATE);
-Object.freeze(UnytValues.UnytValues.SHORT_FORM_DATE);
+Object.freeze(UnytValues.FULL_FORM_DATE);
+Object.freeze(UnytValues.MID_FORM_DATE);
+Object.freeze(UnytValues.SHORT_FORM_DATE);
 
 
 
