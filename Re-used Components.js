@@ -2,10 +2,6 @@ const LONG_FORM_SHIFT = 0;
 const MID_FORM_SHIFT = 1;
 const SHORT_FORM_SHIFT = 2;
 
-const FULL_FORM_DATE = 0;
-const MID_FORM_DATE = 1;
-const SHORT_FORM_DATE = 2;
-
 const DATE_FULL_FORM = 0;
 const DATE_MID_FORM = 1;
 const DATE_SHORT_FORM = 2;
@@ -123,10 +119,10 @@ function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek 
     let year = Today.getFullYear();
     let day = Today.getDay();
 
-    let elteMonth = bMonth ? DateValues.getElteMonthStr(month, MID_FORM_DATE) : '';
+    let elteMonth = bMonth ? DateValues.getElteMonthStr(month, UnytValues.MID_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, MID_FORM_DATE) : '';
+    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, UnytValues.MID_FORM_DATE) : '';
     let shift = bShiftInADay ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
@@ -141,11 +137,11 @@ function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWee
     let year = Today.getFullYear();
     let day = Today.getDay();
 
-    let elteMonth = bMonth ? DateValues.getElteMonthStr(month, SHORT_FORM_DATE) : '';
+    let elteMonth = bMonth ? DateValues.getElteMonthStr(month, UnytValues.SHORT_FORM_DATE) : '';
     let elteSoleDate = bDateInMonth ? soleDate : '';
     let elteYear = year == DateValues.Constants.CURRENT_YEAR ? 'O' 
                                 : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
-    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, SHORT_FORM_DATE) : '';
+    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, UnytValues.SHORT_FORM_DATE) : '';
     let shift = bShiftInADay ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
     let weekNo = getWeekNoInTheYear(Today); //
 
@@ -828,56 +824,56 @@ class DateValues {
         return sf;
     }
 
-    static #getElteMonthString(elteMonthIndex, form = FULL_FORM_DATE) {
+    static #getElteMonthString(elteMonthIndex, form = UnytValues.FULL_FORM_DATE) {
         let ret = '';
 
         switch (elteMonthIndex) {
             case 0:
-                ret = form == FULL_FORM_DATE ? 'Athen' : (form == MID_FORM_DATE ? 'At' : 'a');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Athen' : (form == UnytValues.MID_FORM_DATE ? 'At' : 'a');
                 break;
 
             case 1:
-                ret = form == FULL_FORM_DATE ? 'Duo' : (form == MID_FORM_DATE ? 'Du' : 'd');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Duo' : (form == UnytValues.MID_FORM_DATE ? 'Du' : 'd');
                 break;
 
             case 2:
-                ret = form == FULL_FORM_DATE ? 'Magha' : (form == MID_FORM_DATE ? 'Ma' : 'm');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Magha' : (form == UnytValues.MID_FORM_DATE ? 'Ma' : 'm');
                 break;
 
             case 3:
-                ret = form == FULL_FORM_DATE ? 'Qaru' : (form == MID_FORM_DATE ? 'Qa' : 'q');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Qaru' : (form == UnytValues.MID_FORM_DATE ? 'Qa' : 'q');
                 break;
 
             case 4:
-                ret = form == FULL_FORM_DATE ? 'Felle' : (form == MID_FORM_DATE ? 'Fe' : 'f');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Felle' : (form == UnytValues.MID_FORM_DATE ? 'Fe' : 'f');
                 break;
 
             case 5:
-                ret = form == FULL_FORM_DATE ? 'Yune' : (form == MID_FORM_DATE ? 'Yu' : 'y');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Yune' : (form == UnytValues.MID_FORM_DATE ? 'Yu' : 'y');
                 break;
 
             case 6:
-                ret = form == FULL_FORM_DATE ? 'SEPT' : (form == MID_FORM_DATE ? 'SE' : 'S');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'SEPT' : (form == UnytValues.MID_FORM_DATE ? 'SE' : 'S');
                 break;
 
             case 7:
-                ret = form == FULL_FORM_DATE ? 'OCT' : (form == MID_FORM_DATE ? 'OC' : 'O');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'OCT' : (form == UnytValues.MID_FORM_DATE ? 'OC' : 'O');
                 break;
 
             case 8:
-                ret = form == FULL_FORM_DATE ? 'NOV' : (form == MID_FORM_DATE ? 'NO' : 'N');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'NOV' : (form == UnytValues.MID_FORM_DATE ? 'NO' : 'N');
                 break;
 
             case 9:
-                ret = form == FULL_FORM_DATE ? 'DEC' : (form == MID_FORM_DATE ? 'DE' : 'D');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'DEC' : (form == UnytValues.MID_FORM_DATE ? 'DE' : 'D');
                 break;
 
             case 10:
-                ret = form == FULL_FORM_DATE ? 'Palm' : (form == MID_FORM_DATE ? 'Pa' : 'p');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Palm' : (form == UnytValues.MID_FORM_DATE ? 'Pa' : 'p');
                 break;
 
             case 11:
-                ret = form == FULL_FORM_DATE ? 'Hose' : (form == MID_FORM_DATE ? 'Ho' : 'h');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Hose' : (form == UnytValues.MID_FORM_DATE ? 'Ho' : 'h');
                 break;
 
             default:
@@ -928,7 +924,7 @@ class DateValues {
     }
 
 
-    static getElteMonthStr(monthIdx, form = FULL_FORM_DATE) { 
+    static getElteMonthStr(monthIdx, form = UnytValues.FULL_FORM_DATE) { 
         /***  
          * 
          * { Idx, Index }
@@ -1174,40 +1170,40 @@ class DateValues {
         return DateValues.getWeekNumberWithProvidedParameters(Distance, TheMonth, TheSoleDate);
     }
 
-    whichDayIsTheDay(form = FULL_FORM_DATE) {
+    whichDayIsTheDay(form = UnytValues.FULL_FORM_DATE) {
         return DateValues.whichDayIsToday(this.#dy, form);
     }
 
-    static whichDayIsToday(todayIndex, form = FULL_FORM_DATE) {
+    static whichDayIsToday(todayIndex, form = UnytValues.FULL_FORM_DATE) {
         let ret = '';
 
         switch (todayIndex) {
             case 0:
-                ret = form == FULL_FORM_DATE ? 'Thaw' : (form == MID_FORM_DATE ? 'th' : 'T');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Thaw' : (form == UnytValues.MID_FORM_DATE ? 'th' : 'T');
                 break;
             
             case 1:
-                ret = form == FULL_FORM_DATE ? 'Wan' : (form == MID_FORM_DATE ? 'wa' : 'W');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Wan' : (form == UnytValues.MID_FORM_DATE ? 'wa' : 'W');
                 break;
 
             case 2:
-                ret = form == FULL_FORM_DATE ? 'Uth' : (form == MID_FORM_DATE ? 'ut' : 'U');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Uth' : (form == UnytValues.MID_FORM_DATE ? 'ut' : 'U');
                 break;
 
             case 3:
-                ret = form == FULL_FORM_DATE ? 'Fri' : (form == MID_FORM_DATE ? 'fr' : 'F');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Fri' : (form == UnytValues.MID_FORM_DATE ? 'fr' : 'F');
                 break;
 
             case 4:
-                ret = form == FULL_FORM_DATE ? 'Sat' : (form == MID_FORM_DATE ? 'sa' : 'S');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Sat' : (form == UnytValues.MID_FORM_DATE ? 'sa' : 'S');
                 break;
 
             case 5:
-                ret = form == FULL_FORM_DATE ? 'Hie' : (form == MID_FORM_DATE ? 'hi' : 'H');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Hie' : (form == UnytValues.MID_FORM_DATE ? 'hi' : 'H');
                 break;
 
             case 6:
-                ret = form == FULL_FORM_DATE ? 'Dak' : (form == MID_FORM_DATE ? 'da' : 'D');
+                ret = form == UnytValues.FULL_FORM_DATE ? 'Dak' : (form == UnytValues.MID_FORM_DATE ? 'da' : 'D');
                 break;
 
             default:
@@ -1347,8 +1343,12 @@ class UnytValues {
 
     static DATE_FORMAT_COUNT = UnytValues.DATE_FORMAT_STRINGS.length;
 
+    static FULL_FORM_DATE = 0;
+    static MID_FORM_DATE = 1;
+    static SHORT_FORM_DATE = 2;
+
     
-    static getDateValuesTimeStamp(formLength = FULL_FORM_DATE, index = 0, today = new Date()) {
+    static getDateValuesTimeStamp(formLength = UnytValues.FULL_FORM_DATE, index = 0, today = new Date()) {
         let bMonth = UnytValues.DATE_FORMAT_STRINGS[index][0]; 
         let bDateInMonth = UnytValues.DATE_FORMAT_STRINGS[index][1]; 
         let bDayInWeek = UnytValues.DATE_FORMAT_STRINGS[index][2]; 
@@ -1357,15 +1357,15 @@ class UnytValues {
         let valuesStr = '';
 
         switch (formLength) {
-            case FULL_FORM_DATE:
+            case UnytValues.FULL_FORM_DATE:
                 valuesStr = getDateFullForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
                 break;
 
-            case MID_FORM_DATE:
+            case UnytValues.MID_FORM_DATE:
                 valuesStr = getDateMidForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
                 break;
 
-            case SHORT_FORM_DATE:
+            case UnytValues.SHORT_FORM_DATE:
                 valuesStr = getDateShortForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
                 break;
 
@@ -1405,6 +1405,9 @@ class UnytValues {
 
 Object.freeze(UnytValues.DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.DATE_FORMAT_COUNT);
+Object.freeze(UnytValues.UnytValues.FULL_FORM_DATE);
+Object.freeze(UnytValues.UnytValues.MID_FORM_DATE);
+Object.freeze(UnytValues.UnytValues.SHORT_FORM_DATE);
 
 
 

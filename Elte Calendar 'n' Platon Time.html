@@ -542,7 +542,7 @@
 
         function initializeToHereDate() {
             const COMMONLY_USED = 2;
-            let hereDateCommonlyUsedForm = UnytValues.getDateValuesTimeStamp(FULL_FORM_DATE, COMMONLY_USED); // first time
+            let hereDateCommonlyUsedForm = UnytValues.getDateValuesTimeStamp(UnytValues.FULL_FORM_DATE, COMMONLY_USED); // first time
             // console.log(hereDateCommonlyUsedForm); // 4 debugging purpose
             
             let ele = document.getElementById("dateTextbox");
@@ -668,7 +668,7 @@
 
         function renderDateTimeVarieties() {
             const infor = document.getElementById("dateWithoutTime");
-            let form = FULL_FORM_DATE;
+            let form = UnytValues.FULL_FORM_DATE;
             // dateValue.getDuration4SwitchingDateForms(); // temporarily increase to a big amount to test updating GUI when tomorrow comes
             let index = 1;
             
@@ -677,15 +677,15 @@
             setInterval(() => {
                 infor.innerText = UnytValues.getDateValuesTimeStamp(form, index);
             
-                if (++index == DATE_FORMAT_COUNT) {
+                if (++index == UnytValues.DATE_FORMAT_COUNT) {
                     index = 0;
                     
-                    if (++form > SHORT_FORM_DATE) 
-                        form = FULL_FORM_DATE;
+                    if (++form > UnytValues.SHORT_FORM_DATE) 
+                        form = UnytValues.FULL_FORM_DATE;
                 }
             }, duration);
 
-            infor.innerText = UnytValues.getDateValuesTimeStamp(FULL_FORM_DATE, 0); // first time
+            infor.innerText = UnytValues.getDateValuesTimeStamp(UnytValues.FULL_FORM_DATE, 0); // first time
         }
 
         function formatElteDateString() { // leave this method here 'cause of a historic reason
