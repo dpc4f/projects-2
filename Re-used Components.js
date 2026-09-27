@@ -1452,6 +1452,11 @@ class Life {
     /***
      * 1 GrandUnyt+ == 1 grand Unyt + 5 years == 1 life
      * 
+     * người ta theo lẽ thường tính dư chứ chẳng ai tính thiếu
+     * may guá có trừ hao <-- tính dư
+     * địt mẹ nó thiếu có chút xíu <-- tính thiếu
+     * --> do đó sử dụng dấu + chứ ko dùng dấu -
+     * hahah ...
      * 
      * 
      *  em ơi có bao nhiêu
