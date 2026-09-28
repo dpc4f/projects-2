@@ -1319,7 +1319,7 @@ class UnytValues {
     /***
      * 1 Unyt == 1 leap yr + 3 normal yrs
      * [ 2020, 2021, 2022, 2023 ]; // <-- for example
-     * this is a Cula-unit
+     * this is a Cula-unit also a Cycle
      * 
      * 
      */
@@ -1497,6 +1497,24 @@ class World {
 }
 
 
+class DoubleCycle {
+    /***
+     * 2 x Cycle 
+     * 
+     * 
+     */
+}
+
+
+class VoCuc { // Vô Cực
+
+    /***
+     * 3 x DoubleCycle
+     * 
+     * 
+     */
+
+}
 
 
 
