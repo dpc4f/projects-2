@@ -1378,7 +1378,6 @@ class UnytValues {
         return valuesStr.trim();
     }
 
-
     static convertToElteYear(year, month = 12) {
         let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
         let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
@@ -1397,16 +1396,16 @@ class UnytValues {
         return this.#years;
     }
 
-    Year(step = 0) {
-        let ret = step >= 0 ? step < 4 ? this.#years + step : -1 : -1;
+    Year(incr = 0) {
+        let ret = incr >= 0 ? incr < 4 ? this.#years + incr : -1 : -1;
         return ret;
     }
 
-    DaysOfYear(step = 0) {
-        if (step == 0) // the first year
+    DaysOfYear(pos = 0) {
+        if (pos == 0) // the first year
             return 366;
         
-        let ret = step > 0 ? step < 4 ? 365 : -1 : -1;
+        let ret = pos > 0 ? pos < 4 ? 365 : -1 : -1;
         return ret;
     }
 
