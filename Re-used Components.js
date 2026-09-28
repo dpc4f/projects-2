@@ -283,7 +283,7 @@ class TimeValues {
             case TimeValues.FreshTimeLevels.LevelThree:
                 passedTime = this.#h * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS
                                 + this.#m * TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS 
-                                + this.#s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS
+                                + this.#s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - passedTime;
 
                 // console.log('passed hours: ' + this.h);
@@ -603,7 +603,7 @@ class DateValues {
              */
             this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
 
-        }, duration);
+        }, duration + 2 * TimeValues.Constants.WAN_MINUTE_IN_SECONDS * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS); // 2 minutes added
 
     }
 
