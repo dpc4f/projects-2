@@ -596,6 +596,11 @@ class DateValues {
             }, DateValues.Constants.ONE_DAY_IN_MILLISECONDS); // will be run every day after the first day
             
             // this.#firstTimeCalledBySetTimeOut = true;
+
+            /***
+             * [; nr] check this again; seems that it's ahead of the time 2 minutes therefore callback won't change the GUI
+             * 
+             */
             this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
 
         }, duration);
