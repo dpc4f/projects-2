@@ -1427,6 +1427,7 @@ class GroupUnytValues {
      * 15 Unyts == 1 group of Unyts
      * this is a unit
      * 
+     * 1 group of unyts == a round of, 'Can Chi'
      * 
      */
 
@@ -1441,6 +1442,8 @@ class GrandUnytValues {
      * 1 group of Unyts + 15 yrs == 1 grand Unyt
      * this is a Maha-unit
      * 
+     * a grand unyt equivalent to GroupUnyt+
+     * 
      * 
      */
 
@@ -1452,6 +1455,7 @@ class Life {
 
     /***
      * 1 GrandUnyt+ == 1 grand Unyt + 5 years == 1 life
+     * Life == GroupUnyt++
      * 
      * người ta theo lẽ thường tính dư chứ chẳng ai tính thiếu
      * may guá có trừ hao <-- tính dư
@@ -1470,6 +1474,8 @@ class Life {
 
 }
 
+const GroupUnytPlusPlus = Life;
+
 
 class World {
     
@@ -1480,6 +1486,9 @@ class World {
      * 1000 thế giới rung động --> 300000 the number
      * a Big BUDDHA has 3000 lives
      *   --> a buddha has { 300 lives ~ a world }
+     * 
+     * 
+     * the World has been established :-)
      * 
      * 
      */
