@@ -1256,7 +1256,8 @@ class UnytValues {
      */
 
 
-    #years; // == 2024 for example; the rest will be gotten by addding 1..3 
+    #years; // == 2024 4, the HereUnyt; the rest will be gotten by addding 1..3 
+    #yearCanChi = 'Giáp Thìn';
 
 
     static DATE_FORMAT_STRINGS = [
@@ -1362,7 +1363,7 @@ class GroupUnytValues {
      * 
      * 
      * 
-     * 
+     * 2084 <-- Giáp Thìn
      * 
      * 
      * 
@@ -1370,6 +1371,7 @@ class GroupUnytValues {
      * 
      */
 
+  
 
 
 }
@@ -1383,9 +1385,11 @@ class GrandUnytValues {
      * 
      * a grand unyt equivalent to GroupUnyt+
      * 
+     * beheaded the first grand-unyt
      * 
+     * then the will be considered first animal is, Tuất / Dodge
      * 
-     * 
+     * 2084 + 15 + 75 ==  2174
      * 
      * 
      * 
@@ -1491,6 +1495,7 @@ class VoCuc { // Vô Cực
      */
 
     static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR+6; // 2026
+    static #yearCanChi = 'Bính Ngọ';
 
     #year; // the first year of VoCuc
 
