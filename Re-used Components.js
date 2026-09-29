@@ -1490,6 +1490,10 @@ class VoCuc { // Vô Cực
      * 
      */
 
+    static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR+6; // 2026
+
+    static #year = NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
+
         
     static ANIMAL_NAMES = [
         "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
@@ -1507,11 +1511,18 @@ class VoCuc { // Vô Cực
             return VoCuc.ANIMAL_NAMES[tmp];
     }
 
-   
+    static getLastElteYearOfVoCuc() {
+        return DateValues.CURRENT_YEAR_STRING + (VoCuc.#year + 23 - 2026);
+    }
 
 }
 
 Object.freeze(VoCuc.ANIMAL_NAMES);
+Object.freeze(VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
+
+
+
+
 
 
 
