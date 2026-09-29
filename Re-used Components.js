@@ -9,22 +9,6 @@ const DATE_SHORT_FORM = 2;
 const DAYS_IN_A_YEAR = 365.25;
 const TODAY = new Date();
 
-const ANIMAL_NAMES = [
-    "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
-    "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant / Bee / Peacock", "Snake Family / Centipede",
-    "Horse / Sea-horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape / Kong",
-    "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
-]; 
-
-const MONTH_NAMES = [ // original months' name
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
-
-const MONTH_NAMES_TLA = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
-];
 
 function getWeekNoInTheYear(theDate) {
     let month = theDate.getMonth();
@@ -1251,6 +1235,17 @@ Object.freeze(DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR);
 
 
 class UnytValues {
+
+    static MONTH_NAMES = [ // original months' name
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    static MONTH_NAMES_TLA = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+        "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+    ];
+
     
     /***
      * 1 Unyt == 1 leap yr + 3 normal yrs
@@ -1261,7 +1256,7 @@ class UnytValues {
      */
 
 
-    #years; // == 2024 for example; the rest will be get by addding 1..3 
+    #years; // == 2024 for example; the rest will be gotten by addding 1..3 
 
 
     static DATE_FORMAT_STRINGS = [
@@ -1352,8 +1347,8 @@ Object.freeze(UnytValues.DATE_FORMAT_COUNT);
 Object.freeze(UnytValues.FULL_FORM_DATE);
 Object.freeze(UnytValues.MID_FORM_DATE);
 Object.freeze(UnytValues.SHORT_FORM_DATE);
-
-
+Object.freeze(UnytValues.MONTH_NAMES);
+Object.freeze(UnytValues.MONTH_NAMES_TLA);
 
 
 
@@ -1459,7 +1454,7 @@ class World {
      */
 
 
-    
+
 }
 
 
@@ -1495,22 +1490,28 @@ class VoCuc { // Vô Cực
      * 
      */
 
-    
+        
+    static ANIMAL_NAMES = [
+        "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
+        "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant / Bee / Peacock", "Snake Family / Centipede",
+        "Horse / Sea-horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape / Kong",
+        "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
+    ];
     
     static exchange2AnimalByLunar(birthYear) {
         let tmp = Math.abs(DateValues.Constants.CURRENT_YEAR - birthYear) % 12;
         
         if (birthYear < DateValues.Constants.CURRENT_YEAR)
-            return ANIMAL_NAMES[12 - tmp];
+            return VoCuc.ANIMAL_NAMES[12 - tmp];
         else
-            return ANIMAL_NAMES[tmp];
+            return VoCuc.ANIMAL_NAMES[tmp];
     }
 
    
 
 }
 
-
+Object.freeze(VoCuc.ANIMAL_NAMES);
 
 
 
