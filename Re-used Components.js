@@ -1492,7 +1492,13 @@ class VoCuc { // Vô Cực
 
     static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR+6; // 2026
 
-    static #year = VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
+    #year; // the first year of VoCuc
+
+    constructor(nCount = 0) { // nCount == 0, VoCuc dau tien
+
+        this.#year = nCount * 24 + VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
+
+    }
 
         
     static ANIMAL_NAMES = [
@@ -1511,8 +1517,8 @@ class VoCuc { // Vô Cực
             return VoCuc.ANIMAL_NAMES[tmp];
     }
 
-    static getLastElteYearOfVoCuc() {
-        return DateValues.Constants.CURRENT_YEAR_STRING + '+' + (VoCuc.#year + 23 - DateValues.CURRENT_YEAR);
+    getLastElteYearOfVoCuc() {
+        return DateValues.Constants.CURRENT_YEAR_STRING + '+' + (this.#year + 23 - DateValues.CURRENT_YEAR);
     }
 
 }
