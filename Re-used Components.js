@@ -1492,7 +1492,7 @@ class VoCuc { // Vô Cực
 
     static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR+6; // 2026
 
-    static #year = NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
+    static #year = VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
 
         
     static ANIMAL_NAMES = [
@@ -1512,7 +1512,7 @@ class VoCuc { // Vô Cực
     }
 
     static getLastElteYearOfVoCuc() {
-        return DateValues.CURRENT_YEAR_STRING + (VoCuc.#year + 23 - 2026);
+        return DateValues.Constants.CURRENT_YEAR_STRING + '+' + (VoCuc.#year + 23 - 2026);
     }
 
 }
