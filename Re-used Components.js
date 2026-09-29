@@ -26,66 +26,6 @@ const MONTH_NAMES_TLA = [
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
 ];
 
-function getAnimal(idx) {
-    let ret = '';
-
-    switch (idx) 
-    {
-        case 0:
-            ret = "Mouse / Rat / Capybara";
-            break;
-
-        case 1:
-            ret = "Ox / Bull / Buffalo / Cow";
-            break;
-
-        case 2:
-            ret = "Tiger / Leopard";
-            break;
-
-        case 3:
-            ret = "Rabbit / Rapoo ð Computer Mouse";
-            break;
-
-        case 4:
-            ret = "Long-dragon / Ant / Bee / Peacock";
-            break;
-
-        case 5:
-            ret = "Snake Clan / Centipede";
-            break;
-
-        case 6:
-            ret = "Horse / Sea-horse / Dragon";
-            break;
-
-        case 7:
-            ret = "ma-Goat / Gorilla";
-            break;
-
-        case 8:
-            ret = "Monkey / Ape";
-            break;
-
-        case 9:
-            ret = "Rooster / Hen";
-            break;
-
-        case 10:
-            ret = "Dodge / Deer / Reindeer / Duck";
-            break;
-
-        case 11:
-            ret = "Pig / Boar in ð Wilderness / Bear";
-            break;
-
-        default:
-            break;
-    }
-
-    return ret;
-}
-
 function getWeekNoInTheYear(theDate) {
     let month = theDate.getMonth();
     let soleDate = theDate.getDate();
@@ -1309,15 +1249,6 @@ DateValues.Constants = class {
 Object.freeze(DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR);
 
 
-function exchange2AnimalByLunar(birthYear) {
-    let tmp = Math.abs(DateValues.Constants.CURRENT_YEAR - birthYear) % 12;
-    
-    if (birthYear < DateValues.Constants.CURRENT_YEAR)
-        return ANIMAL_NAMES[12 - tmp];
-    else
-        return ANIMAL_NAMES[tmp];
-}
-
 
 class UnytValues {
     
@@ -1506,8 +1437,13 @@ class DoubleCycle {
     /***
      * 2 x Cycle 
      * 
+     * Cycle == 1 Cula-unit
+     * 
      * 
      */
+
+
+
 }
 
 
@@ -1518,6 +1454,19 @@ class VoCuc { // Vô Cực
      * 
      * 
      */
+
+    
+    
+    static exchange2AnimalByLunar(birthYear) {
+        let tmp = Math.abs(DateValues.Constants.CURRENT_YEAR - birthYear) % 12;
+        
+        if (birthYear < DateValues.Constants.CURRENT_YEAR)
+            return ANIMAL_NAMES[12 - tmp];
+        else
+            return ANIMAL_NAMES[tmp];
+    }
+
+   
 
 }
 
