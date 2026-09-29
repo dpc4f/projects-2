@@ -1443,9 +1443,9 @@ class World {
      * --> a BUDDHA has 3000 lives ~ 3 a tăng kỳ
      * --> a Buddha has { 300 lives ~ a world }
      * 
-     * 1 Buddha life == 500 arahant, buddha
+     * 1 Buddha life == 500 { arahant, buddha }
      * 
-     * 1 Big BUDDHA 1250 * 300
+     * 1 Big BUDDHA, 1250*300 == 375000
      * 
      * 
      * 
@@ -1459,6 +1459,7 @@ class World {
      */
 
 
+    
 }
 
 
