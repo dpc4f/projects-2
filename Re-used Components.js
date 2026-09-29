@@ -1365,6 +1365,14 @@ class GroupUnytValues {
      * 
      * 1 group of unyts == a round of, 'Can Chi'
      * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
      */
 
 
@@ -1379,6 +1387,11 @@ class GrandUnytValues {
      * this is a Maha-unit
      * 
      * a grand unyt equivalent to GroupUnyt+
+     * 
+     * 
+     * 
+     * 
+     * 
      * 
      * 
      */
@@ -1404,6 +1417,13 @@ class Life {
      *  60 năm cuộc đời
      *  --> [6 --> 8] 60, 80
      * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
      */
 
 
@@ -1427,6 +1447,10 @@ class World {
      * the World has been established :-)
      * 
      * 
+     * 
+     * 
+     * 
+     * 
      */
 
 
@@ -1440,6 +1464,10 @@ class DoubleCycle {
      * Cycle == 1 Cula-unit
      * 
      * 
+     * 
+     * 
+     * 
+     * 
      */
 
 
@@ -1451,6 +1479,12 @@ class VoCuc { // Vô Cực
 
     /***
      * 3 x DoubleCycle
+     * 
+     * [sia] 23 && !32
+     * 
+     * 
+     * 
+     * 
      * 
      * 
      */
