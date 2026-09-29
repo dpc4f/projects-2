@@ -1440,11 +1440,16 @@ class World {
      * 
      * 
      * 1000 thế giới rung động --> 300000 the number
-     * a Big BUDDHA has 3000 lives
-     *   --> a buddha has { 300 lives ~ a world }
+     * --> a BUDDHA has 3000 lives ~ 3 a tăng kỳ
+     * --> a Buddha has { 300 lives ~ a world }
+     * 
+     * 1 Buddha life == 500 arahant, buddha
+     * 
+     * 1 Big BUDDHA 1250 * 300
      * 
      * 
-     * the World has been established :-)
+     * 
+     * the World has been established .! :-)
      * 
      * 
      * 
