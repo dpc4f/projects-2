@@ -1512,7 +1512,7 @@ class VoCuc { // Vô Cực
     }
 
     static getLastElteYearOfVoCuc() {
-        return DateValues.Constants.CURRENT_YEAR_STRING + '+' + (VoCuc.#year - DateValues.CURRENT_YEAR + 23);
+        return DateValues.Constants.CURRENT_YEAR_STRING + '+' + (VoCuc.#year + 23);
     }
 
 }
