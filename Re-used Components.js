@@ -1090,7 +1090,7 @@ class DateValues {
     static getWeekNumber(year, month, soleDate, day) {
 
         /***
-         * [; nr] convert this method into the static method of class
+         * [; nr] convert this method into a static method of class'
          * 
          * 
          */ // --> done
