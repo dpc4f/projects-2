@@ -1455,8 +1455,8 @@ class World {
      * 
      * 1000 thế giới rung động --> 300000 the number
      * --> a BUDDHA has 3000 lives ~ 3 a tăng kỳ (3 tháng)
-     * --> 1 a tăng kỳ ~ 1 tháng
-     * --> 300 lives == .3 tháng ~ .3 x 30 == 9 ngày
+     * --> { 1 a tăng kỳ, 1000 lives } ~ 1 tháng
+     * --> 300 lives ~ .33 tháng ~ .33 x 30 == 9.9 ngày
      * 
      * 
      * --> a Buddha has { 300 lives ~ a world }
@@ -1465,7 +1465,7 @@ class World {
      * 
      * 1 Big BUDDHA, 1250 x 300 == 375000
      * 
-     * 9 / 1.25 == 7.2
+     * 9.9 / 1.25 > 7
      * 
      * 
      * 
