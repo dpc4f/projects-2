@@ -109,7 +109,7 @@ class TimeConstants {
 class TimeValues {
 
     /***
-     * [; nr] check how many ways to construct a JavaScript class; is there things like ctor overloading .?
+     * [; nr] check how many ways to construct a JavaScript class; are there things like ctor overloading .?
      * 
      * 
      */ // --> done
@@ -413,7 +413,8 @@ TimeValues.FreshTimeLevels = class {
  *   [; nr] write code 4 JS class DateValues to use in Elte Calendar
  *
  *
- */
+ */ // --> done
+
 class DateValues {
     
     /** Here Date Values */
@@ -439,8 +440,6 @@ class DateValues {
     #sdt;
     #sdy;
     #swk;
-
-    // #firstTimeCalledBySetTimeOut;
 
     static CURRENT_YEAR = 2020;
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
@@ -524,7 +523,7 @@ class DateValues {
             /***
              * [; nr] check this again; seems that it's ahead of the time 2 minutes therefore callback won't change the GUI
              * 
-             */
+             */ // --> done
             this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
 
         }, duration + 2 * TimeValues.Constants.WAN_MINUTE_IN_SECONDS * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS); // 2 minutes added
@@ -1313,9 +1312,14 @@ class UnytValues {
     static convertToElteYear(year, month = 12) {
         let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
         let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
-        let str = d>0 ? '+'+d.toString() : d.toString();
+        
+        let str = d > 0 
+                ? '+' + d.toString() 
+                : d.toString();
 
-        return (d==0 ? c_y_str : c_y_str+str);
+        return d == 0 
+                ? c_y_str 
+                : c_y_str + str;
     }
 
     static revertElteYear(yearStr, addOneYear = false) {
@@ -1504,7 +1508,7 @@ class VoCuc { // Vô Cực
      * 
      */
 
-    static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR+6; // 2026
+    static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR + 6; // 2026
     static #yearCanChi = 'Bính Ngọ';
 
     #year; // the first year of VoCuc
@@ -1515,7 +1519,6 @@ class VoCuc { // Vô Cực
 
     }
 
-        
     static ANIMAL_NAMES = [
         "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
         "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant / Bee / Peacock", "Snake Family / Centipede",
