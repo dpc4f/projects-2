@@ -1389,7 +1389,7 @@ class GrandUnytValues {
      * 
      * then the will be considered first animal is, Tuất / Dodge
      * 
-     * 2084 + 15 + 75 ==  2174
+     * 2084 + 15 + 75 ==  2174 (Giáp Tuất)
      * 
      * 
      * 
@@ -1402,7 +1402,7 @@ class GrandUnytValues {
 class Life {
 
     /***
-     * 1 GrandUnyt+ == 1 grand Unyt + 5 years == 1 life
+     * 1 GrandUnyt+ == 1 grand unyt + 5 years == 1 life
      * Life == GroupUnyt++
      * 
      * người ta theo lẽ thường tính dư chứ chẳng ai tính thiếu
@@ -1439,7 +1439,11 @@ class World {
      * 
      * 
      * 1000 thế giới rung động --> 300000 the number
-     * --> a BUDDHA has 3000 lives ~ 3 a tăng kỳ
+     * --> a BUDDHA has 3000 lives ~ 3 a tăng kỳ (3 tháng)
+     * --> 1 a tăng kỳ ~ 1 tháng
+     * --> 300 lives == .3 tháng ~ .3 x 30 == 9 ngày
+     * 
+     * 
      * --> a Buddha has { 300 lives ~ a world }
      * 
      * 1 Buddha life == 500 { arahant, buddha }
@@ -1452,7 +1456,11 @@ class World {
      * 
      * 
      * 
-     * 
+     * a friend is a known person within 7 days
+     * a closed friend will a helpful one w/ greater than 12 days
+     * .5 month OR 1 month TA can call them relatives
+     * going further on long roads it's TA the Tamer of Animals'
+     * now I can remove Kalakani if I need
      * 
      * 
      */
