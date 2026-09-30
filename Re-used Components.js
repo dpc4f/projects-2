@@ -1461,6 +1461,8 @@ class World {
      * .5 month OR 1 month TA can call them relatives
      * going further on long roads it's TA the Tamer of Animals'
      * now I can remove Kalakani if I need
+     * -- [buddha sutta]
+     * 
      * 
      * 
      */
