@@ -596,7 +596,9 @@
             
             initializeToHereDate(); // <-- feature to remove Next Month; Previous Month buttons
             removePurple4Months();
-            mtNamesEle[month < 2 ? month + 10 : month - 2].style.color = "purple";
+            mtNamesEle[month < 2 
+                ? month + 10 
+                : month - 2].style.color = "purple";
             
             renderCalendarHeading(bHereYear, suffixStr, month, year);
  

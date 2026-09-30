@@ -245,7 +245,9 @@
             resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
             document.getElementById('reference').textContent = '~' + yearsOld + ' years old';
             document.getElementById('reference').textContent += '; the age is exactly ' + 
-                                                                (residuce >= 70 ? flooredDownYearsOld + 1 : flooredDownYearsOld).toString() + ' yrs old';
+                                                                (residuce >= 70 
+                                                                    ? flooredDownYearsOld + 1 
+                                                                    : flooredDownYearsOld).toString() + ' yrs old';
         }
 
         function copyPASTE() {

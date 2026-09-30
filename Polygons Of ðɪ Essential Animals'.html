@@ -859,9 +859,14 @@
                 textChunks.forEach((chunk, idx) => {
                     let anima = '', i = 0, isNew = false, isAllowed = 0;
 
-                    chunk = isHTML(chunk) ? createElementFromHTML(chunk).innerText : chunk; // take the string
+                    chunk = isHTML(chunk) 
+                            ? createElementFromHTML(chunk).innerText 
+                            : chunk; // take the string
+
                     for (; i < chunk.length; ++i) {
-                        isAllowed = isAllowedLetter(chunk[i], i < chunk.length-1 ? chunk[i+1] : '@');
+                        isAllowed = isAllowedLetter(chunk[i], i < chunk.length-1 
+                                                                    ? chunk[i+1] 
+                                                                    : '@');
 
                         if (isAllowed == -1) break;
                         if (isAllowed == 0) continue;

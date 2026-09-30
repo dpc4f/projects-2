@@ -24,13 +24,22 @@ function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek
     let soleDate = Today.getDate();
     let year = Today.getFullYear();
     let day = Today.getDay();
-
-    let elteMonth = bMonth ? DateValues.getElteMonthStr(month) : '';
-    let elteSoleDate = bDateInMonth ? soleDate : '';
+    let elteMonth = bMonth 
+                    ? DateValues.getElteMonthStr(month) 
+                    : '';
+    let elteSoleDate = bDateInMonth 
+                        ? soleDate 
+                        : '';
     let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7) : '';
-    let shift = bShiftInADay ? DateValues.getShiftOfTheday() : '';
-    let weekNo = bWeekNumber ? getWeekNoInTheYear(Today) : ''; //
+    let dayInWeek = bDayInWeek 
+                    ? DateValues.whichDayIsToday((day + 5) % 7) 
+                    : '';
+    let shift = bShiftInADay 
+                ? DateValues.getShiftOfTheday() 
+                : '';
+    let weekNo = bWeekNumber 
+                ? getWeekNoInTheYear(Today) 
+                : ''; //
 
     let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
 
