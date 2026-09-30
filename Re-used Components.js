@@ -1448,6 +1448,8 @@ const GroupUnytPlusPlus = Life;
 class World {
     
     /***
+     * here; using character x to do multiplication due to comments using character *
+     * 
      * 300 lives == 1 world
      * 
      * 
@@ -1461,7 +1463,14 @@ class World {
      * 
      * 1 Buddha life == 500 { arahant, buddha }
      * 
-     * 1 Big BUDDHA, 1250*300 == 375000
+     * 1 Big BUDDHA, 1250 x 300 == 375000
+     * 
+     * 9 / 1.25 == 7.2
+     * 
+     * 
+     * 
+     * 
+     * BIG BUDDHA > Big BUDDHA which is only 8 people there are
      * 
      * 
      * 
@@ -1469,19 +1478,20 @@ class World {
      * 
      * 
      * 
-     * a friend is a known person within 7 days
-     * a closed friend will a helpful one w/ greater than 12 days
-     * .5 month OR 1 month TA can call them relatives
-     * going further on long roads it's TA the Tamer of Animals'
-     * now I can remove Kalakani if I need
+     * a friend is a known person 4, seven days (a week)
+     * a closed friend will be a helpful one w/ greater OR equal than, twelve days
+     * half a month OR one month TA can call him a relative
+     * going further on long roads it's TA ð Tamer of Animals'
+     * now I can remove Kàlakkani if I want to
      * -- [buddha sutta]
      * 
      * 
      * 
+     * 
+     * 
+     * 
+     * 
      */
-
-
-
 }
 
 
