@@ -102,7 +102,7 @@
                 >>>> [updated]
                 change CSS class to be, 'ambitious-odin' && color will be changed to, 'darkmagenta'
             */
-            color: darkmagenta; /* Gold (dark-yellow) --> Blue --> Purple */
+            color: deeppink; /* Gold (dark-yellow) --> Blue --> Purple */
         }
 
         .aspace {
@@ -255,7 +255,7 @@
     </div>
 
     <script>
-        function getPurpleA() {
+        function getPinkA() {
             // create a span container 4, character 'a' && apply colour
             let spanA = document.createElement("span");
             spanA.classList.add("ambitious-odin");
@@ -304,14 +304,14 @@
 
                     // process the first character
                     if (arr[l][0] == 'Y' && arr[l].length > 1)
-                        div.appendChild(getPurpleA());
+                        div.appendChild(getPinkA());
 
                     let k = 0;  
                     for (; k < partedConvertedWifeName.length-1; ++k ) {
                         let span4APart = document.createElement('span');
                         span4APart.textContent = partedConvertedWifeName[k];
                         div.appendChild(span4APart);
-                        div.appendChild(getPurpleA());
+                        div.appendChild(getPinkA());
                     }
 
                     // the last part
@@ -319,7 +319,7 @@
                     span4APart.textContent = partedConvertedWifeName[k];
                     div.appendChild(span4APart);
                     if (arr[l][arr[l].length-1] == 'Y') {
-                        div.appendChild(getPurpleA());
+                        div.appendChild(getPinkA());
                     }
 
                     // add a space
