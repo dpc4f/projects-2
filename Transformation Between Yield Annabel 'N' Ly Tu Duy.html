@@ -225,7 +225,7 @@
          * 
          */
 
-         
+
 
         function buildCharacters(container, chars, anchorIndex) {
             container.innerHTML = "";
@@ -237,6 +237,9 @@
 
                 if (index === anchorIndex)
                     span.classList.add("anchor");
+
+                if (c == 'a')
+                    span.classList.add("ambitious-odin");
 
                 container.appendChild(span);
             });
@@ -287,6 +290,9 @@
                         span.style.filter = "blur(0)";
                         span.style.transform = "translateY(0) scale(1)";
                     }
+
+                      if (c == 'a')
+                        span.classList.add("ambitious-odin");
 
                     sofiaContainer.appendChild(span);
 
