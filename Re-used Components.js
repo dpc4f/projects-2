@@ -107,7 +107,8 @@ function revertElteMonth(monthStr) {
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
-// [; nr] implement using read-only properties <-- done
+// [; nr] implement using read-only properties 
+// --> done
 class TimeConstants {
     /*** 
      * has been moved to a class belongs to TimeValues class 
@@ -556,7 +557,7 @@ class DateValues {
      * [; nr] code a function to convert back && forth from Gregorian to Elte Calendar date
      * 
      * 
-     */ // <-- done in converting Elte values to Gregorian values
+     */ // --> done in converting Elte values to Gregorian values
 
     fromElteDate(elteDateStr) {
         let arr = elteDateStr.trim().split(/\s+/); 
@@ -989,7 +990,8 @@ class DateValues {
         return this.#yr;
     }
 
-    // set year <-- done
+    // set year 
+    // --> done
     set Year(year) {
         this.#yr = year;
     }
@@ -1071,7 +1073,8 @@ class DateValues {
             return weekNo;
         else {
             while (dayCount <= DateValues.DayCountInMonths[monthCount]) { 
-                /*** [; nr] revise to consider the case of leap year */ // <-- done
+                /*** [; nr] revise to consider the case of leap year */ 
+                // --> done
                 dayCount += 7; // seven days in a week
                 ++weekNo;
                 
