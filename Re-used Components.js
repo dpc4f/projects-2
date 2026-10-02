@@ -1512,6 +1512,16 @@ class DoubleCycle {
 
 }
 
+/***
+ * [; nr] draw an image 4, fantastic VoCuc 'N' other time-frame iterations; in HTML / JavaScript of course
+ * --> can be represented 4b clicking a button on the application, 'Elte Calendar w/ Platon Time'
+ * --> the time length will be >10k years
+ * 
+ * 
+ * 
+ * 
+ */
+
 
 class VoCuc { // Vô Cực
 
