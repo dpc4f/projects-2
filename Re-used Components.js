@@ -83,21 +83,6 @@ function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWee
     return retStr;
 }
 
-function getCurrentTime_HHMM() {
-    let today = new Date();
-    let hh = String(today.getHours()).padStart(2, '0');
-    let mm = String(today.getMinutes()).padStart(2, '0');
-    
-    return `${hh}:${mm}`;
-}
-
-function getDateWithTimeCombined(bMonth = false, bDateInMonth = false, bDayInWeek = false, bWeekNumber = false) {
-    let dateStr = getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bWeekNumber);
-    let hourStr = getCurrentTime_HHMM();
-
-    return dateStr + ' ' + hourStr;
-}
-
 function revertElteMonth(monthStr) {
     const idx = DateValues.getIndexFromElteMonth(monthStr);
 
