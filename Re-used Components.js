@@ -19,70 +19,6 @@ function getWeekNoInTheYear(theDate) {
     return DateValues.getWeekNumber(year, month, soleDate, day);
 }
 
-function getDateFullForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
-    let month = Today.getMonth();
-    let soleDate = Today.getDate();
-    let year = Today.getFullYear();
-    let day = Today.getDay();
-    let elteMonth = bMonth 
-                    ? DateValues.getElteMonthStr(month) 
-                    : '';
-    let elteSoleDate = bDateInMonth 
-                        ? soleDate 
-                        : '';
-    let elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-    let dayInWeek = bDayInWeek 
-                    ? DateValues.whichDayIsToday((day + 5) % 7) 
-                    : '';
-    let shift = bShiftInADay 
-                ? DateValues.getShiftOfTheday() 
-                : '';
-    let weekNo = bWeekNumber 
-                ? getWeekNoInTheYear(Today) 
-                : ''; //
-
-    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
-
-    return retStr;
-}
-
-function getDateMidForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
-    let month = Today.getMonth();
-    let soleDate = Today.getDate();
-    let year = Today.getFullYear();
-    let day = Today.getDay();
-
-    let elteMonth = bMonth ? DateValues.getElteMonthStr(month, UnytValues.MID_FORM_DATE) : '';
-    let elteSoleDate = bDateInMonth ? soleDate : '';
-    let elteYear = 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, UnytValues.MID_FORM_DATE) : '';
-    let shift = bShiftInADay ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
-    let weekNo = getWeekNoInTheYear(Today); //
-
-    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
-
-    return retStr;
-}
-
-function getDateShortForm(Today, bMonth = false, bDateInMonth = false, bDayInWeek = false, bShiftInADay = false, bWeekNumber = false) {
-    let month = Today.getMonth();
-    let soleDate = Today.getDate();
-    let year = Today.getFullYear();
-    let day = Today.getDay();
-
-    let elteMonth = bMonth ? DateValues.getElteMonthStr(month, UnytValues.SHORT_FORM_DATE) : '';
-    let elteSoleDate = bDateInMonth ? soleDate : '';
-    let elteYear = year == DateValues.Constants.CURRENT_YEAR ? 'O' 
-                                : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
-    let dayInWeek = bDayInWeek ? DateValues.whichDayIsToday((day + 5) % 7, UnytValues.SHORT_FORM_DATE) : '';
-    let shift = bShiftInADay ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
-    let weekNo = getWeekNoInTheYear(Today); //
-
-    let retStr = `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayInWeek} ${shift}`;
-
-    return retStr;
-}
-
 function revertElteMonth(monthStr) {
     const idx = DateValues.getIndexFromElteMonth(monthStr);
 
@@ -936,7 +872,7 @@ class DateValues {
             this.#hdy = this.Heredate.getDay();
             this.#hdt = this.Heredate.getDate();
             this.#hmt = this.Heredate.getMonth();
-            this.#hyr = this.getYearNumberOnly(this.Heredate);
+            this.#hyr = DateValues.getYearNumberOnly(this.Heredate);
 
             console.log("Response from DLL: " + thoiGianStr);
 
@@ -1029,7 +965,7 @@ class DateValues {
     }
 
     /*** to correct the name of the get year function  */ 
-    getYearNumberOnly(date = null) {
+    static getYearNumberOnly(date = null) {
         if (date && date instanceof Date) 
             return date.getFullYear(); // <-- return year number only; not the year in full form 
 
@@ -1212,7 +1148,7 @@ DateValues.Constants = class {
     }
 
     /*** 
-     * Always being in the year 2020.
+     * being in the year 2020; 4-ever
      * 
      * */
     static get CURRENT_YEAR() { 
@@ -1228,6 +1164,77 @@ DateValues.Constants = class {
 
 Object.freeze(DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR);
 
+
+
+DateValues.Helpers = class {
+    
+    static getDateFullForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, date = new Date()) {
+        let month = date.getMonth();
+        let soleDate = date.getDate();
+        let year = DateValues.getYearNumberOnly(date);
+        let day = date.getDay();
+
+        let elteMonth = bMonth 
+                        ? DateValues.getElteMonthStr(month) : '';
+        let elteSoleDate = bSoleDate 
+                            ? soleDate : '';
+        let elteYear = year == DateValues.Constants.CURRENT_YEAR
+                        ? 'current_year' : 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
+        let dayIndex = bDayIndex 
+                        ? DateValues.whichDayIsToday((day + 5) % 7) : '';
+        let shift = bShiftInADay 
+                    ? DateValues.getShiftOfTheday() : '';
+        let weekNo = bWeekNo 
+                    ? getWeekNoInTheYear(date) : ''; //
+
+        return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;;
+    }
+
+    static getDateMidForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, date = new Date()) {
+        let month = date.getMonth();
+        let soleDate = date.getDate();
+        let year = DateValues.getYearNumberOnly(date);
+        let day = date.getDay();
+
+        let elteMonth = bMonth 
+                        ? DateValues.getElteMonthStr(month, UnytValues.MID_FORM_DATE) : '';
+        let elteSoleDate = bSoleDate 
+                        ? soleDate : '';
+        let elteYear = year == DateValues.Constants.CURRENT_YEAR
+                        ? 'cur_yea' : 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
+        let dayIndex = bDayIndex 
+                        ? DateValues.whichDayIsToday((day + 5) % 7, UnytValues.MID_FORM_DATE) : '';
+        let shift = bShiftInADay 
+                        ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
+        let weekNo = bWeekNo
+                    ? getWeekNoInTheYear(date) : ''; //
+
+        return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
+    }
+
+    static getDateShortForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, date = new Date()) {
+        let month = date.getMonth();
+        let soleDate = date.getDate();
+        let year = DateValues.getYearNumberOnly(date);
+        let day = date.getDay();
+
+        let elteMonth = bMonth 
+                        ? DateValues.getElteMonthStr(month, UnytValues.SHORT_FORM_DATE) : '';
+        let elteSoleDate = bSoleDate 
+                        ? soleDate : '';
+        let elteYear = year == DateValues.Constants.CURRENT_YEAR 
+                        ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
+        let dayIndex = bDayIndex 
+                    ? DateValues.whichDayIsToday((day + 5) % 7, UnytValues.SHORT_FORM_DATE) : '';
+        let shift = bShiftInADay 
+                    ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
+        let weekNo = bWeekNo
+                    ? getWeekNoInTheYear(date) : ''; //
+
+        return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
+    }
+
+}
 
 
 class UnytValues {
@@ -1288,15 +1295,15 @@ class UnytValues {
 
         switch (formLength) {
             case UnytValues.FULL_FORM_DATE:
-                valuesStr = getDateFullForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateFullForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
                 break;
 
             case UnytValues.MID_FORM_DATE:
-                valuesStr = getDateMidForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateMidForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
                 break;
 
             case UnytValues.SHORT_FORM_DATE:
-                valuesStr = getDateShortForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateShortForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
                 break;
 
             default:

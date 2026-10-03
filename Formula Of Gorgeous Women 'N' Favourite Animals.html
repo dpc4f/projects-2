@@ -479,11 +479,11 @@
             const ONE_DAY_IN_MILLISECONDS = 86400000;
             let nowInMilliSeconds = (Date.now() % ONE_DAY_IN_MILLISECONDS) + 2000; // 2 seconds added
             let duration = ONE_DAY_IN_MILLISECONDS - nowInMilliSeconds; // elapsed time in milliseconds
-            let oldDateStr = getDateFullForm(true, true, true);
+            let oldDateStr = DateValues.Helpers.getDateFullForm(true, true, true);
             let dateStr = '';
             
             setTimeout(() => {
-                dateStr = getDateFullForm(true, true, true);
+                dateStr = DateValues.getDateFullForm(true, true, true);
 
                 if (dateStr !== oldDateStr) {
                     oldDateStr = dateStr;
@@ -492,14 +492,14 @@
 
                     duration = 86395 * 1000; // up to the last 5 seconds of the new day; in milliseconds
                     setTimeout(() => {
-                        dateStr = getDateFullForm(true, true, true);
+                        dateStr = DateValues.Helpers.getDateFullForm(true, true, true);
                         callback(dateStr);
                     }, duration);
                 } else {
                     duration = 10 * 1000; // set duration back to 10 seconds 
                     
                     let idcb = setInterval(() => {
-                        dateStr = getDateFullForm(true, true, true);
+                        dateStr = DateValues.Helpers.getDateFullForm(true, true, true);
                         CurrentDateStr = dateStr;
                         callback(CurrentDateStr);
                         
