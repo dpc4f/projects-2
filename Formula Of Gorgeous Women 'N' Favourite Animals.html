@@ -483,7 +483,7 @@
             let dateStr = '';
             
             setTimeout(() => {
-                dateStr = DateValues.getDateFullForm(true, true, true);
+                dateStr = DateValues.Helpers.getDateFullForm(true, true, true);
 
                 if (dateStr !== oldDateStr) {
                     oldDateStr = dateStr;
@@ -512,7 +512,7 @@
                         }
                     }, duration);
                 }
-            }, duration); // first time
+            }, duration + 100); // first time; 100 milliseconds added
         }
 
         function applyTransparentBlend(imageSelector, containerSelector, opacityValue) {
@@ -583,7 +583,7 @@
         dateVal = new DateValues(callback_date);
         dateVal.timeTheDay();
 
-        window.addEventListener('focus', updateTimeToCurrentMoment);
+        // window.addEventListener('focus', updateTimeToCurrentMoment);
     </script>
 
 </body>
