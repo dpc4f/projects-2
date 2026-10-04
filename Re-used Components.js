@@ -1550,10 +1550,10 @@ class VoCuc { // Vô Cực
     }
 
     static ANIMAL_NAMES = [
-        "Mouse / Rat / Capybara / Guinea Pig", "Ox / Bull / Buffalo / Cow",
-        "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Long Dragon / Ant / Bee / Peacock", "Snake Family / Centipede",
-        "Horse / Sea-horse / Sea-dragon", "Goat / Maggot", "Monkey / Ape / Kong",
-        "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck", "Pig / Boar in ð Wilderness"
+        "Mouse / Rat / Ca-pybara", "Ox / Bull / Buffalo / Cow / Bison",
+        "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Dragon / { Ant, Bee } / Peacock", "Snake Clan / Centi-pede",
+        "Horse / Sea-{ horse, dragon } / Western-dragon", "Goat --> Maggot", "¬{ Monkey / Ape / Kong }",
+        "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck / Ki-ki", "Pig / Boar in ð Wilderness"
     ];
     
     static exchange2AnimalByLunar(birthYear) {
@@ -1573,7 +1573,6 @@ class VoCuc { // Vô Cực
 
 Object.freeze(VoCuc.ANIMAL_NAMES);
 Object.freeze(VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
-
 
 
 
