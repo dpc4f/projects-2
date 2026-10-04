@@ -267,7 +267,7 @@ class TimeValues {
             this.#s = 0;
             this.idcb = setInterval(() => this.increaseMinute(), TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS);
             this.increaseMinute(); // doesn't cost much
-        }, RemainingOfAMinuteInMilliseconds);
+        }, RemainingOfAMinuteInMilliseconds + 100); // 100 milli-seconds added
     }
 }
 
