@@ -243,6 +243,12 @@ class TimeValues {
         /*** [; nr] consider to implement using milliseconds instead  */ 
         /// --> done
 
+        /***
+         * [; nr] fix a bug which can be in Today.getSeconds()
+         * 
+         * 
+         */
+
         const Today = new Date();
         const PassingSeconds = Today.getSeconds(); // passed seconds of the current minute
         const PassingMilliseconds = Today.getMilliseconds(); // passing milliseconds of the current second
