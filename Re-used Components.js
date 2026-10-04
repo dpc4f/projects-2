@@ -1290,8 +1290,10 @@ class UnytValues {
     static MID_FORM_DATE = 1;
     static SHORT_FORM_DATE = 2;
 
+    static STANDARD_FORM_OF_DATE_FORMAT_STRINGS = 2;
+
     
-    static getDateValuesTimeStamp(formLength = UnytValues.FULL_FORM_DATE, index = 0, today = new Date()) {
+    static getDateValuesTimeStamp(formLength = UnytValues.FULL_FORM_DATE, index = UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, date = null) {
         let bMonth = UnytValues.DATE_FORMAT_STRINGS[index][0]; 
         let bDateInMonth = UnytValues.DATE_FORMAT_STRINGS[index][1]; 
         let bDayInWeek = UnytValues.DATE_FORMAT_STRINGS[index][2]; 
@@ -1299,23 +1301,26 @@ class UnytValues {
         let bWeekNumber = UnytValues.DATE_FORMAT_STRINGS[index].length > 4 ? UnytValues.DATE_FORMAT_STRINGS[index][4] : false;
         let valuesStr = '';
 
+        let dateTemp = date == null
+                    ? new Date() : date;
+
         switch (formLength) {
             case UnytValues.FULL_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateFullForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
             case UnytValues.MID_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateMidForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateMidForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
             case UnytValues.SHORT_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateShortForm(today, bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateShortForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
             default:
                 break;
         }
-
+    
         return valuesStr.trim();
     }
 
@@ -1364,6 +1369,7 @@ Object.freeze(UnytValues.MID_FORM_DATE);
 Object.freeze(UnytValues.SHORT_FORM_DATE);
 Object.freeze(UnytValues.MONTH_NAMES);
 Object.freeze(UnytValues.MONTH_NAMES_TLA);
+Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
 
 
 

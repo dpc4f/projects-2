@@ -436,7 +436,7 @@
 
         function callback_date(dateVal) {
             let ele = document.getElementById('dateWithoutTime');
-            ele.innerText = UnytValues.getDateValuesTimeStamp(UnytValues.FULL_FORM_DATE, 2);
+            ele.innerText = UnytValues.getDateValuesTimeStamp(UnytValues.FULL_FORM_DATE, UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
         }
 
         function periodicalUpdateDateTime_TimeStamp(bMonth = true, bDateInMonth = true, bDayInWeek = true) {
