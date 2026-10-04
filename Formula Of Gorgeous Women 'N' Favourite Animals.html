@@ -562,6 +562,13 @@
             return targetDate;
         }
 
+        function updateTimeToCurrentMoment() {
+            if (tVal) {
+                tVal.timeTheCurrent();
+                tVal.updateTimeWithIntervalOneMinute();
+            }
+        }
+
         // Example usage: Make the image 40% opaque (60% transparent) against its background
         applyTransparentBlend('#myImage', '#bodyTage', 0.56);
         modifyOldDBRecordToAdhereToBackgroundColour();
@@ -576,6 +583,7 @@
         dateVal = new DateValues(callback_date);
         dateVal.timeTheDay();
 
+        window.addEventListener('focus', updateTimeToCurrentMoment);
     </script>
 
 </body>

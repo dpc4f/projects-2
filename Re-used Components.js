@@ -247,7 +247,7 @@ class TimeValues {
          * [; nr] fix a bug which can be in Today.getSeconds()
          * 
          * 
-         */
+         */ // --> done [the bug's not here; it is handled by, focus event handler of the calling page's]
 
         const Today = new Date();
         const PassingSeconds = Today.getSeconds(); // passed seconds of the current minute
