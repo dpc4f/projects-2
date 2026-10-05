@@ -1297,7 +1297,7 @@ class UnytValues {
         let bMonth = UnytValues.DATE_FORMAT_STRINGS[index][0]; 
         let bDateInMonth = UnytValues.DATE_FORMAT_STRINGS[index][1]; 
         let bDayIndex = UnytValues.DATE_FORMAT_STRINGS[index][2]; 
-        let bShiftInADay = bDayInWeek ? UnytValues.DATE_FORMAT_STRINGS[index][3] : false;
+        let bShiftInADay = bDayIndex ? UnytValues.DATE_FORMAT_STRINGS[index][3] : false;
         let bWeekNumber = UnytValues.DATE_FORMAT_STRINGS[index].length > 4 ? UnytValues.DATE_FORMAT_STRINGS[index][4] : false;
         let valuesStr = '';
 
