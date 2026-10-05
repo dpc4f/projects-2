@@ -1296,7 +1296,7 @@ class UnytValues {
     static getDateValuesTimeStamp(formLength = UnytValues.FULL_FORM_DATE, index = UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, date = null) {
         let bMonth = UnytValues.DATE_FORMAT_STRINGS[index][0]; 
         let bDateInMonth = UnytValues.DATE_FORMAT_STRINGS[index][1]; 
-        let bDayInWeek = UnytValues.DATE_FORMAT_STRINGS[index][2]; 
+        let bDayIndex = UnytValues.DATE_FORMAT_STRINGS[index][2]; 
         let bShiftInADay = bDayInWeek ? UnytValues.DATE_FORMAT_STRINGS[index][3] : false;
         let bWeekNumber = UnytValues.DATE_FORMAT_STRINGS[index].length > 4 ? UnytValues.DATE_FORMAT_STRINGS[index][4] : false;
         let valuesStr = '';
@@ -1306,15 +1306,15 @@ class UnytValues {
 
         switch (formLength) {
             case UnytValues.FULL_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateFullForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber, dateTemp);
+                valuesStr = DateValues.Helpers.getDateFullForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
             case UnytValues.MID_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateMidForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber, dateTemp);
+                valuesStr = DateValues.Helpers.getDateMidForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
             case UnytValues.SHORT_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateShortForm(bMonth, bDateInMonth, bDayInWeek, bShiftInADay, bWeekNumber, dateTemp);
+                valuesStr = DateValues.Helpers.getDateShortForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
             default:
