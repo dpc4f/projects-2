@@ -10,21 +10,11 @@ const DAYS_IN_A_YEAR = 365.25;
 const TODAY = new Date();
 
 
-function getWeekNoInTheYear(theDate) {
-    let month = theDate.getMonth();
-    let soleDate = theDate.getDate();
-    let year = theDate.getFullYear();
-    let day = theDate.getDay(); 
-
-    return DateValues.getWeekNumber(year, month, soleDate, day);
-}
-
 function revertElteMonth(monthStr) {
     const idx = DateValues.getIndexFromElteMonth(monthStr);
 
     return (idx + 2) % 12;
 }
-
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
@@ -1191,7 +1181,7 @@ DateValues.Helpers = class {
         let shift = bShiftInADay 
                     ? DateValues.getShiftOfTheday() : '';
         let weekNo = bWeekNo 
-                    ? getWeekNoInTheYear(date) : ''; //
+                    ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;;
     }
@@ -1213,7 +1203,7 @@ DateValues.Helpers = class {
         let shift = bShiftInADay 
                         ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
         let weekNo = bWeekNo
-                    ? getWeekNoInTheYear(date) : ''; //
+                    ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
@@ -1235,7 +1225,7 @@ DateValues.Helpers = class {
         let shift = bShiftInADay 
                     ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
         let weekNo = bWeekNo
-                    ? getWeekNoInTheYear(date) : ''; //
+                    ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
