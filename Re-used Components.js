@@ -1267,6 +1267,7 @@ class UnytValues {
 
     #years; // == 2024 4, the HereUnyt; the rest will be gotten by addding 1..3 
     #yearCanChi = 'Giáp Thìn';
+    static SLOGAN = 'Năm Giáp Thìn Tui Đi Ăn Phở Thìn';
 
 
     static DATE_FORMAT_STRINGS = [
@@ -1370,6 +1371,7 @@ Object.freeze(UnytValues.SHORT_FORM_DATE);
 Object.freeze(UnytValues.MONTH_NAMES);
 Object.freeze(UnytValues.MONTH_NAMES_TLA);
 Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
+Object.freeze(UnytValues.SLOGAN);
 
 
 
