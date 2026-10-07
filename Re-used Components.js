@@ -10,11 +10,6 @@ const DAYS_IN_A_YEAR = 365.25;
 const TODAY = new Date();
 
 
-function revertElteMonth(monthStr) {
-    const idx = DateValues.getIndexFromElteMonth(monthStr);
-
-    return (idx + 2) % 12;
-}
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
@@ -479,7 +474,7 @@ class DateValues {
     fromElteDate(elteDateStr) {
         let arr = elteDateStr.trim().split(/\s+/); 
         let d = parseInt(arr[1]);
-        let m = revertElteMonth(arr[0]);
+        let m = UnytValues.revertElteMonth(arr[0]);
 
         if (m === -1 || arr.length < 3) {
             console.log('Please use the format "M1 27 current_year+6"');
@@ -800,6 +795,10 @@ class DateValues {
         return [DateValues.getElteMonthStr(month), (d == 0 ? c_y_str : c_y_str+str)];
     }
 
+    /***
+     * [; nr] relocate this method
+     * 
+     */
     revertElteMonthYear(elteStr) { // to become Gregorian month 'N' year
         let arr = elteStr.trim().split(/\s+/);
         
@@ -1351,6 +1350,11 @@ class UnytValues {
         return ret;
     }
 
+    static revertElteMonth(monthStr) {
+        const idx = DateValues.getIndexFromElteMonth(monthStr);
+
+        return (idx + 2) % 12;
+    }
 }
 
 Object.freeze(UnytValues.DATE_FORMAT_STRINGS);
