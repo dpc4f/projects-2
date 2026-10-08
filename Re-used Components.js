@@ -1485,6 +1485,11 @@ class World {
      * 
      * 
      * the World has been established .! :-)
+     * >>>>
+     * the World is world of a Big BUDDHA's
+     * therefore no-need to read the sutta, 'Thế Giới Thành Tựu'
+     * 
+     * 
      * 
      * 
      * 
