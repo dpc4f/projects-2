@@ -1420,6 +1420,22 @@ class GrandUnytValues {
      * 2084 + 15 + 75 ==  2174 (Giáp Tuất)
      * 
      * 
+     * great vs. grand vs. supreme
+     * 
+     * 
+     * [a formuler]
+     * great king == grand emperor
+     * >>>>
+     * King happens first. Emperor appears afterwards.
+     * 
+     * 
+     * supreme is about height of a { person / thing OR vision }'s
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
      * 
      */
 
@@ -1515,11 +1531,11 @@ class World {
 }
 
 
-class DoubleCycle {
+class DoubleIteration {
     /***
-     * 2 x Cycle 
+     * 2 x Iteration 
      * 
-     * Cycle == 1 Cula-unit
+     * Iteration == 1 Cula-unit (UnytValues)
      * 
      * 
      * 
