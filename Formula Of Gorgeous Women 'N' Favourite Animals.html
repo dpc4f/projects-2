@@ -583,7 +583,8 @@
         dateVal = new DateValues(callback_date);
         dateVal.timeTheDay();
 
-        // window.addEventListener('focus', updateTimeToCurrentMoment);
+        window.addEventListener('focus', updateTimeToCurrentMoment);
+        window.addEventListener('blur', updateTimeToCurrentMoment);
     </script>
 
 </body>
