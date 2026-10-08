@@ -569,10 +569,12 @@
         }
 
         function updateTimeToCurrentMoment() {
-            if (tVal) {
-                tVal.timeTheCurrent();
-                tVal.updateTimeWithIntervalOneMinute();
-            }
+            if (tVal)
+                tVal.clearTimerId();
+
+            tVal = new TimeValues(callback_time);
+            tVal.timeTheCurrent();
+            tVal.updateTimeWithIntervalOneMinute();
         }
 
         // Example usage: Make the image 40% opaque (60% transparent) against its background
@@ -582,15 +584,14 @@
         // window.addEventListener('focus', periodicalUpdateDateTime_TimeStamp);
         // window.addEventListener('blur', periodicalUpdateDateTime_TimeStamp);
 
-        let tVal = new TimeValues(callback_time);
-        tVal.timeTheCurrent();
-        tVal.updateTimeWithIntervalOneMinute();
+        let tVal = null;
+        updateTimeToCurrentMoment();
 
         dateVal = new DateValues(callback_date);
         dateVal.timeTheDay();
 
         window.addEventListener('focus', updateTimeToCurrentMoment);
-        window.addEventListener('blur', updateTimeToCurrentMoment);
+        // window.addEventListener('blur', updateTimeToCurrentMoment);
     </script>
 
 </body>

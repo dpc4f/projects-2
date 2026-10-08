@@ -259,7 +259,12 @@ class TimeValues {
             this.#s = 0;
             this.idcb = setInterval(() => this.increaseMinute(), TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS);
             this.increaseMinute(); // doesn't cost much
-        }, RemainingOfHereMinuteInMilliseconds + 100); // 100 milli-seconds added
+        }, RemainingOfHereMinuteInMilliseconds + 12); // 12 milli-seconds added
+    }
+
+    clearTimerId() {
+        if (this.idcb)
+            clearInterval(this.idcb);
     }
 }
 
