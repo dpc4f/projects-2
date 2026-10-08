@@ -13,6 +13,13 @@ const TODAY = new Date();
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
+
+/***
+ * [; nr] replace Today by Hereday 'N' etc.
+ * 
+ * 
+ */
+
 // [; nr] implement using read-only properties 
 // --> done
 class TimeConstants {
@@ -234,16 +241,16 @@ class TimeValues {
          * 
          */ // --> done [the bug's not here; it is handled by, focus event handler of the calling page's]
 
-        const Today = new Date();
-        const PassingSeconds = Today.getSeconds(); // passed seconds of the current minute
-        const PassingMilliseconds = Today.getMilliseconds(); // passing milliseconds of the current second
+        const Hereday = new Date();
+        const PassingSeconds = Hereday.getSeconds(); // passed seconds of the current minute
+        const PassingMilliseconds = Hereday.getMilliseconds(); // passing milliseconds of the current second
 
         // elapsed time to be used in setTimeout
         const OneMinute = TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS;
         const OneThousand = TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
-        const RemainingOfAMinuteInMilliseconds = OneMinute - (PassingSeconds * OneThousand + PassingMilliseconds); 
+        const RemainingOfHereMinuteInMilliseconds = OneMinute - (PassingSeconds * OneThousand + PassingMilliseconds); 
         
-        console.log(RemainingOfAMinuteInMilliseconds);
+        console.log(RemainingOfHereMinuteInMilliseconds);
         
         if (this.idcb)
             clearInterval(this.idcb);
@@ -252,7 +259,7 @@ class TimeValues {
             this.#s = 0;
             this.idcb = setInterval(() => this.increaseMinute(), TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS);
             this.increaseMinute(); // doesn't cost much
-        }, RemainingOfAMinuteInMilliseconds + 100); // 100 milli-seconds added
+        }, RemainingOfHereMinuteInMilliseconds + 100); // 100 milli-seconds added
     }
 }
 
@@ -1543,7 +1550,7 @@ class VoCuc { // Vô Cực
     static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR + 6; // 2026
     static #yearCanChi = 'Bính Ngọ';
 
-    #year; // the first year of VoCuc
+    #year; // first year of the VoCuc
 
     constructor(nCount = 0) { // nCount == 0, VoCuc dau tien
 
