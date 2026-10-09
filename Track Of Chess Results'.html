@@ -255,10 +255,10 @@
             document.getElementById("kingStatus").innerHTML = status || "";
             
             if (ARR && ARR.length > 5) { // do check if passing 4 days from being checked endly
-                const TODAY = new Date();
+                const HEREDAY = new Date();
                 let date = new Date(ARR[ARR.length-1]);
                 
-                if (TODAY >= date) // clear the message
+                if (HEREDAY >= date) // clear the message
                     document.getElementById("kingStatus").innerHTML = "";
             }
 

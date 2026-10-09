@@ -7,9 +7,6 @@ const DATE_MID_FORM = 1;
 const DATE_SHORT_FORM = 2;
 
 const DAYS_IN_A_YEAR = 365.25;
-const TODAY = new Date();
-
-
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
@@ -18,7 +15,8 @@ const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
  * [; nr] replace Today by Hereday 'N' etc.
  * 
  * 
- */
+ */ // --> done
+ 
 
 // [; nr] implement using read-only properties 
 // --> done
@@ -52,12 +50,12 @@ class TimeValues {
          * 
          */ // --> done
 
-        this.Today = new Date();
+        this.Hereday = new Date();
         
-        this.#h = this.Today.getHours();
-        this.#m = this.Today.getMinutes();
-        this.#s = this.Today.getSeconds();
-        this.#ms = this.Today.getMilliseconds();
+        this.#h = this.Hereday.getHours();
+        this.#m = this.Hereday.getMinutes();
+        this.#s = this.Hereday.getSeconds();
+        this.#ms = this.Hereday.getMilliseconds();
         
         this.#callback = updatePlatonTime;
         this.idcb = null;
@@ -193,7 +191,7 @@ class TimeValues {
                 ++this.#h;
                 if (this.#h == 24) {
                     this.#h = 0;
-                    this.Today = new Date();
+                    this.Hereday = new Date();
                 }
             }
         }
@@ -209,7 +207,7 @@ class TimeValues {
             ++this.#h;
             if (this.#h == 24) {
                 this.#h = 0;
-                this.Today = new Date();
+                this.Hereday = new Date();
             }
         }
 
@@ -236,7 +234,7 @@ class TimeValues {
         /// --> done
 
         /***
-         * [; nr] fix a bug which can be in Today.getSeconds()
+         * [; nr] fix a bug which can be in Hereday.getSeconds()
          * 
          * 
          */ // --> done [the bug's not here; it is handled by, focus event handler of the calling page's]
@@ -1039,13 +1037,13 @@ class DateValues {
     }
 
     whichDayIsTheDay(form = UnytValues.FULL_FORM_DATE) {
-        return DateValues.whichDayIsToday(this.#dy, form);
+        return DateValues.whichDayIsHereday(this.#dy, form);
     }
 
-    static whichDayIsToday(todayIndex, form = UnytValues.FULL_FORM_DATE) {
+    static whichDayIsHereday(heredayIndex, form = UnytValues.FULL_FORM_DATE) {
         let ret = '';
 
-        switch (todayIndex) {
+        switch (heredayIndex) {
             case 0:
                 ret = form == UnytValues.FULL_FORM_DATE ? 'Thaw' : (form == UnytValues.MID_FORM_DATE ? 'th' : 'T');
                 break;
@@ -1188,7 +1186,7 @@ DateValues.Helpers = class {
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'current_year' : 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
         let dayIndex = bDayIndex 
-                        ? DateValues.whichDayIsToday((day + 5) % 7) : '';
+                        ? DateValues.whichDayIsHereday((day + 5) % 7) : '';
         let shift = bShiftInADay 
                     ? DateValues.getShiftOfTheday() : '';
         let weekNo = bWeekNo 
@@ -1210,7 +1208,7 @@ DateValues.Helpers = class {
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'cur_yea' : 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
         let dayIndex = bDayIndex 
-                        ? DateValues.whichDayIsToday((day + 5) % 7, UnytValues.MID_FORM_DATE) : '';
+                        ? DateValues.whichDayIsHereday((day + 5) % 7, UnytValues.MID_FORM_DATE) : '';
         let shift = bShiftInADay 
                         ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
         let weekNo = bWeekNo
@@ -1232,7 +1230,7 @@ DateValues.Helpers = class {
         let elteYear = year == DateValues.Constants.CURRENT_YEAR 
                         ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
         let dayIndex = bDayIndex 
-                    ? DateValues.whichDayIsToday((day + 5) % 7, UnytValues.SHORT_FORM_DATE) : '';
+                    ? DateValues.whichDayIsHereday((day + 5) % 7, UnytValues.SHORT_FORM_DATE) : '';
         let shift = bShiftInADay 
                     ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
         let weekNo = bWeekNo
