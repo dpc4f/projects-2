@@ -1488,18 +1488,23 @@ class World {
      * --> 300 lives ~ .33 tháng ~ .33 x 30 == 9.9 ngày
      * 
      * 
-     * --> a Buddha has { 300 lives ~ a world }
+     * --> a Buddha has, { 300 lives ~ a world }
      * 
      * 1 Buddha life == 500 { arahant, buddha }
      * 
-     * 1 Big BUDDHA, 1250 x 300 == 375000 // 1 Shang-ha headed by a Big BUDDHA will have 1250 Buddha (A-la-hán Ứng Cúng tất cả là Bậc Lậu tận)
+     * 1 Big BUDDHA, 1250 x 300 == 375000 
+     * --> 1 Shang-ha headed by a Big BUDDHA will have 1250 Buddha (A-la-hán Ứng Cúng tất cả là Bậc Lậu tận)
      * 
+     * [7 x 1.30 == 9.1]
      * 9.9 / 1.25 > 7
      * 
      * 
      * 
+     * Women can't accomplish best possible places of a human; i.e { Chanh Dang Giac Phat; Chuyen Luan Thanh Vuong; Ma Vuong }
      * 
-     * BIG BUDDHA > Big BUDDHA which is only 8 people there are
+     * 
+     * 
+     * BIG BUDDHA who is BUDDHA Gotama > Big BUDDHA that there are only 8 people of all time
      * 
      * 
      * 
