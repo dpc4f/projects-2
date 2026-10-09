@@ -1324,7 +1324,7 @@ class UnytValues {
      * 
      */ // --> done
 
-    revertElteMonthYear(elteStr) { // to become Gregorian month 'N' year
+    static revertElteMonthYear(elteStr) { // to become Gregorian month 'N' year
         let arr = elteStr.trim().split(/\s+/);
         
         let m = DateValues.getIndexFromElteMonth(arr[0]);
@@ -1338,7 +1338,7 @@ class UnytValues {
         return [m, y];
     }
 
-    convertToElteMonthYear(year, month = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
+    static convertToElteMonthYear(year, month = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
         let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
         let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
         let str = d > 0 ? '+'+d.toString() : d.toString();
