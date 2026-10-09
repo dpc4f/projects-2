@@ -484,7 +484,7 @@ class DateValues {
     fromElteDate(elteDateStr) {
         let arr = elteDateStr.trim().split(/\s+/); 
         let d = parseInt(arr[1]);
-        let m = UnytValues.revertElteMonth(arr[0]);
+        let m = UnytValues.revertElteMonthIdx(arr[0]);
 
         if (m === -1 || arr.length < 3) {
             console.log('Please use the format "M1 27 current_year+6"');
@@ -795,32 +795,6 @@ class DateValues {
         let elteMonthIndex = DateValues.convertToElteMonthIdx(monthIdx);
         
         return DateValues.#getElteMonthString(elteMonthIndex, form);
-    }
-
-    convertToElteMonthYear(year, month = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
-        let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
-        let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
-        let str = d > 0 ? '+'+d.toString() : d.toString();
-
-        return [DateValues.getElteMonthStr(month), (d == 0 ? c_y_str : c_y_str+str)];
-    }
-
-    /***
-     * [; nr] relocate this method
-     * 
-     */
-    revertElteMonthYear(elteStr) { // to become Gregorian month 'N' year
-        let arr = elteStr.trim().split(/\s+/);
-        
-        let m = DateValues.getIndexFromElteMonth(arr[0]);
-        if (m === -1 || arr.length < 3) {
-            console.log('Please use the format "M1 27 current_year+6"');
-            return;
-        }
-
-        let y = UnytValues.revertElteYear(arr[2], m < 2);
-        
-        return [m, y];
     }
 
     getElteProvidingElteMonth(month) {
@@ -1343,6 +1317,35 @@ class UnytValues {
         return DateValues.Constants.CURRENT_YEAR + Number(match?.[1] ?? 0) + (addOneYear ? 1 : 0);
     }
 
+
+    /***
+     * [; nr] relocate this method
+     * 
+     * 
+     */ // --> done
+
+    revertElteMonthYear(elteStr) { // to become Gregorian month 'N' year
+        let arr = elteStr.trim().split(/\s+/);
+        
+        let m = DateValues.getIndexFromElteMonth(arr[0]);
+        if (m === -1 || arr.length < 3) {
+            console.log('Please use the format "M1 27 current_year+6"');
+            return;
+        }
+
+        let y = UnytValues.revertElteYear(arr[2], m < 2);
+        
+        return [m, y];
+    }
+
+    convertToElteMonthYear(year, month = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
+        let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
+        let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
+        let str = d > 0 ? '+'+d.toString() : d.toString();
+
+        return [DateValues.getElteMonthStr(month), (d == 0 ? c_y_str : c_y_str+str)];
+    }
+
     get Year() {
         return this.#years;
     }
@@ -1360,7 +1363,7 @@ class UnytValues {
         return ret;
     }
 
-    static revertElteMonth(monthStr) {
+    static revertElteMonthIdx(monthStr) {
         const idx = DateValues.getIndexFromElteMonth(monthStr);
 
         return (idx + 2) % 12;
