@@ -1494,7 +1494,7 @@ class World {
      * 
      * 1 Buddha life == 500 { arahant, buddha }
      * 
-     * 1 Big BUDDHA, 1250 x 300 == 375000
+     * 1 Big BUDDHA, 1250 x 300 == 375000 // 1 Shang-ha headed by a Big BUDDHA will have 1250 Buddha (A-la-hán Ứng Cúng tất cả là Bậc Lậu tận)
      * 
      * 9.9 / 1.25 > 7
      * 
@@ -1502,6 +1502,9 @@ class World {
      * 
      * 
      * BIG BUDDHA > Big BUDDHA which is only 8 people there are
+     * 
+     * 
+     * 
      * 
      * 
      * 
@@ -1562,7 +1565,7 @@ class DoubleIteration {
 class VoCuc { // Vô Cực
 
     /***
-     * 3 x DoubleCycle
+     * 3 x DoubleIteration
      * 
      * [sia] 23 && !32
      * 
