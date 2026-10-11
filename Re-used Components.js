@@ -1474,7 +1474,7 @@ class Life {
 
 }
 
-const GroupUnytPlusPlus = Life;
+const GroupUnytPlusPlus = Life; // <-- need-less going back to C / C++
 
 
 class World {
