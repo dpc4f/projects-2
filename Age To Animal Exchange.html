@@ -155,18 +155,16 @@
             /***
              * [] revise this function 
              * 
-             * */ // --> done
+             * */ // --> done // --> revise the 2nd time
 
-            const elteDOB = document.getElementById('birthYear-2').value;
-            const arr = elteDOB.trim().split(/\s+/);
-            const m = DateValues.getElteMonthStr(arr[0]);
+            const elteDOB = document.getElementById('birthYear-2').value.trim();
+            const [birthMonth, birthYear] = UnytValues.revertElteMonthYear(elteDOB);
 
-            if (m === -1 || arr.length < 3) {
+            if (birthMonth === -1 || elteDOB.split(/\s+/).length < 3) {
                 alert('Please use the format "M1 27 current_year+6"');
                 return;
             }
 
-            const birthYear = UnytValues.revertElteYear(arr[2]);
             document.getElementById('animal').value = VoCuc.exchange2AnimalByLunar(birthYear);
         }
     </script>
