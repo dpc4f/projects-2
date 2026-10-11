@@ -1524,10 +1524,10 @@ class World {
      * 
      * 
      * a friend is a known person 4, seven days (a week)
-     * a closed friend will be a helpful one w/ greater OR equal than, twelve days
-     * half a month OR one month TA can call him a relative
-     * going further on long roads it's TA ð Tamer of Animals'
-     * now I can remove Kàlakkani if I want to
+     * closed friend is a helpful one 4, twelve days
+     * half a month OR one month we call him a relative
+     * going further on long roads that's TA ð Tamer of Animals'
+     * now TA can drop Kàlakkani if TA want to
      * -- [buddha sutta]
      * 
      * 
