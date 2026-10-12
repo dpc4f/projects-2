@@ -278,6 +278,10 @@
             color: honeydew;
             font-size: 12px;
         }
+
+        .text-rendered {
+            content: attr(data-label);
+        }
     </style>
 </head>
 
@@ -286,11 +290,11 @@
         Gorgeous Women && Favourite Animals
     </h1>
     <div class="beloved">
-        <div type="text" class="名前" disabled>
+        <div type="text" class="名前 text-rendered">
             Kim thị Thoa
             <span class="colourAnimal-1">Thuna</span>
         </div>
-        <div type="text" id="DOB-1" class="dob" disabled>Oct 5 1987</div>
+        <div type="text" id="DOB-1" class="dob text-rendered">Oct 5 1987</div>
         <div type="text" id="ANI-1" class="colourAnimal">* <span class="exception">[except Elephant Clan]</span></div>
         <div class="note-2">Thoa Nguyên, Thiên Nga Phía Trăng</div>
     </div>
@@ -321,43 +325,43 @@
 -->
 
     <div class="beloved">
-        <div type="text" class="名前" disabled>姚安娜 (Annabel Yao)</div>
-        <div type="text" id="DOB-2" class="dob" disabled>May 14 1997</div>
+        <div type="text" class="名前" text-rendered>姚安娜 (Annabel Yao)</div>
+        <div type="text" id="DOB-2" class="dob" text-rendered>May 14 1997</div>
         <div type="text" id="ANI-2" class="colourAnimal"></div>
     </div>
-    <div class="beloved old-db-record disabled invisible">
-        <div type="text" class="名前" disabled></div>
-        <div type="text" id="DOB-3" class="dob" disabled></div>
+    <div class="beloved old-db-record text-rendered invisible">
+        <div type="text" class="名前" text-rendered></div>
+        <div type="text" id="DOB-3" class="dob" text-rendered></div>
         <div type="text" id="ANI-3" class="colourAnimal invisible"></div>
     </div>
     <div class="relative old-db-record">
         <div type="text" class="名前 old-db-record">吴謹言 /wu jinyan/ [con bé họ Ngô]</div>
-        <div type="text" id="DOB-4" class="dob" disabled>Aug 16 1990</div>
+        <div type="text" id="DOB-4" class="dob" text-rendered>Aug 16 1990</div>
         <div type="text" id="ANI-4" class="colourAnimal old-db-record"></div>
     </div>
     <div class="beloved old-db-record">
-        <div type="text" class="名前" disabled>
+        <div type="text" class="名前" text-rendered>
             พิชฌามลณ์ โอภาสนิพัทธ์ (Pitchamon Opatniputh)           
         </div>
-        <div type="text" id="DOB-5" class="dob" disabled>Jan 4 2007</div>
+        <div type="text" id="DOB-5" class="dob" text-rendered>Jan 4 2007</div>
         <div type="text" id="ANI-5" class="colourAnimal old-db-record"></div>
     </div>
     <div class="beloved">
-        <div type="text" class="名前" disabled>
+        <div type="text" class="名前" text-rendered>
             Lưu Diệc Phi
             <img id="myImage" class="image-size image-name-card" src="name of Liu Fi's.png" alt="davis' wife">
-            <span class="colourAnimal-17">Ruồi Bơ</span>
+            <span class="colourAnimal-17">B</span>
             <span class="bach-ma">Mã Vương Vaklahhaka</span>
         </div>
-        <div type="text" id="DOB-7" class="dob" disabled>Aug 25 1987</div>
+        <div type="text" id="DOB-7" class="dob" text-rendered>Aug 25 1987</div>
         <div type="text" id="ANI-7" class="colourAnimal"></div>
         <div class="hidden">David, Mã Hài Cung</div>
         <div class="invisible">ra là péo Phi cũng là 1 con ngựa beautiful [cuoi ngua ngua Phi] =))</div>
         <div class="hidden">[1 ~ 8][9 ~ 2] 1096 --> 8026</div>
     </div>
         <div class="beloved">
-        <div type="text" class="名前" disabled>姚安娜 (Anna Giang)</div>
-        <div type="text" id="DOB-8" class="dob fromConverted" disabled>Jan 14 1999</div>
+        <div type="text" class="名前" text-rendered>姚安娜 (Anna Giang)</div>
+        <div type="text" id="DOB-8" class="dob fromConverted" text-rendered>Jan 14 1999</div>
         <div type="text" id="ANI-8" class="colourAnimal"></div>
     </div>
     <div class="note">[gender] woman, F; man, M; etc.</div>
@@ -378,8 +382,8 @@
         </div>
     </div>
     <div class="infor" >
-        <div id="dateWithoutTime" disabled></div>
-        <div id="time_HHMM" class="dacet-pine" disabled></div>
+        <div id="dateWithoutTime" text-rendered></div>
+        <div id="time_HHMM" class="dacet-pine" text-rendered></div>
     </div>
     <div class="infor currentYear" hidden>current_year, 2020</div>
     <div hidden>3 vợ iu tạo thế liên hoàn địch quân khó lòng công phá</div>
@@ -412,7 +416,7 @@
             document.getElementById('ANI-2').innerHTML =
                 VoCuc.exchange2AnimalByLunar(UnytValues.revertElteYear(document.getElementById('DOB-2').innerHTML.split(' ')[2])) +
                 ` / <span class='elephale'>Whale clan</span>` + 
-                ` / <span class='diec-phi'>Chim Diệc</span>`; /* specially 4 péo Phi */
+                ` / <span class='diec-phi'>Chim Diệc</span>`; /* specially 4, péo Phi */
 
             document.getElementById('ANI-3').innerHTML =
                 VoCuc.exchange2AnimalByLunar(UnytValues.revertElteYear(document.getElementById('DOB-3').innerHTML.split(' ')[2]));
@@ -426,7 +430,7 @@
                 VoCuc.exchange2AnimalByLunar(UnytValues.revertElteYear(document.getElementById('DOB-7').innerHTML.split(' ')[2]))
                 // + ` / <span class='bear'>Bear</span>`
                 // + ` / <span class='lioness'>Lioness</span>`
-                + ` / <span class='colourAnimal'>Lion</span>`; /* specially 4 Liu Yifei */;
+                + ` / <span class='colourAnimal'>Lion</span>`; /* specially 4, Yifei Liu */;
             document.getElementById('ANI-8').innerHTML =
                 VoCuc.exchange2AnimalByLunar(UnytValues.revertElteYear(document.getElementById('DOB-8').innerHTML.split(' ')[2])) +
                 ` / <span class='quail'>Quail</span>`;
