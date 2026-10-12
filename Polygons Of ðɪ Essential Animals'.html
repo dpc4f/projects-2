@@ -363,7 +363,7 @@
 </head>
 
 <body>
-    <div id="raw-data" onfocus="maximizeWindow()" style="display:none;">
+    <div id="raw-data" style="display:none;">
         <div class="instructions">
             <div class="point-isolated">
                 <div class="note head-31"><h31>ANIMALIA KINGDOM - <span class="head-2">VƯƠNG QUỐC ĐỘNG VẬT</span></h31></div>
@@ -580,17 +580,17 @@
         </div>
     </div>
 
-    <div class="note bottom-left-note" id="time-manner" onfocus="maximizeWindow()">respect to ð time manner. always.</div>
+    <div class="note bottom-left-note" id="time-manner">respect to ð time manner. always.</div>
     
-    <div class="note bottom-left-note-2" id="time-manner-3" onfocus="maximizeWindow()">
+    <div class="note bottom-left-note-2" id="time-manner-3">
         tự hiểu đi, understanding-by-yourself-4b-thinking-on-your-own<br/>
     </div>
 
-    <div class="note bottom-right-note" id="time-manner-2" onfocus="maximizeWindow()">
+    <div class="note bottom-right-note" id="time-manner-2">
         In practice, <b>Rule 3:1</b> is a more common than <b>2:4 the Rule</b>.
     </div>
 
-    <div id="canvas-container" onfocus="maximizeWindow()">
+    <div id="canvas-container">
         <canvas id="stage"></canvas> 
         <div id="content"></div>    
     </div> 
@@ -774,11 +774,6 @@
 
             return states;
         };
-
-        const cp = document.getElementById('control-panel');
-        cp.addEventListener('focus', () => {
-            maximizeWindow();
-        });
   
         function isAllowedLetter(ch, nx = '') {
             let ret = 0;
@@ -966,12 +961,6 @@
         const DENNIS_KINGDOM = 6; // Maximum Of 'Vương Quốc Động Vật'
         const FUNGUS_EMPIRE = 7; // ĐẾ CHẾ PHẤN TẢO
         const DENIS_NATIONEMPIRE = 8; // wording(s)' transformation; images' real-time varying [DENIS' WORDIMAGY NATION EMPIRE]
-
-
-        
-        function maximizeWindow() {
-            alert('focused');
-        }
 
         function resize() {
             width = canvas.width = canvas.parentElement.clientWidth;
@@ -1352,16 +1341,6 @@
             applyState(0); 
             animate();
         });
-
-
-        window.onfocus = function() { 
-            alert('focused');
-            // // Moves the window to the top-left corner
-            // window.moveTo(0, 0); 
-            
-            // // Resizes the window to fill the available screen resolution minus taskbars
-            // window.resizeTo(screen.availWidth, screen.availHeight); 
-        }
     </script>
 
     <div class="hidden invisible">Lau Dai be'o Thoa</div>
