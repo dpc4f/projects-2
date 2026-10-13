@@ -34,8 +34,7 @@
         .note-top-right {
             font-size: 17px;
             color: rgb(63, 182, 63);
-            position: absolute;
-        
+            position: absolute;   
             margin-left: 0;
             left: 1500px;
         }
@@ -77,7 +76,7 @@
         // Resize canvas to fit window
         function resizeCanvas() {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.height = window.innerHeight - (500 + .75*500);
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
