@@ -11,7 +11,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #0b0c10;
+            background-color: #baf1f1;
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -28,7 +28,7 @@
         .instruction {
             position: absolute;
             bottom: 20px;
-            color: rgba(34, 136, 177, 0.877);
+            color: rgba(11, 89, 119, 0.877);
             font-size: 24px;
             letter-spacing: 1px;
             pointer-events: none;
@@ -133,8 +133,8 @@
                 this.y = y;
                 this.color = color;
                 this.size = Math.random() * 3 + 6;
-                this.speedX = (Math.random() - 0.5) * 1.85;
-                this.speedY = (Math.random() - 0.5) * 1.35;
+                this.speedX = (Math.random() - 0.5) * 1.75;
+                this.speedY = (Math.random() - 0.5) * 1.45;
                 this.alpha = 1.1;
                 this.decay = Math.random() * 0.015 + 0.005;
             }
