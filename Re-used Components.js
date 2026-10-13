@@ -684,7 +684,7 @@ class DateValues {
         return sf;
     }
 
-    static #getElteMonthString(elteMonthIndex, form = UnytValues.FULL_FORM_DATE) {
+    static #getElteMonthThroughElte(elteMonthIndex, form = UnytValues.FULL_FORM_DATE) {
         let ret = '';
 
         switch (elteMonthIndex) {
@@ -763,8 +763,8 @@ class DateValues {
         let elteYear;
         let elteDOB;
         let elteMonth = bFromDavid == false
-                            ? DateValues.#getElteMonthString(DateValues.convertToElteMonthIdx(month))
-                            : DateValues.#getElteMonthString(month);
+                            ? DateValues.#getElteMonthThroughElte(DateValues.convertToElteMonthIdx(month))
+                            : DateValues.#getElteMonthThroughElte(month);
 
         if (bFromDavid == true) 
             year -= 2;
@@ -784,7 +784,7 @@ class DateValues {
     }
 
 
-    static getElteMonthStr(monthIdx, form = UnytValues.FULL_FORM_DATE) { 
+    static getElteMonth(monthIdx, form = UnytValues.FULL_FORM_DATE) { 
         /***  
          * 
          * { Idx, Index }
@@ -794,7 +794,7 @@ class DateValues {
         
         let elteMonthIndex = DateValues.convertToElteMonthIdx(monthIdx);
         
-        return DateValues.#getElteMonthString(elteMonthIndex, form);
+        return DateValues.#getElteMonthThroughElte(elteMonthIndex, form);
     }
 
     getElteProvidingElteMonth(month) {
@@ -911,9 +911,6 @@ class DateValues {
         
         this.#mt = monthIdx;
         this.#dt = 1; // update date to the beginning of the month <-- will revise later
-
-        // if (this.callbackUpdateGUI != null)
-        //     this.callbackUpdateGUI(this);
     }
 
     get ElteMonthIdx() { // getter to return elte month index
@@ -936,11 +933,11 @@ class DateValues {
     }
 
     get SoleDate() {
-        return this.#dt; // day of the month
+        return this.#dt; // date index in the month
     }
 
     get Week() {
-        return this.#wk;
+        return this.#wk; // week index in the year
     }
 
     /*** to correct the name of the get year function  */ 
@@ -1154,7 +1151,7 @@ DateValues.Helpers = class {
         let day = date.getDay();
 
         let elteMonth = bMonth 
-                        ? DateValues.getElteMonthStr(month) : '';
+                        ? DateValues.getElteMonth(month) : '';
         let elteSoleDate = bSoleDate 
                             ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
@@ -1176,7 +1173,7 @@ DateValues.Helpers = class {
         let day = date.getDay();
 
         let elteMonth = bMonth 
-                        ? DateValues.getElteMonthStr(month, UnytValues.MID_FORM_DATE) : '';
+                        ? DateValues.getElteMonth(month, UnytValues.MID_FORM_DATE) : '';
         let elteSoleDate = bSoleDate 
                         ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
@@ -1198,7 +1195,7 @@ DateValues.Helpers = class {
         let day = date.getDay();
 
         let elteMonth = bMonth 
-                        ? DateValues.getElteMonthStr(month, UnytValues.SHORT_FORM_DATE) : '';
+                        ? DateValues.getElteMonth(month, UnytValues.SHORT_FORM_DATE) : '';
         let elteSoleDate = bSoleDate 
                         ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR 
@@ -1343,7 +1340,7 @@ class UnytValues {
         let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
         let str = d > 0 ? '+'+d.toString() : d.toString();
 
-        return [DateValues.getElteMonthStr(month), (d == 0 ? c_y_str : c_y_str+str)];
+        return [DateValues.getElteMonth(month), (d == 0 ? c_y_str : c_y_str+str)];
     }
 
     get Year() {
