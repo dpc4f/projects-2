@@ -824,26 +824,14 @@ class DateValues {
          * 
          */ // --> done
 
-         if (!this.#hereDigiYear) {
-            this.#hdyIdx = 0; // Thaw
-            this.#hdtIdx = 1; // first day of the month
-            this.#hmtIdx = 2; // March of Gregorian Calendar
-            this.#hereDigiYear = DateValues.CURRENT_YEAR;
-            DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
-            this.#wkNo = 1;
-
-            this.useHereValues();
-            
-            if (bUpdateGUI == true && this.callbackUpdateGUI) {
-                this.callbackUpdateGUI(this); // to render the calendar when the day's values change
-                console.log('function callback is called; to render the calendar');
-            }
-        }
+         if (!this.#hereDigiYear)
+            this.useDefaultValues();
 
         try {
+
             const response = await fetch('http://localhost:8080/api/TimeRequester')
-            const thoiGianStr = await response.json();
-            const [ngayThang, ,] = thoiGianStr.split(" ");
+            const strJsonThoiGian = await response.json();
+            const [ngayThang, ,] = strJsonThoiGian.split(" ");
             const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
 
             // Rearrange into standard "YYYY-MM-DD"
@@ -853,30 +841,27 @@ class DateValues {
             this.#hmtIdx = this.Heredate.getMonth();
             this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
 
-            console.log("Response from DLL: " + thoiGianStr);
+            console.log("Response from DLL: " + strJsonThoiGian);
 
             DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
             this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
-            // if (this.#firstTimeCalledBySetTimeOut == true) {
-            //     this.#hdt += 2;
-            //     this.#firstTimeCalledBySetTimeOut = false;
-            // }
-
             this.useHereValues();
-        
+                
+        } catch (error) {
+            // This catches the "Failed to fetch" error gracefully
+            console.error('Network error or CORS issue occurred:', error);
+            console.log('Use the day of current_year as a replacement ...');
+
+            this.useDefaultValues();
+
+        } finally {
+
             if (bUpdateGUI == true && this.callbackUpdateGUI) {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
                 console.log('function callback is called; to render the calendar');
             }
-                
-        } catch (error) {
-
-            // This catches the "Failed to fetch" error gracefully
-            console.error('Network error or CORS issue occurred:', error);
-            console.log('Use a day of current_year as the replacement ..');
-
-        } 
+        }
     }
 
     getDuration4SwitchingDateForms() {
@@ -910,7 +895,7 @@ class DateValues {
             return;
         
         this.#mtIdx = monthIdx;
-        this.#dtIdx = 1; // update date to the beginning of the month <-- will revise later
+        this.#dtIdx = 1; // update date to the beginning of the month <-- will revise later <-- done
     }
 
     get ElteMonthIdx() { // getter to return elte month index
@@ -1064,6 +1049,17 @@ class DateValues {
         this.#dtIdx = this.#hdtIdx;
         this.#dyIdx = this.#hdyIdx;
         this.#wkNo = this.#hwkNo;
+    }
+
+    useDefaultValues() {
+        this.#hdyIdx = 0; // Thaw
+        this.#hdtIdx = 1; // first day of the month
+        this.#hmtIdx = 2; // March of Gregorian Calendar
+        this.#hereDigiYear = DateValues.CURRENT_YEAR;
+        DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
+        this.#wkNo = 1;
+
+        this.useHereValues();
     }
 
     static isLeapYear(year) {
