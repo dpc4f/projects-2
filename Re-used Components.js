@@ -588,6 +588,11 @@ class DateValues {
         return ret;
     }
 
+    /***
+     * [; nr] consider to revise shifts in a day; decide whether time shitfs will follow VNMese OR working style
+     * 
+     * 
+     */
     static getShiftOfTheday(longShort = LONG_FORM_SHIFT) {
         const date = new Date();
         const hr = date.getHours();
@@ -849,7 +854,7 @@ class DateValues {
             this.useHereValues();
                 
         } catch (error) {
-            
+
             // This catches the "Failed to fetch" error gracefully
             console.error('Network error or CORS issue occurred:', error);
             console.log('Use the day of current_year as a replacement ...');
