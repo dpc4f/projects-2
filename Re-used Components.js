@@ -517,7 +517,7 @@ class DateValues {
         return monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
     }
 
-    static getIndexFromElteMonth(elteMonth) {
+    static getElteFromElteMonth(elteMonth) {
         let ret = -1;
 
         switch (elteMonth) {
@@ -743,7 +743,7 @@ class DateValues {
         return ret;
     }
 
-    static convertToElte(dateStr, bFromDavid = false) {
+    static convertToElteDate(dateStr, bFromDavid = false) { // convert to Elte date w/ Gregorian date provided
         let date = null;
 
         if (dateStr !== '' && dateStr !== undefined && dateStr !== null)
@@ -797,10 +797,10 @@ class DateValues {
         return DateValues.#getElteMonthThroughElte(elteMonthIndex, form);
     }
 
-    getElteProvidingElteMonth(month) {
+    getElteDateProvidingElteMonth(elteMonth) {
         let elteYear = UnytValues.convertToElteYear(this.#yr, this.#mt);
         
-        return month + ' ' + this.#dt.toString() + ' ' + elteYear;
+        return elteMonth + ' ' + this.#dt.toString() + ' ' + elteYear;
     }
 
     static get DayCountInMonths() {
@@ -1324,7 +1324,7 @@ class UnytValues {
     static revertElteMonthYear(elteStr) { // to become Gregorian month 'N' year
         let arr = elteStr.trim().split(/\s+/);
         
-        let m = DateValues.getIndexFromElteMonth(arr[0]);
+        let m = DateValues.getElteFromElteMonth(arr[0]);
         if (m === -1 || arr.length < 3) {
             console.log('Please use the format "M1 27 current_year+6"');
             return;
@@ -1361,7 +1361,7 @@ class UnytValues {
     }
 
     static revertElteMonthIdx(monthStr) {
-        const idx = DateValues.getIndexFromElteMonth(monthStr);
+        const idx = DateValues.getElteFromElteMonth(monthStr);
 
         return (idx + 2) % 12;
     }
