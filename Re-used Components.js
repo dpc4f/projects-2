@@ -361,23 +361,23 @@ class DateValues {
     #dyIdx; // day index in the week
     #wkNo; // week number in the elte year
 
-    #hyr;
-    #hmt;
-    #hdt;
-    #hdy;
-    #hwk;
+    #hereDigiYear; // here digital gregorian year
+    #hmtIdx; // here month index
+    #hdtIdx; // here sole-date index
+    #hdyIdx; // here day index
+    #hwkNo; // here week number
 
-    #syr;
-    #smt;
-    #sdt;
-    #sdy;
-    #swk;
+    #setDigiYear; //
+    #smtIdx; //
+    #sdtIdx;
+    #sdyIdx;
+    #swkNo;
 
     static CURRENT_YEAR = 2020;
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
     static CURRENT_DAY = 'Đang Ngồi Thư Viện';
 
-    static USE_HERE_DAY = -1;
+    static USE_HERE_DAY = 0;
     static #LeapYear = false;
 
     static #DayCountInMonths = [
@@ -389,13 +389,12 @@ class DateValues {
 
     constructor(callbackUpdateGUI = null, yr = DateValues.USE_HERE_DAY, mt = -1, dt = -1) {
 
-        if (yr < -1 || yr == 0) return; // invalid parameters
+        if (yr < 0) return; // invalid parameters
         
         this.Heredate = null;
         this.callbackUpdateGUI = callbackUpdateGUI;
-        // this.#firstTimeCalledBySetTimeOut = false;
 
-        if (yr == DateValues.USE_HERE_DAY) // == -1
+        if (yr == DateValues.USE_HERE_DAY) // == 0
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
         else {
             /* use Set Date Values */
@@ -408,20 +407,21 @@ class DateValues {
             if (this.isValidGregorian(yr, mt, dt) == false) 
                 return;
 
-            this.#syr = yr; // yr > -1
+            this.#setDigiYear = yr; // yr > -1
 
             if (mt > -1) 
-                this.#smt = mt;
+                this.#smtIdx = mt;
             else
-                this.#smt = 0;
+                this.#smtIdx = 0;
             
             if (dt > -1) 
-                this.#sdt = dt;
+                this.#sdtIdx = dt;
             else
-                this.#sdt = 1; 
+                this.#sdtIdx = 1; 
                    
-            DateValues.#LeapYear = DateValues.isLeapYear(this.#syr);
-            this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy); // <-- modify OR code a new function 
+            DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear);
+            this.#swkNo = DateValues.getWeekNumber(this.#setDigiYear, 
+                            this.#smtIdx, this.#sdtIdx, this.#sdyIdx); // <-- modify OR code a new function 
             // --> new function implemented
 
             this.useSetValues();
@@ -494,11 +494,11 @@ class DateValues {
         let bAddOneYear = m < 2 ? true : false;
         let y = UnytValues.revertElteYear(arr[2], bAddOneYear);
 
-        this.#syr = y;
-        this.#smt = m;
-        this.#sdt = d;
-        DateValues.#LeapYear = DateValues.isLeapYear(this.#syr);
-        this.#swk = DateValues.getWeekNumber(this.#syr, this.#smt, this.#sdt, this.#sdy);
+        this.#setDigiYear = y;
+        this.#smtIdx = m;
+        this.#sdtIdx = d;
+        DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear);
+        this.#swkNo = DateValues.getWeekNumber(this.#setDigiYear, this.#smtIdx, this.#sdtIdx, this.#sdyIdx);
 
         this.useSetValues();
 
@@ -798,9 +798,9 @@ class DateValues {
     }
 
     getElteDateWithElteMonthProvided(elteMonth) {
-        let elteYear = UnytValues.convertToElteYear(this.#yr, this.#mt);
+        let elteYear = UnytValues.convertToElteYear(this.#digitalYear, this.#mtIdx);
         
-        return elteMonth + ' ' + this.#dt.toString() + ' ' + elteYear;
+        return elteMonth + ' ' + this.#dtIdx.toString() + ' ' + elteYear;
     }
 
     static get DayCountInMonths() {
@@ -824,13 +824,13 @@ class DateValues {
          * 
          */ // --> done
 
-         if (!this.#hyr) {
-            this.#hdy = 0; // thaw
-            this.#hdt = 1; // first day of Athen
-            this.#hmt = 0; // athen
-            this.#hyr = DateValues.CURRENT_YEAR;
+         if (!this.#hereDigiYear) {
+            this.#hdyIdx = 0; // Thaw
+            this.#hdtIdx = 1; // first day of the month
+            this.#hmtIdx = 2; // March of Gregorian Calendar
+            this.#hereDigiYear = DateValues.CURRENT_YEAR;
             DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
-            this.#wk = 1;
+            this.#wkNo = 1;
 
             this.useHereValues();
             
