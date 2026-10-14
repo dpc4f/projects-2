@@ -104,7 +104,7 @@
     <input type="text" id="gregorianDOB" placeholder="Dec 13 2011">
     <button class="inputElte" onclick="copypaste2BirthYear(document.getElementById('gregorianDOB').value)">COPYpaste</button>
     <input type="text" id="birthYear" value="current_year, 2020" disabled>
-    <input id="birthYear-2" value="">
+    <input id="birthYear-2" disabled value="">
     <button class="inputElte" onclick="fromElte()">COPYpaste From Elte</button>
     <input id="animal" disabled value="">
 
@@ -116,7 +116,7 @@
          * [; nr] implement the code to switch the animal to Horse clan if bFromDavid == true
          * 
          * 
-         * */
+         * */ // --> done
 
         /***
          * [; nr] fix a minor bug when not seeing any result 4b clicking, 'COPYPaste From Elte' 
@@ -147,14 +147,25 @@
         //     return 'current_year+' + subtract.toString();
         // }
 
+        let bFromDavid;
         window.onload = function() {
             document.getElementById('birthYear-2').value = DateValues.convertToElteDate(new Date());
             fromElte();
         }
         
-        function copypaste2BirthYear(aDate)
+        function copypaste2BirthYear(gregorianDOB)
         {
-            document.getElementById('birthYear-2').value = DateValues.convertToElteDate(new Date(aDate));
+            const aDate = new Date(gregorianDOB);
+            let month = aDate.getMonth();
+            let day = aDate.getDate();
+            let year = DateValues.getYearNumberOnly(aDate);
+            
+            if (month == 10 && day == 27 && year == 1982)
+                bFromDavid = true;
+            else 
+                bFromDavid = false;
+
+            document.getElementById('birthYear-2').value = DateValues.convertToElteDate(gregorianDOB, bFromDavid);
         }
         
         function fromElte() {
@@ -171,7 +182,7 @@
                 return;
             }
 
-            document.getElementById('animal').value = VoCuc.exchange2AnimalByLunar(birthYear);
+            document.getElementById('animal').value = VoCuc.exchange2AnimalByLunar(bFromDavid ? birthYear - 2 : birthYear);
         }
     </script>
 
