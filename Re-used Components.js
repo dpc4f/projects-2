@@ -355,11 +355,11 @@ class DateValues {
 
     static HOSE = 11;
 
-    #yr;
-    #mt;
-    #dt;
-    #dy;
-    #wk;
+    #digitalYear; // elte year is a string while gregorian year is a number; in Computers it's digitalized
+    #mtIdx; // represent month index in gregorian calendar
+    #dtIdx; // sole-date index of the gregorian month
+    #dyIdx; // day index in the week
+    #wkNo; // week number in the elte year
 
     #hyr;
     #hmt;
