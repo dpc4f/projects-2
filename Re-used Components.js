@@ -481,8 +481,8 @@ class DateValues {
      * 
      */ // --> done in converting Elte values to Gregorian values
 
-    fromElteDate(elteDateStr) {
-        let arr = elteDateStr.trim().split(/\s+/); 
+    fromElteDate(elteDate) {
+        let arr = elteDate.trim().split(/\s+/); 
         let d = parseInt(arr[1]);
         let m = UnytValues.revertElteMonthIdx(arr[0]);
 
@@ -784,7 +784,7 @@ class DateValues {
     }
 
 
-    static getElteMonth(monthIdx, form = UnytValues.FULL_FORM_DATE) { 
+    static getElteMonth(monthIdx, form = UnytValues.FULL_FORM_DATE) { // get Elth month from Gregorian month index
         /***  
          * 
          * { Idx, Index }
@@ -797,7 +797,7 @@ class DateValues {
         return DateValues.#getElteMonthThroughElte(elteMonthIndex, form);
     }
 
-    getElteDateProvidingElteMonth(elteMonth) {
+    getElteDateWithElteMonthProvided(elteMonth) {
         let elteYear = UnytValues.convertToElteYear(this.#yr, this.#mt);
         
         return elteMonth + ' ' + this.#dt.toString() + ' ' + elteYear;
