@@ -823,9 +823,8 @@ class DateValues {
          * [; nr] fix a bug on this fetch() funtion
          * 
          */ // --> done
-
-         if (!this.#hereDigiYear)
-            this.useDefaultValues();
+ 
+        let bSuccess = false;
 
         try {
 
@@ -840,6 +839,7 @@ class DateValues {
             this.#hdtIdx = this.Heredate.getDate();
             this.#hmtIdx = this.Heredate.getMonth();
             this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
+            bSuccess = true;
 
             console.log("Response from DLL: " + strJsonThoiGian);
 
@@ -849,13 +849,15 @@ class DateValues {
             this.useHereValues();
                 
         } catch (error) {
+            
             // This catches the "Failed to fetch" error gracefully
             console.error('Network error or CORS issue occurred:', error);
             console.log('Use the day of current_year as a replacement ...');
 
-            this.useDefaultValues();
-
         } finally {
+
+            if (!this.#hereDigiYear || bSuccess == false)
+                this.useDefaultValues();
 
             if (bUpdateGUI == true && this.callbackUpdateGUI) {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
