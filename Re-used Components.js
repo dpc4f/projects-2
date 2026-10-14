@@ -848,15 +848,15 @@ class DateValues {
 
             // Rearrange into standard "YYYY-MM-DD"
             this.Heredate = new Date(`${year}-${month}-${day}`);
-            this.#hdy = this.Heredate.getDay();
-            this.#hdt = this.Heredate.getDate();
-            this.#hmt = this.Heredate.getMonth();
-            this.#hyr = DateValues.getYearNumberOnly(this.Heredate);
+            this.#hdyIdx = this.Heredate.getDay();
+            this.#hdtIdx = this.Heredate.getDate();
+            this.#hmtIdx = this.Heredate.getMonth();
+            this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
 
             console.log("Response from DLL: " + thoiGianStr);
 
-            DateValues.#LeapYear = DateValues.isLeapYear(this.#hyr);
-            this.#hwk = DateValues.getWeekNumber(this.#hyr, this.#hmt, this.#hdt, this.#hdy);
+            DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
+            this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
             // if (this.#firstTimeCalledBySetTimeOut == true) {
             //     this.#hdt += 2;
@@ -887,17 +887,17 @@ class DateValues {
     } // <-- a red leopard function <3
 
     get Year() {
-        return this.#yr;
+        return this.#digitalYear;
     }
 
     // set year 
     // --> done
     set Year(year) {
-        this.#yr = year;
+        this.#digitalYear = year;
     }
 
     get Month() {
-        return this.#mt;
+        return this.#mtIdx;
     }
 
     set Month(monthIdx) {
@@ -909,8 +909,8 @@ class DateValues {
         if (monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR)
             return;
         
-        this.#mt = monthIdx;
-        this.#dt = 1; // update date to the beginning of the month <-- will revise later
+        this.#mtIdx = monthIdx;
+        this.#dtIdx = 1; // update date to the beginning of the month <-- will revise later
     }
 
     get ElteMonthIdx() { // getter to return elte month index
@@ -921,23 +921,23 @@ class DateValues {
          * 
          * */ // --> done
         
-        return DateValues.convertToElteMonthIdx(this.#mt);
+        return DateValues.convertToElteMonthIdx(this.#mtIdx);
     }
 
     get Day() {
-        return this.#dy;
+        return this.#dyIdx;
     }
 
     get WeekFall() {
-        return this.whichDayIsTheDay(this.#dy);
+        return this.whichDayIsTheDay(this.#dyIdx);
     }
 
     get SoleDate() {
-        return this.#dt; // date index in the month
+        return this.#dtIdx; // sole-date index in the month
     }
 
     get Week() {
-        return this.#wk; // week index in the year
+        return this.#wkNo; // week index in the year
     }
 
     /*** to correct the name of the get year function  */ 
@@ -1008,7 +1008,7 @@ class DateValues {
     }
 
     whichDayIsTheDay(form = UnytValues.FULL_FORM_DATE) {
-        return DateValues.whichDayIsHereday(this.#dy, form);
+        return DateValues.whichDayIsHereday(this.#dyIdx, form);
     }
 
     static whichDayIsHereday(heredayIndex, form = UnytValues.FULL_FORM_DATE) {
@@ -1051,25 +1051,25 @@ class DateValues {
     }
 
     useSetValues() {
-        this.#yr = this.#syr;
-        this.#mt = this.#smt;
-        this.#dt = this.#sdt;
-        this.#dy = (new Date(this.#syr, this.#smt, this.#sdt)).getDay(); // index of the day in its week; 0..6
-        this.#wk = this.#swk;
+        this.#digitalYear = this.#setDigiYear;
+        this.#mtIdx = this.#smtIdx;
+        this.#dtIdx = this.#sdtIdx;
+        this.#dyIdx = (new Date(this.#setDigiYear, this.#smtIdx, this.#sdtIdx)).getDay(); // index of the day in its week; 0..6
+        this.#wkNo = this.#swkNo;
     }
 
     useHereValues() {
-        this.#yr = this.#hyr;
-        this.#mt = this.#hmt;
-        this.#dt = this.#hdt;
-        this.#dy = this.#hdy;
-        this.#wk = this.#hwk;
+        this.#digitalYear = this.#hereDigiYear;
+        this.#mtIdx = this.#hmtIdx;
+        this.#dtIdx = this.#hdtIdx;
+        this.#dyIdx = this.#hdyIdx;
+        this.#wkNo = this.#hwkNo;
     }
 
     static isLeapYear(year) {
 
         /*** 
-         * [mnemonic]
+         * [a mnemonic]
          * year 1100 isn't a leap one
          * 
          * */ 
@@ -1078,11 +1078,11 @@ class DateValues {
     }
 
     isHereDay(date, month, year) {
-        return (date === this.#hdt && month === this.#hmt && year === this.#hyr);
+        return (date === this.#hdtIdx && month === this.#hmtIdx && year === this.#hereDigiYear);
     }
 
     isSetDay(date, month, year) {
-        return (date === this.#sdt && month === this.#smt && year === this.#syr);
+        return (date === this.#sdtIdx && month === this.#smtIdx && year === this.#setDigiYear);
     }
 }
 
