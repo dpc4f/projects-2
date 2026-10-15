@@ -987,7 +987,7 @@ class DateValues {
         return (dayIndex + 5) % 7;
     }
     
-    static getWeekNumber(year, month, soleDate, day) {
+    static getWeekNumber(digitalYear, monthIndex, soleDateIndex, dayIndex) {
 
         /***
          * [; nr] convert this method into a static method of class'
@@ -999,15 +999,15 @@ class DateValues {
          /***
           * [; nr] revise this method
           * 
-          */
+          */ // --> done
 
-        const TheYear = year; 
+        const TheYear = digitalYear; 
         const FirstDateOfTheYear = new Date(TheYear, 1, 1);
         const FirstDateIndex = DateValues.toTuesdayFirst(FirstDateOfTheYear.getDay()); // the year's first day's index in the first week; 0..6
         
-        const TheMonth = DateValues.convertToElteMonthIdx(month);
-        const TheDayIndex = DateValues.toTuesdayFirst(day); // index of the day in its week; in 0..6
-        const TheSoleDate = soleDate; // only the date's number in its month; starts from 1
+        const TheMonth = DateValues.convertToElteMonthIdx(monthIndex);
+        const TheDayIndex = DateValues.toTuesdayFirst(dayIndex); // index of the day in its week; in 0..6
+        const TheSoleDate = soleDateIndex; // only the date's number in its month; starts from 1
         const Distance = Math.abs(FirstDateIndex - TheDayIndex);
 
         return DateValues.getWeekNoWithProvidedParameters(Distance, TheMonth, TheSoleDate);
