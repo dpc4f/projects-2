@@ -1475,7 +1475,11 @@ class Life {
      *  60 năm cuộc đời
      *  --> [6 --> 8] 60, 80
      * 
+     * 7 : 8 = .875
      * 
+     * [4 ~ 6]
+     * Alan Turing [West] <-- { 4 }567
+     * Justin Kim [East] <-- 5{ 6 }78
      * 
      * 
      * 
