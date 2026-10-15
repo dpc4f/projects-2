@@ -584,8 +584,8 @@
         }
 
         function renderCalendar(dateVal, bHereDay = true) {
-            let year = dateVal.Year;
-            let month = dateVal.Month;
+            let year = dateVal.DigitalYear;
+            let month = dateVal.MonthIndex;
             let mtNamesEle = document.getElementById("monthNames").children;
             let elteYear = UnytValues.convertToElteYear(year, month);
             let suffixStr = elteYear.slice(12);
@@ -667,7 +667,7 @@
                 renderCalendar(dateVal, false);
                 
                 let wosyDiv = document.getElementById("weekOfSetYear");
-                wosyDiv.textContent = dateVal.Week.toString();
+                wosyDiv.textContent = dateVal.WeekNo.toString();
             }
         }
 
