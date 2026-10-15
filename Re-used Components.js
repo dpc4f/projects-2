@@ -880,28 +880,30 @@ class DateValues {
             / DATE_FORMAT_STRINGS.length);
     } // <-- a red leopard function <3
 
-    get Year() {
+    get DigitalYear() {
         return this.#digitalYear;
     }
 
     // set year 
     // --> done
-    set Year(year) {
+    set DigitalYear(year) {
         this.#digitalYear = year;
     }
 
-    get Month() {
+    get MonthIndex() {
         return this.#mtIdx;
     }
 
-    set Month(monthIdx) {
+    set MonthIndex(monthIdx) {
         /*** 
          * do parameter's validation 
          * 
          * */ // --> done
 
-        if (monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR)
+        if (monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
+            console.log('Invalid month index provided');
             return;
+        }
         
         this.#mtIdx = monthIdx;
         this.#dtIdx = 1; // update date to the beginning of the month <-- will revise later <-- done
@@ -918,7 +920,7 @@ class DateValues {
         return DateValues.convertToElteMonthIdx(this.#mtIdx);
     }
 
-    get Day() {
+    get DayIndex() {
         return this.#dyIdx;
     }
 
@@ -926,28 +928,32 @@ class DateValues {
         return this.whichDayIsTheDay(this.#dyIdx);
     }
 
-    get SoleDate() {
+    get SoleDateIndex() {
         return this.#dtIdx; // sole-date index in the month
     }
 
-    get Week() {
+    get WeekNo() {
         return this.#wkNo; // week index in the year
     }
 
-    /*** to correct the name of the get year function  */ 
-    static getYearNumberOnly(date = null) {
-        if (date && date instanceof Date) 
-            return date.getFullYear(); // <-- return year number only; not the year in full form 
+    /*** 
+     * to correct the name of the get year function
+     * don't accept string as input parameter
+     * 
+     * */ 
+    static getYearNumberOnly(instanceOfDate = null) { // 
+        if (instanceOfDate && instanceOfDate instanceof Date) 
+            return instanceOfDate.getFullYear(); // <-- return year number only; not the year in full form 
 
         return -1;
     }
 
-    static getWeekNumberWithProvidedParameters(Distance, Month, SoleDate) {
+    static getWeekNoWithProvidedParameters(distance, monthIndex, soleDateIndex) {
         let weekNo = 1; // the first week of the year; at most fifty three weeks in a year
         let monthCount = 0; // Athen
         let dayCount = 1; // the first day of the year
 
-        while (monthCount < Month) {
+        while (monthCount < monthIndex) {
             while (dayCount <= DateValues.DayCountInMonths[monthCount]) {
                 dayCount += 7; // seven days in a week
                 ++weekNo;
@@ -960,7 +966,7 @@ class DateValues {
         }
 
         /*** monthCount == Month */ 
-        if (Distance == Math.abs(dayCount - SoleDate))
+        if (distance == Math.abs(dayCount - soleDateIndex))
             return weekNo;
         else {
             while (dayCount <= DateValues.DayCountInMonths[monthCount]) { 
@@ -969,7 +975,7 @@ class DateValues {
                 dayCount += 7; // seven days in a week
                 ++weekNo;
                 
-                if (Distance == Math.abs(dayCount - SoleDate))
+                if (distance == Math.abs(dayCount - soleDateIndex))
                     break;
             }
         }
@@ -989,6 +995,12 @@ class DateValues {
          * 
          */ // --> done
 
+
+         /***
+          * [; nr] revise this method
+          * 
+          */
+
         const TheYear = year; 
         const FirstDateOfTheYear = new Date(TheYear, 1, 1);
         const FirstDateIndex = DateValues.toTuesdayFirst(FirstDateOfTheYear.getDay()); // the year's first day's index in the first week; 0..6
@@ -998,7 +1010,7 @@ class DateValues {
         const TheSoleDate = soleDate; // only the date's number in its month; starts from 1
         const Distance = Math.abs(FirstDateIndex - TheDayIndex);
 
-        return DateValues.getWeekNumberWithProvidedParameters(Distance, TheMonth, TheSoleDate);
+        return DateValues.getWeekNoWithProvidedParameters(Distance, TheMonth, TheSoleDate);
     }
 
     whichDayIsTheDay(form = UnytValues.FULL_FORM_DATE) {
@@ -1082,8 +1094,8 @@ class DateValues {
         return ((year % 4 == 0 && year % 100 !== 0) || (year % 400 == 0));
     }
 
-    isHereDay(date, month, year) {
-        return (date === this.#hdtIdx && month === this.#hmtIdx && year === this.#hereDigiYear);
+    isHereDay(dateIndex, monthIndex, digiYear) {
+        return (dateIndex === this.#hdtIdx && monthIndex === this.#hmtIdx && digiYear === this.#hereDigiYear);
     }
 
     isSetDay(date, month, year) {
