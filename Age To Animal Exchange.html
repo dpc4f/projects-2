@@ -63,7 +63,7 @@
             margin-top: 140px;
         }
 
-        .inputElte {
+        .inputElte, .input-Elte-2 {
             padding: 10px;
             background: #667eea;
             color: white;
@@ -73,6 +73,11 @@
             font-size: 14px;
             margin-left: 10px;
             margin-bottom: 40px;
+        }
+
+        .input-Elte-2 {
+            margin-top: 20px;
+            margin-bottom: 2px;
         }
 
         #reference {
@@ -106,11 +111,11 @@
 
 <body>
     <h1 class="center">Exchange To Animals</h1>
-    <input type="text" id="gregorianDOB" placeholder="Dec 13 2011">
+    <input type="text" id="gregorianDOB" placeholder="Dec 13 2011" oninput="checkValues()">
     <button class="inputElte" onclick="copypaste2BirthYear(document.getElementById('gregorianDOB').value)">COPYpaste</button>
     <input type="text" id="birthYear" value="current_year, 2020" disabled>
     <input id="birthYear-2" disabled value="">
-    <button class="inputElte" onclick="fromElte()">COPYpaste From Elte</button>
+    <button id="fromDavis" class="inputElte-2" onclick="fromElte()">Of David</button>
     <input id="animal" disabled value="">
     <div class="giac-trong-ngay">
         <div>4..5 giờ tờ mờ sáng</div>
@@ -186,9 +191,11 @@
                 bFromDavid = false;
 
             document.getElementById('birthYear-2').value = DateValues.convertToElteDate(gregorianDOB, bFromDavid);
+
+            doCalculation();
         }
         
-        function fromElte() {
+        function doCalculation(bFromDavid = false) {
             /***
              * [] revise this function 
              * 
@@ -203,6 +210,32 @@
             }
 
             document.getElementById('animal').value = VoCuc.exchange2AnimalByLunar(bFromDavid ? birthYear - 2 : birthYear);
+        }
+
+        function fromElte() {
+            doCalculation(true);
+        }
+
+        function checkValues() {
+            const gregorianDOB = document.getElementById('gregorianDOB').value;
+            const davidButton = document.getElementById('fromDavis');
+
+            if (gregorianDOB.trim().split(' ').length < 3) 
+                return;
+            
+            const date = new Date(gregorianDOB);
+            if (isNaN(date.getTime()))
+                return;
+
+            let month = date.getMonth();
+            let day = date.getDate();
+            let year = date.getFullYear();
+            let checkbox = document.getElementById('injectedCheckbox');
+            
+            if (month == 10 && day == 27 && year == 1982)
+                davidButton.disabled = false;
+            else
+                davidButton.disabled = true;
         }
     </script>
 
