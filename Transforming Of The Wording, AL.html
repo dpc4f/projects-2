@@ -168,34 +168,34 @@
 
         function getColor(coChar) {
             switch (coChar) {
-                case "a":
+                case 'a':
                     break;
 
-                case "l":
+                case 'l':
                     colorIndex = 1;
                     break;
 
-                case "r":
+                case 'r':
                     colorIndex = 2;
                     break;
 
-                case "b":
+                case 'b':
                     colorIndex = 3;
                     break;
 
-                case "e":
+                case 'e':
                     colorIndex = 4;
                     break;
 
-                case "t":
+                case 't':
                     colorIndex = 5;
                     break;
 
-                case "i":
+                case 'i':
                     colorIndex = 6;
                     break;
 
-                case "3":
+                case '3':
                     colorIndex = 7;
                     break;
 
@@ -219,7 +219,7 @@
                 span.textContent = char;
                 span.classList.add("letter");
 
-                if (char === "a") {
+                if (char === 'a') {
                     // span.classList.add("anchor");
                     // span.classList.add("l-character");
                     span.classList.add("show");
@@ -234,10 +234,10 @@
                 if (char === 'l')
                     span.classList.add("l-character");
 
-                if (char === "t" || char === "i" || char === "m" || char === "e")
+                if (char === 't' || char === 'i' || char === 'm' || char === 'e')
                     span.classList.add("font-time");
 
-                if (char !== "a") {
+                if (char !== 'a') {
                     if (curWord.includes(char)) {
                         //setTimeout(() => {
                             span.classList.add("show");
@@ -245,7 +245,7 @@
                     } else {
                         setTimeout(() => {
                             span.classList.add("show");
-                        }, (i+1) * 220);
+                        }, (i + 1) * 220);
                     }
                 }
 
@@ -278,13 +278,13 @@
             });
 
             if (nextWord === "ba, { 3, time }")
-                duration = 500; // Special case; cause it to display longer
+                duration = 1500; // special case; let it display longer
             else
                 duration = 750;
 
             setTimeout(() => {
                 renderWord(currentWord, nextWord);
-            }, duration); // wait a duration 4b doing presentation the next wording
+            }, duration); // wait a duration 4b doing the next word presentation
         }
 
         // Loop
