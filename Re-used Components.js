@@ -1491,7 +1491,7 @@ class Life {
     static NUMBER_OF_YEARS = 80;
 
     static LifeSpan() {
-        // each 100 years Life reduces 1
+        // each 100 years LifeSpan reduces by 1
         let digiYear = DateValues.getYearNumberOnly(new Date());
 
         return Life.NUMBER_OF_YEARS - Math.floor((digiYear - DateValues.CURRENT_YEAR) / 100);
