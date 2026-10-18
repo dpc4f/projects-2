@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/jpeg" href="FavouriteIcons/the-milky-way.jpeg"/>
+    <link rel="icon" type="image/jpeg" href="FavouriteIcons/the-milky-way.jpeg" />
     <title>{ time, AL } [in 'et al']</title>
 
     <style>
@@ -109,11 +109,13 @@
             align-content: center;
         }
 
-        .hidden, .invisible {
+        .hidden,
+        .invisible {
             display: none;
         }
 
-        .sutta, .sa-position {
+        .sutta,
+        .sa-position {
             color: goldenrod;
         }
 
@@ -138,24 +140,24 @@
         update these notes through joining one OR two notes 
         ->> done
          
-    --> 
+    -->
 
     <div class="sutta sa-position">
-        [sắc giới, các cõi trời còn tứ đại]<br/>
-        các cõi { sơ; nhị; tam; tứ } thiền<br/>
-        không vô biên, không gian vô biên && có tứ đại hiện hữu<br/>
-        thức vô biên, tư duy vô biên ko có điểm kết thúc vẫn còn ít nhiều tứ đại<br/>
-        <br/>
-        [vô sắc giới <-- ko còn tứ đại ở nơi đây]<br/>
-        vô sở hữu xứ, cõi của Đại Phạm Thiên cai quản<br/>
-        phi tưởng phi phi tưởng xứ, các trời đi mây về gió xem như ko tồn tại<br/>
-        <br/>
-        [vua trời Sakka, Đế Thích Thiên Chủ]<br/>
-        <span class="note">thọ mạng 1000 năm</span>&nbsp; &nbsp; 1 ngày trên cõi Sakka ~ 1 năm ở dương gian<br/>
-        --> tính theo tuổi trần gian; tuổi thọ Đế Thích ~ 1000 * 365 == 365000 năm<br/>
-        Dạ Ma Thiên Chủ ở tầng trời cao hơn && có tuổi thọ 1046000 năm<br/>
+        [sắc giới, các cõi trời còn tứ đại]<br />
+        các cõi { sơ; nhị; tam; tứ } thiền<br />
+        không vô biên, không gian vô biên && có tứ đại hiện hữu<br />
+        thức vô biên, tư duy vô biên ko có điểm kết thúc vẫn còn ít nhiều tứ đại<br />
+        <br />
+        [vô sắc giới <-- ko còn tứ đại ở nơi đây]<br />
+        vô sở hữu xứ, cõi của Đại Phạm Thiên cai quản<br />
+        phi tưởng phi phi tưởng xứ, các trời đi mây về gió xem như ko tồn tại<br />
+        <br />
+        [vua trời Sakka, Đế Thích Thiên Chủ]<br />
+        <span class="note">thọ mạng 1000 năm</span>&nbsp; &nbsp; 1 ngày trên cõi Sakka ~ 1 năm ở dương gian<br />
+        --> tính theo tuổi trần gian; tuổi thọ Đế Thích ~ 1000 * 365 == 365000 năm<br />
+        Dạ Ma Thiên Chủ ở tầng trời cao hơn && có tuổi thọ 1046000 năm<br />
         các trời Quảng Hỏa Thiên ở [khá nhiều] tầng bên trên tầng Dạ Ma Thiên
-        <br/><br/><br/>
+        <br /><br /><br />
         Phạm Thiên, little 'Đại Phạm Thiên' / Đại Phạm Thiên mini
     </div>
 
@@ -211,8 +213,11 @@
             return colors[++colorIndex % colors.length];;
         }
 
+        // 1. Define the sleep function
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+        
         // Render word
-        function renderWord(curWord, word) { // word is next word to be rendered
+        async function renderWord(curWord, word) { // word is next word to be rendered
             container.innerHTML = "";
             word.split("").forEach((char, i) => {
                 const span = document.createElement("span");
@@ -240,7 +245,7 @@
                 if (char !== 'a') {
                     if (curWord.includes(char)) {
                         //setTimeout(() => {
-                            span.classList.add("show");
+                        span.classList.add("show");
                         //}, i * 10);
                     } else {
                         setTimeout(() => {
@@ -251,23 +256,26 @@
 
                 container.appendChild(span);
             });
+
+            if (word === "ba, { 3, time }")
+                await sleep(6000);
         }
 
         let duration = 0;
         let bExit = true;
         let bExtended = false;
-        
+
         function transitionTo(nextWord) { // Transition
             let oldLetters = container.querySelectorAll(".letter");
             let currentWord = '';
 
             oldLetters.forEach((letter, i) => {
                 currentWord += letter.textContent;
-                
+
                 let duration;
                 if (!letter.classList.contains("anchor")) {
                     duration = 0; // default exit duration
-                    
+
                     if (nextWord.includes(letter.textContent))
                         duration = 1200; // extend duration for letters that will be reused
 
@@ -289,8 +297,8 @@
 
         // Loop
         function startAnimation() {
-            let curWord= steps[currentIndex];
-            
+            let curWord = steps[currentIndex];
+
             renderWord('', curWord);
             setInterval(() => {
                 curWord = steps[currentIndex];
@@ -303,4 +311,5 @@
     </script>
 
 </body>
+
 </html>
