@@ -215,6 +215,12 @@
 
         // 1. Define the sleep function
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        /***
+         * [; nr] check the usage of sleep async / await function
+         * 
+         * 
+         * */
         
         // Render word
         async function renderWord(curWord, word) { // word is next word to be rendered
@@ -257,7 +263,7 @@
                 container.appendChild(span);
             });
 
-            if (word === "ba, { 3, time }")
+            if (word === "ba, time")
                 await sleep(6000);
         }
 
