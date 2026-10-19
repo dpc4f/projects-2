@@ -482,18 +482,16 @@ class DateValues {
     /***
      * [; nr] code a function to convert back && forth from Gregorian to Elte Calendar date
      * 
-     * 
+     * input param will use the format, "M1 27 current_year+6"
      */ // --> done in converting Elte values to Gregorian values
 
     fromElteDate(elteDate) {
         let arr = elteDate.trim().split(/\s+/); 
         let d = parseInt(arr[1]);
         let m = UnytValues.revertElteMonthIdx(arr[0]);
+        let bInvalid = m === -1 || arr.length < 3;
 
-        if (m === -1 || arr.length < 3) {
-            console.log('Please use the format "M1 27 current_year+6"');
-            return;
-        }
+        if (bInvalid == true) return;
 
         let bAddOneYear = m < 2 ? true : false;
         let y = UnytValues.revertElteYear(arr[2], bAddOneYear);
