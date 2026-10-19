@@ -514,9 +514,9 @@ class DateValues {
 
     static convertToElteMonthIdx(monthIdx) { // monthIdx = 0..11
         const MONTH_COUNT = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
-
-        if (monthIdx < 0 || monthIdx >= MONTH_COUNT) 
-            return;
+        let bInvalid = monthIdx < 0 || monthIdx >= MONTH_COUNT;
+        
+        if (bInvalid == true) return;
         
         return monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
     }
@@ -774,8 +774,7 @@ class DateValues {
         let elteYear;
         let elteDOB;
         let elteMonth = bFromDavid == false
-                            ? DateValues.#getElteMonthThroughElte(DateValues.convertToElteMonthIdx(month))
-                            : DateValues.#getElteMonthThroughElte(month);
+            ? DateValues.#getElteMonthThroughElte(DateValues.convertToElteMonthIdx(month)) : DateValues.#getElteMonthThroughElte(month);
 
         if (bFromDavid == true) 
             year -= 2;
@@ -1321,12 +1320,10 @@ class UnytValues {
         let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
         
         let str = d > 0 
-                ? '+' + d.toString() 
-                : d.toString();
+                ? '+' + d.toString() : d.toString();
 
         return d == 0 
-                ? c_y_str 
-                : c_y_str + str;
+                ? c_y_str : c_y_str + str;
     }
 
     static revertElteYear(yearStr, addOneYear = false) {
