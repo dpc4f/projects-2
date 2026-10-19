@@ -20,12 +20,14 @@ const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 
 // [; nr] implement using read-only properties 
 // --> done
-class TimeConstants {
+
+// leave it here 4 historical purpose
+// class TimeConstants {
     /*** 
      * has been moved to a class belongs to TimeValues class 
      * 
      * */
-}
+// }
 
 class TimeValues {
 
@@ -60,7 +62,7 @@ class TimeValues {
         this.#callback = updatePlatonTime;
         this.idcb = null;
 
-        this.#freshTimeLevels = new TimeValues.FreshTimeLevels();
+        this.#freshTimeLevels = new TimeValues.Constants.FreshTimeLevels();
         setInterval(() => this.timeTheCurrent(), TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY);
     }
 
@@ -98,14 +100,16 @@ class TimeValues {
         }
     }
 
-    remainingTimeTillEndOfTheDay(level = TimeValues.FreshTimeLevels.LevelBig) {
+    remainingTimeTillEndOfTheDay(level = TimeValues.Constants.FreshTimeLevels.LevelBig) {
 
         /***
+         * 
          * level = 0 --> hours
          * level = 1 --> minutes
          * level = 2 --> seconds
          * level = 3 --> milliseconds
-         * level = 4 --> milliseconds+1
+         * level = 4 --> milliseconds + 1
+         * 
          * 
          */
 
@@ -114,18 +118,18 @@ class TimeValues {
         let ret = 0;
         let passedTime = 0;
         switch (level) {
-            case TimeValues.FreshTimeLevels.LevelOne:
+            case TimeValues.Constants.FreshTimeLevels.LevelOne:
                 ret = DateValues.Constants.ONE_DAY_IN_MINUTES - (this.#h * TimeValues.Constants.ONE_HOUR_IN_MINUTES + this.#m);
                 break;
 
-            case TimeValues.FreshTimeLevels.LevelTwo:
+            case TimeValues.Constants.FreshTimeLevels.LevelTwo:
                 passedTime = this.#h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
                                 + this.#m * TimeValues.Constants.WAN_MINUTE_IN_SECONDS 
                                 + this.#s;
                 ret = DateValues.Constants.ONE_DAY_IN_SECONDS - passedTime;
                 break;
 
-            case TimeValues.FreshTimeLevels.LevelThree:
+            case TimeValues.Constants.FreshTimeLevels.LevelThree:
                 passedTime = this.#h * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS
                                 + this.#m * TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS 
                                 + this.#s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
@@ -137,14 +141,14 @@ class TimeValues {
                 // console.log('remaining time till end of the day: ' + ret);
                 break;
 
-            case TimeValues.FreshTimeLevels.LevelFour:
+            case TimeValues.Constants.FreshTimeLevels.LevelFour:
                 passedTime = this.#h * TimeValues.Constants.ONE_HOUR_IN_MINUTES 
                                 + this.#m * TimeValues.Constants.WAN_MINUTE_IN_SECONDS 
                                 + this.#s * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS;
                 ret = DateValues.Constants.ONE_DAY_IN_MILLISECONDS - (passedTime + 10);
                 break;
 
-            default: // this.freshTimeLevels.LevelBig
+            default: // LevelBig
                 ret = TimeValues.Constants.WAN_DAY_IN_HOURS - this.#h;
                 break;
         }
@@ -310,7 +314,7 @@ TimeValues.Constants = class {
     }
 }
 
-TimeValues.FreshTimeLevels = class {
+TimeValues.Constants.FreshTimeLevels = class {
 
     static #levelBig = 0;
     static #levelOne = 1;
@@ -319,23 +323,23 @@ TimeValues.FreshTimeLevels = class {
     static #levelFour = 4;
 
     static get LevelBig() {
-        return TimeValues.FreshTimeLevels.#levelBig;
+        return TimeValues.Constants.FreshTimeLevels.#levelBig;
     }
 
     static get LevelOne() {
-        return TimeValues.FreshTimeLevels.#levelOne;
+        return TimeValues.Constants.FreshTimeLevels.#levelOne;
     }
 
     static get LevelTwo() {
-        return TimeValues.FreshTimeLevels.#levelTwo;
+        return TimeValues.Constants.FreshTimeLevels.#levelTwo;
     }
 
     static get LevelThree() {
-        return TimeValues.FreshTimeLevels.#levelThree;
+        return TimeValues.Constants.FreshTimeLevels.#levelThree;
     }
 
     static get LevelFour() {
-        return TimeValues.FreshTimeLevels.#levelFour;
+        return TimeValues.Constants.FreshTimeLevels.#levelFour;
     }
 }
 
@@ -441,7 +445,7 @@ class DateValues {
          */
 
         this.timeVal = new TimeValues();
-        let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.FreshTimeLevels.LevelThree);
+        let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree);
         // let duration = 10000; // 10 seconds 4 testing purpose
 
         setTimeout(() => {
@@ -1488,7 +1492,7 @@ class Life {
      * 
      */
 
-    static NUMBER_OF_YEARS = 80;
+    static #NUMBER_OF_YEARS = 80;
 
     static LifeSpan() {
         // each 100 years LifeSpan reduces by 1
@@ -1497,8 +1501,11 @@ class Life {
         return Life.NUMBER_OF_YEARS - Math.floor((digiYear - DateValues.CURRENT_YEAR) / 100);
     }
 
+    
 
 }
+
+
 
 const GroupUnytPlusPlus = Life; // <-- need-less going back to C / C++
 
