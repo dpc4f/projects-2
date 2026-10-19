@@ -9,6 +9,7 @@ const DATE_SHORT_FORM = 2;
 const DAYS_IN_A_YEAR = 365.25;
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
+const ZERO = 0;
 
 
 /***
@@ -92,8 +93,7 @@ class TimeValues {
 
             console.log("[timePart] Response from DLL: " + timePart);
 
-            if (this.#callback)
-                this.#callback(this);
+            if (this.#callback) this.#callback(this);
 
         } catch (error) {
 
@@ -157,15 +157,13 @@ class TimeValues {
     }
 
     addHours(hours) {
-        if (hours <= 0) 
-            return;
+        if (hours <= 0) return;
 
         this.#h = (this.#h + hours) % 24;
     }
 
     subtractInRangeHours(hours) {
-        if (hours <= 0 || hours > this.#h)
-            return;
+        if (hours <= 0 || hours > this.#h) return;
 
         this.h -= hours;
     }
@@ -200,8 +198,7 @@ class TimeValues {
             }
         }
         
-        if (this.#callback) 
-            this.#callback(this);
+        if (this.#callback) this.#callback(this);
     }
 
     increaseMinute() {
@@ -215,16 +212,14 @@ class TimeValues {
             }
         }
 
-        if (this.#callback)
-            this.#callback(this);
+        if (this.#callback) this.#callback(this);
     }
 
     updateTimeWithIntervalOneSecond() { // for time value; in HH:MM:SS
         let fractionOfASecond = ((new Date()).getMilliseconds()) % TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS;
         let duration = TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS - fractionOfASecond; // will be elapsed duration in milliseconds
         
-        if (this.idcb) 
-            clearInterval(this.idcb);
+        if (this.idcb) clearInterval(this.idcb);
 
         setTimeout(() => { 
             this.idcb = setInterval(() => this.increaseSecond(), TimeValues.Constants.ONE_SECOND_IN_MILLISECONDS);
@@ -254,8 +249,7 @@ class TimeValues {
         
         console.log(RemainingOfHereMinuteInMilliseconds);
         
-        if (this.idcb)
-            clearInterval(this.idcb);
+        if (this.idcb) clearInterval(this.idcb);
 
         setTimeout(() => {
             this.#s = 0;
@@ -265,8 +259,7 @@ class TimeValues {
     }
 
     clearTimerId() {
-        if (this.idcb)
-            clearInterval(this.idcb);
+        this.idcb ? clearInterval(this.idcb) : ZERO;
     }
 }
 
@@ -408,8 +401,7 @@ class DateValues {
              * 
              */ // --> done
 
-            if (this.isValidGregorian(yr, mt, dt) == false) 
-                return;
+            if (this.isValidGregorian(yr, mt, dt) == false) return;
 
             this.#setDigiYear = yr; // yr > -1
 
@@ -1168,18 +1160,13 @@ DateValues.Helpers = class {
         let year = DateValues.getYearNumberOnly(date);
         let day = date.getDay();
 
-        let elteMonth = bMonth 
-                        ? DateValues.getElteMonth(month) : '';
-        let elteSoleDate = bSoleDate 
-                            ? soleDate : '';
+        let elteMonth = bMonth ? DateValues.getElteMonth(month) : '';
+        let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'current_year' : 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-        let dayIndex = bDayIndex 
-                        ? DateValues.whichDayIsHereday((day + 5) % 7) : '';
-        let shift = bShiftInADay 
-                    ? DateValues.getShiftOfTheday() : '';
-        let weekNo = bWeekNo 
-                    ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7) : '';
+        let shift = bShiftInADay ? DateValues.getShiftOfTheday() : '';
+        let weekNo = bWeekNo ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;;
     }
@@ -1190,18 +1177,13 @@ DateValues.Helpers = class {
         let year = DateValues.getYearNumberOnly(date);
         let day = date.getDay();
 
-        let elteMonth = bMonth 
-                        ? DateValues.getElteMonth(month, UnytValues.MID_FORM_DATE) : '';
-        let elteSoleDate = bSoleDate 
-                        ? soleDate : '';
+        let elteMonth = bMonth ? DateValues.getElteMonth(month, UnytValues.MID_FORM_DATE) : '';
+        let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'cur_yea' : 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-        let dayIndex = bDayIndex 
-                        ? DateValues.whichDayIsHereday((day + 5) % 7, UnytValues.MID_FORM_DATE) : '';
-        let shift = bShiftInADay 
-                        ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
-        let weekNo = bWeekNo
-                    ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7, UnytValues.MID_FORM_DATE) : '';
+        let shift = bShiftInADay ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
+        let weekNo = bWeekNo ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
@@ -1212,18 +1194,13 @@ DateValues.Helpers = class {
         let year = DateValues.getYearNumberOnly(date);
         let day = date.getDay();
 
-        let elteMonth = bMonth 
-                        ? DateValues.getElteMonth(month, UnytValues.SHORT_FORM_DATE) : '';
-        let elteSoleDate = bSoleDate 
-                        ? soleDate : '';
+        let elteMonth = bMonth ? DateValues.getElteMonth(month, UnytValues.SHORT_FORM_DATE) : '';
+        let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR 
                         ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
-        let dayIndex = bDayIndex 
-                    ? DateValues.whichDayIsHereday((day + 5) % 7, UnytValues.SHORT_FORM_DATE) : '';
-        let shift = bShiftInADay 
-                    ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
-        let weekNo = bWeekNo
-                    ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7, UnytValues.SHORT_FORM_DATE) : '';
+        let shift = bShiftInADay ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
+        let weekNo = bWeekNo? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
@@ -1290,8 +1267,7 @@ class UnytValues {
         let bWeekNumber = UnytValues.DATE_FORMAT_STRINGS[index].length > 4 ? UnytValues.DATE_FORMAT_STRINGS[index][4] : false;
         let valuesStr = '';
 
-        let dateTemp = date == null
-                    ? new Date() : date;
+        let dateTemp = date == null ? new Date() : date;
 
         switch (formLength) {
             case UnytValues.FULL_FORM_DATE:
@@ -1316,12 +1292,9 @@ class UnytValues {
     static convertToElteYear(year, month = 12) {
         let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
         let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
-        
-        let str = d > 0 
-                ? '+' + d.toString() : d.toString();
+        let str = d > 0 ? '+' + d.toString() : d.toString();
 
-        return d == 0 
-                ? c_y_str : c_y_str + str;
+        return d == 0 ? c_y_str : c_y_str + str;
     }
 
     static revertElteYear(yearStr, addOneYear = false) {
@@ -1369,10 +1342,9 @@ class UnytValues {
     }
 
     DaysOfYear(pos = 0) {
-        if (pos == 0) // the first year
-            return 366;
+        if (pos == 0) return 366; // the first year 
         
-        let ret = pos > 0 ? pos < 4 ? 365 : -1 : -1;
+        let ret = pos > 0 ? pos < 4 ? 365 : ZERO : ZERO;
         return ret;
     }
 
