@@ -223,16 +223,17 @@
          * */
         
         // Render word
-        async function renderWord(curWord, word) { // word is next word to be rendered
+        async function renderWord(previousWord, curWord) { // /*** word is next word to be rendered */
+
             container.innerHTML = "";
-            word.split("").forEach((char, i) => {
+            const WORD = curWord;
+
+            WORD.split("").forEach((char, i) => {
                 const span = document.createElement("span");
                 span.textContent = char;
                 span.classList.add("letter");
 
                 if (char === 'a') {
-                    // span.classList.add("anchor");
-                    // span.classList.add("l-character");
                     span.classList.add("show");
                     span.classList.add("anchor");
                 } else {
@@ -248,8 +249,10 @@
                 if (char === 't' || char === 'i' || char === 'm' || char === 'e')
                     span.classList.add("font-time");
 
+
+
                 if (char !== 'a') {
-                    if (curWord.includes(char)) {
+                    if (previousWord.includes(char)) {
                         //setTimeout(() => {
                         span.classList.add("show");
                         //}, i * 10);
@@ -262,18 +265,16 @@
 
                 container.appendChild(span);
             });
-
-            if (word === "ba, time")
-                await sleep(6000);
         }
 
-        let duration = 0;
         let bExit = true;
         let bExtended = false;
 
         function transitionTo(nextWord) { // Transition
             let oldLetters = container.querySelectorAll(".letter");
             let currentWord = '';
+            let dura = nextWord === "al" ? 3000 : 0;
+            let duration = 0;
 
             oldLetters.forEach((letter, i) => {
                 currentWord += letter.textContent;
@@ -283,22 +284,19 @@
                     duration = 0; // default exit duration
 
                     if (nextWord.includes(letter.textContent))
-                        duration = 1200; // extend duration for letters that will be reused
+                        duration = 700; // extend duration for letters that will be reused
 
                     setTimeout(() => {
                         letter.classList.add("exit");
-                    }, i * 80 + duration); // stagger exit with a base delay and additional duration for reused letters
+                    }, i * 80 + duration + dura); // stagger exit with a base delay and additional duration for reused letters
                 }
             });
 
-            if (nextWord === "ba, { 3, time }")
-                duration = 500; // special case; let it display longer
-            else
-                duration = 750;
+            if (nextWord === "al") duration = 1550;
 
             setTimeout(() => {
                 renderWord(currentWord, nextWord);
-            }, duration); // wait a duration 4b doing the next word presentation
+            }, duration + dura); // wait a duration 4b doing the next word presentation
         }
 
         // Loop
@@ -310,7 +308,7 @@
                 curWord = steps[currentIndex];
                 currentIndex = (currentIndex + 1) % steps.length;
                 transitionTo(steps[currentIndex]);
-            }, 4700);
+            }, 7000);
         }
 
         startAnimation();
