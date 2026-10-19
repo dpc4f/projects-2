@@ -223,7 +223,7 @@
          * */ // --> done
         
         // Render word
-        async function renderWord(previousWord, curWord) { // /*** word is next word to be rendered */
+        async function renderWord(previousWord, curWord) { // curWord is the word 'bout to be rendered
 
             container.innerHTML = "";
             const WORD = curWord;
@@ -253,9 +253,7 @@
 
                 if (char !== 'a') {
                     if (previousWord.includes(char)) {
-                        //setTimeout(() => {
                         span.classList.add("show");
-                        //}, i * 10);
                     } else {
                         setTimeout(() => {
                             span.classList.add("show");
