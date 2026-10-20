@@ -60,10 +60,25 @@
         .sutta, .sa-position {
             color: yellow;
         }
+
+        #full-screen-btn {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            color: #0b0c10;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
+        .main-bckgrd-colo {
+            background-color: #0b0c10;
+        }
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <canvas id="diyCanvas"></canvas>
     <div class="instruction">
         Khoa Học Kỹ Thuật - Science<br>
@@ -293,6 +308,12 @@
         }
         
         animate(); // Kick off the loop
+
+        let bFull = true;
+        function toggleFullscreen() {
+            fullscreenZoom(bFull);
+            bFull = !bFull;
+        }
     </script>
 
 </body>

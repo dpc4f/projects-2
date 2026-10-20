@@ -1208,6 +1208,17 @@ DateValues.Helpers = class {
 }
 
 
+function fullscreenZoom(bFull = true) {
+    if (bFull == true) {
+        document.documentElement.requestFullscreen()
+            .catch((err) => {
+                console.error(`Error attempting to enable fullscreen: ${err.message}`);
+            });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
 class UnytValues {
 
     static MONTH_NAMES = [ // original months' name
