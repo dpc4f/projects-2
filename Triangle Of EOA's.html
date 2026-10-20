@@ -11,13 +11,15 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #0b0c10;
             overflow: hidden;
-       
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Courier, Verdana, sans-serif;
+        }
+
+        .main-bckgrd-colo {
+            background-color: #0b0c10;
         }
 
         canvas {
@@ -51,10 +53,21 @@
         .invisible, .hidden {
             display: none
         }
+
+        #full-screen-btn {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            color: #0b0c10;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <canvas id="diyCanvas"></canvas>
     <div class="instruction">EOA, Eliteness Of Axes</div>
     <div class="note-top-right">
@@ -88,7 +101,7 @@
 
         // Colour definitions
         const colors = {
-            D: 'GoldenRod', // Daffodil
+            D: 'Goldenrod', // Daffodil
             I: 'Indigo', // Indigo
             Y: 'Green'  // Green [ /Ryn/ ~ ring]
         };
@@ -258,6 +271,21 @@
 
         // Kick off the loop
         animate();
+
+        let bFull = true;
+        function toggleFullscreen() {
+
+            if (bFull == true) {
+                document.documentElement.requestFullscreen()
+                    .catch((err) => {
+                        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+            } else {
+                document.exitFullscreen();
+            }
+
+            bFull = !bFull;
+        }
     </script>
 
 </body>
