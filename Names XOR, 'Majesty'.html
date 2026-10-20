@@ -18,6 +18,20 @@
             overflow: hidden;
         }
 
+        .main-bckgrd-colo {
+            background-color: #0b0c10;
+        }
+
+        #full-screen-btn {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            color: #0b0c10;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         h1 {
             font-size: 40px;
             margin-top: 3px;
@@ -161,7 +175,8 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <h1 class="center">xor MA-YETI</h1>
     <div class="mini-note">bạn đường; bạn hiền; bạn tình; bạn đời (tri kỷ)</div>
     <div class="hidden invisible">Thanh Loan; --Hiền; Kim Như; { béo Thoa, bél Yao, péo Phi }</div>
@@ -340,7 +355,14 @@
         window.onload = function () {
             colourize_aMBITIOUS();
         };
+
+        let bFull = true;
+        function toggleFullscreen() {
+            fullscreenZoom(bFull);
+            bFull = !bFull;
+        }
     </script>
 
+    <script src='Re-used Components.js'></script>
 </body>
 </html>
