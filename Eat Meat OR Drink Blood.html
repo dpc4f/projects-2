@@ -13,6 +13,20 @@
             background: rgb(205, 226, 14);
         }
 
+        .main-bckgrd-colo {
+            background-color: rgb(205, 226, 14);
+        }
+
+        #full-screen-btn {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            color: rgb(205, 226, 14);
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         .center {
             text-align: center;
             margin-top: 40px;
@@ -43,7 +57,8 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <div class="container">
         <h1 class="center">Eat Meat OR Drink Blood</h1>
         <div>
@@ -77,6 +92,16 @@
             2k2
         </div>
     </div>
+
+    <script>
+        let bFull = true;
+        function toggleFullscreen() {
+            fullscreenZoom(bFull);
+            bFull = !bFull;
+        }
+    </script>
+
+    <script src='Re-used Components.js'></script>
 </body>
 
 </html>
