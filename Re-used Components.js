@@ -1,4 +1,4 @@
-const LONG_FORM_SHIFT = 0;
+
 const MID_FORM_SHIFT = 1;
 const SHORT_FORM_SHIFT = 2;
 
@@ -589,7 +589,7 @@ class DateValues {
      * 
      */ // --> done [no-op]
 
-    static getShiftOfTheday(longShort = LONG_FORM_SHIFT) {
+    static getShiftOfTheday(longShort = 0) {
         const date = new Date();
         const hr = date.getHours();
         const mi = date.getMinutes();
@@ -597,7 +597,7 @@ class DateValues {
         let sf = '';
         if (4 <= hr && hr < 12) {
             switch(longShort) {
-                case LONG_FORM_SHIFT:
+                case 0:
                     sf = 'iTm';
                     break;
 
