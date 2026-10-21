@@ -3,12 +3,13 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/jpeg" href="FavouriteIcons/ancient-typewriter.jpeg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/jpeg" href="FavouriteIcons/ancient-typewriter.jpeg" />
   <title>Real-time VNMese Conversion</title>
 
   <style>
-    .hidden, .invisible {
+    .hidden,
+    .invisible {
       display: none;
     }
 
@@ -122,7 +123,7 @@
         { regex: /e\^\./g, replacement: "ệ" },
 
         { regex: /o\^\'/g, replacement: "ố" },
-         { regex: /o\^\`\`/g, replacement: "ồ" },
+        { regex: /o\^\`\`/g, replacement: "ồ" },
         { regex: /o\^\`/g, replacement: "ồ" },
         { regex: /o\^\?/g, replacement: "ổ" },
         { regex: /o\^\~/g, replacement: "ỗ" },
@@ -305,7 +306,7 @@
       // for ... loop
       outputText.value = "";
       const len = convertedText.length;
-      for (let i = 0; i < len-1; ++i) {
+      for (let i = 0; i < len - 1; ++i) {
         outputText.value += convertedText[i];
       }
 

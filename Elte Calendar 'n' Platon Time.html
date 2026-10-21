@@ -14,6 +14,20 @@
             background: #f9f9f9;
         }
 
+        .main-bckgrd-colo {
+            background-color: #f9f9f9;
+        }
+
+        #full-screen-btn {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            color: #f9f9f9;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         .calendar-container {
             max-width: 100%;
             margin: auto;
@@ -369,9 +383,9 @@
     </style>
 </head>
 
-<body>
-    <div class="flex-container">
-        
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
+    <div class="flex-container">   
         <div class="flex-months month" id="monthNames">
             <button class="months center dry-season" onclick="changeMonth('Athen')">Athen <span class="mini-creature">1</span></button>
             <button class="months center dry-season" onclick="changeMonth('Duo')">Duo</button>
@@ -425,7 +439,6 @@
         </div>
         
         <div class="right-panel">
-
             <div class="platon-time">
                 <em class="city">Galway</em>
                 <span class="excellent">GMT+7</span>-6
@@ -770,7 +783,15 @@
         let vc = new VoCuc(1);
         console.log(vc.getLastElteYearOfVoCuc()); 
 
+        let bFull = true;
+        function toggleFullscreen() {
+            fullscreenZoom(bFull);
+            bFull = !bFull;
+        }
     </script>
+
+    <script src='Re-used Components.js'></script>
+
     <div hidden>Lau Dai be'l Anna</div>
     <div hidden>Hài Mộng Hy</div>
 </body>
