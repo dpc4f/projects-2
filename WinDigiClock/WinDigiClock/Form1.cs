@@ -22,6 +22,11 @@ namespace WinDigiClock
             this.Left = 0;
             this.Top = 0;
 
+            label1.Width = this.Width;
+            label1.Height = this.Height;
+            label1.Left = 0;
+            label1.Top = 0;
+
             timer1.Start();
            
         }
