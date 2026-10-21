@@ -24,11 +24,10 @@ namespace WinDigiClock
 
             label1.Width = this.Width;
             label1.Height = this.Height;
-            label1.Left = 0;
+            label1.Left = -17;
             label1.Top = 0;
 
             timer1.Start();
-           
         }
 
         private void timer1_Tick(object sender, EventArgs e)
