@@ -784,7 +784,7 @@ class DateValues {
     }
 
 
-    static getElteMonth(monthIdx, form = UnytValues.FULL_FORM_DATE) { // get Elth month from Gregorian month index
+    static getElteMonth(monthIdx, form = UnytValues.FULL_FORM_DATE) { // get Elte month from Gregorian month index
         /***  
          * 
          * { Idx, Index }
@@ -1567,14 +1567,13 @@ class DoubleIteration {
 }
 
 /***
+ * 
  * [; nr] draw an image 4, fantastic VoCuc 'N' other time-frame iterations; in HTML / JavaScript of course
  * --> can be represented 4b clicking a button on the application, 'Elte Calendar w/ Platon Time'
  * --> the time length will be >10k years
  * 
  * 
- * 
- * 
- */
+ */ // --> done [no-op]
 
 
 class VoCuc { // Vô Cực
@@ -1592,7 +1591,7 @@ class VoCuc { // Vô Cực
      */
 
     static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR + 6; // 2026
-    static #yearCanChi = 'Bính Ngọ';
+    static THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC = 'Bính Ngọ';
 
     #year; // first year of the VoCuc
 
@@ -1626,9 +1625,7 @@ class VoCuc { // Vô Cực
 
 Object.freeze(VoCuc.ANIMAL_NAMES);
 Object.freeze(VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
-
-
-
+Object.freeze(VoCuc.THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC);
 
 
 
