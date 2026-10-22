@@ -1420,7 +1420,7 @@ class GrandUnytValues {
      * great vs. grand vs. supreme
      * 
      * 
-     * [a formuler]
+     * [a formula]
      * great king == grand emperor
      * >>>>
      * King happens first. Emperor appears afterwards.
@@ -1436,9 +1436,16 @@ class GrandUnytValues {
      * 
      */
 
+    static YEAR_COUNT = 75; // 15 * 4 + 15
+
 
 
 }
+
+Object.freeze(GrandUnytValues.YEAR_COUNT);
+
+
+
 
 class Life {
 
