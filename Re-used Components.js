@@ -1,4 +1,4 @@
-
+const LONG_FORM_SHIFT = 0;
 const MID_FORM_SHIFT = 1;
 const SHORT_FORM_SHIFT = 2;
 
@@ -589,7 +589,7 @@ class DateValues {
      * 
      */ // --> done [no-op]
 
-    static getShiftOfTheday(longShort = 0) {
+    static getShiftOfTheday(longShort = LONG_FORM_SHIFT) {
         const date = new Date();
         const hr = date.getHours();
         const mi = date.getMinutes();
@@ -597,7 +597,7 @@ class DateValues {
         let sf = '';
         if (4 <= hr && hr < 12) {
             switch(longShort) {
-                case 0:
+                case LONG_FORM_SHIFT:
                     sf = 'iTm';
                     break;
 
@@ -614,15 +614,15 @@ class DateValues {
             }
         } else if (12 <= hr && hr < 17) {
             switch(longShort) {
-                case 0:
+                case LONG_FORM_SHIFT:
                     sf = 'iTa';
                     break;
 
-                case 1:
+                case MID_FORM_SHIFT:
                     sf = 'Ta';
                     break;
 
-                case 2:
+                case SHORT_FORM_SHIFT:
                     sf = 'a';
                     break;
 
@@ -631,15 +631,15 @@ class DateValues {
             }
         } else if ((17 <= hr && hr < 20) || (hr == 20 && mi < 30)) {
             switch(longShort) {
-                case 0:
+                case LONG_FORM_SHIFT:
                     sf = 'iTe';
                     break;
 
-                case 1:
+                case MID_FORM_SHIFT:
                     sf = 'Te';
                     break;
 
-                case 2:
+                case SHORT_FORM_SHIFT:
                     sf = 'e';
                     break;
 
@@ -648,15 +648,15 @@ class DateValues {
             }
         } else if (20 <= hr && hr < 24) {
             switch(longShort) {
-                case 0:
+                case LONG_FORM_SHIFT:
                     sf = 'iTn';
                     break;
 
-                case 1:
+                case MID_FORM_SHIFT:
                     sf = 'Tn';
                     break;
 
-                case 2:
+                case SHORT_FORM_SHIFT:
                     sf = 'n';
                     break;
 
@@ -665,15 +665,15 @@ class DateValues {
             } 
         } else {
             switch(longShort) {
-                case 0:
+                case LONG_FORM_SHIFT:
                     sf = 'aMn';
                     break;
 
-                case 1:
+                case MID_FORM_SHIFT:
                     sf = 'Mn';
                     break;
 
-                case 2:
+                case SHORT_FORM_SHIFT:
                     sf = '4';
                     break;
 
