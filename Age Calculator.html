@@ -14,6 +14,20 @@
             background: #f9f9f9;
         }
 
+        .main-bckgrd-colo {
+            background-color: #f9f9f9;
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            color: #f9f9f9;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         .buttonCalculate {
             width: 100%;
             padding: 10px;
@@ -134,7 +148,7 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
     <div class="container">
         <h1 class="center">Age Calculator</h1>
         <div>
@@ -280,6 +294,12 @@
 
             const target = document.getElementById(targetElementId) || document.body;
             target.appendChild(container);
+        }
+
+        let bFull = true;
+        function toggleFullscreen() {
+            fullscreenZoom(bFull);
+            bFull = !bFull;
         }
 
         window.onload = function() {
