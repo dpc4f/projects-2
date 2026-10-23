@@ -1207,9 +1207,8 @@ DateValues.Helpers = class {
 
 }
 
-
-function fullscreenZoom(bFull = true) {
-    if (bFull == true) {
+function fullscreenZoom(isZoomFull = true) {
+    if (isZoomFull == true) {
         document.documentElement.requestFullscreen()
             .catch((err) => {
                 console.error(`Error attempting to enable fullscreen: ${err.message}`);
@@ -1635,9 +1634,9 @@ Object.freeze(VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
 Object.freeze(VoCuc.THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC);
 
 
-let bFull = true;
+let bFullScreen = true;
 function toggleFullscreen() {
-    fullscreenZoom(bFull);
-    bFull = !bFull;
+    fullscreenZoom(bFullScreen);
+    bFullScreen = !bFullScreen;
 }
 
