@@ -16,6 +16,20 @@
             text-align: center;
         }
 
+        .main-bckgrd-colo {
+            background-color: inherit; 
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            background-color: inherit;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         h1 {
             text-align: center;
             align-self: center;
@@ -117,7 +131,8 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <h1><span class="symbol">π</span> Alph<span class="ambitious-odin">a</span>bet</h1>
     <div id="alphabet"></div>
     <div class="pale-indigo">
@@ -164,5 +179,6 @@
         }
     </script>
 
+    <script src='Re-used Components.js'></script>
 </body>
 </html>

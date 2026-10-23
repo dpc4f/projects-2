@@ -5,18 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="FavouriteIcons/tu-luc-canh-sinh.jpeg"/>
-    <title>Sophisticated Kreator's King DIY ð Δ</title>
+    <title>Sophisticated Kreator's Δ Diy ð King</title>
     
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #0c1a53;
+            background-color: #1b7a33;
             overflow: hidden;
             justify-content: center;
             align-items: center;
             height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .main-bckgrd-colo {
+            background-color: #1b7a33;
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            color: #1b7a33;
+            border: 0px;
+            left: 0;
+            top: 0;
         }
 
         canvas {
@@ -56,19 +70,20 @@
         }
 
         .tactic {
-            color: aqua;
+            color: rgb(14, 163, 163);
         }
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <span class="note note-top-right">SOD, Solitary Operating Diy</span>
-    <span class="invisible">There're times that Danisa the Eliteness needs to proceed / move next on his own.</span>
+    <span class="invisible">There're times that Danisa the Eliteness needs to proceed / move next on his own</span>
     <canvas id="diyCanvas"></canvas>
     <div class="note instruction">practice the methodology Do-It-Yourself to be able to convert character 'I' into 'Y' && the reverse</div>
     <div class="note">[H, { I /ai/, David}] Nguyen Thi Kim Thoa, nguYen thI kYm tIoa</div>
     <div class="note">SPD, Sophisticated Powerful Davios</div>
-    <div class="tactic" hidden>[a formula] always use @least one glass to have an extremly significantly long life</div>
+    <div class="tactic">[a formula] always use @least one glass to have an extremly significantly long life</div>
     <div class="note invisible">
         ngựa ô; chó mực; mèo mun &lt;-- the animals seem to want to notify a thing un-usual<br/>
         đem cất cô Châu (Mỵ Châu)<br/>
@@ -266,5 +281,7 @@
         animate();
     </script>
 
+    <script src='Re-used Components.js'></script>
 </body>
 </html>
+
