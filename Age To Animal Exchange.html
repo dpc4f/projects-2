@@ -18,6 +18,20 @@
             overflow: auto;
         }
 
+        .main-bckgrd-colo {
+            background-color: #f9f9f9;
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            color: #f9f9f9;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         .buttonCalculate {
             width: 100%;
             padding: 10px;
@@ -110,7 +124,8 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <h1 class="center">Exchange To Animals</h1>
     <input type="text" id="gregorianDOB" placeholder="Dec 13 2011" oninput="checkValues()">
     <button class="inputElte" onclick="copypaste2BirthYear(document.getElementById('gregorianDOB').value)">COPYpaste</button>
@@ -133,8 +148,6 @@
         <div>nửa đêm</div>
         <div>1..2 giờ khuya</div>
     </div>
-
-    <script src='Re-used Components.js'></script>
 
     <script>
 
@@ -241,5 +254,6 @@
         }
     </script>
 
+    <script src='Re-used Components.js'></script>
 </body>
 </html>
