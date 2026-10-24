@@ -17,6 +17,20 @@
             background: #a1e9d9;
         }
 
+        .main-bckgrd-colo {
+            background-color: #a1e9d9;
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            color: #a1e9d9;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         .layout {
             display: grid;
             grid-template-columns: 1fr 7fr 1fr;
@@ -172,7 +186,8 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>  
     <div class="layout">
         <div class="side"></div>
         <div class="main">
@@ -535,5 +550,6 @@
         loadState();
     </script>
 
+    <script src='Re-used Components.js'></script>
 </body>
 </html>
