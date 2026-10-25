@@ -23,9 +23,22 @@
             background:
                 radial-gradient(circle at top left, #ff0000 0%, transparent 35%),
                 radial-gradient(circle at bottom right, #be06ec 0%, transparent 35%),
-                linear-gradient(135deg, #03fdbf, #f1ed06, #3cd8d0);
-                
+                linear-gradient(135deg, #03fdbf, #f1ed06, #3cd8d0);        
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .main-bckgrd-colo {
+            background-color: unset;
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            color: inherit;
+            border: 0px;
+            left: 0;
+            top: 0;
         }
 
         /* MAIN SCENE */
@@ -304,7 +317,8 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <div class="morph-container word">
         <div class="letter-L"></div>
         <div class="u">u</div>
@@ -333,5 +347,6 @@
         setInterval(createParticle, 120);
     </script>
 
+    <script src='Re-used Components.js'></script>
 </body>
 </html>
