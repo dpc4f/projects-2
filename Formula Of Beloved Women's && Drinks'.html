@@ -27,6 +27,20 @@
             font-family: Segoe UI, Tahoma, sans-serif;
         }
 
+        .main-bckgrd-colo {
+            background-color: unset;
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            color: unset;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         .note {
             font-size: 17px;
             color: darkgreen;
@@ -101,7 +115,9 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
+    
     <div class="y-oreo-cake">
         hiệu trà <-- béo<br/>
         Δ (5, 2) == 3
@@ -140,6 +156,7 @@
         I think that 刘亦菲 can do several basic communications through VNMese &lt;3
     </div>
 
+    <script src='Re-used Components.js'></script>
 </body>
 
 </html>
