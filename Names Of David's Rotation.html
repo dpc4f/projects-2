@@ -11,6 +11,20 @@
             display: flex;
         }
 
+        .main-bckgrd-colo {
+            background-color: initial;
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            color: initial;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         .left-pane {
             flex: 1;
             width: 200px;
@@ -68,9 +82,10 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
+    
     <div class="regex-pane">
-
         <div id="regex-1"></div>
         <div id="regex-2"></div>
         <div id="regex-3"></div>
@@ -82,7 +97,6 @@
     </div>
 
     <script>
-
         window.addEventListener('load', executeRegExs_ChapterOne);
 
         function executeRegExs_ChapterOne() {
@@ -191,7 +205,7 @@
         <h5 class="note">Names need to have meaning(s).</h5>
         <h8 id="totalNumber" style="color: magenta"></h8>
         <h5 class="hidden">[a fact][alphabet] chữ i của Æ khi uppercase lên đâu mất tiêu cái dấu nhìn giống y chang chữ l hahah ...</h5>
-        <h6>will be used to learn Regular Expression in JavaScript</h6>
+        <h6 style="margin-left: 47px;">will be used to learn Regular Expression in JavaScript</h6>
         <div class="invisible">
             my house has 2 types of windows .! &lt3
             <br/>
@@ -503,5 +517,7 @@
         ];
     </script>
 
+    <script src='Re-used Components.js'></script>
 </body>
 </html>
+
