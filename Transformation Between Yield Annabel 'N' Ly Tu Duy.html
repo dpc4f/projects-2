@@ -27,6 +27,20 @@
             font-family: Segoe UI, Tahoma, sans-serif;
         }
 
+        .main-bckgrd-colo {
+            background-color: inherit;
+        }
+
+        #full-screen-btn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            color: inherit;
+            border: 0px;
+            left: 0;
+            top: 0;
+        }
+
         .scene {
             position: relative;
             width: 1000px;
@@ -191,7 +205,8 @@
     </style>
 </head>
 
-<body>
+<body allowfullscreen class="main-bckgrd-colo">
+    <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <div class="scene">
         <div class="beam"></div>
         <div class="panel left">
@@ -210,6 +225,8 @@
             magical OR miraclic back && forth transform powered by anchor letters ✨
         </div>
     </div>
+
+    <script src='Re-used Components.js'></script>
 
     <script>
         const iYdpSequence = ["L", "y", " ", "T", "u"];
