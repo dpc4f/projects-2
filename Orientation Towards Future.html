@@ -196,8 +196,10 @@
         function animate() {
             const NUM_VERTEX = 4;
             // Clear screen with a slight trail effect for smoothness
-            ctx.fillStyle = 'rgba(00, 00, FF, 0.5)'; // 5 điểm đậu [dc loại trung bình]; nhỏ hơn 5 rớt
+            ctx.fillStyle = 'rgba(00, 255, 255, 0.5)'; // 5 điểm đậu [dc loại trung bình]; nhỏ hơn 5 rớt
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 255/3 == 85 --> 85 170 255
 
             // Interpolate rotation speed smoothly
             currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 1.9;
