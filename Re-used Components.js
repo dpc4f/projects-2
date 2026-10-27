@@ -82,20 +82,33 @@ class TimeValues {
 
         try {
             const response = await fetch('http://localhost:8080/api/TimeRequester');
-            const thoiGianStr = await response.json();
+            const strJsonThoiGian = await response.json(); // ngay_thang + gio_phut
 
-            const [, timePart] = thoiGianStr.split(" ");
-            const [hours, minutes, seconds] = timePart.split(":");
+            const [, gioPhut] = strJsonThoiGian.split(" ");
+            const [hours, minutes, seconds] = gioPhut.split(":");
 
             this.#h = parseInt(hours);
             this.#m = parseInt(minutes);
             this.#s = parseInt(seconds);
 
-            console.log("[timePart] Response from DLL: " + timePart);
+            console.log("[timeTheCurrent] Response from DLL: " + gioPhut);
 
             if (this.#callback) this.#callback(this);
 
         } catch (error) {
+
+            // This catches the "Failed to fetch" error gracefully
+            console.error('Network error or CORS issue occurred:', error);
+            console.log('Use the time queried from Windows OS as a replacement ...');
+
+        } finally {
+
+            /***
+             * [; nr] complete this method so that in case of error(s) contacting time server; use time from the OS
+             * 
+             * 
+             *  */
+
 
         }
     }
@@ -261,9 +274,11 @@ class TimeValues {
     clearTimerId() {
         this.idcb ? clearInterval(this.idcb) : ZERO;
     }
+
 }
 
 TimeValues.Constants = class {
+
     // static WAN_SECOND_IN_MILLISECONDS = 1000;
     // static CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY = 7200000; // two hours, 1_CANH_GIỜ
     // static WAN_MINUTE_IN_SECONDS = 60;
@@ -305,6 +320,7 @@ TimeValues.Constants = class {
     static get WAN_HOUR_IN_MILLISECONDS() {
         return TimeValues.Constants.#oneHourInMilliseconds;
     }
+
 }
 
 TimeValues.Constants.FreshTimeLevels = class {
@@ -334,6 +350,7 @@ TimeValues.Constants.FreshTimeLevels = class {
     static get LevelFour() {
         return TimeValues.Constants.FreshTimeLevels.#levelFour;
     }
+
 }
 
 
@@ -341,6 +358,9 @@ TimeValues.Constants.FreshTimeLevels = class {
 /***
  *   [; nr] write code 4 JS class DateValues to use in Elte Calendar
  *
+ * this class will hold values of Gregorian timestamp 'N' they are converted to Elte equivalances when needed
+ * 
+ * 
  *
  */ // --> done
 
@@ -428,13 +448,11 @@ class DateValues {
             }
         }
 
-        /*** 
-         * when an instance of this class is created it will know when the current day ends
-         * when the current day comes to finish it should update date values to the next day
-         * --> use class TimeValues to keep track of time when it's been initialized;
-         *          'N' when current day completes
-         * 
-         */
+        // when an instance of this class is created it will know when the current day ends
+        // when the current day comes to finish it should update date values to the next day
+        // --> use class TimeValues to keep track of time when it's been initialized;
+        //          'N' when current day completes
+        //
 
         this.timeVal = new TimeValues();
         let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree);
@@ -444,7 +462,7 @@ class DateValues {
 
             setInterval(() => {
                 this.timeTheDay(callbackUpdateGUI ? true : false);
-            }, DateValues.Constants.ONE_DAY_IN_MILLISECONDS); // will be run every day after the first day
+            }, DateValues.Constants.ONE_DAY_IN_MILLISECONDS); // will be run every day 4b the first day
             
             // this.#firstTimeCalledBySetTimeOut = true;
 
@@ -462,9 +480,16 @@ class DateValues {
         let ret = true;
         
         if (year < 1) ret = false;
-        if (monthIdx < 0 || monthIdx > 11) ret = false;
+        if (monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) ret = false;
         
         let elteMonthIdx = DateValues.convertToElteMonthIdx(monthIdx);
+        
+        /***
+         * [; nr] refine this code segment
+         * 
+         * 
+         */
+        
         let dayCount = DateValues.DayCountInMonths[elteMonthIdx] + 1;
         if (soleDate < 1 || soleDate > dayCount) ret = false;
 
@@ -474,7 +499,7 @@ class DateValues {
     /***
      * [; nr] code a function to convert back && forth from Gregorian to Elte Calendar date
      * 
-     * input param will use the format, "M1 27 current_year+6"
+     * input param will use the format, "Magha 14 current_year+6"
      */ // --> done in converting Elte values to Gregorian values
 
     fromElteDate(elteDate) {
@@ -498,13 +523,12 @@ class DateValues {
 
         if (this.callbackUpdateGUI) {
             this.callbackUpdateGUI(this, false); // to render the calendar when the day's values change
-            console.log('function callback is called; to render the calendar');
+            console.log('callbackUpdateGUI() is called; to render the calendar');
         }
     }
 
-    static convertToElteMonthIdx(monthIdx) { // monthIdx = 0..11
-        const MONTH_COUNT = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
-        let bInvalid = monthIdx < 0 || monthIdx >= MONTH_COUNT;
+    static convertToElteMonthIdx(monthIdx) { // monthIdx = 0..11 <-- valid
+        let bInvalid = monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
         
         if (bInvalid == true) return;
         
@@ -598,15 +622,15 @@ class DateValues {
         if (4 <= hr && hr < 12) {
             switch(longShort) {
                 case LONG_FORM_SHIFT:
-                    sf = 'iTm';
+                    sf = 'iTm'; // in ð morning
                     break;
 
                 case MID_FORM_SHIFT:
-                    sf = 'Tm';
+                    sf = 'Tm'; // the morning
                     break;
 
                 case SHORT_FORM_SHIFT:
-                    sf = 'm';
+                    sf = 'm'; // morning
                     break;
 
                 default: 
@@ -615,7 +639,7 @@ class DateValues {
         } else if (12 <= hr && hr < 17) {
             switch(longShort) {
                 case LONG_FORM_SHIFT:
-                    sf = 'iTa';
+                    sf = 'iTa'; // afternoon
                     break;
 
                 case MID_FORM_SHIFT:
@@ -632,7 +656,7 @@ class DateValues {
         } else if ((17 <= hr && hr < 20) || (hr == 20 && mi < 30)) {
             switch(longShort) {
                 case LONG_FORM_SHIFT:
-                    sf = 'iTe';
+                    sf = 'iTe'; // evening
                     break;
 
                 case MID_FORM_SHIFT:
@@ -649,7 +673,7 @@ class DateValues {
         } else if (20 <= hr && hr < 24) {
             switch(longShort) {
                 case LONG_FORM_SHIFT:
-                    sf = 'iTn';
+                    sf = 'iTn'; // night
                     break;
 
                 case MID_FORM_SHIFT:
@@ -666,7 +690,7 @@ class DateValues {
         } else {
             switch(longShort) {
                 case LONG_FORM_SHIFT:
-                    sf = 'aMn';
+                    sf = 'aMn'; // 4b mid-night
                     break;
 
                 case MID_FORM_SHIFT:
@@ -744,7 +768,14 @@ class DateValues {
         return ret;
     }
 
-    static convertToElteDate(dateStr, bFromDavid = false) { // convert to Elte date w/ Gregorian date provided
+    static convertToStandardElteDate(dateStr, bFromDavid = false) { 
+        
+        /***
+         * convert to Elte date w/ Gregorian date provided
+         * standard format which is the form, { FULL_FORM_DATE; UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS }
+         * 
+         */ 
+
         let date = null;
 
         if (dateStr !== '' && dateStr !== undefined && dateStr !== null)
@@ -759,7 +790,7 @@ class DateValues {
 
         let month = date.getMonth();
         let day = date.getDate();
-        let year = date.getFullYear();
+        let year = DateValues.getYearNumberOnly(date);
         
         let elteYear;
         let elteDOB;
@@ -781,6 +812,7 @@ class DateValues {
         elteDOB = `${elteMonth} ${day} ${elteYear}`;
 
         return elteDOB;
+
     }
 
 
@@ -841,7 +873,7 @@ class DateValues {
             this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
             bSuccess = true;
 
-            console.log("Response from DLL: " + strJsonThoiGian);
+            console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
 
             DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
             this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
