@@ -53,12 +53,7 @@ class TimeValues {
          * 
          */ // --> done
 
-        this.Hereday = new Date();
-        
-        this.#h = this.Hereday.getHours();
-        this.#m = this.Hereday.getMinutes();
-        this.#s = this.Hereday.getSeconds();
-        this.#ms = this.Hereday.getMilliseconds();
+        this.useDefaultValues();
         
         this.#callback = updatePlatonTime;
         this.idcb = null;
@@ -79,6 +74,7 @@ class TimeValues {
         * 
         */ // --> done
         console.log("timeTheCurrent gets called");
+        let bSuccess = false;
 
         try {
             const response = await fetch('http://localhost:8080/api/TimeRequester');
@@ -90,10 +86,9 @@ class TimeValues {
             this.#h = parseInt(hours);
             this.#m = parseInt(minutes);
             this.#s = parseInt(seconds);
+            bSuccess = true;
 
             console.log("[timeTheCurrent] Response from DLL: " + gioPhut);
-
-            if (this.#callback) this.#callback(this);
 
         } catch (error) {
 
@@ -107,8 +102,10 @@ class TimeValues {
              * [; nr] complete this method so that in case of error(s) contacting time server; use time from the OS
              * 
              * 
-             *  */
+             */ // --> done
 
+            if (bSuccess == false) this.useDefaultValues();    
+            if (this.#callback) this.#callback(this);
 
         }
     }
@@ -273,6 +270,15 @@ class TimeValues {
 
     clearTimerId() {
         this.idcb ? clearInterval(this.idcb) : ZERO;
+    }
+
+    useDefaultValues() {
+        this.Hereday = new Date();
+        
+        this.#h = this.Hereday.getHours();
+        this.#m = this.Hereday.getMinutes();
+        this.#s = this.Hereday.getSeconds();
+        this.#ms = this.Hereday.getMilliseconds();
     }
 
 }
@@ -895,6 +901,7 @@ class DateValues {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
                 console.log('function callback is called; to render the calendar');
             }
+
         }
     }
 
