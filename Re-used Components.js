@@ -403,7 +403,7 @@ class DateValues {
     static USE_HERE_DAY = 0;
     static #LeapYear = false;
 
-    static #DayCountInMonths = [
+    static #DayCountInElteMonths = [
         31, 30, // Athen Duo
         31, 30, 31, 31, // 
         30, 31, 30, 31, 31, 
@@ -482,10 +482,10 @@ class DateValues {
 
     }
 
-    isValidGregorian(year, monthIdx, soleDate) {
+    isValidGregorian(digiYear, monthIdx, soleDateIdx) {
         let ret = true;
         
-        if (year < 1) ret = false;
+        if (digiYear < 1) ret = false;
         if (monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) ret = false;
         
         let elteMonthIdx = DateValues.convertToElteMonthIdx(monthIdx);
@@ -494,10 +494,10 @@ class DateValues {
          * [; nr] refine this code segment
          * 
          * 
-         */
+         */ // --> done
         
-        let dayCount = DateValues.DayCountInMonths[elteMonthIdx] + 1;
-        if (soleDate < 1 || soleDate > dayCount) ret = false;
+        let dayCount = DateValues.DayCountInElteMonths[elteMonthIdx];
+        if (soleDateIdx < 1 || soleDateIdx > dayCount) ret = false;
 
         return ret;
     }
@@ -841,13 +841,13 @@ class DateValues {
         return elteMonth + ' ' + this.#dtIdx.toString() + ' ' + elteYear;
     }
 
-    static get DayCountInMonths() {
+    static get DayCountInElteMonths() {
         if (DateValues.#LeapYear == true) 
-            DateValues.#DayCountInMonths[DateValues.HOSE] = 29;
+            DateValues.#DayCountInElteMonths[DateValues.HOSE] = 29;
         else
-            DateValues.#DayCountInMonths[DateValues.HOSE] = 28;
+            DateValues.#DayCountInElteMonths[DateValues.HOSE] = 28;
         
-        return DateValues.#DayCountInMonths;
+        return DateValues.#DayCountInElteMonths;
     }
 
     set CallBackUpdateGUI(f) {
@@ -910,7 +910,7 @@ class DateValues {
         return Math.floor(DateValues.Constants.ONE_DAY_IN_HOURS 
             * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS 
             / DATE_FORMAT_STRINGS.length);
-    } // <-- a red leopard function <3
+    } // <-- a red leopard function
 
     get DigitalYear() {
         return this.#digitalYear;
@@ -986,14 +986,14 @@ class DateValues {
         let dayCount = 1; // the first day of the year
 
         while (monthCount < monthIndex) {
-            while (dayCount <= DateValues.DayCountInMonths[monthCount]) {
+            while (dayCount <= DateValues.DayCountInElteMonths[monthCount]) {
                 dayCount += 7; // seven days in a week
                 ++weekNo;
             }
             
             // here; reach the next month
             // 
-            dayCount -= DateValues.DayCountInMonths[monthCount];
+            dayCount -= DateValues.DayCountInElteMonths[monthCount];
             ++monthCount;
         }
 
@@ -1001,7 +1001,7 @@ class DateValues {
         if (distance == Math.abs(dayCount - soleDateIndex))
             return weekNo;
         else {
-            while (dayCount <= DateValues.DayCountInMonths[monthCount]) { 
+            while (dayCount <= DateValues.DayCountInElteMonths[monthCount]) { 
                 /*** [; nr] revise to consider the case of leap year */ 
                 // --> done
                 dayCount += 7; // seven days in a week
