@@ -53,7 +53,7 @@ class TimeValues {
          * 
          */ // --> done
 
-        this.useDefaultValues();
+        this.timeTheCurrent();
         
         this.#callback = updatePlatonTime;
         this.idcb = null;
