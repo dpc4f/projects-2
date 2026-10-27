@@ -189,7 +189,7 @@
 
     
         window.onload = function() {
-            document.getElementById('birthYear-2').value = DateValues.convertToElteDate(new Date());
+            document.getElementById('birthYear-2').value = DateValues.convertToStandardElteDate(new Date());
             fromElte();
         }
         
@@ -206,7 +206,7 @@
             else 
                 bFromDavid = false;
 
-            document.getElementById('birthYear-2').value = DateValues.convertToElteDate(gregorianDOB);
+            document.getElementById('birthYear-2').value = DateValues.convertToStandardElteDate(gregorianDOB);
 
             doCalculation();
         }
