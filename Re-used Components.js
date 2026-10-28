@@ -512,12 +512,14 @@ class DateValues {
         let arr = elteDate.trim().split(/\s+/); 
         let d = parseInt(arr[1]);
         let m = UnytValues.revertElteMonthIdx(arr[0]);
-        let bInvalid = m === -1 || arr.length < 3;
+        let bValidElteDate = !(m === -1 || arr.length < 3);
 
-        if (bInvalid == true) return;
+        if (bValidElteDate == true) return;
 
         let bAddOneYear = m < 2 ? true : false;
         let y = UnytValues.revertElteYear(arr[2], bAddOneYear);
+
+        if (isValidGregorian(y, m, d) == false) return;
 
         this.#setDigiYear = y;
         this.#smtIdx = m;
