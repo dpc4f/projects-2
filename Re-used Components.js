@@ -913,7 +913,7 @@ class DateValues {
         // divide to have time slots equally
         return Math.floor(DateValues.Constants.ONE_DAY_IN_HOURS 
             * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS 
-            / DATE_FORMAT_STRINGS.length);
+            / UnytValues.DATE_FORMAT_STRINGS.length);
     } // <-- a red leopard function
 
     get DigitalYear() {
