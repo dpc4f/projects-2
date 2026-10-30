@@ -504,12 +504,14 @@ class DateValues {
 
     /***
      * [; nr] code a function to convert back && forth from Gregorian to Elte Calendar date
+     * standardElteDate <-- được gọi là ngày nhì
+     * 
      * 
      * input param will use the format, "Magha 14 current_year+6"
      */ // --> done in converting Elte values to Gregorian values
 
-    fromElteDate(elteDate) {
-        let arr = elteDate.trim().split(/\s+/); 
+    fromElteDate(standardElteDate) { 
+        let arr = standardElteDate.trim().split(/\s+/); 
         let d = parseInt(arr[1]);
         let m = UnytValues.revertElteMonthIdx(arr[0]);
         let bValidElteDate = !(m === -1 || arr.length < 3);
@@ -519,7 +521,7 @@ class DateValues {
         let bAddOneYear = m < 2 ? true : false;
         let y = UnytValues.revertElteYear(arr[2], bAddOneYear);
 
-        // if (isValidGregorian(y, m, d) == false) return;
+        if (isValidGregorian(y, m, d) == false) return;
 
         this.#setDigiYear = y;
         this.#smtIdx = m;
@@ -1311,6 +1313,12 @@ class UnytValues {
 
     
     static getDateValuesTimeStamp(formLength = UnytValues.FULL_FORM_DATE, index = UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, date = null) {
+        
+        /***
+         * UnytValues.FULL_FORM_DATE && UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS <-- được gọi là ngày nhì
+         * 
+         */
+        
         let bMonth = UnytValues.DATE_FORMAT_STRINGS[index][0]; 
         let bDateInMonth = UnytValues.DATE_FORMAT_STRINGS[index][1]; 
         let bDayIndex = UnytValues.DATE_FORMAT_STRINGS[index][2]; 
