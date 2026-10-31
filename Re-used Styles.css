@@ -1,33 +1,33 @@
 .hidden,
 .invisible {
-                display: none;
+      display: none;
 }
 
 .note {
-                font-size: 17px;
-                color: lightgreen;
+      font-size: 17px;
+      color: lightgreen;
 }
 
 .sutta,
 .sa-position {
-                color: rgb(236, 206, 130);
+      color: rgb(236, 206, 130);
 }
 
 #full-screen-btn {
-                width: 80px;
-                height: 80px;
-                position: absolute;
-                border: 0px;
-                left: 0;
-                top: 0;
+      width: 80px;
+      height: 80px;
+      position: absolute;
+      border: 0px;
+      left: 0;
+      top: 0;
 }
 
 .main-bckgrd-colo {
-                background-color: unset;
+      background-color: unset;
 }
 
 .ghost {
-                opacity: 0;
-                filter: blur(17px);
-                transform: translateY(60px) scale(.3) rotate(30deg);
+      opacity: 0;
+      filter: blur(17px);
+      transform: translateY(60px) scale(.3) rotate(30deg);
 }
