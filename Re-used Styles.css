@@ -1,0 +1,24 @@
+.hidden,
+.invisible {
+                display: none;
+}
+
+.note {
+                font-size: 17px;
+                color: lightgreen;
+}
+
+.sutta,
+.sa-position {
+                color: rgb(236, 206, 130);
+}
+
+#full-screen-btn {
+                width: 80px;
+                height: 80px;
+                position: absolute;
+                border: 0px;
+                left: 0;
+                top: 0;
+}
+
