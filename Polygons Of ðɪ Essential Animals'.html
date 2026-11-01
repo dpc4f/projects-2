@@ -428,7 +428,7 @@
             <div class="diamond"> <!-- constant DENNIS_KINGDOM = 6; // Maximum Of 'VƯƠNG QUỐC ĐỘNG VẬT' -->
                 <div class="note">Đế Chế Phấn Tảo <h5>w/</h5> Vương Quốc Động Vật</div>
                 <div class="note">future changes present 'N' past</div>
-                <div class="note">[h, d] do dividing ð number six to make it smaller && angle will be, 'angel'</div>
+                <div class="note">[h, d] do halving ð digit six to receive digit three && angle will be, 'angel'</div>
                 <div class="note">[AD; BC] t'Law //[softly] tờ/ + /lo// ~ LTDW [Lion, Tiger, Dragon, Western-dragon]</div>
                 <div class="hidden">{ l'history; O'Cornor; X'Mas; m'em } --> t'law</div>
                 <div class="big-note">Liu Yifei y Ortiz de Todos;can be, Bear / Pig OR Lion OR a Western-Dragon;</div>
@@ -1142,6 +1142,9 @@
 
                 if (currentStateIndex == DENNIS_KINGDOM) { // Đế Chế Phấn Tảo
                     DVATTIMSAKARA.forEach((label, idx) => {
+                        if (idx == 0) {
+                            htmlContent += `<div>${label}</div>`;
+                        }
                         // let li = document.createElement('li');
                         // li.classList.add('left-li');
                         let colour = Math.floor(idx / 4);
