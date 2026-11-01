@@ -236,7 +236,7 @@
         const liu_yifei = [ "T", "h", "o", "a" ];
         const annabelSequence = [ "A", "n", "n", "a", "b", "e", "l" ];
         const yaoSequence = [ "Y", "A", "NG" ];
-        const infantaSequence = [ "NG", "U", "Y", "E", "N"];
+        const fantaSequence = [ "NG", "U", "Y", "E", "N"];
         const iYdpContainer = document.getElementById("iYdpWord");
         const yaoContainer = document.getElementById("yaoWord");
 
@@ -258,7 +258,7 @@
         }
 
         buildCharacters(iYdpContainer, liu_yifei, 3);
-        buildCharacters(yaoContainer, infantaSequence, 0);
+        buildCharacters(yaoContainer, fantaSequence, 0);
 
         /// *** Replace ONLY the two morph functions below **/
         function morphiYdpToAnnabel(bFirstTime = true) {
@@ -384,7 +384,7 @@
         function doTransforming() {
             setInterval(() => {
                 buildCharacters(iYdpContainer, liu_yifei, 3);
-                buildCharacters(yaoContainer, infantaSequence, 0);
+                buildCharacters(yaoContainer, fantaSequence, 0);
 
                 setTimeout(() => {
                     morphiYdpToAnnabel();
