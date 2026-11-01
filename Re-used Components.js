@@ -513,13 +513,13 @@ class DateValues {
     fromElteDate(standardElteDate) { 
         let arr = standardElteDate.trim().split(/\s+/); 
         let d = parseInt(arr[1]);
-        let m = UnytValues.revertElteMonthIdx(arr[0]);
+        let m = Iteration.revertElteMonthIdx(arr[0]);
         let bValidElteDate = !(m === -1 || arr.length < 3);
 
         if (bValidElteDate == false) return;
 
         let bAddOneYear = m < 2 ? true : false;
-        let y = UnytValues.revertElteYear(arr[2], bAddOneYear);
+        let y = Iteration.revertElteYear(arr[2], bAddOneYear);
 
         if (this.isValidGregorian(y, m, d) == false) return;
 
@@ -719,56 +719,56 @@ class DateValues {
         return sf;
     }
 
-    static #getElteMonthThroughElte(elteMonthIndex, form = UnytValues.FULL_FORM_DATE) {
+    static #getElteMonthThroughElte(elteMonthIndex, form = Iteration.FULL_FORM_DATE) {
         let ret = '';
 
         switch (elteMonthIndex) {
             case 0:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Athen' : (form == UnytValues.MID_FORM_DATE ? 'At' : 'a');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Athen' : (form == Iteration.MID_FORM_DATE ? 'At' : 'a');
                 break;
 
             case 1:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Duo' : (form == UnytValues.MID_FORM_DATE ? 'Du' : 'd');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Duo' : (form == Iteration.MID_FORM_DATE ? 'Du' : 'd');
                 break;
 
             case 2:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Magha' : (form == UnytValues.MID_FORM_DATE ? 'Ma' : 'm');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Magha' : (form == Iteration.MID_FORM_DATE ? 'Ma' : 'm');
                 break;
 
             case 3:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Qaru' : (form == UnytValues.MID_FORM_DATE ? 'Qa' : 'q');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Qaru' : (form == Iteration.MID_FORM_DATE ? 'Qa' : 'q');
                 break;
 
             case 4:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Felle' : (form == UnytValues.MID_FORM_DATE ? 'Fe' : 'f');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Felle' : (form == Iteration.MID_FORM_DATE ? 'Fe' : 'f');
                 break;
 
             case 5:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Yune' : (form == UnytValues.MID_FORM_DATE ? 'Yu' : 'y');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Yune' : (form == Iteration.MID_FORM_DATE ? 'Yu' : 'y');
                 break;
 
             case 6:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'SEPT' : (form == UnytValues.MID_FORM_DATE ? 'SE' : 'S');
+                ret = form == Iteration.FULL_FORM_DATE ? 'SEPT' : (form == Iteration.MID_FORM_DATE ? 'SE' : 'S');
                 break;
 
             case 7:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'OCT' : (form == UnytValues.MID_FORM_DATE ? 'OC' : 'O');
+                ret = form == Iteration.FULL_FORM_DATE ? 'OCT' : (form == Iteration.MID_FORM_DATE ? 'OC' : 'O');
                 break;
 
             case 8:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'NOV' : (form == UnytValues.MID_FORM_DATE ? 'NO' : 'N');
+                ret = form == Iteration.FULL_FORM_DATE ? 'NOV' : (form == Iteration.MID_FORM_DATE ? 'NO' : 'N');
                 break;
 
             case 9:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'DEC' : (form == UnytValues.MID_FORM_DATE ? 'DE' : 'D');
+                ret = form == Iteration.FULL_FORM_DATE ? 'DEC' : (form == Iteration.MID_FORM_DATE ? 'DE' : 'D');
                 break;
 
             case 10:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Palm' : (form == UnytValues.MID_FORM_DATE ? 'Pa' : 'p');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Palm' : (form == Iteration.MID_FORM_DATE ? 'Pa' : 'p');
                 break;
 
             case 11:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Hose' : (form == UnytValues.MID_FORM_DATE ? 'Ho' : 'h');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Hose' : (form == Iteration.MID_FORM_DATE ? 'Ho' : 'h');
                 break;
 
             default:
@@ -782,7 +782,7 @@ class DateValues {
         
         /***
          * convert to Elte date w/ Gregorian date provided
-         * standard format which is the form, { FULL_FORM_DATE; UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS }
+         * standard format which is the form, { FULL_FORM_DATE; Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS }
          * 
          */ 
 
@@ -826,7 +826,7 @@ class DateValues {
     }
 
 
-    static getElteMonth(monthIdx, form = UnytValues.FULL_FORM_DATE) { // get Elte month from Gregorian month index
+    static getElteMonth(monthIdx, form = Iteration.FULL_FORM_DATE) { // get Elte month from Gregorian month index
         /***  
          * 
          * { Idx, Index }
@@ -840,7 +840,7 @@ class DateValues {
     }
 
     getElteDateWithElteMonthProvided(elteMonth) {
-        let elteYear = UnytValues.convertToElteYear(this.#digitalYear, this.#mtIdx);
+        let elteYear = Iteration.convertToElteYear(this.#digitalYear, this.#mtIdx);
         
         return elteMonth + ' ' + this.#dtIdx.toString() + ' ' + elteYear;
     }
@@ -913,7 +913,7 @@ class DateValues {
         // divide to have time slots equally
         return Math.floor(DateValues.Constants.ONE_DAY_IN_HOURS 
             * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS 
-            / UnytValues.DATE_FORMAT_STRINGS.length);
+            / Iteration.DATE_FORMAT_STRINGS.length);
     } // <-- a red leopard function
 
     get DigitalYear() {
@@ -1049,40 +1049,40 @@ class DateValues {
         return DateValues.getWeekNoWithProvidedParameters(Distance, TheMonth, TheSoleDate);
     }
 
-    whichDayIsTheDay(form = UnytValues.FULL_FORM_DATE) {
+    whichDayIsTheDay(form = Iteration.FULL_FORM_DATE) {
         return DateValues.whichDayIsHereday(this.#dyIdx, form);
     }
 
-    static whichDayIsHereday(heredayIndex, form = UnytValues.FULL_FORM_DATE) {
+    static whichDayIsHereday(heredayIndex, form = Iteration.FULL_FORM_DATE) {
         let ret = '';
 
         switch (heredayIndex) {
             case 0:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Thaw' : (form == UnytValues.MID_FORM_DATE ? 'th' : 'T');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Thaw' : (form == Iteration.MID_FORM_DATE ? 'th' : 'T');
                 break;
             
             case 1:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Wan' : (form == UnytValues.MID_FORM_DATE ? 'wa' : 'W');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Wan' : (form == Iteration.MID_FORM_DATE ? 'wa' : 'W');
                 break;
 
             case 2:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Uth' : (form == UnytValues.MID_FORM_DATE ? 'ut' : 'U');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Uth' : (form == Iteration.MID_FORM_DATE ? 'ut' : 'U');
                 break;
 
             case 3:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Fri' : (form == UnytValues.MID_FORM_DATE ? 'fr' : 'F');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Fri' : (form == Iteration.MID_FORM_DATE ? 'fr' : 'F');
                 break;
 
             case 4:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Sat' : (form == UnytValues.MID_FORM_DATE ? 'sa' : 'S');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Sat' : (form == Iteration.MID_FORM_DATE ? 'sa' : 'S');
                 break;
 
             case 5:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Hie' : (form == UnytValues.MID_FORM_DATE ? 'hi' : 'H');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Hie' : (form == Iteration.MID_FORM_DATE ? 'hi' : 'H');
                 break;
 
             case 6:
-                ret = form == UnytValues.FULL_FORM_DATE ? 'Dak' : (form == UnytValues.MID_FORM_DATE ? 'da' : 'D');
+                ret = form == Iteration.FULL_FORM_DATE ? 'Dak' : (form == Iteration.MID_FORM_DATE ? 'da' : 'D');
                 break;
 
             default:
@@ -1221,11 +1221,11 @@ DateValues.Helpers = class {
         let year = DateValues.getYearNumberOnly(date);
         let day = date.getDay();
 
-        let elteMonth = bMonth ? DateValues.getElteMonth(month, UnytValues.MID_FORM_DATE) : '';
+        let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.MID_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'cur_yea' : 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7, UnytValues.MID_FORM_DATE) : '';
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7, Iteration.MID_FORM_DATE) : '';
         let shift = bShiftInADay ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
         let weekNo = bWeekNo ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
@@ -1238,11 +1238,11 @@ DateValues.Helpers = class {
         let year = DateValues.getYearNumberOnly(date);
         let day = date.getDay();
 
-        let elteMonth = bMonth ? DateValues.getElteMonth(month, UnytValues.SHORT_FORM_DATE) : '';
+        let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.SHORT_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR 
                         ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
-        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7, UnytValues.SHORT_FORM_DATE) : '';
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7, Iteration.SHORT_FORM_DATE) : '';
         let shift = bShiftInADay ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
         let weekNo = bWeekNo? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
@@ -1277,14 +1277,14 @@ class UnytValues {
     
     /***
      * 1 Unyt == 1 leap yr + 3 normal yrs
-     * [ 2020, 2021, 2022, 2023 ]; // <-- for example
-     * this is a Cula-unit also a Cycle
+     * [2020, 2021, 2022, 2023]; // <-- for example
+     * this is a Cula-unit also an Iteration
      * 
      * 
      */
 
 
-    #years; // == 2024 4, the HereUnyt; the rest will be gotten by addding 1..3 
+    #years; // == 2024 for, the HereUnyt; the rest will be gotten through addding 1..3 
     #yearCanChi = 'Giáp Thìn';
     static SLOGAN = 'Năm Giáp Thìn Tui Đi Ăn Phở Thìn';
 
@@ -1426,6 +1426,22 @@ Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.SLOGAN);
 
 
+class DoubleIteration {
+    /***
+     * 2 x Iteration 
+     * 
+     * 1 Iteration == 1 Cula-unit (UnytValues)
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+
+
+
+}
 
 class GroupUnytValues {
 
@@ -1494,8 +1510,6 @@ class GrandUnytValues {
 Object.freeze(GrandUnytValues.YEAR_COUNT);
 
 
-
-
 class Life {
 
     /***
@@ -1540,6 +1554,7 @@ class Life {
 
 
 const GroupUnytPlusPlus = Life; // <-- need-less going back to C / C++
+const Iteration = UnytValues;
 
 
 class World {
@@ -1605,22 +1620,7 @@ class World {
 }
 
 
-class DoubleIteration {
-    /***
-     * 2 x Iteration 
-     * 
-     * Iteration == 1 Cula-unit (UnytValues)
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     */
 
-
-
-}
 
 /***
  * 
