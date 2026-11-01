@@ -2,325 +2,326 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/jpeg" href="FavouriteIcons/ancient-typewriter.jpeg" />
-  <link rel="stylesheet" type="text/css" href="Re-used Styles.css">
-  <title>Real-time VNMese Conversion</title>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/jpeg" href="FavouriteIcons/ancient-typewriter.jpeg" />
+      <link rel="stylesheet" type="text/css" href="Re-used Styles.css">
+      <title>Real-time VNMese Conversion</title>
 
-  <style>
-    .hidden,
-    .invisible {
-      display: none;
-    }
+      <style>
+            .hidden,
+            .invisible {
+                  display: none;
+            }
 
-    #inputText {
-      margin-bottom: 2px;
-      background-color: lightgreen;
-    }
+            #inputText {
+                  margin-bottom: 2px;
+                  background-color: lightgreen;
+            }
 
-    #outputText {
-      background-color: purple;
-      color: white;
-    }
+            #outputText {
+                  background-color: purple;
+                  color: white;
+            }
 
-    .soming-in-SNAKES {
-      color: violet;
-    }
+            .soming-in-SNAKES {
+                  color: violet;
+            }
 
-    .guide-lines {
-      color: brown;
-      margin: 0;
-    }
+            .guide-lines {
+                  color: brown;
+                  margin: 0;
+            }
 
-    div,
-    textarea {
-      margin: 0;
-    }
+            div,
+            textarea {
+                  margin: 0;
+            }
 
-    h2,
-    h5 {
-      margin: 10px;
-    }
+            h2,
+            h5 {
+                  margin: 10px;
+            }
 
-    h4 {
-      margin-bottom: 2px;
-    }
+            h4 {
+                  margin-bottom: 2px;
+            }
 
-    .translation {
-      margin-top: 12px;
-      color: tomato;
-    }
-  </style>
+            .translation {
+                  margin-top: 12px;
+                  color: tomato;
+            }
+      </style>
 </head>
 
 <body>
-  <h1>{ Vietnamese, VNMese } Conversion From Dave's Mechanism In Real-time</h1>
-  <h5 class="guide-lines">
-    <em>
-      Type in Vietnamese text in Dave's mechanism like, 'mo^.t nga`y dde.p
-      tro*`i' ..
-    </em>
-    <br />
-    <em>
-      The text will be processed to become { VNMese, Vietnamese } right after
-      the keying in ..
-    </em>
-  </h5>
+      <h1>{ Vietnamese, VNMese } Conversion From Dave's Mechanism In Real-time</h1>
+      <h5 class="guide-lines">
+            <em>
+                  Type in Vietnamese text in Dave's mechanism like, 'mo^.t nga`y dde.p
+                  tro*`i' ..
+            </em>
+            <br />
+            <em>
+                  The text will be processed to become { VNMese, Vietnamese } right after
+                  the keying in ..
+            </em>
+      </h5>
 
-  <label class="hidden" for="inputText">Input:</label><br />
-  <textarea id="inputText" oninput="convertText()" rows="12" cols="96"></textarea>
+      <label class="hidden" for="inputText">Input:</label><br />
+      <textarea id="inputText" oninput="convertText()" rows="12" cols="96"></textarea>
 
-  <h4>Converted Text:</h4>
-  <textarea id="outputText" readonly rows="12" cols="95"></textarea>
+      <h4>Converted Text:</h4>
+      <textarea id="outputText" readonly rows="12" cols="95"></textarea>
 
-  <div class="translation">
-    mechanism, { cơ chế; cách thức; phương thức; cách làm }
-  </div>
+      <div class="translation">
+            mechanism, { cơ chế; cách thức; phương thức; cách làm }
+      </div>
 
-  <div class="soming-in-SNAKES">
-    <h4>BSEL, { BSER, bi-sexual serpent(s) }</h4>
-    <p class="hidden">soming, xxx-ing which involves 3 persons OR greater</p>
-  </div>
+      <div class="soming-in-SNAKES">
+            <h4>BSEL, { BSER, bi-sexual serpent(s) }</h4>
+            <p class="hidden">soming, xxx-ing which involves 3 persons OR greater</p>
+      </div>
 
-  <script>
-    function convertText() {
-      // Get the input and output elements
-      const inputText = document.getElementById("inputText");
-      let strInput = inputText.value;
+      <script>
+            function convertText() {
+                  // Get the input and output elements
+                  const inputText = document.getElementById("inputText");
+                  let strInput = inputText.value;
 
-      const outputText = document.getElementById("outputText");
+                  const outputText = document.getElementById("outputText");
 
-      // Conversion rules
-      const rules = [
-        // Combined vowel + modifier + tone
-        { regex: /a\^\'/g, replacement: "ấ" },
-        { regex: /a\^\`\`/g, replacement: "ầ" },
-        { regex: /a\^\`/g, replacement: "ầ" },
-        { regex: /a\^\?/g, replacement: "ẩ" },
-        { regex: /a\^\~/g, replacement: "ẫ" },
-        { regex: /a\^\./g, replacement: "ậ" },
+                  // Conversion rules
+                  const rules = [
+                        // Combined vowel + modifier + tone
+                        { regex: /a\^\'/g, replacement: "ấ" },
+                        { regex: /a\^\`\`/g, replacement: "ầ" },
+                        { regex: /a\^\`/g, replacement: "ầ" },
+                        { regex: /a\^\?/g, replacement: "ẩ" },
+                        { regex: /a\^\~/g, replacement: "ẫ" },
+                        { regex: /a\^\./g, replacement: "ậ" },
 
-        /* -------- Thoa's pronunciation --------
-              // { regex: /a\(\'/g, replacement: "ấ" },
-              // { regex: /a\(\`/g, replacement: "ầ" },
-              // { regex: /a\(\?/g, replacement: "ẩ" },
-              // { regex: /a\(\~/g, replacement: "ẫ" },
-              // { regex: /a\(\./g, replacement: "ậ" },
-        */
+                        /* -------- Thoa's pronunciation --------
+                              // { regex: /a\(\'/g, replacement: "ấ" },
+                              // { regex: /a\(\`/g, replacement: "ầ" },
+                              // { regex: /a\(\?/g, replacement: "ẩ" },
+                              // { regex: /a\(\~/g, replacement: "ẫ" },
+                              // { regex: /a\(\./g, replacement: "ậ" },
+                        */
 
-        { regex: /a\(\'/g, replacement: "ắ" },
-        { regex: /a\(\`\`/g, replacement: "ằ" },
-        { regex: /a\(\`/g, replacement: "ằ" },
-        { regex: /a\(\?/g, replacement: "ẳ" },
-        { regex: /a\(\~/g, replacement: "ẵ" },
-        { regex: /a\(\./g, replacement: "ặ" },
+                        { regex: /a\(\'/g, replacement: "ắ" },
+                        { regex: /a\(\`\`/g, replacement: "ằ" },
+                        { regex: /a\(\`/g, replacement: "ằ" },
+                        { regex: /a\(\?/g, replacement: "ẳ" },
+                        { regex: /a\(\~/g, replacement: "ẵ" },
+                        { regex: /a\(\./g, replacement: "ặ" },
 
-        { regex: /e\^\'/g, replacement: "ế" },
-        { regex: /e\^\`\`/g, replacement: "ề" },
-        { regex: /e\^\`/g, replacement: "ề" },
-        { regex: /e\^\?/g, replacement: "ể" },
-        { regex: /e\^\~/g, replacement: "ễ" },
-        { regex: /e\^\./g, replacement: "ệ" },
+                        { regex: /e\^\'/g, replacement: "ế" },
+                        { regex: /e\^\`\`/g, replacement: "ề" },
+                        { regex: /e\^\`/g, replacement: "ề" },
+                        { regex: /e\^\?/g, replacement: "ể" },
+                        { regex: /e\^\~/g, replacement: "ễ" },
+                        { regex: /e\^\./g, replacement: "ệ" },
 
-        { regex: /o\^\'/g, replacement: "ố" },
-        { regex: /o\^\`\`/g, replacement: "ồ" },
-        { regex: /o\^\`/g, replacement: "ồ" },
-        { regex: /o\^\?/g, replacement: "ổ" },
-        { regex: /o\^\~/g, replacement: "ỗ" },
-        { regex: /o\^\./g, replacement: "ộ" },
+                        { regex: /o\^\'/g, replacement: "ố" },
+                        { regex: /o\^\`\`/g, replacement: "ồ" },
+                        { regex: /o\^\`/g, replacement: "ồ" },
+                        { regex: /o\^\?/g, replacement: "ổ" },
+                        { regex: /o\^\~/g, replacement: "ỗ" },
+                        { regex: /o\^\./g, replacement: "ộ" },
 
-        { regex: /o\*\'/g, replacement: "ớ" },
-        { regex: /o\*\`\`/g, replacement: "ờ" },
-        { regex: /o\*\`/g, replacement: "ờ" },
-        { regex: /o\*\?/g, replacement: "ở" },
-        { regex: /o\*\~/g, replacement: "ỡ" },
-        { regex: /o\*\./g, replacement: "ợ" },
+                        { regex: /o\*\'/g, replacement: "ớ" },
+                        { regex: /o\*\`\`/g, replacement: "ờ" },
+                        { regex: /o\*\`/g, replacement: "ờ" },
+                        { regex: /o\*\?/g, replacement: "ở" },
+                        { regex: /o\*\~/g, replacement: "ỡ" },
+                        { regex: /o\*\./g, replacement: "ợ" },
 
-        { regex: /u\*\'/g, replacement: "ứ" },
-        { regex: /u\*\`\`/g, replacement: "ừ" },
-        { regex: /u\*\`/g, replacement: "ừ" },
-        { regex: /u\*\?/g, replacement: "ử" },
-        { regex: /u\*\~/g, replacement: "ữ" },
-        { regex: /u\*\./g, replacement: "ự" },
+                        { regex: /u\*\'/g, replacement: "ứ" },
+                        { regex: /u\*\`\`/g, replacement: "ừ" },
+                        { regex: /u\*\`/g, replacement: "ừ" },
+                        { regex: /u\*\?/g, replacement: "ử" },
+                        { regex: /u\*\~/g, replacement: "ữ" },
+                        { regex: /u\*\./g, replacement: "ự" },
 
-        // Uppercase combined
-        { regex: /A\^\'/g, replacement: "Ấ" },
-        { regex: /A\^\`\`/g, replacement: "Ầ" },
-        { regex: /A\^\`/g, replacement: "Ầ" },
-        { regex: /A\^\?/g, replacement: "Ẩ" },
-        { regex: /A\^\~/g, replacement: "Ẫ" },
-        { regex: /A\^\./g, replacement: "Ậ" },
+                        // Uppercase combined
+                        { regex: /A\^\'/g, replacement: "Ấ" },
+                        { regex: /A\^\`\`/g, replacement: "Ầ" },
+                        { regex: /A\^\`/g, replacement: "Ầ" },
+                        { regex: /A\^\?/g, replacement: "Ẩ" },
+                        { regex: /A\^\~/g, replacement: "Ẫ" },
+                        { regex: /A\^\./g, replacement: "Ậ" },
 
-        { regex: /A\(\'/g, replacement: "Ắ" },
-        { regex: /A\(\`\`/g, replacement: "Ằ" },
-        { regex: /A\(\`/g, replacement: "Ằ" },
-        { regex: /A\(\?/g, replacement: "Ẳ" },
-        { regex: /A\(\~/g, replacement: "Ẵ" },
-        { regex: /A\(\./g, replacement: "Ặ" },
+                        { regex: /A\(\'/g, replacement: "Ắ" },
+                        { regex: /A\(\`\`/g, replacement: "Ằ" },
+                        { regex: /A\(\`/g, replacement: "Ằ" },
+                        { regex: /A\(\?/g, replacement: "Ẳ" },
+                        { regex: /A\(\~/g, replacement: "Ẵ" },
+                        { regex: /A\(\./g, replacement: "Ặ" },
 
-        { regex: /E\^\'/g, replacement: "Ế" },
-        { regex: /E\^\`\`/g, replacement: "Ề" },
-        { regex: /E\^\`/g, replacement: "Ề" },
-        { regex: /E\^\?/g, replacement: "Ể" },
-        { regex: /E\^\~/g, replacement: "Ễ" },
-        { regex: /E\^\./g, replacement: "Ệ" },
+                        { regex: /E\^\'/g, replacement: "Ế" },
+                        { regex: /E\^\`\`/g, replacement: "Ề" },
+                        { regex: /E\^\`/g, replacement: "Ề" },
+                        { regex: /E\^\?/g, replacement: "Ể" },
+                        { regex: /E\^\~/g, replacement: "Ễ" },
+                        { regex: /E\^\./g, replacement: "Ệ" },
 
-        { regex: /O\^\'/g, replacement: "Ố" },
-        { regex: /O\^\`\`/g, replacement: "Ồ" },
-        { regex: /O\^\`/g, replacement: "Ồ" },
-        { regex: /O\^\?/g, replacement: "Ổ" },
-        { regex: /O\^\~/g, replacement: "Ỗ" },
-        { regex: /O\^\./g, replacement: "Ộ" },
+                        { regex: /O\^\'/g, replacement: "Ố" },
+                        { regex: /O\^\`\`/g, replacement: "Ồ" },
+                        { regex: /O\^\`/g, replacement: "Ồ" },
+                        { regex: /O\^\?/g, replacement: "Ổ" },
+                        { regex: /O\^\~/g, replacement: "Ỗ" },
+                        { regex: /O\^\./g, replacement: "Ộ" },
 
-        { regex: /O\*\'/g, replacement: "Ớ" },
-        { regex: /O\*\`\`/g, replacement: "Ờ" },
-        { regex: /O\*\`/g, replacement: "Ờ" },
-        { regex: /O\*\?/g, replacement: "Ở" },
-        { regex: /O\*\~/g, replacement: "Ỡ" },
-        { regex: /O\*\./g, replacement: "Ợ" },
+                        { regex: /O\*\'/g, replacement: "Ớ" },
+                        { regex: /O\*\`\`/g, replacement: "Ờ" },
+                        { regex: /O\*\`/g, replacement: "Ờ" },
+                        { regex: /O\*\?/g, replacement: "Ở" },
+                        { regex: /O\*\~/g, replacement: "Ỡ" },
+                        { regex: /O\*\./g, replacement: "Ợ" },
 
-        { regex: /U\*\'/g, replacement: "Ứ" },
-        { regex: /U\*\`\`/g, replacement: "Ừ" },
-        { regex: /U\*\`/g, replacement: "Ừ" },
-        { regex: /U\*\?/g, replacement: "Ử" },
-        { regex: /U\*\~/g, replacement: "Ữ" },
-        { regex: /U\*\./g, replacement: "Ự" },
+                        { regex: /U\*\'/g, replacement: "Ứ" },
+                        { regex: /U\*\`\`/g, replacement: "Ừ" },
+                        { regex: /U\*\`/g, replacement: "Ừ" },
+                        { regex: /U\*\?/g, replacement: "Ử" },
+                        { regex: /U\*\~/g, replacement: "Ữ" },
+                        { regex: /U\*\./g, replacement: "Ự" },
 
-        // Base vowels + tone
-        { regex: /a\'/g, replacement: "á" },
-        { regex: /a\`\`/g, replacement: "à" },
-        { regex: /a\`/g, replacement: "à" },
-        { regex: /a\?/g, replacement: "ả" },
-        { regex: /a\~/g, replacement: "ã" },
-        { regex: /a\./g, replacement: "ạ" },
+                        // Base vowels + tone
+                        { regex: /a\'/g, replacement: "á" },
+                        { regex: /a\`\`/g, replacement: "à" },
+                        { regex: /a\`/g, replacement: "à" },
+                        { regex: /a\?/g, replacement: "ả" },
+                        { regex: /a\~/g, replacement: "ã" },
+                        { regex: /a\./g, replacement: "ạ" },
 
-        { regex: /A\'/g, replacement: "Á" },
-        { regex: /A\`\`/g, replacement: "À" },
-        { regex: /A\`/g, replacement: "À" },
-        { regex: /A\?/g, replacement: "Ả" },
-        { regex: /A\~/g, replacement: "Ã" },
-        { regex: /A\./g, replacement: "Ạ" },
+                        { regex: /A\'/g, replacement: "Á" },
+                        { regex: /A\`\`/g, replacement: "À" },
+                        { regex: /A\`/g, replacement: "À" },
+                        { regex: /A\?/g, replacement: "Ả" },
+                        { regex: /A\~/g, replacement: "Ã" },
+                        { regex: /A\./g, replacement: "Ạ" },
 
-        { regex: /e\'/g, replacement: "é" },
-        { regex: /e\`\`/g, replacement: "è" },
-        { regex: /e\`/g, replacement: "è" },
-        { regex: /e\?/g, replacement: "ẻ" },
-        { regex: /e\~/g, replacement: "ẽ" },
-        { regex: /e\./g, replacement: "ẹ" },
+                        { regex: /e\'/g, replacement: "é" },
+                        { regex: /e\`\`/g, replacement: "è" },
+                        { regex: /e\`/g, replacement: "è" },
+                        { regex: /e\?/g, replacement: "ẻ" },
+                        { regex: /e\~/g, replacement: "ẽ" },
+                        { regex: /e\./g, replacement: "ẹ" },
 
-        { regex: /i\'/g, replacement: "í" },
-        { regex: /i\`\`/g, replacement: "ì" },
-        { regex: /i\`/g, replacement: "ì" },
-        { regex: /i\?/g, replacement: "ỉ" },
-        { regex: /i\~/g, replacement: "ĩ" },
-        { regex: /i\./g, replacement: "ị" },
+                        { regex: /i\'/g, replacement: "í" },
+                        { regex: /i\`\`/g, replacement: "ì" },
+                        { regex: /i\`/g, replacement: "ì" },
+                        { regex: /i\?/g, replacement: "ỉ" },
+                        { regex: /i\~/g, replacement: "ĩ" },
+                        { regex: /i\./g, replacement: "ị" },
 
-        { regex: /o\'/g, replacement: "ó" },
-        { regex: /o\`\`/g, replacement: "ò" },
-        { regex: /o\`/g, replacement: "ò" },
-        { regex: /o\?/g, replacement: "ỏ" },
-        { regex: /o\~/g, replacement: "õ" },
-        { regex: /o\./g, replacement: "ọ" },
+                        { regex: /o\'/g, replacement: "ó" },
+                        { regex: /o\`\`/g, replacement: "ò" },
+                        { regex: /o\`/g, replacement: "ò" },
+                        { regex: /o\?/g, replacement: "ỏ" },
+                        { regex: /o\~/g, replacement: "õ" },
+                        { regex: /o\./g, replacement: "ọ" },
 
-        { regex: /u\'/g, replacement: "ú" },
-        { regex: /u\`\`/g, replacement: "ù" },
-        { regex: /u\`/g, replacement: "ù" },
-        { regex: /u\?/g, replacement: "ủ" },
-        { regex: /u\~/g, replacement: "ũ" },
-        { regex: /u\./g, replacement: "ụ" },
+                        { regex: /u\'/g, replacement: "ú" },
+                        { regex: /u\`\`/g, replacement: "ù" },
+                        { regex: /u\`/g, replacement: "ù" },
+                        { regex: /u\?/g, replacement: "ủ" },
+                        { regex: /u\~/g, replacement: "ũ" },
+                        { regex: /u\./g, replacement: "ụ" },
 
-        { regex: /y\'/g, replacement: "ý" },
-        { regex: /y\`\`/g, replacement: "ỳ" },
-        { regex: /y\`/g, replacement: "ỳ" },
-        { regex: /y\?/g, replacement: "ỷ" },
-        { regex: /y\~/g, replacement: "ỹ" },
-        { regex: /y\./g, replacement: "ỵ" },
+                        { regex: /y\'/g, replacement: "ý" },
+                        { regex: /y\`\`/g, replacement: "ỳ" },
+                        { regex: /y\`/g, replacement: "ỳ" },
+                        { regex: /y\?/g, replacement: "ỷ" },
+                        { regex: /y\~/g, replacement: "ỹ" },
+                        { regex: /y\./g, replacement: "ỵ" },
 
-        { regex: /E\'/g, replacement: "É" },
-        { regex: /E\`\`/g, replacement: "È" },
-        { regex: /E\`/g, replacement: "È" },
-        { regex: /E\?/g, replacement: "Ẻ" },
-        { regex: /E\~/g, replacement: "Ẽ" },
-        { regex: /E\./g, replacement: "Ẹ" },
+                        { regex: /E\'/g, replacement: "É" },
+                        { regex: /E\`\`/g, replacement: "È" },
+                        { regex: /E\`/g, replacement: "È" },
+                        { regex: /E\?/g, replacement: "Ẻ" },
+                        { regex: /E\~/g, replacement: "Ẽ" },
+                        { regex: /E\./g, replacement: "Ẹ" },
 
-        { regex: /I\'/g, replacement: "Í" },
-        { regex: /I\`\`/g, replacement: "Ì" },
-        { regex: /I\`/g, replacement: "Ì" },
-        { regex: /I\?/g, replacement: "Ỉ" },
-        { regex: /I\~/g, replacement: "Ĩ" },
-        { regex: /I\./g, replacement: "Ị" },
+                        { regex: /I\'/g, replacement: "Í" },
+                        { regex: /I\`\`/g, replacement: "Ì" },
+                        { regex: /I\`/g, replacement: "Ì" },
+                        { regex: /I\?/g, replacement: "Ỉ" },
+                        { regex: /I\~/g, replacement: "Ĩ" },
+                        { regex: /I\./g, replacement: "Ị" },
 
-        { regex: /O\'/g, replacement: "Ó" },
-        { regex: /O\`\`/g, replacement: "Ò" },
-        { regex: /O\`/g, replacement: "Ò" },
-        { regex: /O\?/g, replacement: "Ỏ" },
-        { regex: /O\~/g, replacement: "Õ" },
-        { regex: /O\./g, replacement: "Ọ" },
+                        { regex: /O\'/g, replacement: "Ó" },
+                        { regex: /O\`\`/g, replacement: "Ò" },
+                        { regex: /O\`/g, replacement: "Ò" },
+                        { regex: /O\?/g, replacement: "Ỏ" },
+                        { regex: /O\~/g, replacement: "Õ" },
+                        { regex: /O\./g, replacement: "Ọ" },
 
-        { regex: /U\'/g, replacement: "Ú" },
-        { regex: /U\`\`/g, replacement: "Ù" },
-        { regex: /U\`/g, replacement: "Ù" },
-        { regex: /U\?/g, replacement: "Ủ" },
-        { regex: /U\~/g, replacement: "Ũ" },
-        { regex: /U\./g, replacement: "Ụ" },
+                        { regex: /U\'/g, replacement: "Ú" },
+                        { regex: /U\`\`/g, replacement: "Ù" },
+                        { regex: /U\`/g, replacement: "Ù" },
+                        { regex: /U\?/g, replacement: "Ủ" },
+                        { regex: /U\~/g, replacement: "Ũ" },
+                        { regex: /U\./g, replacement: "Ụ" },
 
-        { regex: /Y\'/g, replacement: "Ý" },
-        { regex: /Y\`\`/g, replacement: "Ỳ" },
-        { regex: /Y\`/g, replacement: "Ỳ" },
-        { regex: /Y\?/g, replacement: "Ỷ" },
-        { regex: /Y\~/g, replacement: "Ỹ" },
-        { regex: /Y\./g, replacement: "Ỵ" },
+                        { regex: /Y\'/g, replacement: "Ý" },
+                        { regex: /Y\`\`/g, replacement: "Ỳ" },
+                        { regex: /Y\`/g, replacement: "Ỳ" },
+                        { regex: /Y\?/g, replacement: "Ỷ" },
+                        { regex: /Y\~/g, replacement: "Ỹ" },
+                        { regex: /Y\./g, replacement: "Ỵ" },
 
-        // Vowel modifiers
-        { regex: /a\^/g, replacement: "â" },
-        { regex: /a\(/g, replacement: "ă" },
-        { regex: /e\^/g, replacement: "ê" },
-        { regex: /o\^/g, replacement: "ô" },
-        { regex: /o\*/g, replacement: "ơ" },
-        { regex: /u\*/g, replacement: "ư" },
+                        // Vowel modifiers
+                        { regex: /a\^/g, replacement: "â" },
+                        { regex: /a\(/g, replacement: "ă" },
+                        { regex: /e\^/g, replacement: "ê" },
+                        { regex: /o\^/g, replacement: "ô" },
+                        { regex: /o\*/g, replacement: "ơ" },
+                        { regex: /u\*/g, replacement: "ư" },
 
-        { regex: /A\^/g, replacement: "Â" },
-        { regex: /A\^'/g, replacement: "Ấ" },
-        { regex: /A\(/g, replacement: "Ă" },
-        { regex: /n\~/g, replacement: "ñ" },
-        { regex: /E\^/g, replacement: "Ê" },
-        { regex: /O\^/g, replacement: "Ô" },
-        { regex: /O\*/g, replacement: "Ơ" },
-        { regex: /U\*/g, replacement: "Ư" },
+                        { regex: /A\^/g, replacement: "Â" },
+                        { regex: /A\^'/g, replacement: "Ấ" },
+                        { regex: /A\(/g, replacement: "Ă" },
+                        { regex: /n\~/g, replacement: "ñ" },
+                        { regex: /E\^/g, replacement: "Ê" },
+                        { regex: /O\^/g, replacement: "Ô" },
+                        { regex: /O\*/g, replacement: "Ơ" },
+                        { regex: /U\*/g, replacement: "Ư" },
 
-        // Special consonants
-        { regex: /dd/g, replacement: "đ" },
-        { regex: /DD/g, replacement: "Đ" },
-        { regex: /Dd/g, replacement: "Đ" },
-      ];
+                        // Special consonants
+                        { regex: /dd/g, replacement: "đ" },
+                        { regex: /DD/g, replacement: "Đ" },
+                        { regex: /Dd/g, replacement: "Đ" },
+                  ];
 
-      // Perform replacements
-      let convertedText = strInput;
-      rules.forEach((rule) => {
-        convertedText = convertedText.replace(rule.regex, rule.replacement);
-      });
+                  // Perform replacements
+                  let convertedText = strInput;
+                  rules.forEach((rule) => {
+                        convertedText = convertedText.replace(rule.regex, rule.replacement);
+                  });
 
-      // Update the output
-      // outputText.value = convertedText;
+                  // Update the output
+                  // outputText.value = convertedText;
 
-      // for ... loop
-      outputText.value = "";
-      const len = convertedText.length;
-      for (let i = 0; i < len - 1; ++i) {
-        outputText.value += convertedText[i];
-      }
+                  // for ... loop
+                  outputText.value = "";
+                  const len = convertedText.length;
+                  for (let i = 0; i < len - 1; ++i) {
+                        outputText.value += convertedText[i];
+                  }
 
-      if (convertedText[len - 1] != "`") outputText.value += convertedText[len - 1];
+                  if (convertedText[len - 1] != "`") outputText.value += convertedText[len - 1];
 
-      // re-assign for the input
-      // inputText.value = outputText.value;
+                  // re-assign for the input
+                  // inputText.value = outputText.value;
 
 
-    }
-  </script>
+            }
+      </script>
 
 </body>
+
 </html>
 
 
@@ -330,29 +331,29 @@
 
 
 <div class="hidden">
-  Vết chân tròn, vẫn đi về trên con đường mòn cát trắng quê tôi. Anh thương binh
-  vẫn đến trường làng. Vẫn ôm đàn dạy các em thơ bài hát quê hương. Bài hát, có
-  ngọn núi quê anh xa vời. Bài hát, có đồng lúa mênh mông câu hò. Bài hát, có
-  người lính đã hy sinh âm thầm. Cho hôm nay những gót chân son vui quanh dấu
-  chân tròn. Bài hát, có trận đấu không quên bên đồi. Bài hát, có người lính
-  biên cương xa mẹ. Bài hát, có ngọn gió cuốn bay theo dấu chân tròn. Để lại một
-  bài ca trên cát trắng bao la. Vết chân tròn vẫn in hình trên con đường mòn cát
-  trắng quê tôi Như bài ca anh viết trong thầm lặng trên bờ cát không ngừng. Cứ
-  hát mãi trong tôi hát mãi trong tôi.
+      Vết chân tròn, vẫn đi về trên con đường mòn cát trắng quê tôi. Anh thương binh
+      vẫn đến trường làng. Vẫn ôm đàn dạy các em thơ bài hát quê hương. Bài hát, có
+      ngọn núi quê anh xa vời. Bài hát, có đồng lúa mênh mông câu hò. Bài hát, có
+      người lính đã hy sinh âm thầm. Cho hôm nay những gót chân son vui quanh dấu
+      chân tròn. Bài hát, có trận đấu không quên bên đồi. Bài hát, có người lính
+      biên cương xa mẹ. Bài hát, có ngọn gió cuốn bay theo dấu chân tròn. Để lại một
+      bài ca trên cát trắng bao la. Vết chân tròn vẫn in hình trên con đường mòn cát
+      trắng quê tôi Như bài ca anh viết trong thầm lặng trên bờ cát không ngừng. Cứ
+      hát mãi trong tôi hát mãi trong tôi.
 </div>
 
 <div class="hidden">
-  <!-- davis' VNMese typing mechanism -->
-  Ve^'t cha^n tro`n; va^~n ddi ve^` tre^n con ddu*o*`ng mo`n ca't tra('ng que^
-  to^i .. Anh thu*o*ng binh va^~n dde^'n tru*o*`ng la`ng .. Va^~n o^m dda`n da.y
-  ca'c em tho* ba`i ha't que^ hu*o*ng .. Ba`i ha't; co' ngo.n nu'i que^ anh xa
-  vo*`i .. Ba`i ha't; co' ddo^`ng lu'a me^nh mo^ng ca^u ho` .. Ba`i ha't; co'
-  ngu*o*`i li'nh dda~ hy sinh a^m tha^`m .. Cho ho^m nay nhu*~ng go't cha^n son
-  vui quanh da^'u cha^n tro`n .. Ba`i ha't; co' tra^.n dda^'u ko que^n be^n
-  ddo^`i .. Ba`i ha't; co' ngu*o*`i li'nh bie^n cu*o*ng xa me. .. Ba`i ha't; co'
-  ngo.n gio' cuo^'n bay theo da^'u cha^n tro`n .. Dde^? la.i mo^.t ba`i ca tre^n
-  ca't tra('ng bao la .. Ve^'t cha^n tro`n va^~n in hi`nh tre^n con ddu*o*`ng
-  mo`n ca't tra('ng que^ to^i .. Nhu* ba`i ca anh vie^'t trong tha^`m la(.ng
-  tre^n bo*` ca't ko ngu*`ng .. Cu*' ha't ma~i trong to^i ha't ma~i trong to^i
-  ..
+      <!-- davis' VNMese typing mechanism -->
+      Ve^'t cha^n tro`n; va^~n ddi ve^` tre^n con ddu*o*`ng mo`n ca't tra('ng que^
+      to^i .. Anh thu*o*ng binh va^~n dde^'n tru*o*`ng la`ng .. Va^~n o^m dda`n da.y
+      ca'c em tho* ba`i ha't que^ hu*o*ng .. Ba`i ha't; co' ngo.n nu'i que^ anh xa
+      vo*`i .. Ba`i ha't; co' ddo^`ng lu'a me^nh mo^ng ca^u ho` .. Ba`i ha't; co'
+      ngu*o*`i li'nh dda~ hy sinh a^m tha^`m .. Cho ho^m nay nhu*~ng go't cha^n son
+      vui quanh da^'u cha^n tro`n .. Ba`i ha't; co' tra^.n dda^'u ko que^n be^n
+      ddo^`i .. Ba`i ha't; co' ngu*o*`i li'nh bie^n cu*o*ng xa me. .. Ba`i ha't; co'
+      ngo.n gio' cuo^'n bay theo da^'u cha^n tro`n .. Dde^? la.i mo^.t ba`i ca tre^n
+      ca't tra('ng bao la .. Ve^'t cha^n tro`n va^~n in hi`nh tre^n con ddu*o*`ng
+      mo`n ca't tra('ng que^ to^i .. Nhu* ba`i ca anh vie^'t trong tha^`m la(.ng
+      tre^n bo*` ca't ko ngu*`ng .. Cu*' ha't ma~i trong to^i ha't ma~i trong to^i
+      ..
 </div>
