@@ -1492,7 +1492,7 @@ class MahaUnit {
      * [a formula]
      * great king == grand emperor
      * >>>>
-     * King happens first. Emperor appears afterwards.
+     * King happens first. Emperor appears later on.
      * 
      * 
      * supreme is about height of a { person / thing OR vision }'s
