@@ -1262,7 +1262,7 @@ function fullscreenZoom(isZoomFull = true) {
     }
 }
 
-class UnytValues {
+class CulaUnit {
 
     static MONTH_NAMES = [ // original months' name
         "January", "February", "March", "April", "May", "June",
@@ -1415,6 +1415,8 @@ class UnytValues {
     }
 }
 
+const UnytValues = CulaUnit;
+
 Object.freeze(UnytValues.DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.DATE_FORMAT_COUNT);
 Object.freeze(UnytValues.FULL_FORM_DATE);
@@ -1443,10 +1445,10 @@ class DoubleIteration {
 
 }
 
-class GroupUnytValues {
+class Unit60 {
 
     /***
-     * 15 Unyts == 1 group of Unyts
+     * 15 UnytValues == 1 group of UnytValues
      * this is a unit
      * 
      * 1 group of unyts == a round of, 'Can Chi'
@@ -1466,8 +1468,10 @@ class GroupUnytValues {
 
 }
 
+const GroupUnytValues = Unit60;
 
-class GrandUnytValues {
+
+class MahaUnit {
 
     /***
      * 1 group of Unyts + 15 yrs == 1 grand Unyt
@@ -1507,6 +1511,8 @@ class GrandUnytValues {
 
 }
 
+const GrandUnytValues = MahaUnit;
+
 Object.freeze(GrandUnytValues.YEAR_COUNT);
 
 
@@ -1523,9 +1529,6 @@ class Life {
      * hahah ...
      * 
      * 
-     *  em ơi có bao nhiêu
-     *  60 năm cuộc đời
-     *  --> [6 --> 8] 60, 80
      * 
      * 7 : 8 = .875
      * 
@@ -1540,13 +1543,13 @@ class Life {
      * 
      */
 
-    static #NUMBER_OF_YEARS = 80;
+    static #NUMBER_OF_YEARS_STARTING_CURRENT_YEAR = 76; // 100 - (500 + 2000) / 100 + 1
 
     static LifeSpan() {
         // each 100 years LifeSpan reduces by 1
         let digiYear = DateValues.getYearNumberOnly(new Date());
 
-        return Life.#NUMBER_OF_YEARS - Math.floor((digiYear - DateValues.CURRENT_YEAR) / 100);
+        return Life.#NUMBER_OF_YEARS_STARTING_CURRENT_YEAR - Math.floor((digiYear - DateValues.CURRENT_YEAR) / 100);
     }
 
 }
@@ -1649,11 +1652,11 @@ class VoCuc { // Vô Cực
     static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR + 6; // 2026
     static THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC = 'Bính Ngọ';
 
-    #year; // first year of the VoCuc
+    #digiYear; // first year of the VoCuc
 
     constructor(nCount = 0) { // nCount == 0, VoCuc dau tien
 
-        this.#year = nCount * 24 + VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
+        this.#digiYear = nCount * 24 + VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
 
     }
 
@@ -1674,7 +1677,7 @@ class VoCuc { // Vô Cực
     }
 
     getLastElteYearOfVoCuc() {
-        return DateValues.Constants.CURRENT_YEAR_STRING + '+' + (this.#year + 23 - DateValues.CURRENT_YEAR);
+        return DateValues.Constants.CURRENT_YEAR_STRING + '+' + (this.#digiYear + 23 - DateValues.CURRENT_YEAR);
     }
 
 }
