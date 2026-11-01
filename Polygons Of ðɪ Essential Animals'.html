@@ -1144,13 +1144,14 @@
                     DVATTIMSAKARA.forEach((label, idx) => {
                         if (idx == 0) {
                             htmlContent += `<div>${label}</div>`;
+                        } else {
+                            // let li = document.createElement('li');
+                            // li.classList.add('left-li');
+                            let colour = Math.floor(idx / 4);
+                            if (idx == 31) // the last one is brain 
+                                colour = 8;
+                            htmlContent += `<li id='${idx}' class='left-li body-${colour+1}'>${label}</li>`;
                         }
-                        // let li = document.createElement('li');
-                        // li.classList.add('left-li');
-                        let colour = Math.floor(idx / 4);
-                        if (idx == 31) // the last one is brain 
-                            colour = 8;
-                        htmlContent += `<li id='${idx}' class='left-li body-${colour+1}'>${label}</li>`;
 
                         // [] set time out for the transition to happen 
                         // --> done
