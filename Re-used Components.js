@@ -1019,7 +1019,7 @@ class DateValues {
         return weekNo;
     }
 
-    static toTuesdayFirst(dayIndex) {
+    static toTuesdayFirst(dayIndex) { // it is, 'Thaw day'
         return (dayIndex + 5) % 7;
     }
     
@@ -1086,6 +1086,7 @@ class DateValues {
                 break;
 
             default:
+                ret = 'Thaw the Day';
                 break;
         }
 
@@ -1119,7 +1120,7 @@ class DateValues {
         this.useHereValues();
     }
 
-    static isLeapYear(year) {
+    static isLeapYear(digiYear) {
 
         /*** 
          * [a mnemonic]
@@ -1127,7 +1128,7 @@ class DateValues {
          * 
          * */ 
 
-        return ((year % 4 == 0 && year % 100 !== 0) || (year % 400 == 0));
+        return ((digiYear % 4 == 0 && digiYear % 100 !== 0) || (digiYear % 400 == 0));
     }
 
     isHereDay(dateIndex, monthIndex, digiYear) {
@@ -1211,7 +1212,7 @@ DateValues.Helpers = class {
         let shift = bShiftInADay ? DateValues.getShiftOfTheday() : '';
         let weekNo = bWeekNo ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
-        return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;;
+        return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
 
     static getDateMidForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, date = new Date()) {
