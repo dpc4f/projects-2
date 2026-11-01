@@ -1304,7 +1304,7 @@ class CulaUnit {
         [true, true, true, true, true] // SEPT 1 current_year+6 28 Thaw iTa 
     ];
 
-    static DATE_FORMAT_COUNT = UnytValues.DATE_FORMAT_STRINGS.length;
+    static DATE_FORMAT_COUNT = CulaUnit.DATE_FORMAT_STRINGS.length;
 
     static FULL_FORM_DATE = 0;
     static MID_FORM_DATE = 1;
@@ -1313,32 +1313,32 @@ class CulaUnit {
     static STANDARD_FORM_OF_DATE_FORMAT_STRINGS = 2;
 
     
-    static getDateValuesTimeStamp(formLength = UnytValues.FULL_FORM_DATE, index = UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, date = null) {
+    static getDateValuesTimeStamp(formLength = CulaUnit.FULL_FORM_DATE, index = CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, date = null) {
         
         /***
-         * UnytValues.FULL_FORM_DATE && UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS <-- được gọi là ngày nhì
+         * CulaUnit.FULL_FORM_DATE && CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS <-- được gọi là ngày nhì
          * 
          */
         
-        let bMonth = UnytValues.DATE_FORMAT_STRINGS[index][0]; 
-        let bDateInMonth = UnytValues.DATE_FORMAT_STRINGS[index][1]; 
-        let bDayIndex = UnytValues.DATE_FORMAT_STRINGS[index][2]; 
-        let bShiftInADay = bDayIndex ? UnytValues.DATE_FORMAT_STRINGS[index][3] : false;
-        let bWeekNumber = UnytValues.DATE_FORMAT_STRINGS[index].length > 4 ? UnytValues.DATE_FORMAT_STRINGS[index][4] : false;
+        let bMonth = CulaUnit.DATE_FORMAT_STRINGS[index][0]; 
+        let bDateInMonth = CulaUnit.DATE_FORMAT_STRINGS[index][1]; 
+        let bDayIndex = CulaUnit.DATE_FORMAT_STRINGS[index][2]; 
+        let bShiftInADay = bDayIndex ? CulaUnit.DATE_FORMAT_STRINGS[index][3] : false;
+        let bWeekNumber = CulaUnit.DATE_FORMAT_STRINGS[index].length > 4 ? CulaUnit.DATE_FORMAT_STRINGS[index][4] : false;
         let valuesStr = '';
 
         let dateTemp = date == null ? new Date() : date;
 
         switch (formLength) {
-            case UnytValues.FULL_FORM_DATE:
+            case CulaUnit.FULL_FORM_DATE:
                 valuesStr = DateValues.Helpers.getDateFullForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
-            case UnytValues.MID_FORM_DATE:
+            case CulaUnit.MID_FORM_DATE:
                 valuesStr = DateValues.Helpers.getDateMidForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
-            case UnytValues.SHORT_FORM_DATE:
+            case CulaUnit.SHORT_FORM_DATE:
                 valuesStr = DateValues.Helpers.getDateShortForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
                 break;
 
@@ -1379,7 +1379,7 @@ class CulaUnit {
             return;
         }
 
-        let y = UnytValues.revertElteYear(arr[2], m < 2);
+        let y = CulaUnit.revertElteYear(arr[2], m < 2);
         
         return [m, y];
     }
