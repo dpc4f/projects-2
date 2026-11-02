@@ -1669,8 +1669,8 @@ class VoCuc { // Vô Cực
     }
 
     static ANIMAL_NAMES = [
-        "Mouse / Rat / Ca-pybara", "Ox / Bull / Buffalo / Cow / Bison",
-        "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Dragon / { Ant, Bee } / Peacock", "Snake Clan / Centi-pede",
+        "Mouse / Rat / Capybara", "Ox / Bull / Buffalo / Cow / Bison",
+        "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Dragon / { Ant, Bee } / Peacock", "Snake Clan / Centi-pede Family",
         "Horse / Sea-{ horse, dragon } / Western-dragon", "Goat --> Maggot", "¬{ Monkey / Ape / Kong }",
         "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck / Ki-ki", "Pig / Boar in ð Wilderness"
     ];
