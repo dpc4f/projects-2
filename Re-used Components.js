@@ -1585,7 +1585,7 @@ class World {
      * 
      * 
      * 
-     * BIG BUDDHA who is BUDDHA Gotama > Big BUDDHA that there are only 8 people of all time
+     * BIG_BUDDHA's Buddha Gotama who is >Big_BUDDHA that there are only 8 people of all time
      * 
      * 
      * 
@@ -1596,7 +1596,8 @@ class World {
      * >>>>
      * the World is world of a Big BUDDHA's
      * therefore no-need to read the sutta, 'Thế Giới Thành Tựu'
-     * 
+     * <<<<
+     * Thế giới thành tựu .! <3
      * 
      * 
      * 
@@ -1633,7 +1634,7 @@ class World {
 class VoCuc { // Vô Cực
 
     /***
-     * 3 x DoubleIteration
+     * 3 x DDAi
      * 
      * [sia] 23 && !32
      * 
@@ -1644,14 +1645,14 @@ class VoCuc { // Vô Cực
      * 
      */
 
-    static NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR + 6; // 2026
-    static THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC = 'Bính Ngọ';
+    static NĂM_ELTE_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR + 6; // 2026
+    static THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC = '丙午'; // Bính Ngọ
 
     #digiYear; // first year of the VoCuc
 
     constructor(nCount = 0) { // nCount == 0, VoCuc dau tien
 
-        this.#digiYear = nCount * 24 + VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
+        this.#digiYear = nCount * 24 + VoCuc.NĂM_ELTE_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN;
 
     }
 
@@ -1678,7 +1679,7 @@ class VoCuc { // Vô Cực
 }
 
 Object.freeze(VoCuc.ANIMAL_NAMES);
-Object.freeze(VoCuc.NĂM_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
+Object.freeze(VoCuc.NĂM_ELTE_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
 Object.freeze(VoCuc.THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC);
 
 
