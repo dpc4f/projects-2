@@ -1262,6 +1262,17 @@ function fullscreenZoom(isZoomFull = true) {
     }
 }
 
+
+
+/***
+ * class CulaUnit
+ * class Unit60
+ * class MahaUnit
+ * 
+ *
+ */
+
+
 class CulaUnit {
 
     static MONTH_NAMES = [ // original months' name
@@ -1284,7 +1295,7 @@ class CulaUnit {
      */
 
 
-    #years; // == 2024 for, the HereUnyt; the rest will be gotten through addding 1..3 
+    #digiYear; // == 2024 for, the HereUnyt; the rest will be gotten through addding 1..3 
     #yearCanChi = 'Giáp Thìn';
     static SLOGAN = 'Năm Giáp Thìn Tui Đi Ăn Phở Thìn';
 
@@ -1392,17 +1403,18 @@ class CulaUnit {
         return [DateValues.getElteMonth(month), (d == 0 ? c_y_str : c_y_str+str)];
     }
 
-    get Year() {
-        return this.#years;
+    get DigiYear() {
+        return this.#digiYear;
     }
 
-    Year(incr = 0) {
-        let ret = incr >= 0 ? incr < 4 ? this.#years + incr : -1 : -1;
+    GetDigiYearInUnit(incr = 0) { // get years 4b DigiYear
+        let ret = incr >= 0 ? incr < 4 ? this.#digiYear + incr : -1 : -1;
+        
         return ret;
     }
 
-    DaysOfYear(pos = 0) {
-        if (pos == 0) return 366; // the first year 
+    GetDaysOfYearInUnit(pos = 0) {
+        if (pos == 0) return 366; // the first year which is a leap year 
         
         let ret = pos > 0 ? pos < 4 ? 365 : ZERO : ZERO;
         return ret;
