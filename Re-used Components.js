@@ -1475,7 +1475,7 @@ class MahaUnit {
 
     /***
      * 1 group of Unyts + 15 yrs == 1 grand Unyt
-     * this is a Maha-unit
+     * this is a { Maha-unit, Unit60+ }
      * 
      * a grand unyt equivalent to GroupUnyt+
      * 
@@ -1519,8 +1519,8 @@ Object.freeze(GrandUnytValues.YEAR_COUNT);
 class Life {
 
     /***
-     * 1 GrandUnyt+ == 1 grand unyt + 5 years == 1 life
-     * Life == GroupUnyt++
+     * 1 { GrandUnyt, MahaUnit }+ == 1 Unit60++ == 1 Unit60 + 15 years + 1 year == 1 life
+     * Life == Unit60++
      * 
      * người ta theo lẽ thường tính dư chứ chẳng ai tính thiếu
      * may guá có trừ hao <-- tính dư
@@ -1530,14 +1530,9 @@ class Life {
      * 
      * 
      * 
-     * 7 : 8 = .875
      * 
-     * [4 ~ 6]
-     * Alan Turing [West] <-- { 4 }567
-     * Justin Kim [East] <-- 5{ 6 }78
-     * 
-     * 
-     * 
+     * 67, province An Giang
+     * Long Xuyen, city of 67's
      * 
      * 
      * 
@@ -1555,9 +1550,9 @@ class Life {
 }
 
 
-
-const GroupUnytPlusPlus = Life; // <-- need-less going back to C / C++
+const Unit60PlusPlus = Life; // <-- need-less going back to C / C++
 const Iteration = UnytValues;
+const DDAi = DoubleIteration;
 
 
 class World {
