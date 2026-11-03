@@ -178,7 +178,7 @@
 
         window.addEventListener('mouseup', () => {
             isDragging = false;
-            targetRotationSpeed = 0.085; // Return to slow spin
+            targetRotationSpeed = 0.025; // Return to slow spin
         });
 
         // Main Animation Loop
@@ -191,7 +191,7 @@
             // 255/3 == 85 --> 85 170 255
 
             // Interpolate rotation speed smoothly
-            currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 1.6;
+            currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 1.2;
             if (!isDragging) {
                 angle -= currentRotationSpeed;
             }
