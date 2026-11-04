@@ -148,13 +148,13 @@
 
         window.addEventListener('mouseup', () => {
             isDragging = false;
-            targetRotationSpeed = 0.005; // Return to slow spin
+            targetRotationSpeed = 0.025; // Return to slow spin
         });
 
         // Main Animation Loop
         function animate() {
             // Clear screen with a slight trail effect for smoothness
-            ctx.fillStyle = 'rgba(11, 12, 16, 0.3)';
+            ctx.fillStyle = 'rgba(101, 20, 6, 0.63)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Interpolate rotation speed smoothly
