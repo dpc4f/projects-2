@@ -30,6 +30,14 @@ const ZERO = 0;
      * */
 // }
 
+/***
+ * [; nr] research 'N' apply logging component(s) instead of simple default console.log()
+ * 
+ * 
+ */
+
+
+
 class TimeValues {
 
     /***
@@ -42,7 +50,7 @@ class TimeValues {
     #h;
     #m;
     #s;
-    #ms;
+    // #ms;
     #freshTimeLevels;
 
     constructor(updatePlatonTime = null) {
@@ -64,6 +72,18 @@ class TimeValues {
 
     set CallBack(f) {
         this.#callback = f;
+    }
+
+    get Hour() {
+        return this.#h;
+    }
+
+    get Minute() {
+        return this.#m;
+    }
+
+    get Second() {
+        return this.#s;
     }
 
 
@@ -278,7 +298,7 @@ class TimeValues {
         this.#h = this.Hereday.getHours();
         this.#m = this.Hereday.getMinutes();
         this.#s = this.Hereday.getSeconds();
-        this.#ms = this.Hereday.getMilliseconds();
+        // this.#ms = this.Hereday.getMilliseconds();
     }
 
 }
@@ -870,7 +890,16 @@ class DateValues {
 
         try {
 
-            const response = await fetch('http://localhost:8080/api/TimeRequester')
+            const controller = new AbortController();
+            const timeout = setTimeout(() => {
+                controller.abort();
+            }, 10000);
+
+            const response = await fetch('http://localhost:8080/api/TimeRequester', { signal: controller.signal });
+            if (!response.ok) {
+                throw new Error(`HTTP Error: ${response.status}`);
+            }
+
             const strJsonThoiGian = await response.json();
             const [ngayThang, ,] = strJsonThoiGian.split(" ");
             const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
@@ -881,9 +910,10 @@ class DateValues {
             this.#hdtIdx = this.Heredate.getDate();
             this.#hmtIdx = this.Heredate.getMonth();
             this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
-            bSuccess = true;
+            // bSuccess = true;
+            bSuccess = false;
 
-            console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
+            console.log(this.getTimeStamp() + "[timeTheDay] Response from DLL: " + strJsonThoiGian);
 
             DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
             this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
@@ -893,17 +923,20 @@ class DateValues {
         } catch (error) {
 
             // This catches the "Failed to fetch" error gracefully
-            console.error('Network error or CORS issue occurred:', error);
-            console.log('Use the day of current_year as a replacement ...');
+            console.error(this.getTimeStamp() + 'Network error or CORS issue occurred:', error);
+            console.log(this.getTimeStamp() + 'Use the day of current_year as a replacement ...');
 
         } finally {
+
+            clearTimeout(timeout);
+            console.log("Finally block executed!");
 
             if (!this.#hereDigiYear || bSuccess == false)
                 this.useDefaultValues();
 
             if (bUpdateGUI == true && this.callbackUpdateGUI) {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
-                console.log('function callback is called; to render the calendar');
+                console.log(this.getTimeStamp() + 'function callback is called; to render the calendar');
             }
 
         }
@@ -915,6 +948,14 @@ class DateValues {
             * TimeValues.Constants.WAN_HOUR_IN_MILLISECONDS 
             / Iteration.DATE_FORMAT_STRINGS.length);
     } // <-- a red leopard function
+
+    getTimeStamp() {
+        let hh = this.timeVal.Hour;
+        let mm = this.timeVal.Minute;
+        let ss = this.timeVal.Second;
+
+        return '[' + hh + ':' + mm + ':' + ss + ']\t';
+    }
 
     get DigitalYear() {
         return this.#digitalYear;
