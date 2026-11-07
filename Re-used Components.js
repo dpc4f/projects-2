@@ -105,7 +105,7 @@ class TimeValues {
      * 
      * 
      */
-    
+
     async timeTheCurrent(bUpdateGUI = false) {
 
         /***
@@ -516,6 +516,10 @@ class DateValues {
         //
 
         this.#timeVal = new TimeValues();
+        while (!this.#timeVal.Hour || !this.#timeVal.Minute || !this.#timeVal.Second) {
+            sleep(500);
+        }
+
         let duration = this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree);
         // let duration = 10000; // 10 seconds 4 testing purpose
 
