@@ -107,7 +107,7 @@ class TimeValues {
      * 
      */
 
-    timeTheCurrent(bUpdateGUI = false) {
+    async timeTheCurrent(bUpdateGUI = false) {
 
         /***
         * [; nr] change this method to use async / await
@@ -126,13 +126,13 @@ class TimeValues {
 
             } else {
 
-                let response = fetch('http://localhost:8080/api/TimeRequester');
+                let response = await fetch('http://localhost:8080/api/TimeRequester');
                 
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status}`);
                 }
                 
-                const strJsonThoiGian = response.json(); // ngay_thang + gio_phut
+                const strJsonThoiGian = await response.json(); // ngay_thang + gio_phut
 
                 const [, gioPhut] = strJsonThoiGian.split(" ");
                 const [hours, minutes, seconds] = gioPhut.split(":");
@@ -146,14 +146,16 @@ class TimeValues {
 
             } 
         }
-        catch (error) {
+        catch (error) 
+        {
 
             // This catches the "Failed to fetch" error gracefully
             console.error('Network error or CORS issue occurred:', error);
             console.log('Use the time queried from Windows OS as a replacement ...');
 
         }
-        finally {
+        finally 
+        {
 
             /***
              * [; nr] complete this method so that in case of error(s) contacting time server; use time from the OS
@@ -533,9 +535,11 @@ class DateValues {
         //     sleep(500);
         // }
 
-        let duration = this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree);
-        // let duration = 10000; // 10 seconds 4 testing purpose
+        let duration = this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree) 
+                        + TimeValues.Constants.WAN_MINUTE_IN_SECONDS * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS; // 1 minute added
 
+        console.log('time to possibly update GUI 4, Elte Calendar: ' + duration.toString());
+                        
         setTimeout(() => {
 
             setInterval(() => {
@@ -550,7 +554,7 @@ class DateValues {
              */ // --> done
             this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
 
-        }, duration + 2 * TimeValues.Constants.WAN_MINUTE_IN_SECONDS * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS); // 2 minutes added
+        }, duration); 
 
     }
 
@@ -943,7 +947,7 @@ class DateValues {
 
         try {
 
-            const online = await isNetworkThrough();    
+            const online = isNetworkThrough();    
             if (!online) {
                 
                 console.warn("No internet connection. Fetch aborted.");
@@ -1825,23 +1829,23 @@ function isNetworkThrough() {
 }
 
 // 2. Application Logic: Using the check before your actual fetch
-async function loadData() {
-    const online = await isNetworkThrough();
+// async function loadData() {
+//     const online = await isNetworkThrough();
 
-    if (!online) {
-        console.warn("No internet connection. Fetch aborted.");
-        alert("You appear to be offline. Please check your network connection.");
-        return;
-    }
+//     if (!online) {
+//         console.warn("No internet connection. Fetch aborted.");
+//         alert("You appear to be offline. Please check your network connection.");
+//         return;
+//     }
 
-    // Proceed with your actual fetch request safely
-    try {
-        const response = await fetch('https://example.com');
-        if (!response.ok) throw new Error('Server error');
-        const data = await response.json();
-        console.log("Data loaded successfully:", data);
-    } catch (err) {
-        console.error("Fetch execution failed:", err);
-    }
-}
+//     // Proceed with your actual fetch request safely
+//     try {
+//         const response = await fetch('https://example.com');
+//         if (!response.ok) throw new Error('Server error');
+//         const data = await response.json();
+//         console.log("Data loaded successfully:", data);
+//     } catch (err) {
+//         console.error("Fetch execution failed:", err);
+//     }
+// }
 
