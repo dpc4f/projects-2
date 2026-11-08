@@ -54,7 +54,6 @@ class TimeValues {
     #s = null;
     // #ms;
     #freshTimeLevels;
-    #Hereday = null;
 
     constructor(updatePlatonTime = null) {
 
@@ -108,7 +107,7 @@ class TimeValues {
      * 
      */
 
-    async timeTheCurrent(bUpdateGUI = false) {
+    timeTheCurrent(bUpdateGUI = false) {
 
         /***
         * [; nr] change this method to use async / await
@@ -119,21 +118,21 @@ class TimeValues {
         
         try {
 
-            const online = await isNetworkThrough();
+            let online = isNetworkThrough();
             if (!online) {
 
-                console.warn("No internet connection. Fetch aborted.");
+                console.log("No internet connection. Fetch aborted.");
                 // alert("You appear to be offline. Please check your network connection.");
 
             } else {
 
-                const response = await fetch('http://localhost:8080/api/TimeRequester');
+                let response = fetch('http://localhost:8080/api/TimeRequester');
                 
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status}`);
                 }
                 
-                const strJsonThoiGian = await response.json(); // ngay_thang + gio_phut
+                const strJsonThoiGian = response.json(); // ngay_thang + gio_phut
 
                 const [, gioPhut] = strJsonThoiGian.split(" ");
                 const [hours, minutes, seconds] = gioPhut.split(":");
@@ -269,7 +268,7 @@ class TimeValues {
                 ++this.#h;
                 if (this.#h == 24) {
                     this.#h = 0;
-                    this.#Hereday = new Date();
+                    // this.#Hereday = new Date();
                 }
             }
         }
@@ -284,7 +283,7 @@ class TimeValues {
             ++this.#h;
             if (this.#h == 24) {
                 this.#h = 0;
-                this.#Hereday = new Date();
+                // this.#Hereday = new Date();
             }
         }
 
@@ -314,9 +313,9 @@ class TimeValues {
          * 
          */ // --> done [the bug's not here; it is handled by, focus event handler of the calling page's]
 
-        const Hereday = new Date();
-        const PassingSeconds = Hereday.getSeconds(); // passed seconds of the current minute
-        const PassingMilliseconds = Hereday.getMilliseconds(); // passing milliseconds of the current second
+        let Hereday = new Date();
+        let PassingSeconds = Hereday.getSeconds(); // passed seconds of the current minute
+        let PassingMilliseconds = Hereday.getMilliseconds(); // passing milliseconds of the current second
 
         // elapsed time to be used in setTimeout
         const OneMinute = TimeValues.Constants.WAN_MINUTE_IN_MILLISECONDS;
@@ -339,11 +338,11 @@ class TimeValues {
     }
 
     useDefaultValues() {
-        this.#Hereday = new Date();
+        let Hereday = new Date();
         
-        this.#h = this.#Hereday.getHours();
-        this.#m = this.#Hereday.getMinutes();
-        this.#s = this.#Hereday.getSeconds();
+        this.#h = Hereday.getHours();
+        this.#m = Hereday.getMinutes();
+        this.#s = Hereday.getSeconds();
         // this.#ms = this.Hereday.getMilliseconds();
     }
 
@@ -1800,19 +1799,22 @@ function toggleFullscreen() {
 }
 
 // 1. Helper function to check actual internet access
-async function isNetworkThrough() {
+// async 
+function isNetworkThrough() {
     // Quick check: If the browser says we are offline, we are definitely offline
-    if (!navigator.onLine) {
-        return false;
-    }
+    // if (!navigator.onLine) {
+    //     return false;
+    // }
+
+    return navigator.onLine;
 
     try {
         // Perform a lightweight 'HEAD' request to avoid downloading data
         // Use a cache-busting timestamp so the browser doesn't give a false positive from cache
-        const response = await fetch('/favicon.ico', {
-            method: 'HEAD',
-            cache: 'no-store'
-        });
+        // const response = await fetch('/favicon.ico', {
+        //     method: 'HEAD',
+        //     cache: 'no-store'
+        // });
 
         // If the status is in the 200-299 range, the network is through
         return response.ok;
