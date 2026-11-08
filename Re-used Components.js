@@ -114,33 +114,45 @@ class TimeValues {
         */ // --> done
         console.log("timeTheCurrent gets called");
         let bSuccess = false;
-
+        
         try {
-            const response = await fetch('http://localhost:8080/api/TimeRequester');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status}`);
-            }
-            
-            const strJsonThoiGian = await response.json(); // ngay_thang + gio_phut
 
-            const [, gioPhut] = strJsonThoiGian.split(" ");
-            const [hours, minutes, seconds] = gioPhut.split(":");
+            const online = await isNetworkThrough();
+            if (!online) {
 
-            this.#h = parseInt(hours);
-            this.#m = parseInt(minutes);
-            this.#s = parseInt(seconds);
-            bSuccess = true;
+                console.warn("No internet connection. Fetch aborted.");
+                // alert("You appear to be offline. Please check your network connection.");
 
-            console.log("[timeTheCurrent] Response from DLL: " + gioPhut);
+            } else {
 
-        } catch (error) {
+                const response = await fetch('http://localhost:8080/api/TimeRequester');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+                
+                const strJsonThoiGian = await response.json(); // ngay_thang + gio_phut
+
+                const [, gioPhut] = strJsonThoiGian.split(" ");
+                const [hours, minutes, seconds] = gioPhut.split(":");
+
+                this.#h = parseInt(hours);
+                this.#m = parseInt(minutes);
+                this.#s = parseInt(seconds);
+                bSuccess = true;
+
+                console.log("[timeTheCurrent] Response from DLL: " + gioPhut);
+
+            } 
+        }
+        catch (error) {
 
             // This catches the "Failed to fetch" error gracefully
             console.error('Network error or CORS issue occurred:', error);
             console.log('Use the time queried from Windows OS as a replacement ...');
 
-        } finally {
+        }
+        finally {
 
             /***
              * [; nr] complete this method so that in case of error(s) contacting time server; use time from the OS
@@ -916,6 +928,7 @@ class DateValues {
     set CallBackUpdateGUI(f) {
         this.callbackUpdateGUI = f;
     }
+    
 
     async timeTheDay(bUpdateGUI = false) {
         console.log("timeTheDay gets called");
@@ -929,30 +942,38 @@ class DateValues {
 
         try {
 
-            const response = await fetch('http://localhost:8080/api/TimeRequester');
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status}`);
+            const online = await isNetworkThrough();    
+            if (!online) {
+                
+                console.warn("No internet connection. Fetch aborted.");
+                // alert("You appear to be offline. Please check your network connection.");
+                
+            } else {
+
+                const response = await fetch('http://localhost:8080/api/TimeRequester');
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+
+                const strJsonThoiGian = await response.json();
+                const [ngayThang, ,] = strJsonThoiGian.split(" ");
+                const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
+
+                // Rearrange into standard "YYYY-MM-DD"
+                this.Heredate = new Date(`${year}-${month}-${day}`);
+                this.#hdyIdx = this.Heredate.getDay();
+                this.#hdtIdx = this.Heredate.getDate();
+                this.#hmtIdx = this.Heredate.getMonth();
+                this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
+                bSuccess = true;
+
+                console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
+
+                DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
+                this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
+
+                this.useHereValues();
             }
-
-            const strJsonThoiGian = await response.json();
-            const [ngayThang, ,] = strJsonThoiGian.split(" ");
-            const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
-
-            // Rearrange into standard "YYYY-MM-DD"
-            this.Heredate = new Date(`${year}-${month}-${day}`);
-            this.#hdyIdx = this.Heredate.getDay();
-            this.#hdtIdx = this.Heredate.getDate();
-            this.#hmtIdx = this.Heredate.getMonth();
-            this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
-            // bSuccess = true;
-            bSuccess = false;
-
-            console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
-
-            DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
-            this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
-
-            this.useHereValues();
                 
         } catch (error) {
 
@@ -1774,5 +1795,49 @@ let bFullScreen = true;
 function toggleFullscreen() {
     fullscreenZoom(bFullScreen);
     bFullScreen = !bFullScreen;
+}
+
+// 1. Helper function to check actual internet access
+async function isNetworkThrough() {
+    // Quick check: If the browser says we are offline, we are definitely offline
+    if (!navigator.onLine) {
+        return false;
+    }
+
+    try {
+        // Perform a lightweight 'HEAD' request to avoid downloading data
+        // Use a cache-busting timestamp so the browser doesn't give a false positive from cache
+        const response = await fetch('/favicon.ico', {
+            method: 'HEAD',
+            cache: 'no-store'
+        });
+
+        // If the status is in the 200-299 range, the network is through
+        return response.ok;
+    } catch (error) {
+        // A network failure (e.g., DNS down, captive portal) will trigger this catch block
+        return false;
+    }
+}
+
+// 2. Application Logic: Using the check before your actual fetch
+async function loadData() {
+    const online = await isNetworkThrough();
+
+    if (!online) {
+        console.warn("No internet connection. Fetch aborted.");
+        alert("You appear to be offline. Please check your network connection.");
+        return;
+    }
+
+    // Proceed with your actual fetch request safely
+    try {
+        const response = await fetch('https://example.com');
+        if (!response.ok) throw new Error('Server error');
+        const data = await response.json();
+        console.log("Data loaded successfully:", data);
+    } catch (err) {
+        console.error("Fetch execution failed:", err);
+    }
 }
 
