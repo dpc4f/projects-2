@@ -624,7 +624,7 @@ class DateValues {
         let bAddOneYear = m < 2 ? true : false;
         let y = Iteration.revertElteYear(arr[2], bAddOneYear);
 
-        if (this.isValidGregorian(y, m, d) == false) return;
+        if (DateValues.isValidGregorian(y, m, d) == false) return;
 
         this.#setDigiYear = y;
         this.#smtIdx = m;
