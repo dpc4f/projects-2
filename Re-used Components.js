@@ -531,11 +531,12 @@ class DateValues {
         //
 
         this.#timeVal = new TimeValues();
-        // while (!this.#timeVal.Hour || !this.#timeVal.Minute || !this.#timeVal.Second) {
-        //     sleep(500);
-        // }
+        callbackUpdateGUI ? this.refreshOnTomorrowArrive(callbackUpdateGUI) : ZERO;
 
-        let duration = this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree) 
+    }
+
+    refreshOnTomorrowArrive(callback) {
+         let duration = this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree) 
                         + TimeValues.Constants.WAN_MINUTE_IN_SECONDS * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS; // 1 minute added
 
         console.log('time to possibly update GUI 4, Elte Calendar: ' + duration.toString());
@@ -543,7 +544,7 @@ class DateValues {
         setTimeout(() => {
 
             setInterval(() => {
-                this.timeTheDay(callbackUpdateGUI ? true : false);
+                this.timeTheDay(callback ? true : false);
             }, DateValues.Constants.ONE_DAY_IN_MILLISECONDS); // will be run every day 4b the first day
             
             // this.#firstTimeCalledBySetTimeOut = true;
@@ -555,7 +556,6 @@ class DateValues {
             this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
 
         }, duration); 
-
     }
 
     isValidGregorian(digiYear, monthIdx, soleDateIdx) {
