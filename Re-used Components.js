@@ -83,6 +83,10 @@ class TimeValues {
 
         return this.#h;
     }
+    
+    set Hour(value) {
+        this.#h = value;
+    }
 
     get Minute() {
         if (!this.#m) {
@@ -90,6 +94,10 @@ class TimeValues {
         }
 
         return this.#m;
+    }
+
+    set Minute(value) {
+        this.#m = value;
     }
 
     get Second() {
@@ -100,6 +108,9 @@ class TimeValues {
         return this.#s;
     }
 
+    set Second(value) {
+        this.#s = value;
+    }
 
     /***
      * [; nr] check how to use async / await appropriately
@@ -118,33 +129,32 @@ class TimeValues {
         
         try {
 
-            // let online = isNetworkThrough();
-            // if (!online) {
-
-            //     console.log("No internet connection. Fetch aborted.");
-            //     // alert("You appear to be offline. Please check your network connection.");
-
-            // } else {
-
-                let response = await fetch('http://localhost:8080/api/TimeRequester');
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status}`);
-                }
-                
-                const strJsonThoiGian = await response.json(); // ngay_thang + gio_phut
-
-                const [, gioPhut] = strJsonThoiGian.split(" ");
-                const [hours, minutes, seconds] = gioPhut.split(":");
-
-                this.#h = parseInt(hours);
-                this.#m = parseInt(minutes);
-                this.#s = parseInt(seconds);
-                bSuccess = true;
-
-                console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
-
+            let response = await fetch('http://localhost:8080/api/TimeRequester');
             
+            if (!response.ok) {
+                throw new Error(`HTTP Error: ${response.status}`);
+            }
+
+            async function doWaiting() {
+                const strJsonThoiGian = await response.json();
+                const [, gioPhut] = strJsonThoiGian.split(" ");
+                const [hh, mm, ss] = gioPhut.split(":");
+
+                bSuccess = this.isValidGioPhut(hh, mm, ss);
+                if (bSuccess == false) {
+                    // Relinquish control to the browser so the UI stays smooth, 
+                    // then pick back up on the next available event loop tick.
+                    setTimeout(doWaiting, 0); 
+                } else {
+                    this.Hour = parseInt(hh);
+                    this.Minute = parseInt(mm);
+                    this.Second = parseInt(ss);
+                }
+            }
+
+            doWaiting();
+            console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
+
         }
         catch (error) 
         {
@@ -152,7 +162,7 @@ class TimeValues {
             // This catches the "Failed to fetch" error gracefully
             console.error('Network error or CORS issue occurred:', error);
             console.log('Use the time queried from Windows OS as a replacement ...');
-
+            
         }
         finally 
         {
@@ -176,6 +186,16 @@ class TimeValues {
 
         }
     }
+
+    isValidGioPhut(hour, minute, second) {
+        let ret = true;
+
+        if (hour < 0 || hour >= 24) ret = false;
+        if (minute < 0 || minute >= 60) ret = false;
+        if (second < 0 || second >= 60) ret = false;
+
+        return ret;
+     }
 
     async remainingTimeTillEndOfTheDay(level = TimeValues.Constants.FreshTimeLevels.LevelBig) {
 
@@ -953,39 +973,41 @@ class DateValues {
 
         try {
 
-            // const online = isNetworkThrough();    
-            // if (!online) {
-                
-            //     console.warn("No internet connection. Fetch aborted.");
-            //     // alert("You appear to be offline. Please check your network connection.");
-                
-            // } else {
+            const response = await fetch('http://localhost:8080/api/TimeRequester');
+            if (!response.ok) {
+                throw new Error(`HTTP Error: ${response.status}`);
+            }
 
-                const response = await fetch('http://localhost:8080/api/TimeRequester');
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status}`);
-                }
-
+            async function doWaiting() {
                 const strJsonThoiGian = await response.json();
                 const [ngayThang, ,] = strJsonThoiGian.split(" ");
                 const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
 
-                // Rearrange into standard "YYYY-MM-DD"
-                this.Heredate = new Date(`${year}-${month}-${day}`);
-                this.#hdyIdx = this.Heredate.getDay();
-                this.#hdtIdx = this.Heredate.getDate();
-                this.#hmtIdx = this.Heredate.getMonth();
-                this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
-                bSuccess = true;
+                bSuccess = this.isValidGregorian(year, month, day);
+                if (bSuccess == false) {
+                    // Relinquish control to the browser so the UI stays smooth, 
+                    // then pick back up on the next available event loop tick.
+                    setTimeout(doWaiting, 0); 
+                } else {
+                    // Rearrange into standard "YYYY-MM-DD"
+                    this.Heredate = new Date(`${year}-${month}-${day}`);
+                }
+            }
 
-                console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
+            doWaiting();
 
-                DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
-                this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
+            this.#hdyIdx = this.Heredate.getDay();
+            this.#hdtIdx = this.Heredate.getDate();
+            this.#hmtIdx = this.Heredate.getMonth();
+            this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
+    
+            console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
 
-                this.useHereValues();
-            // }
-                
+            DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
+            this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
+
+            this.useHereValues();
+    
         } catch (error) {
 
             // This catches the "Failed to fetch" error gracefully
@@ -1854,4 +1876,15 @@ function isNetworkThrough() {
 //         console.error("Fetch execution failed:", err);
 //     }
 // }
+
+
+requestIdleCallback((deadline) => {
+  // Check how much time is left in the current idle period (in ms)
+  while (deadline.timeRemaining() > 0 && workIsRemaining) {
+    performLowPriorityTask();
+  }
+}, { timeout: 2000 }); // timeout ensures it runs eventually if browser stays busy
+
+
+
 
