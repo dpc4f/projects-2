@@ -983,37 +983,40 @@ class DateValues {
                 throw new Error(`HTTP Error: ${response.status}`);
             }
 
-            let strDate = '';
+            let strDate = null;
             async function doWaiting() {
                 const strJsonThoiGian = await response.json();
                 const [ngayThang, ,] = strJsonThoiGian.split(" ");
                 const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
 
-                bSuccess = DateValues.isValidGregorian(year, month, day);
-                if (bSuccess == false) {
-                    // Relinquish control to the browser so the UI stays smooth, 
-                    // then pick back up on the next available event loop tick.
-                    setTimeout(doWaiting, 0); 
-                } else {
-                    // Rearrange into standard "YYYY-MM-DD"
-                    strDate = year + "-" + month + "-" + day;
-                    console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
-                }
+                bSuccess = DateValues.isValidGregorian(year, month, day); 
+                strDate = year + "-" + month + "-" + day;
+                console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
             }
 
-            doWaiting();
+            await doWaiting();
 
-            this.Heredate = new Date(strDate);
-            this.#hdyIdx = this.Heredate.getDay();
-            this.#hdtIdx = this.Heredate.getDate();
-            this.#hmtIdx = this.Heredate.getMonth();
-            this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
-    
-            DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
-            this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
+            if (strDate) {
+                this.Heredate = new Date(strDate);
+                this.#hdyIdx = this.Heredate.getDay();
+                this.#hdtIdx = this.Heredate.getDate();
+                this.#hmtIdx = this.Heredate.getMonth();
+                this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
+                DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
+                this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
-            this.useHereValues();
-    
+                this.useHereValues();
+
+                if (bUpdateGUI == true && this.callbackUpdateGUI) {
+                    this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+                    console.log('function callback is called; to render the calendar');
+                }
+
+                return;
+            }
+           
+            bSuccess ? setTimeout(timeTheDay, 0) : ZERO; 
+
         } catch (error) {
 
             // This catches the "Failed to fetch" error gracefully
@@ -1022,17 +1025,15 @@ class DateValues {
 
         } finally {
 
-            // clearTimeout(timeout);
             console.log("[timeTheDay] Finally block executed!");
 
-            if (!this.#hereDigiYear || bSuccess == false)
+            if (!this.#hereDigiYear || bSuccess == false) {
                 this.useDefaultValues();
-
-            if (bUpdateGUI == true && this.callbackUpdateGUI) {
-                this.callbackUpdateGUI(this); // to render the calendar when the day's values change
-                console.log('function callback is called; to render the calendar');
+                if (bUpdateGUI == true && this.callbackUpdateGUI) {
+                    this.callbackUpdateGUI(this); // to render the calendar when the day's values change
+                    console.log('function callback is called; to render the calendar');
+                }
             }
-
         }
     }
 
