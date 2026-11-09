@@ -118,13 +118,13 @@ class TimeValues {
         
         try {
 
-            let online = isNetworkThrough();
-            if (!online) {
+            // let online = isNetworkThrough();
+            // if (!online) {
 
-                console.log("No internet connection. Fetch aborted.");
-                // alert("You appear to be offline. Please check your network connection.");
+            //     console.log("No internet connection. Fetch aborted.");
+            //     // alert("You appear to be offline. Please check your network connection.");
 
-            } else {
+            // } else {
 
                 let response = await fetch('http://localhost:8080/api/TimeRequester');
                 
@@ -144,7 +144,7 @@ class TimeValues {
 
                 console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
 
-            } 
+            
         }
         catch (error) 
         {
@@ -177,7 +177,7 @@ class TimeValues {
         }
     }
 
-    remainingTimeTillEndOfTheDay(level = TimeValues.Constants.FreshTimeLevels.LevelBig) {
+    async remainingTimeTillEndOfTheDay(level = TimeValues.Constants.FreshTimeLevels.LevelBig) {
 
         /***
          * 
@@ -190,7 +190,7 @@ class TimeValues {
          * 
          */
 
-        this.timeTheRecentMoment();
+        await this.timeTheRecentMoment();
 
         let ret = 0;
         let passedTime = 0;
@@ -531,12 +531,14 @@ class DateValues {
         //
 
         this.#timeVal = new TimeValues();
-        callbackUpdateGUI ? this.refreshGUIOnTomorrow(callbackUpdateGUI) : ZERO;
+        if (callbackUpdateGUI) {
+            this.refreshGUIOnTomorrow();
+        }
 
     }
 
-    refreshGUIOnTomorrow(callback) {
-         let duration = this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree) 
+    async refreshGUIOnTomorrow() {
+         let duration = await this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree) 
                         + TimeValues.Constants.WAN_MINUTE_IN_SECONDS * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS; // 1 minute added
 
         console.log('time to possibly update GUI 4, Elte Calendar: ' + duration.toString());
@@ -544,7 +546,7 @@ class DateValues {
         setTimeout(() => {
 
             setInterval(() => {
-                this.timeTheDay(callback ? true : false);
+                this.timeTheDay(true);
             }, DateValues.Constants.ONE_DAY_IN_MILLISECONDS); // will be run every day 4b the first day
             
             // this.#firstTimeCalledBySetTimeOut = true;
@@ -553,7 +555,7 @@ class DateValues {
              * [; nr] check this again; seems that it's ahead of the time 2 minutes therefore callback won't change the GUI
              * 
              */ // --> done
-            this.timeTheDay(callbackUpdateGUI ? true : false); // will be run @the end of the day
+            this.timeTheDay(true); // will be run @the beginning of the next day's
 
         }, duration); 
     }
@@ -951,13 +953,13 @@ class DateValues {
 
         try {
 
-            const online = isNetworkThrough();    
-            if (!online) {
+            // const online = isNetworkThrough();    
+            // if (!online) {
                 
-                console.warn("No internet connection. Fetch aborted.");
-                // alert("You appear to be offline. Please check your network connection.");
+            //     console.warn("No internet connection. Fetch aborted.");
+            //     // alert("You appear to be offline. Please check your network connection.");
                 
-            } else {
+            // } else {
 
                 const response = await fetch('http://localhost:8080/api/TimeRequester');
                 if (!response.ok) {
@@ -982,7 +984,7 @@ class DateValues {
                 this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
                 this.useHereValues();
-            }
+            // }
                 
         } catch (error) {
 
