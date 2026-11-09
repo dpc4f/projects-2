@@ -135,6 +135,7 @@ class TimeValues {
                 throw new Error(`HTTP Error: ${response.status}`);
             }
 
+            let hour, minute, second;
             async function doWaiting() {
                 const strJsonThoiGian = await response.json();
                 const [, gioPhut] = strJsonThoiGian.split(" ");
@@ -146,15 +147,19 @@ class TimeValues {
                     // then pick back up on the next available event loop tick.
                     setTimeout(doWaiting, 0); 
                 } else {
-                    this.Hour = parseInt(hh);
-                    this.Minute = parseInt(mm);
-                    this.Second = parseInt(ss);
+                    hour = parseInt(hh);
+                    minute = parseInt(mm);
+                    second = parseInt(ss);
 
                     console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
                 }
             }
 
             doWaiting();
+
+            this.Hour = hour;
+            this.Minute = minute;
+            this.Second = second;
         }
         catch (error) 
         {
@@ -504,7 +509,7 @@ class DateValues {
 
         if (yr < 0) return; // invalid parameters
         
-        this.Heredate = null;
+        this.Heredate = new Date();
         this.callbackUpdateGUI = callbackUpdateGUI;
 
         if (yr == DateValues.USE_HERE_DAY) // == 0
@@ -517,7 +522,7 @@ class DateValues {
              * 
              */ // --> done
 
-            if (this.isValidGregorian(yr, mt, dt) == false) return;
+            if (DateValues.isValidGregorian(yr, mt, dt) == false) return;
 
             this.#setDigiYear = yr; // yr > -1
 
@@ -580,7 +585,7 @@ class DateValues {
         }, duration); 
     }
 
-    isValidGregorian(digiYear, monthIdx, soleDateIdx) {
+    static isValidGregorian(digiYear, monthIdx, soleDateIdx) {
         let ret = true;
         
         if (digiYear < 1) ret = false;
@@ -978,25 +983,27 @@ class DateValues {
                 throw new Error(`HTTP Error: ${response.status}`);
             }
 
+            let strDate = '';
             async function doWaiting() {
                 const strJsonThoiGian = await response.json();
                 const [ngayThang, ,] = strJsonThoiGian.split(" ");
                 const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
 
-                bSuccess = this.isValidGregorian(year, month, day);
+                bSuccess = DateValues.isValidGregorian(year, month, day);
                 if (bSuccess == false) {
                     // Relinquish control to the browser so the UI stays smooth, 
                     // then pick back up on the next available event loop tick.
                     setTimeout(doWaiting, 0); 
                 } else {
                     // Rearrange into standard "YYYY-MM-DD"
-                    this.Heredate = new Date(`${year}-${month}-${day}`);
+                    strDate = year + "-" + month + "-" + day;
                     console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
                 }
             }
 
             doWaiting();
 
+            this.Heredate = new Date(strDate);
             this.#hdyIdx = this.Heredate.getDay();
             this.#hdtIdx = this.Heredate.getDate();
             this.#hmtIdx = this.Heredate.getMonth();
