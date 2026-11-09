@@ -140,7 +140,7 @@ class TimeValues {
                 const [, gioPhut] = strJsonThoiGian.split(" ");
                 const [hh, mm, ss] = gioPhut.split(":");
 
-                bSuccess = this.isValidGioPhut(hh, mm, ss);
+                bSuccess = TimeValues.isValidGioPhut(hh, mm, ss);
                 if (bSuccess == false) {
                     // Relinquish control to the browser so the UI stays smooth, 
                     // then pick back up on the next available event loop tick.
@@ -149,12 +149,12 @@ class TimeValues {
                     this.Hour = parseInt(hh);
                     this.Minute = parseInt(mm);
                     this.Second = parseInt(ss);
+
+                    console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
                 }
             }
 
             doWaiting();
-            console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
-
         }
         catch (error) 
         {
@@ -162,7 +162,7 @@ class TimeValues {
             // This catches the "Failed to fetch" error gracefully
             console.error('Network error or CORS issue occurred:', error);
             console.log('Use the time queried from Windows OS as a replacement ...');
-            
+
         }
         finally 
         {
@@ -187,7 +187,7 @@ class TimeValues {
         }
     }
 
-    isValidGioPhut(hour, minute, second) {
+    static isValidGioPhut(hour, minute, second) {
         let ret = true;
 
         if (hour < 0 || hour >= 24) ret = false;
@@ -991,6 +991,7 @@ class DateValues {
                 } else {
                     // Rearrange into standard "YYYY-MM-DD"
                     this.Heredate = new Date(`${year}-${month}-${day}`);
+                    console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
                 }
             }
 
@@ -1001,8 +1002,6 @@ class DateValues {
             this.#hmtIdx = this.Heredate.getMonth();
             this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
     
-            console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
-
             DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
             this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
@@ -1876,15 +1875,4 @@ function isNetworkThrough() {
 //         console.error("Fetch execution failed:", err);
 //     }
 // }
-
-
-requestIdleCallback((deadline) => {
-  // Check how much time is left in the current idle period (in ms)
-  while (deadline.timeRemaining() > 0 && workIsRemaining) {
-    performLowPriorityTask();
-  }
-}, { timeout: 2000 }); // timeout ensures it runs eventually if browser stays busy
-
-
-
 
