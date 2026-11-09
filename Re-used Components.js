@@ -935,6 +935,10 @@ class DateValues {
     }
     
 
+    /***
+     * [; nr] check if possible to revert the code 4, testing online status
+     * 
+     */
     async timeTheDay(bUpdateGUI = false) {
         console.log("timeTheDay gets called");
 
