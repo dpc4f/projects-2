@@ -531,11 +531,11 @@ class DateValues {
         //
 
         this.#timeVal = new TimeValues();
-        callbackUpdateGUI ? this.refreshOnTomorrowArrive(callbackUpdateGUI) : ZERO;
+        callbackUpdateGUI ? this.refreshGUIOnTomorrow(callbackUpdateGUI) : ZERO;
 
     }
 
-    refreshOnTomorrowArrive(callback) {
+    refreshGUIOnTomorrow(callback) {
          let duration = this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree) 
                         + TimeValues.Constants.WAN_MINUTE_IN_SECONDS * TimeValues.Constants.WAN_SECOND_IN_MILLISECONDS; // 1 minute added
 
