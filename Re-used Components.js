@@ -63,13 +63,13 @@ class TimeValues {
          * 
          */ // --> done
 
-        this.timeTheCurrent(updatePlatonTime == null ? false : true);
+        this.timeTheRecentMoment(updatePlatonTime == null ? false : true);
         
         this.#callback = updatePlatonTime;
         this.idcb = null;
 
         this.#freshTimeLevels = new TimeValues.Constants.FreshTimeLevels();
-        setInterval(() => this.timeTheCurrent(), TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY);
+        setInterval(() => this.timeTheRecentMoment(), TimeValues.Constants.CANH_GIỜ_TÍNH_THEO_MIÊU_LY_GIÂY);
     }
 
     set CallBack(f) {
@@ -78,7 +78,7 @@ class TimeValues {
 
     get Hour() {
         if (!this.#h) {
-            this.timeTheCurrent();
+            this.timeTheRecentMoment();
         }
 
         return this.#h;
@@ -86,7 +86,7 @@ class TimeValues {
 
     get Minute() {
         if (!this.#m) {
-            this.timeTheCurrent();
+            this.timeTheRecentMoment();
         }
 
         return this.#m;
@@ -94,7 +94,7 @@ class TimeValues {
 
     get Second() {
         if (!this.#s) {
-            this.timeTheCurrent();
+            this.timeTheRecentMoment();
         }
 
         return this.#s;
@@ -107,13 +107,13 @@ class TimeValues {
      * 
      */
 
-    async timeTheCurrent(bUpdateGUI = false) {
+    async timeTheRecentMoment(bUpdateGUI = false) {
 
         /***
         * [; nr] change this method to use async / await
         * 
         */ // --> done
-        console.log("timeTheCurrent gets called");
+        console.log("timeTheRecentMoment gets called");
         let bSuccess = false;
         
         try {
@@ -142,7 +142,7 @@ class TimeValues {
                 this.#s = parseInt(seconds);
                 bSuccess = true;
 
-                console.log("[timeTheCurrent] Response from DLL: " + gioPhut);
+                console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
 
             } 
         }
@@ -164,7 +164,7 @@ class TimeValues {
              */ // --> done
 
             // clearTimeout(timeout);
-            console.log("[timeTheCurrent] Finally block executed!");
+            console.log("[timeTheRecentMoment] Finally block executed!");
 
             if (bSuccess == false) {
                 this.useDefaultValues();
@@ -190,7 +190,7 @@ class TimeValues {
          * 
          */
 
-        this.timeTheCurrent();
+        this.timeTheRecentMoment();
 
         let ret = 0;
         let passedTime = 0;

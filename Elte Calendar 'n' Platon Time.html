@@ -522,13 +522,13 @@
         function updateTimeToCurrentMoment() {
             if (tVal) {
                 tVal.CallBack = updatePlatonTime;
-                tVal.timeTheCurrent();
+                tVal.timeTheRecentMoment();
             }
         }
 
         function updateToHereTime() {
             tVal = new TimeValues(updatePlatonTIme);
-            tVal.timeTheCurrent();
+            tVal.timeTheRecentMoment();
         }
 
         // refresh every second
