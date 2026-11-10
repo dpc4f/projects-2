@@ -135,31 +135,29 @@ class TimeValues {
                 throw new Error(`HTTP Error: ${response.status}`);
             }
 
-            let hour, minute, second;
+            let strHHMMSS = null;
             async function doWaiting() {
                 const strJsonThoiGian = await response.json();
-                const [, gioPhut] = strJsonThoiGian.split(" ");
-                const [hh, mm, ss] = gioPhut.split(":");
-
-                bSuccess = TimeValues.isValidGioPhut(hh, mm, ss);
-                if (bSuccess == false) {
-                    // Relinquish control to the browser so the UI stays smooth, 
-                    // then pick back up on the next available event loop tick.
-                    setTimeout(doWaiting, 0); 
-                } else {
-                    hour = parseInt(hh);
-                    minute = parseInt(mm);
-                    second = parseInt(ss);
-
-                    console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
-                }
+                // const [, gioPhut] = strJsonThoiGian.split(" ");
+                
+                strHHMMSS = strJsonThoiGian.split(" ")[1];
+                console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
             }
 
-            doWaiting();
+            await doWaiting();
 
-            this.Hour = hour;
-            this.Minute = minute;
-            this.Second = second;
+            const [hh, mm, ss] = strHHMMSS.split(":");
+            bSuccess = TimeValues.isValidGioPhut(hh, mm, ss);
+            
+            this.Hour = parseInt(hh);
+            this.Minute = parseInt(mm);
+            this.Second = parseInt(ss);
+
+            if (bUpdateGUI == true && this.#callback) {
+                this.#callback(this);
+            }
+
+            return;
         }
         catch (error) 
         {
@@ -171,7 +169,6 @@ class TimeValues {
         }
         finally 
         {
-
             /***
              * [; nr] complete this method so that in case of error(s) contacting time server; use time from the OS
              * 
@@ -183,12 +180,10 @@ class TimeValues {
 
             if (bSuccess == false) {
                 this.useDefaultValues();
+                if (bUpdateGUI == true && this.#callback) {
+                    this.#callback(this);
+                }
             }
-
-            if (bUpdateGUI == true && this.#callback) {
-                this.#callback(this);
-            }
-
         }
     }
 
@@ -1029,7 +1024,7 @@ class DateValues {
 
             if (!this.#hereDigiYear || bSuccess == false) {
                 this.useDefaultValues();
-                
+
                 if (bUpdateGUI == true && this.callbackUpdateGUI) {
                     this.callbackUpdateGUI(this); // to render the calendar when the day's values change
                     console.log('function callback is called; to render the calendar');
