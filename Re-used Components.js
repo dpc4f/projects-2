@@ -1029,6 +1029,7 @@ class DateValues {
 
             if (!this.#hereDigiYear || bSuccess == false) {
                 this.useDefaultValues();
+                
                 if (bUpdateGUI == true && this.callbackUpdateGUI) {
                     this.callbackUpdateGUI(this); // to render the calendar when the day's values change
                     console.log('function callback is called; to render the calendar');
@@ -1117,7 +1118,7 @@ class DateValues {
         if (instanceOfDate && instanceOfDate instanceof Date) 
             return instanceOfDate.getFullYear(); // <-- return year number only; not the year in full form 
 
-        return -1;
+        return null;
     }
 
     static getWeekNoWithProvidedParameters(distance, monthIndex, soleDateIndex) {
