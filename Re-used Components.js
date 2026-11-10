@@ -141,7 +141,7 @@ class TimeValues {
                 // const [, gioPhut] = strJsonThoiGian.split(" ");
                 
                 strHHMMSS = strJsonThoiGian.split(" ")[1];
-                console.log("[timeTheRecentMoment] Response from DLL: " + gioPhut);
+                console.log("[timeTheRecentMoment] Response from DLL: " + strHHMMSS);
             }
 
             await doWaiting();
