@@ -10,6 +10,7 @@ const DAYS_IN_A_YEAR = 365.25;
 
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 const ZERO = 0;
+const NO_OP = ZERO;
 
 
 /***
@@ -356,7 +357,7 @@ class TimeValues {
     }
 
     clearTimerId() {
-        this.idcb ? clearInterval(this.idcb) : ZERO;
+        this.idcb ? clearInterval(this.idcb) : NO_OP;
     }
 
     useDefaultValues() {
@@ -960,7 +961,9 @@ class DateValues {
     /***
      * [; nr] check if possible to revert the code 4, testing online status
      * 
-     */
+     * 
+     */ // --> done
+
     async timeTheDay(bUpdateGUI = false) {
         console.log("timeTheDay gets called");
 
@@ -969,7 +972,7 @@ class DateValues {
          * 
          */ // --> done
  
-        let bSuccess = false;
+        let bSuccess = false; // this variable is to denote that the acquire of date-time values has been finished
 
         try {
 
@@ -1010,7 +1013,7 @@ class DateValues {
                 return;
             }
            
-            bSuccess ? setTimeout(timeTheDay, 0) : ZERO; 
+            bSuccess ? NO_OP : setTimeout(timeTheDay, 0); 
 
         } catch (error) {
 
