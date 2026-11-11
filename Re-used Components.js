@@ -508,9 +508,9 @@ class DateValues {
         this.Heredate = new Date();
         this.callbackUpdateGUI = callbackUpdateGUI;
 
-        if (yr == DateValues.USE_HERE_DAY) // == 0
+        if (yr == DateValues.USE_HERE_DAY) { // == 0
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
-        else {
+        } else {
             /* use Set Date Values */
 
             /***
@@ -521,18 +521,9 @@ class DateValues {
             if (DateValues.isValidGregorian(yr, mt, dt) == false) return;
 
             this.#setDigiYear = yr; // yr > -1
-
-            if (mt > -1) 
-                this.#smtIdx = mt;
-            else
-                this.#smtIdx = 0;
-            
-            if (dt > -1) 
-                this.#sdtIdx = dt;
-            else
-                this.#sdtIdx = 1; 
-                   
-            DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear);
+            this.#smtIdx = mt;
+            this.#sdtIdx = dt;                
+            DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear); // [; nr] why is this variable a static variable .?
             this.#swkNo = DateValues.getWeekNumber(this.#setDigiYear, 
                             this.#smtIdx, this.#sdtIdx, this.#sdyIdx); // <-- modify OR code a new function 
             // --> new function implemented
