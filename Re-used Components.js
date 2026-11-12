@@ -521,7 +521,7 @@ class DateValues {
             this.#smtIdx = mt;
             this.#sdtIdx = dt;                
             // DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear); // [; nr] why is this variable a static variable .?
-            this.#swkNo = DateValues.getWeekNumber(this.#setDigiYear, 
+            this.#swkNo = DateValues.getWeekNumber(this, this.#setDigiYear, 
                             this.#smtIdx, this.#sdtIdx, this.#sdyIdx); // <-- modify OR code a new function 
             // --> new function implemented
 
@@ -615,7 +615,7 @@ class DateValues {
         this.#sdtIdx = d;
         // DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear);
         this.#cUnit = new CulaUnit(this.#setDigiYear);
-        this.#swkNo = DateValues.getWeekNumber(this.#setDigiYear, this.#smtIdx, this.#sdtIdx, this.#sdyIdx);
+        this.#swkNo = DateValues.getWeekNumber(this, this.#setDigiYear, this.#smtIdx, this.#sdtIdx, this.#sdyIdx);
 
         this.useSetValues();
 
@@ -986,7 +986,7 @@ class DateValues {
                 this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
                 this.#cUnit = new CulaUnit(this.#hereDigiYear);
                 // DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
-                this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
+                this.#hwkNo = DateValues.getWeekNumber(this, this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
                 this.useHereValues();
 
