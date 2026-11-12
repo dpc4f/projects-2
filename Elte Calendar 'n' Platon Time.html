@@ -694,7 +694,7 @@
             let duration = 10000; // 10 seconds 4 testing purpose
             // console.log(duration); // 4 testing purpose
             setInterval(() => {
-                infor.innerText = UnytValues.getDateValuesTimeStamp(form, index);
+                infor.innerText = UnytValues.getDateValuesTimeStamp(dateVal, form, index);
             
                 if (++index == UnytValues.DATE_FORMAT_COUNT) {
                     index = 0;
@@ -704,7 +704,7 @@
                 }
             }, duration);
 
-            infor.innerText = UnytValues.getDateValuesTimeStamp(UnytValues.FULL_FORM_DATE, 0); // first time
+            infor.innerText = UnytValues.getDateValuesTimeStamp(dateVal, UnytValues.FULL_FORM_DATE, 0); // first time
         }
 
         function formatElteDateString() { // leave this method here 'cause of a historic reason
@@ -771,9 +771,8 @@
         }
         
         window.onload = function() {
-            renderDateTimeVarieties();
-
             updateToHereDate();
+            renderDateTimeVarieties();
         }
 
         window.addEventListener('blur', updateTimeToCurrentMoment);

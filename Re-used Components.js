@@ -1476,12 +1476,14 @@ class CulaUnit {
     }
 
     
-    static getDateValuesTimeStamp(formLength = CulaUnit.FULL_FORM_DATE, index = CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, dateVal = null) {
+    static getDateValuesTimeStamp(dateVal, formLength = CulaUnit.FULL_FORM_DATE, index = CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS) {
         
         /***
          * CulaUnit.FULL_FORM_DATE && CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS <-- được gọi là ngày nhì
          * 
          */
+
+        if (!dateVal) return STR_LEN_ZERO;
         
         let bMonth = CulaUnit.DATE_FORMAT_STRINGS[index][0]; 
         let bDateInMonth = CulaUnit.DATE_FORMAT_STRINGS[index][1]; 
@@ -1490,19 +1492,17 @@ class CulaUnit {
         let bWeekNumber = CulaUnit.DATE_FORMAT_STRINGS[index].length > 4 ? CulaUnit.DATE_FORMAT_STRINGS[index][4] : false;
         let valuesStr = '';
 
-        let dateTemp = dateVal == null ? new DateValues() : dateVal;
-
         switch (formLength) {
             case CulaUnit.FULL_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateFullForm(dateTemp, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateFullForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             case CulaUnit.MID_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateMidForm(dateTemp, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateMidForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             case CulaUnit.SHORT_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateShortForm(dateTemp, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateShortForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             default:
