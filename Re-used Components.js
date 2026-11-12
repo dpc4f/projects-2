@@ -11,6 +11,7 @@ const DAYS_IN_A_YEAR = 365.25;
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 const ZERO = 0;
 const NO_OP = ZERO;
+const STR_LEN_ZERO = '';
 
 
 /***
@@ -625,11 +626,14 @@ class DateValues {
     }
 
     static convertToElteMonthIdx(monthIdx) { // monthIdx = 0..11 <-- valid
+        let ret = -1;
         let bInvalid = monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
         
-        if (bInvalid == true) return;
-        
-        return monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
+        if (bInvalid == false) {
+            ret = monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
+        }
+
+        return ret;
     }
 
     static getElteFromElteMonth(elteMonth) {
@@ -1076,6 +1080,10 @@ class DateValues {
         return this.#dyIdx;
     }
 
+    get ElteDayIdx() {
+        return DateValues.toTuesdayFirst(this.DayIndex);
+    }
+
     get WeekFall() {
         return this.whichDayIsTheDay(this.#dyIdx);
     }
@@ -1139,7 +1147,7 @@ class DateValues {
         return (dayIndex + 5) % 7;
     }
     
-    static getWeekNumber(dateVal, digitalYear, monthIndex, soleDateIndex, dayIndex) {
+    static getWeekNumber(dateVal, digitalYear, monthIndex, soleDateIndex, elteDayIndex) {
 
         /***
          * [; nr] convert this method into a static method of class'
@@ -1158,7 +1166,7 @@ class DateValues {
         const FirstDateIndex = DateValues.toTuesdayFirst(FirstDateOfTheYear.getDay()); // the year's first day's index in the first week; 0..6
         
         const TheMonth = DateValues.convertToElteMonthIdx(monthIndex);
-        const TheDayIndex = DateValues.toTuesdayFirst(dayIndex); // index of the day in its week; in 0..6
+        const TheDayIndex = elteDayIndex; // index of the day in its week; in 0..6
         const TheSoleDate = soleDateIndex; // only the date's number in its month; starts from 1
         const Distance = Math.abs(FirstDateIndex - TheDayIndex);
 
@@ -1318,54 +1326,57 @@ DateValues.Helpers = class {
      * [; nr] revise this method
      * 
      */
-    static getDateFullForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, dateVal = null) {
-        if (!dateVal) dateVal = new DateValues();
+    static getDateFullForm(dateVal, bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
+        if (!dateVal) return STR_LEN_ZERO;
 
         let month = dateVal.MonthIndex;
         let soleDate = dateVal.SoleDateIndex;
         let year = dateVal.DigitalYear;
-        let day = dateVal.DayIndex;
+        let day = dateVal.ElteDayIdx;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'current_year' : 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-        // let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7) : '';
-        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(dayIndex) : '';
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(day) : '';
         let shift = bShiftInADay ? DateValues.getShiftOfTheday() : '';
         let weekNo = bWeekNo ? DateValues.getWeekNumber(dateVal, year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
 
-    static getDateMidForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, date = new Date()) {
-        let month = date.getMonth();
-        let soleDate = date.getDate();
-        let year = DateValues.getYearNumberOnly(date);
-        let day = date.getDay();
+    static getDateMidForm(dateVal, bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
+        if (!dateVal) return STR_LEN_ZERO;
+        
+        let month = dateVal.MonthIndex;
+        let soleDate = dateVal.SoleDateIndex;
+        let year = dateVal.DigitalYear;
+        let day = dateVal.ElteDayIdx;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.MID_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'cur_yea' : 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7, Iteration.MID_FORM_DATE) : '';
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(day, Iteration.MID_FORM_DATE) : '';
         let shift = bShiftInADay ? DateValues.getShiftOfTheday(MID_FORM_SHIFT) : '';
-        let weekNo = bWeekNo ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
+        let weekNo = bWeekNo ? DateValues.getWeekNumber(dateVal, year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
 
-    static getDateShortForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, date = new Date()) {
-        let month = date.getMonth();
-        let soleDate = date.getDate();
-        let year = DateValues.getYearNumberOnly(date);
-        let day = date.getDay();
+    static getDateShortForm(dateVal, bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
+        if (!dateVal) return STR_LEN_ZERO;
+        
+        let month = dateVal.MonthIndex;
+        let soleDate = dateVal.SoleDateIndex;
+        let year = dateVal.DigitalYear;
+        let day = dateVal.ElteDayIdx;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.SHORT_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR 
                         ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
-        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7, Iteration.SHORT_FORM_DATE) : '';
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(day, Iteration.SHORT_FORM_DATE) : '';
         let shift = bShiftInADay ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
         let weekNo = bWeekNo? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
 
@@ -1465,7 +1476,7 @@ class CulaUnit {
     }
 
     
-    static getDateValuesTimeStamp(formLength = CulaUnit.FULL_FORM_DATE, index = CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, date = null) {
+    static getDateValuesTimeStamp(formLength = CulaUnit.FULL_FORM_DATE, index = CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, dateVal = null) {
         
         /***
          * CulaUnit.FULL_FORM_DATE && CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS <-- được gọi là ngày nhì
@@ -1479,19 +1490,19 @@ class CulaUnit {
         let bWeekNumber = CulaUnit.DATE_FORMAT_STRINGS[index].length > 4 ? CulaUnit.DATE_FORMAT_STRINGS[index][4] : false;
         let valuesStr = '';
 
-        let dateTemp = date == null ? new DateValues() : date;
+        let dateTemp = dateVal == null ? new DateValues() : dateVal;
 
         switch (formLength) {
             case CulaUnit.FULL_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateFullForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
+                valuesStr = DateValues.Helpers.getDateFullForm(dateTemp, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             case CulaUnit.MID_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateMidForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
+                valuesStr = DateValues.Helpers.getDateMidForm(dateTemp, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             case CulaUnit.SHORT_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateShortForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber, dateTemp);
+                valuesStr = DateValues.Helpers.getDateShortForm(dateTemp, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             default:
