@@ -935,15 +935,6 @@ class DateValues {
         return elteMonth + ' ' + this.#dtIdx.toString() + ' ' + elteYear;
     }
 
-    static get DayCountInElteMonths() {
-        if (DateValues.#LeapYear == true) 
-            DateValues.#DayCountInElteMonths[DateValues.HOSE] = 29;
-        else
-            DateValues.#DayCountInElteMonths[DateValues.HOSE] = 28;
-        
-        return DateValues.#DayCountInElteMonths;
-    }
-
     set CallBackUpdateGUI(f) {
         this.callbackUpdateGUI = f;
     }
@@ -1424,7 +1415,8 @@ class CulaUnit {
     #digiYear; // == 2024 for, the HereUnyt; the rest will be gotten through addding 1..3 
     #yearCanChi = 'Giáp Thìn';
     static SLOGAN = 'Năm Giáp Thìn Tui Đi Ăn Phở Thìn';
-
+    static #CurrentPos = 0;
+    static #BooleanLeapYear = true;
 
     static DATE_FORMAT_STRINGS = [
         // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
@@ -1546,10 +1538,26 @@ class CulaUnit {
         return ret;
     }
 
+    static set CurrentPos(pos = 0) {
+        CulaUnit.#CurrentPos = pos;
+        p == 0 ? CulaUnit.#BooleanLeapYear = true : CulaUnit.#BooleanLeapYear = false;
+    }
+
     static revertElteMonthIdx(monthStr) {
         const idx = DateValues.getElteFromElteMonth(monthStr);
 
         return (idx + 2) % 12;
+    }
+
+    static get DayCountInElteMonths() {
+        if (bLeapYear == false) {
+            DateValues.#DayCountInElteMonths[DateValues.HOSE] = 28;
+        }
+        else {   
+            DateValues.#DayCountInElteMonths[DateValues.HOSE] = 29;
+        }   
+        
+        return DateValues.#DayCountInElteMonths;
     }
 }
 
