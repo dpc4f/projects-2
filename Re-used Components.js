@@ -503,6 +503,7 @@ class DateValues {
         
         this.Heredate = new Date();
         this.callbackUpdateGUI = callbackUpdateGUI;
+        this.#cUnit = new CulaUnit(this.#setDigiYear);
 
         if (yr == DateValues.USE_HERE_DAY) { // == 0
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
@@ -514,13 +515,12 @@ class DateValues {
              * 
              */ // --> done
 
-            if (DateValues.isValidGregorian(yr, mt, dt) == false) return;
+            if (DateValues.isValidGregorian(this, yr, mt, dt) == false) return;
 
             this.#setDigiYear = yr; // yr > -1
             this.#smtIdx = mt;
             this.#sdtIdx = dt;                
             // DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear); // [; nr] why is this variable a static variable .?
-            this.#cUnit = new CulaUnit(this.#setDigiYear);
             this.#swkNo = DateValues.getWeekNumber(this.#setDigiYear, 
                             this.#smtIdx, this.#sdtIdx, this.#sdyIdx); // <-- modify OR code a new function 
             // --> new function implemented
@@ -569,7 +569,7 @@ class DateValues {
         }, duration); 
     }
 
-    static isValidGregorian(digiYear, monthIdx, soleDateIdx) {
+    static isValidGregorian(dateVal, digiYear, monthIdx, soleDateIdx) {
         let ret = true;
         
         if (digiYear < 1) ret = false;
@@ -583,7 +583,7 @@ class DateValues {
          * 
          */ // --> done
         
-        let dayCount = DateValues.DayCountInElteMonths[elteMonthIdx];
+        let dayCount = dateVal.#cUnit.DayCountInElteMonths[elteMonthIdx];
         if (soleDateIdx < 1 || soleDateIdx > dayCount) ret = false;
 
         return ret;
@@ -608,7 +608,7 @@ class DateValues {
         let bAddOneYear = m < 2 ? true : false;
         let y = Iteration.revertElteYear(arr[2], bAddOneYear);
 
-        if (DateValues.isValidGregorian(y, m, d) == false) return;
+        if (DateValues.isValidGregorian(this, y, m, d) == false) return;
 
         this.#setDigiYear = y;
         this.#smtIdx = m;
@@ -970,8 +970,8 @@ class DateValues {
                 const [ngayThang, ,] = strJsonThoiGian.split(" ");
                 const [day, month, year] = ngayThang.split("/"); // Fixing a "DD/MM/YYYY" format
 
-                bSuccess = DateValues.isValidGregorian(year, month, day); 
                 strDate = year + "-" + month + "-" + day;
+                bSuccess = true;
                 
                 console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
             }
@@ -1121,7 +1121,7 @@ class DateValues {
             
             // here; reach the next month
             // 
-            dayCount -= DateValues.DayCountInElteMonths[monthCount];
+            dayCount -= this.#cUnit.DayCountInElteMonths[monthCount];
             ++monthCount;
         }
 
