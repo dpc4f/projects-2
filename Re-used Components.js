@@ -1482,6 +1482,7 @@ class CulaUnit {
     static SHORT_FORM_DATE = 2;
 
     static STANDARD_FORM_OF_DATE_FORMAT_STRINGS = 2;
+    
 
 
     constructor(paramYear = CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) {
@@ -1632,6 +1633,8 @@ Object.freeze(UnytValues.MONTH_NAMES_TLA);
 Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.SLOGAN);
 Object.freeze(UnytValues.DIGI_YEAR_OF_FIRST_UNYT);
+
+const NGÀY_NHÌ = Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS;
 
 
 class DoubleIteration {
