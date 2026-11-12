@@ -503,7 +503,7 @@ class DateValues {
         
         this.Heredate = new Date();
         this.callbackUpdateGUI = callbackUpdateGUI;
-        this.#cUnit = new CulaUnit(this.#setDigiYear);
+        this.#cUnit = new CulaUnit();
 
         if (yr == DateValues.USE_HERE_DAY) { // == 0
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
@@ -1602,6 +1602,7 @@ class CulaUnit {
 }
 
 const UnytValues = CulaUnit;
+const Iteration = UnytValues;
 
 Object.freeze(UnytValues.DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.DATE_FORMAT_COUNT);
@@ -1738,7 +1739,6 @@ class Life {
 
 
 const Unit60PlusPlus = Life; // <-- need-less going back to C / C++
-const Iteration = UnytValues;
 const DDAi = DoubleIteration;
 
 
