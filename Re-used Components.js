@@ -1325,7 +1325,8 @@ DateValues.Helpers = class {
     /***
      * [; nr] revise this method
      * 
-     */
+     */ // --> done
+
     static getDateFullForm(dateVal, bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
         if (!dateVal) return STR_LEN_ZERO;
 
@@ -1333,6 +1334,8 @@ DateValues.Helpers = class {
         let soleDate = dateVal.SoleDateIndex;
         let year = dateVal.DigitalYear;
         let day = dateVal.ElteDayIdx;
+
+        if (isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
@@ -1345,6 +1348,17 @@ DateValues.Helpers = class {
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
 
+    static isValidNumeric(month, soleDate, year, day) {
+        let ret = true;
+        
+        if (typeof month !== 'number') ret = false;
+        if (typeof soleDate !== 'number') ret = false;
+        if (typeof year !== 'number') ret = false;
+        if (typeof day !== 'number') ret = false;
+
+        return ret;
+    }
+
     static getDateMidForm(dateVal, bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
         if (!dateVal) return STR_LEN_ZERO;
         
@@ -1352,6 +1366,8 @@ DateValues.Helpers = class {
         let soleDate = dateVal.SoleDateIndex;
         let year = dateVal.DigitalYear;
         let day = dateVal.ElteDayIdx;
+
+        if (isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.MID_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
@@ -1371,6 +1387,8 @@ DateValues.Helpers = class {
         let soleDate = dateVal.SoleDateIndex;
         let year = dateVal.DigitalYear;
         let day = dateVal.ElteDayIdx;
+
+        if (isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.SHORT_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
