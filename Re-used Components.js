@@ -492,14 +492,9 @@ class DateValues {
     static CURRENT_DAY = 'Đang Ngồi Thư Viện';
 
     static USE_HERE_DAY = 0;
-    static #LeapYear = false;
+    // static #LeapYear = false;
 
-    static #DayCountInElteMonths = [
-        31, 30, // Athen Duo
-        31, 30, 31, 31, // 
-        30, 31, 30, 31, 31, 
-        28 // <-- 29 if it's leap year 4 Hose the Month
-    ];
+    #cUnit;
 
     constructor(callbackUpdateGUI = null, yr = DateValues.USE_HERE_DAY, mt = -1, dt = -1) {
 
@@ -523,7 +518,8 @@ class DateValues {
             this.#setDigiYear = yr; // yr > -1
             this.#smtIdx = mt;
             this.#sdtIdx = dt;                
-            DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear); // [; nr] why is this variable a static variable .?
+            // DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear); // [; nr] why is this variable a static variable .?
+            this.#cUnit = new CulaUnit(this.#setDigiYear);
             this.#swkNo = DateValues.getWeekNumber(this.#setDigiYear, 
                             this.#smtIdx, this.#sdtIdx, this.#sdyIdx); // <-- modify OR code a new function 
             // --> new function implemented
@@ -616,7 +612,8 @@ class DateValues {
         this.#setDigiYear = y;
         this.#smtIdx = m;
         this.#sdtIdx = d;
-        DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear);
+        // DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear);
+        this.#cUnit = new CulaUnit(this.#setDigiYear);
         this.#swkNo = DateValues.getWeekNumber(this.#setDigiYear, this.#smtIdx, this.#sdtIdx, this.#sdyIdx);
 
         this.useSetValues();
@@ -971,6 +968,7 @@ class DateValues {
 
                 bSuccess = DateValues.isValidGregorian(year, month, day); 
                 strDate = year + "-" + month + "-" + day;
+                
                 console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
             }
 
@@ -982,7 +980,8 @@ class DateValues {
                 this.#hdtIdx = this.Heredate.getDate();
                 this.#hmtIdx = this.Heredate.getMonth();
                 this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
-                DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
+                this.#cUnit = new CulaUnit(this.#hereDigiYear);
+                // DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
                 this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
                 this.useHereValues();
@@ -1101,13 +1100,13 @@ class DateValues {
         return null;
     }
 
-    static getWeekNoWithProvidedParameters(distance, monthIndex, soleDateIndex) {
+    getWeekNoWithProvidedParameters(distance, monthIndex, soleDateIndex) {
         let weekNo = 1; // the first week of the year; at most fifty three weeks in a year
         let monthCount = 0; // Athen
         let dayCount = 1; // the first day of the year
 
         while (monthCount < monthIndex) {
-            while (dayCount <= DateValues.DayCountInElteMonths[monthCount]) {
+            while (dayCount <= this.#cUnit.DayCountInElteMonths[monthCount]) {
                 dayCount += 7; // seven days in a week
                 ++weekNo;
             }
@@ -1122,7 +1121,7 @@ class DateValues {
         if (distance == Math.abs(dayCount - soleDateIndex))
             return weekNo;
         else {
-            while (dayCount <= DateValues.DayCountInElteMonths[monthCount]) { 
+            while (dayCount <= this.#cUnit.DayCountInElteMonths[monthCount]) { 
                 /*** [; nr] revise to consider the case of leap year */ 
                 // --> done
                 dayCount += 7; // seven days in a week
@@ -1140,7 +1139,7 @@ class DateValues {
         return (dayIndex + 5) % 7;
     }
     
-    static getWeekNumber(digitalYear, monthIndex, soleDateIndex, dayIndex) {
+    static getWeekNumber(dateVal, digitalYear, monthIndex, soleDateIndex, dayIndex) {
 
         /***
          * [; nr] convert this method into a static method of class'
@@ -1163,7 +1162,7 @@ class DateValues {
         const TheSoleDate = soleDateIndex; // only the date's number in its month; starts from 1
         const Distance = Math.abs(FirstDateIndex - TheDayIndex);
 
-        return DateValues.getWeekNoWithProvidedParameters(Distance, TheMonth, TheSoleDate);
+        return dateVal.getWeekNoWithProvidedParameters(Distance, TheMonth, TheSoleDate);
     }
 
     whichDayIsTheDay(form = Iteration.FULL_FORM_DATE) {
@@ -1231,7 +1230,7 @@ class DateValues {
         this.#hdtIdx = 1; // first day of the month
         this.#hmtIdx = 2; // March of Gregorian Calendar
         this.#hereDigiYear = DateValues.CURRENT_YEAR;
-        DateValues.#LeapYear = true; // luckily 2020 is a leap year :-)
+        this.#cUnit = new CulaUnit(DateValues.CURRENT_YEAR); // luckily 2020 is a leap year :-)
         this.#wkNo = 1;
 
         this.useHereValues();
@@ -1315,19 +1314,26 @@ Object.freeze(DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR);
 
 DateValues.Helpers = class {
     
-    static getDateFullForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, date = new Date()) {
-        let month = date.getMonth();
-        let soleDate = date.getDate();
-        let year = DateValues.getYearNumberOnly(date);
-        let day = date.getDay();
+    /***
+     * [; nr] revise this method
+     * 
+     */
+    static getDateFullForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false, dateVal = null) {
+        if (!dateVal) dateVal = new DateValues();
+
+        let month = dateVal.MonthIndex;
+        let soleDate = dateVal.SoleDateIndex;
+        let year = dateVal.DigitalYear;
+        let day = dateVal.DayIndex;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'current_year' : 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
-        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7) : '';
+        // let dayIndex = bDayIndex ? DateValues.whichDayIsHereday((day + 5) % 7) : '';
+        let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(dayIndex) : '';
         let shift = bShiftInADay ? DateValues.getShiftOfTheday() : '';
-        let weekNo = bWeekNo ? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
+        let weekNo = bWeekNo ? DateValues.getWeekNumber(dateVal, year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
@@ -1402,7 +1408,13 @@ class CulaUnit {
         "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
     ];
 
-    
+    static #DayCountInElteMonths = [
+        31, 30, // Athen Duo
+        31, 30, 31, 31, // 
+        30, 31, 30, 31, 31, 
+        28 // <-- 29 if it's leap year 4 Hose the Month
+    ];
+
     /***
      * 1 Unyt == 1 leap yr + 3 normal yrs
      * [2020, 2021, 2022, 2023]; // <-- for example
@@ -1412,11 +1424,12 @@ class CulaUnit {
      */
 
 
-    #digiYear; // == 2024 for, the HereUnyt; the rest will be gotten through addding 1..3 
+    #digiYear; // == 2024 4, the HereUnyt; the rest will be gotten through addding 1..3 
     #yearCanChi = 'Giáp Thìn';
     static SLOGAN = 'Năm Giáp Thìn Tui Đi Ăn Phở Thìn';
-    static #CurrentPos = 0;
-    static #BooleanLeapYear = true;
+    #currentPos = 0;
+    #boolLeapYear = true;
+    static DIGI_YEAR_OF_FIRST_UNYT = 2024;
 
     static DATE_FORMAT_STRINGS = [
         // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
@@ -1441,6 +1454,16 @@ class CulaUnit {
 
     static STANDARD_FORM_OF_DATE_FORMAT_STRINGS = 2;
 
+
+    constructor(paramYear = CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) {
+        if (paramYear <= 0) paramYear = CulaUnit.DIGI_YEAR_OF_FIRST_UNYT;
+        
+        this.CurrentPos = (paramYear > CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) 
+                            ? (paramYear - CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) % 4
+                            : 4 - ((CulaUnit.DIGI_YEAR_OF_FIRST_UNYT - paramYear) % 4);
+        this.#digiYear = paramYear - this.CurrentPos;
+    }
+
     
     static getDateValuesTimeStamp(formLength = CulaUnit.FULL_FORM_DATE, index = CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS, date = null) {
         
@@ -1456,7 +1479,7 @@ class CulaUnit {
         let bWeekNumber = CulaUnit.DATE_FORMAT_STRINGS[index].length > 4 ? CulaUnit.DATE_FORMAT_STRINGS[index][4] : false;
         let valuesStr = '';
 
-        let dateTemp = date == null ? new Date() : date;
+        let dateTemp = date == null ? new DateValues() : date;
 
         switch (formLength) {
             case CulaUnit.FULL_FORM_DATE:
@@ -1538,9 +1561,15 @@ class CulaUnit {
         return ret;
     }
 
-    static set CurrentPos(pos = 0) {
-        CulaUnit.#CurrentPos = pos;
-        p == 0 ? CulaUnit.#BooleanLeapYear = true : CulaUnit.#BooleanLeapYear = false;
+    get CurrentPos() {
+        return this.#currentPos;
+    }
+
+    set CurrentPos(pos = 0) {
+        if (pos < 0 || pos >= 4) return;
+
+        this.#currentPos = pos;
+        pos == 0 ? this.#boolLeapYear = true : this.#boolLeapYear = false;
     }
 
     static revertElteMonthIdx(monthStr) {
@@ -1549,15 +1578,15 @@ class CulaUnit {
         return (idx + 2) % 12;
     }
 
-    static get DayCountInElteMonths() {
-        if (bLeapYear == false) {
-            DateValues.#DayCountInElteMonths[DateValues.HOSE] = 28;
+    get DayCountInElteMonths() {
+        if (this.#boolLeapYear == false) {
+            CulaUnit.#DayCountInElteMonths[DateValues.HOSE] = 28;
         }
         else {   
-            DateValues.#DayCountInElteMonths[DateValues.HOSE] = 29;
+            CulaUnit.#DayCountInElteMonths[DateValues.HOSE] = 29;
         }   
         
-        return DateValues.#DayCountInElteMonths;
+        return CulaUnit.#DayCountInElteMonths;
     }
 }
 
@@ -1572,6 +1601,7 @@ Object.freeze(UnytValues.MONTH_NAMES);
 Object.freeze(UnytValues.MONTH_NAMES_TLA);
 Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.SLOGAN);
+Object.freeze(UnytValues.DIGI_YEAR_OF_FIRST_UNYT);
 
 
 class DoubleIteration {

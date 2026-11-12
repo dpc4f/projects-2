@@ -556,9 +556,9 @@
                 dateVal.timeTheDay(true);
         }
 
-        function initializeToHereDate() {
+        function initializeToHereDate(hereDay) {
             const COMMONLY_USED = 2;
-            let hereDateCommonlyUsedForm = UnytValues.getDateValuesTimeStamp(UnytValues.FULL_FORM_DATE, COMMONLY_USED); // first time
+            let hereDateCommonlyUsedForm = UnytValues.getDateValuesTimeStamp(UnytValues.FULL_FORM_DATE, COMMONLY_USED, hereDay); // first time
             // console.log(hereDateCommonlyUsedForm); // 4 debugging purpose
             
             let ele = document.getElementById("dateTextbox");
@@ -610,7 +610,7 @@
             if (year == null || month == null || suffixStr == null || hereYear == null) 
                 return;
             
-            initializeToHereDate(); // <-- feature to remove Next Month; Previous Month buttons
+            initializeToHereDate(dateVal); // <-- feature to remove Next Month; Previous Month buttons
             removePurple4Months();
             mtNamesEle[month < 2 
                 ? month + 10 
