@@ -558,7 +558,7 @@
 
         function initializeToDateValues(dateVal) {
             const COMMONLY_USED = 2;
-            let dateValCommonlyUsedForm = UnytValues.getDateValuesTimeStamp(UnytValues.FULL_FORM_DATE, COMMONLY_USED, dateVal); // first time
+            let dateValCommonlyUsedForm = UnytValues.getDateValuesTimeStamp(dateVal, UnytValues.FULL_FORM_DATE, COMMONLY_USED); // first time
             // console.log(hereDateCommonlyUsedForm); // 4 debugging purpose
             
             let ele = document.getElementById("dateTextbox");

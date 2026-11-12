@@ -1335,7 +1335,7 @@ DateValues.Helpers = class {
         let year = dateVal.DigitalYear;
         let day = dateVal.ElteDayIdx;
 
-        if (isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR;
+        if (DateValues.Helpers.isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR_STRING;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
@@ -1367,7 +1367,7 @@ DateValues.Helpers = class {
         let year = dateVal.DigitalYear;
         let day = dateVal.ElteDayIdx;
 
-        if (isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR;
+        if (DateValues.Helpers.isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR_STRING;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.MID_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
@@ -1388,7 +1388,7 @@ DateValues.Helpers = class {
         let year = dateVal.DigitalYear;
         let day = dateVal.ElteDayIdx;
 
-        if (isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR;
+        if (DateValues.Helpers.isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR_STRING;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.SHORT_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
