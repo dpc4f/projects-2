@@ -47,9 +47,9 @@ class TimeValues {
      */ // --> done
 
     #callback = null;
-    #h;
-    #m;
-    #s;
+    #h = null;
+    #m = null;
+    #s = null;
     // #ms;
     #freshTimeLevels;
 
@@ -61,7 +61,7 @@ class TimeValues {
          * 
          */ // --> done
 
-        this.timeTheCurrent();
+        this.timeTheCurrent(updatePlatonTime == null ? false : true);
         
         this.#callback = updatePlatonTime;
         this.idcb = null;
@@ -75,19 +75,31 @@ class TimeValues {
     }
 
     get Hour() {
+        if (!this.#h) {
+            this.timeTheCurrent();
+        }
+
         return this.#h;
     }
 
     get Minute() {
+        if (!this.#m) {
+            this.timeTheCurrent();
+        }
+
         return this.#m;
     }
 
     get Second() {
+        if (!this.#s) {
+            this.timeTheCurrent();
+        }
+
         return this.#s;
     }
 
 
-    async timeTheCurrent() {
+    async timeTheCurrent(bUpdateGUI = false) {
 
         /***
         * [; nr] change this method to use async / await
@@ -95,9 +107,20 @@ class TimeValues {
         */ // --> done
         console.log("timeTheCurrent gets called");
         let bSuccess = false;
+        const controller = new AbortController();
+        const timeout = setTimeout(() => {
+            controller.abort();
+        }, 10000);
 
         try {
-            const response = await fetch('http://localhost:8080/api/TimeRequester');
+            const response = await fetch('http://localhost:8080/api/TimeRequester',
+                { signal: controller.signal }
+            );
+            
+            if (!response.ok) {
+                throw new Error(`HTTP Error: ${response.status}`);
+            }
+            
             const strJsonThoiGian = await response.json(); // ngay_thang + gio_phut
 
             const [, gioPhut] = strJsonThoiGian.split(" ");
@@ -124,8 +147,16 @@ class TimeValues {
              * 
              */ // --> done
 
-            if (bSuccess == false) this.useDefaultValues();    
-            if (this.#callback) this.#callback(this);
+            // clearTimeout(timeout);
+            console.log("[timeTheCurrent] Finally block executed!");
+
+            if (bSuccess == false) {
+                this.useDefaultValues();
+            }
+
+            if (bUpdateGUI == true && this.#callback) {
+                this.#callback(this);
+            }
 
         }
     }
@@ -416,6 +447,8 @@ class DateValues {
     #sdyIdx;
     #swkNo;
 
+    #timeVal;
+
     static CURRENT_YEAR = 2020;
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
     static CURRENT_DAY = 'Đang Ngồi Thư Viện';
@@ -480,8 +513,8 @@ class DateValues {
         //          'N' when current day completes
         //
 
-        this.timeVal = new TimeValues();
-        let duration = this.timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree);
+        this.#timeVal = new TimeValues();
+        let duration = this.#timeVal.remainingTimeTillEndOfTheDay(TimeValues.Constants.FreshTimeLevels.LevelThree);
         // let duration = 10000; // 10 seconds 4 testing purpose
 
         setTimeout(() => {
@@ -887,13 +920,12 @@ class DateValues {
          */ // --> done
  
         let bSuccess = false;
+        const controller = new AbortController();
+        const timeout = setTimeout(() => {
+            controller.abort();
+        }, 10000);
 
         try {
-
-            const controller = new AbortController();
-            const timeout = setTimeout(() => {
-                controller.abort();
-            }, 10000);
 
             const response = await fetch('http://localhost:8080/api/TimeRequester', { signal: controller.signal });
             if (!response.ok) {
@@ -928,8 +960,8 @@ class DateValues {
 
         } finally {
 
-            clearTimeout(timeout);
-            console.log("Finally block executed!");
+            // clearTimeout(timeout);
+            console.log("[timeTheDay] Finally block executed!");
 
             if (!this.#hereDigiYear || bSuccess == false)
                 this.useDefaultValues();
@@ -950,9 +982,9 @@ class DateValues {
     } // <-- a red leopard function
 
     getTimeStamp() {
-        let hh = this.timeVal.Hour;
-        let mm = this.timeVal.Minute;
-        let ss = this.timeVal.Second;
+        let hh = this.#timeVal.Hour;
+        let mm = this.#timeVal.Minute;
+        let ss = this.#timeVal.Second;
 
         return '[' + hh + ':' + mm + ':' + ss + ']\t';
     }
