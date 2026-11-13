@@ -988,6 +988,7 @@ class DateValues {
                 this.#cUnit = new CulaUnit(this.#hereDigiYear);
                 // DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
                 this.#bLeapYear = this.#cUnit.BoolLeapYear;
+                console.log(this.#bLeapYear);
                 this.#hwkNo = DateValues.getWeekNumber(this, this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
                 this.useHereValues();
@@ -1399,7 +1400,7 @@ DateValues.Helpers = class {
                         ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
         let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(day, Iteration.SHORT_FORM_DATE) : '';
         let shift = bShiftInADay ? DateValues.getShiftOfTheday(SHORT_FORM_SHIFT) : '';
-        let weekNo = bWeekNo? DateValues.getWeekNumber(year, month, soleDate, day) : ''; //
+        let weekNo = bWeekNo? DateValues.getWeekNumber(dateVal, year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
