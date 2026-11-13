@@ -580,14 +580,29 @@
             } 
         }
 
-        function renderCalendarHeading(bHereYear, suffixStr, month, year) {
+        function renderCalendarHeading(dateVal, bHereYear, suffixStr, month, year) {
             if (bHereYear) {
                 let spanEle = document.createElement('span');
                 spanEle.classList.add('currentMoment');
                 spanEle.textContent = suffixStr;
 
                 let monthYearEle = document.getElementById("monthYear");
-                monthYearEle.textContent = DateValues.getElteMonth(month) + " current_year";
+                
+                let spanCurYear = document.createElement('span');
+                spanCurYear.textContent = DateValues.getElteMonth(month) + " curre";
+                
+                let spanNamNhuan = document.createElement('span');
+                if (dateVal.IsLeapYear == true) { 
+                    spanNamNhuan.classList.add('currentMoment');
+                }
+                spanNamNhuan.textContent = 'n';
+                
+                let spanTyear = document.createElement('span');
+                spanTyear.textContent = "t_year";
+                
+                monthYearEle.appendChild(spanCurYear);
+                monthYearEle.appendChild(spanNamNhuan);
+                monthYearEle.appendChild(spanTyear);
                 monthYearEle.appendChild(spanEle);
             } else {
                 let monthYearEle = document.getElementById("monthYear");
@@ -615,7 +630,7 @@
             mtNamesEle[month < 2 
                 ? month + 10 : month - 2].style.color = "purple";
             
-            renderCalendarHeading(bHereYear, suffixStr, month, year);
+            renderCalendarHeading(dateVal, bHereYear, suffixStr, month, year);
  
             const firstDay = new Date(year, month, 1);
             const startIndex = DateValues.toTuesdayFirst(firstDay.getDay());
