@@ -376,7 +376,7 @@
         }
 
         .leapYear {
-            color: yellow;
+            color: blue;
         }
     </style>
 </head>
@@ -585,12 +585,15 @@
         }
 
         function renderCalendarHeading(dateVal, bHereYear, suffixStr, month, year) {
+            let monthYearEle = document.getElementById("monthYear");
+            monthYearEle.replaceChildren();
+            
             if (bHereYear) {
                 let spanEle = document.createElement('span');
                 spanEle.classList.add('currentMoment');
                 spanEle.textContent = suffixStr;
 
-                let monthYearEle = document.getElementById("monthYear");
+                
                 
                 let spanCurYear = document.createElement('span');
                 spanCurYear.textContent = DateValues.getElteMonth(month) + " curre";
@@ -609,18 +612,17 @@
                 monthYearEle.appendChild(spanTyear);
                 monthYearEle.appendChild(spanEle);
             } else {
-                let monthYearEle = document.getElementById("monthYear");
                 let [elteMonth, elteYear] = UnytValues.convertToElteMonthYear(year, month);
                 
                 // monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " " + convertToElteYear(year, month);
                 let spanMonth = document.createElement('span');
-                spanMonth.textContent = eleMonth + ' ';
+                spanMonth.textContent = elteMonth + ' ';
 
                 let spanElteYear = document.createElement('span');
                 if (dateVal.IsLeapYear == true) {
                     spanElteYear.classList.add('leapYear');
                 }
-                dateVal.textContent = elteYear;
+                spanElteYear.textContent = elteYear;
 
                 // monthYearEle.textContent = elteMonth + ' ' + elteYear;
                 monthYearEle.appendChild(spanMonth);

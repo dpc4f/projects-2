@@ -484,7 +484,6 @@ class DateValues {
     #sdtIdx;
     #sdyIdx;
     #swkNo;
-    #bLeapYear;
 
     #timeVal;
     Hereday;
@@ -999,9 +998,6 @@ class DateValues {
                 this.#hmtIdx = this.Heredate.getMonth();
                 this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
                 this.#cUnit = new CulaUnit(this.#hereDigiYear);
-                // DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
-                this.#bLeapYear = this.#cUnit.BoolLeapYear;
-                console.log(this.#bLeapYear);
                 this.#hwkNo = DateValues.getWeekNumber(this, this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
                 this.useHereValues();
@@ -1110,7 +1106,7 @@ class DateValues {
     }
 
     get IsLeapYear() {
-        return this.#bLeapYear;
+        return this.#cUnit.BoolLeapYear;
     }
 
     /*** 
