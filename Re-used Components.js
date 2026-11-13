@@ -484,6 +484,7 @@ class DateValues {
     #sdtIdx;
     #sdyIdx;
     #swkNo;
+    #bLeapYear;
 
     #timeVal;
     Hereday;
@@ -978,7 +979,7 @@ class DateValues {
 
             await doWaiting();
 
-            if (strDate) {
+            if (strDate) { // bSuccess == true
                 this.Heredate = new Date(strDate);
                 this.#hdyIdx = this.Heredate.getDay();
                 this.#hdtIdx = this.Heredate.getDate();
@@ -986,6 +987,7 @@ class DateValues {
                 this.#hereDigiYear = DateValues.getYearNumberOnly(this.Heredate);
                 this.#cUnit = new CulaUnit(this.#hereDigiYear);
                 // DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
+                this.#bLeapYear = this.#cUnit.BoolLeapYear;
                 this.#hwkNo = DateValues.getWeekNumber(this, this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
 
                 this.useHereValues();
@@ -997,8 +999,6 @@ class DateValues {
 
                 return;
             }
-           
-            bSuccess ? NO_OP : setTimeout(timeTheDay, 0); 
 
         } catch (error) {
 
@@ -1007,7 +1007,6 @@ class DateValues {
             console.log('Use the day of current_year as a replacement ...');
 
         } finally {
-
             console.log("[timeTheDay] Finally block executed!");
 
             if (!this.#hereDigiYear || bSuccess == false) {
@@ -1094,6 +1093,10 @@ class DateValues {
 
     get WeekNo() {
         return this.#wkNo; // week index in the year
+    }
+
+    get IsLeapYear() {
+        return this.#bLeapYear;
     }
 
     /*** 
@@ -1492,6 +1495,7 @@ class CulaUnit {
                             ? (paramYear - CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) % 4
                             : 4 - ((CulaUnit.DIGI_YEAR_OF_FIRST_UNYT - paramYear) % 4);
         this.#digiYear = paramYear - this.CurrentPos;
+        if (this.CurrentPos > 0) this.#boolLeapYear = false;
     }
 
     
@@ -1600,6 +1604,10 @@ class CulaUnit {
 
         this.#currentPos = pos;
         pos == 0 ? this.#boolLeapYear = true : this.#boolLeapYear = false;
+    }
+
+    get BoolLeapYear() {
+        return this.#boolLeapYear;
     }
 
     static revertElteMonthIdx(monthStr) {
