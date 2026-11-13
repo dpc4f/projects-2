@@ -574,13 +574,13 @@ class DateValues {
         }, duration); 
     }
 
-    static isValidGregorian(dateVal, digiYear, monthIdx, soleDateIdx) {
+    static isValidGregorianSoleDate(dateVal, paramMonthIdx, paramSoleDateIdx) {
         let ret = true;
         
-        if (digiYear < 1) ret = false;
-        if (monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) ret = false;
+        // if (paramYear < 1) ret = false;
+        // if (paramMonthIdx < 0 || paramMonthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) ret = false;
         
-        let elteMonthIdx = DateValues.convertToElteMonthIdx(monthIdx);
+        let elteMonthIdx = DateValues.convertToElteMonthIdx(paramMonthIdx);
         
         /***
          * [; nr] refine this code segment
@@ -589,9 +589,17 @@ class DateValues {
          */ // --> done
         
         let dayCount = dateVal.#cUnit.DayCountInElteMonths[elteMonthIdx];
-        if (soleDateIdx < 1 || soleDateIdx > dayCount) ret = false;
+        if (paramSoleDateIdx < 1 || paramSoleDateIdx > dayCount) ret = false;
 
         return ret;
+    }
+
+    static isValidGregorianYear(paramYear) {
+        return paramYear > 0;
+    }
+
+    static isValidGregorianMonth(paramMonth) {
+        return 0 <= paramMonth && paramMonth < DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
     }
 
     /***
@@ -612,14 +620,15 @@ class DateValues {
 
         let bAddOneYear = m < 2 ? true : false;
         let y = Iteration.revertElteYear(arr[2], bAddOneYear);
+        if (DateValues.isValidGregorianYear(y) == false) return;
+        this.#cUnit = new CulaUnit(y);
 
-        if (DateValues.isValidGregorian(this, y, m, d) == false) return;
+        if (DateValues.isValidGregorianMonth(m) == false) return;
+        if (DateValues.isValidGregorianSoleDate(this, m, d) == false) return;
 
         this.#setDigiYear = y;
         this.#smtIdx = m;
         this.#sdtIdx = d;
-        // DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear);
-        this.#cUnit = new CulaUnit(this.#setDigiYear);
         this.#swkNo = DateValues.getWeekNumber(this, this.#setDigiYear, this.#smtIdx, this.#sdtIdx, this.#sdyIdx);
 
         this.useSetValues();
