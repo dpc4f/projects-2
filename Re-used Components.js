@@ -503,11 +503,13 @@ class DateValues {
         if (yr < 0) return; // invalid parameters
         
         this.Heredate = new Date();
-        this.callbackUpdateGUI = callbackUpdateGUI;
-        this.#cUnit = new CulaUnit();
+        this.callbackUpdateGUI = callbackUpdateGUI; 
 
         if (yr == DateValues.USE_HERE_DAY) { // == 0
+
+            this.#cUnit = new CulaUnit();
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
+
         } else {
             /* use Set Date Values */
 
@@ -516,6 +518,8 @@ class DateValues {
              * 
              */ // --> done
 
+            this.#cUnit = new CulaUnit(yr > 0 ? yr : DateValues.CURRENT_YEAR);
+            
             if (DateValues.isValidGregorian(this, yr, mt, dt) == false) return;
 
             this.#setDigiYear = yr; // yr > -1
@@ -1486,13 +1490,11 @@ class CulaUnit {
     static SHORT_FORM_DATE = 2;
 
     static STANDARD_FORM_OF_DATE_FORMAT_STRINGS = 2;
-    
-
 
     constructor(paramYear = CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) {
         if (paramYear <= 0) paramYear = CulaUnit.DIGI_YEAR_OF_FIRST_UNYT;
         
-        this.CurrentPos = (paramYear > CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) 
+        this.CurrentPos = (paramYear >= CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) 
                             ? (paramYear - CulaUnit.DIGI_YEAR_OF_FIRST_UNYT) % 4
                             : 4 - ((CulaUnit.DIGI_YEAR_OF_FIRST_UNYT - paramYear) % 4);
         this.#digiYear = paramYear - this.CurrentPos;
