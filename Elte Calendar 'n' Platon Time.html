@@ -374,6 +374,10 @@
         .currentMoment {
             color: rgb(8, 105, 105);
         }
+
+        .leapYear {
+            color: yellow;
+        }
     </style>
 </head>
 
@@ -593,7 +597,7 @@
                 
                 let spanNamNhuan = document.createElement('span');
                 if (dateVal.IsLeapYear == true) { 
-                    spanNamNhuan.classList.add('currentMoment');
+                    spanNamNhuan.classList.add('leapYear');
                 }
                 spanNamNhuan.textContent = 'n';
                 
@@ -609,7 +613,18 @@
                 let [elteMonth, elteYear] = UnytValues.convertToElteMonthYear(year, month);
                 
                 // monthYearEle.textContent = getElteMonth(month < 2 ? month + 10 : month - 2) + " " + convertToElteYear(year, month);
-                monthYearEle.textContent = elteMonth + ' ' + elteYear;
+                let spanMonth = document.createElement('span');
+                spanMonth.textContent = eleMonth + ' ';
+
+                let spanElteYear = document.createElement('span');
+                if (dateVal.IsLeapYear == true) {
+                    spanElteYear.classList.add('leapYear');
+                }
+                dateVal.textContent = elteYear;
+
+                // monthYearEle.textContent = elteMonth + ' ' + elteYear;
+                monthYearEle.appendChild(spanMonth);
+                monthYearEle.appendChild(spanElteYear);
             }
         }
 
