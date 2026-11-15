@@ -1430,11 +1430,17 @@ function fullscreenZoom(isZoomFull = true) {
 
 
 /***
- * class CulaUnit
- * class Unit60
- * class MahaUnit
  * 
+ * class CulaUnit, Iteration, UnytValues
+ * class Unit60, GroupUnytValues
+ * class MahaUnit, GrandUnytValues
+ * class DDAi, DoubleIteration
+ * class Life, Unit60PlusPlus
+ * class World
+ * class VoCuc /vô cực/
  *
+ * 
+ * 
  */
 
 
@@ -1665,7 +1671,7 @@ class DoubleIteration {
      * 
      * 
      */
-    
+
     static WICKTORY_RATIO = .66666666667;
 
 
