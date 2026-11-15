@@ -143,6 +143,7 @@
         const letters = 'DEFGHIJKLMNÑOPQRSTUVWXYZABC';
         const dw = 'D́ d́';
         const container = document.getElementById('alphabet');
+        const Lều = 'M̀ m̀';
 
         for (let i = 0; i < letters.length; i++) {
             const div = document.createElement('div');
@@ -156,6 +157,11 @@
                 div.appendChild(dwElement);
             } else if (i == 23) {
                 div.classList.add('character-z');
+            } else if (i == 9) {
+                let dwElement = document.createElement('div');
+                dwElement.className = 'mini-creature';
+                dwElement.innerHTML = Lều;
+                div.appendChild(dwElement);
             }
 
             div.innerHTML += `${letters[i]}`;
