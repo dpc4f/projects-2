@@ -1700,9 +1700,9 @@ class MahaUnit {
 
     /***
      * 1 group of Unyts + 15 yrs == 1 grand Unyt
-     * this is a { Maha-unit, Unit60+ }
      * 
-     * a grand unyt equivalent to GroupUnyt+
+     * this is a { Maha-unit, Unit60+ }
+     * this is a grand unyt that is denoted as, GroupUnyt+
      * 
      * beheaded the first grand-unyt
      * 
