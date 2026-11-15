@@ -154,13 +154,15 @@
         // Main Animation Loop
         function animate() {
             // Clear screen with a slight trail effect for smoothness
-            ctx.fillStyle = 'rgba(15, 116, 105, 0.82)';
+            ctx.fillStyle = 'rgba(15, 116/2, 105/2, 0.82)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            console.log("105/2 == " + (105 / 2).toString());
 
             // Interpolate rotation speed smoothly
             currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 0.05;
-            if (!isDragging)
+            if (!isDragging) {
                 angle -= currentRotationSpeed;
+            }
 
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
