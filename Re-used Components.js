@@ -1665,10 +1665,14 @@ class DoubleIteration {
      * 
      * 
      */
-
+    
+    static WICKTORY_RATIO = .66666666667;
 
 
 }
+
+Object.freeze(DoubleIteration.WICKTORY_RATIO);
+
 
 class Unit60 {
 
