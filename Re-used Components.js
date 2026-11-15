@@ -524,7 +524,7 @@ class DateValues {
             this.#setDigiYear = yr; // yr > -1
             this.#smtIdx = mt;
             this.#sdtIdx = dt;                
-            // DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear); // [; nr] why is this variable a static variable .?
+            // DateValues.#LeapYear = DateValues.isLeapYear(this.#setDigiYear); // [; nr] why is this variable a static variable .? <-- done
             this.#swkNo = DateValues.getWeekNumber(this, this.#setDigiYear, 
                             this.#smtIdx, this.#sdtIdx, this.#sdyIdx); // <-- modify OR code a new function 
             // --> new function implemented
@@ -1257,17 +1257,6 @@ class DateValues {
         this.useHereValues();
     }
 
-    static isLeapYear(digiYear) {
-
-        /*** 
-         * [a mnemonic]
-         * year 1100 isn't a leap one
-         * 
-         * */ 
-
-        return ((digiYear % 4 == 0 && digiYear % 100 !== 0) || (digiYear % 400 == 0));
-    }
-
     isHereDay(dateIndex, monthIndex, digiYear) {
         return (dateIndex === this.#hdtIdx && monthIndex === this.#hmtIdx && digiYear === this.#hereDigiYear);
     }
@@ -1622,6 +1611,17 @@ class CulaUnit {
 
     get BoolLeapYear() {
         return this.#boolLeapYear;
+    }
+
+    static isLeapYearByCalculation(digiYear) {
+
+        /*** 
+         * [a mnemonic]
+         * year 1100 isn't a leap one
+         * 
+         * */ 
+
+        return ((digiYear % 4 == 0 && digiYear % 100 !== 0) || (digiYear % 400 == 0));
     }
 
     static revertElteMonthIdx(monthStr) {
