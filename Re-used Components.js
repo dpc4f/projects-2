@@ -6,8 +6,6 @@ const DATE_FULL_FORM = 0;
 const DATE_MID_FORM = 1;
 const DATE_SHORT_FORM = 2;
 
-const DAYS_IN_A_YEAR = 365.25;
-
 const TIME_FORMAT_STRINGS = [false, true]; // hh:mm; only
 const ZERO = 0;
 const NO_OP = ZERO;
@@ -1316,6 +1314,7 @@ DateValues.Constants = class {
     }
 
     static NUMBER_OF_MONTHS_IN_A_YEAR = 12;
+
 }
 
 Object.freeze(DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR);
@@ -1467,6 +1466,8 @@ class CulaUnit {
     #currentPos = 0;
     #boolLeapYear = true;
     static DIGI_YEAR_OF_FIRST_UNYT = 2024;
+
+    static DAYS_IN_A_YEAR = 365.25;
 
     static DATE_FORMAT_STRINGS = [
         // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
@@ -1655,6 +1656,7 @@ Object.freeze(UnytValues.MONTH_NAMES_TLA);
 Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.SLOGAN);
 Object.freeze(UnytValues.DIGI_YEAR_OF_FIRST_UNYT);
+Object.freeze(UnytValues.DAYS_IN_A_YEAR);
 
 const NGÀY_NHÌ = Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS;
 
@@ -1782,6 +1784,38 @@ class Life {
         return Life.#NUMBER_OF_YEARS_STARTING_CURRENT_YEAR - Math.floor((digiYear - DateValues.CURRENT_YEAR) / 100);
     }
 
+    calculateAge(TDOB) { // Time Duration Of Birth
+        const ERROR = -1;
+
+        if (!TDOB || TDOB instanceof String == false) {
+            return [ERROR, 'Please enter a birth date'];
+        }
+
+        const arr = TDOB.trim().split(/\s+/);
+        const m = DateValues.getElteFromElteMonth(arr[0]);
+
+        if (m === -1 || arr.length < 3) {
+            return [ERROR, 'Please use the format "M11 1 current_year±N"'];
+        }
+
+        const birthMonthName = UnytValues.MONTH_NAMES[m];     
+        const birthYear = UnytValues.revertElteYear(arr[2], m < 2);
+        const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
+
+        const HereTime = new Date();
+        const ConvertedBirthDate = new Date(convertedBirthDate);
+        
+        if (isNaN(ConvertedBirthDate.getTime())) {
+            return [ERROR, 'Invalid birth date format'];
+        }
+
+        let dayDiff = Math.floor((HereTime.getTime() - ConvertedBirthDate.getTime()) / (1000 * 60 * 60 * 24));
+        let yearsOld = (dayDiff / CulaUnit.DAYS_IN_A_YEAR).toFixed(2);
+        let residuce = (yearsOld * 100) % 100;
+        let flooredDownYearsOld = ((yearsOld * 100) - residuce) / 100; // Nov 27 1982
+
+        return [dayDiff, yearsOld, residuce, flooredDownYearsOld];
+    }
 }
 
 
