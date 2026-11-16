@@ -217,13 +217,13 @@
         }
 
         function calculateAge() {
-            const gTDOB = document.getElementById('birthDate').value;
+            const TDOB = document.getElementById('birthDate').value;
         
-            thisLife = new Life(gTDOB);
+            thisLife = new Life(TDOB);
             let retArray = thisLife.calculateAge();
             const resultDiv = document.getElementById('result');
 
-            if (retArray[0] == -1) {
+            if (retArray[0] == CulaUnit.ERROR) {
                 resultDiv.textContent = retArray[1];
                 return;
             }
@@ -231,14 +231,14 @@
             let dayDiff = retArray[0];
             let yearsOld = retArray[1];
             let residuce = retArray[2];
-            let flooredDownYearsOld = retArray[3];
+            let roundingYearsOld = retArray[3];
 
             resultDiv.textContent = `You are ${dayDiff.toLocaleString()} days old`;
             document.getElementById('reference').textContent = '~' + yearsOld + ' years old';
             document.getElementById('reference').textContent += '; the age is exactly ' + 
                                                                 (residuce >= 70 
-                                                                    ? flooredDownYearsOld + 1 
-                                                                    : flooredDownYearsOld).toString() + ' yrs old';
+                                                                    ? roundingYearsOld + 1 
+                                                                    : roundingYearsOld).toString() + ' yrs old';
         }
 
         function copyPASTE() {

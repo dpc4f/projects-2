@@ -1776,6 +1776,7 @@ class Life {
      */
 
     static #NUMBER_OF_YEARS_STARTING_CURRENT_YEAR = 76; // 100 - (500 + 2000) / 100 + 1
+    static ERROR = -1;
 
     static LifeSpan() {
         // each 100 years LifeSpan reduces by 1
@@ -1785,39 +1786,39 @@ class Life {
     }
 
     calculateAge(TDOB) { // Time Duration Of Birth
-        const ERROR = -1;
 
         if (!TDOB || TDOB instanceof String == false) {
-            return [ERROR, 'Please enter a birth date'];
+            return [Life.ERROR, 'Please enter a birth date'];
         }
 
         const arr = TDOB.trim().split(/\s+/);
         const m = DateValues.getElteFromElteMonth(arr[0]);
 
         if (m === -1 || arr.length < 3) {
-            return [ERROR, 'Please use the format "M11 1 current_year±N"'];
+            return [Life.ERROR, 'Please use the format "M11 1 current_year±N"'];
         }
 
         const birthMonthName = UnytValues.MONTH_NAMES[m];     
         const birthYear = UnytValues.revertElteYear(arr[2], m < 2);
-        const convertedBirthDate = `${birthMonthName} ${arr[1]} ${birthYear}`;
+        const convertedBirthDateString = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
         const HereTime = new Date();
-        const ConvertedBirthDate = new Date(convertedBirthDate);
+        const ConvertedBirthDate = new Date(convertedBirthDateString);
         
         if (isNaN(ConvertedBirthDate.getTime())) {
-            return [ERROR, 'Invalid birth date format'];
+            return [Life.ERROR, 'Invalid birth date format'];
         }
 
         let dayDiff = Math.floor((HereTime.getTime() - ConvertedBirthDate.getTime()) / (1000 * 60 * 60 * 24));
         let yearsOld = (dayDiff / CulaUnit.DAYS_IN_A_YEAR).toFixed(2);
         let residuce = (yearsOld * 100) % 100;
-        let flooredDownYearsOld = ((yearsOld * 100) - residuce) / 100; // Nov 27 1982
+        let roundingYearsOld = ((yearsOld * 100) - residuce) / 100; // Nov 27 1982
 
-        return [dayDiff, yearsOld, residuce, flooredDownYearsOld];
+        return [dayDiff, yearsOld, residuce, roundingYearsOld];
     }
 }
 
+Object.freeze(Life.ERROR);
 
 const Unit60PlusPlus = Life; // <-- need-less going back to C / C++
 const DDAi = DoubleIteration;
