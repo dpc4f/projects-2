@@ -1779,6 +1779,12 @@ class Life {
     static #NUMBER_OF_YEARS_STARTING_CURRENT_YEAR = 76; // 100 - (500 + 2000) / 100 + 1
     static ERROR = -1;
 
+    #tdob;
+
+    constructor(timeDurationOfBirth) {
+        this.#tdob = timeDurationOfBirth;
+    }
+
     static LifeSpan() {
         // each 100 years LifeSpan reduces by 1
         let digiYear = DateValues.getYearNumberOnly(new Date());
@@ -1786,13 +1792,13 @@ class Life {
         return Life.#NUMBER_OF_YEARS_STARTING_CURRENT_YEAR - Math.floor((digiYear - DateValues.CURRENT_YEAR) / 100);
     }
 
-    calculateAge(TDOB) { // Time Duration Of Birth
+    calculateAge() { // Time Duration Of Birth
 
-        if (!TDOB || TDOB instanceof String == false) {
+        if (!this.#tdob || typeof this.#tdob === 'string') {
             return [Life.ERROR, 'Please enter a birth date'];
         }
 
-        const arr = TDOB.trim().split(/\s+/);
+        const arr = this.#tdob.trim().split(/\s+/);
         const m = DateValues.getElteFromElteMonth(arr[0]);
 
         if (m === -1 || arr.length < 3) {
