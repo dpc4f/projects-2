@@ -1779,6 +1779,11 @@ class Life {
     static #NUMBER_OF_YEARS_STARTING_CURRENT_YEAR = 76; // 100 - (500 + 2000) / 100 + 1
     static ERROR = -1;
 
+    /***
+     * [TLA]
+     * tdob <-- [umswtcc] Time Duration Of Birth
+     
+    */
     #tdob;
 
     constructor(timeDurationOfBirth) {
