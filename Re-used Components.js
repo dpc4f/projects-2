@@ -1629,7 +1629,7 @@ class CulaUnit {
     static revertElteMonthIdx(monthStr) {
         const idx = DateValues.getElteFromElteMonth(monthStr);
 
-        return (idx + 2) % 12;
+        return (idx + 2) % DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
     }
 
     get DayCountInElteMonths() {
