@@ -52,6 +52,7 @@ class TimeValues {
     #s = null;
     // #ms;
     #freshTimeLevels;
+    #Hereday = null;
 
     constructor(updatePlatonTime = null) {
 
@@ -99,6 +100,12 @@ class TimeValues {
     }
 
 
+    /***
+     * [; nr] check how to use async / await appropriately
+     * 
+     * 
+     */
+    
     async timeTheCurrent(bUpdateGUI = false) {
 
         /***
@@ -107,15 +114,9 @@ class TimeValues {
         */ // --> done
         console.log("timeTheCurrent gets called");
         let bSuccess = false;
-        const controller = new AbortController();
-        const timeout = setTimeout(() => {
-            controller.abort();
-        }, 10000);
 
         try {
-            const response = await fetch('http://localhost:8080/api/TimeRequester',
-                { signal: controller.signal }
-            );
+            const response = await fetch('http://localhost:8080/api/TimeRequester');
             
             if (!response.ok) {
                 throw new Error(`HTTP Error: ${response.status}`);
@@ -254,7 +255,7 @@ class TimeValues {
                 ++this.#h;
                 if (this.#h == 24) {
                     this.#h = 0;
-                    this.Hereday = new Date();
+                    this.#Hereday = new Date();
                 }
             }
         }
@@ -269,7 +270,7 @@ class TimeValues {
             ++this.#h;
             if (this.#h == 24) {
                 this.#h = 0;
-                this.Hereday = new Date();
+                this.#Hereday = new Date();
             }
         }
 
@@ -324,11 +325,11 @@ class TimeValues {
     }
 
     useDefaultValues() {
-        this.Hereday = new Date();
+        this.#Hereday = new Date();
         
-        this.#h = this.Hereday.getHours();
-        this.#m = this.Hereday.getMinutes();
-        this.#s = this.Hereday.getSeconds();
+        this.#h = this.#Hereday.getHours();
+        this.#m = this.#Hereday.getMinutes();
+        this.#s = this.#Hereday.getSeconds();
         // this.#ms = this.Hereday.getMilliseconds();
     }
 
@@ -448,6 +449,7 @@ class DateValues {
     #swkNo;
 
     #timeVal;
+    Hereday;
 
     static CURRENT_YEAR = 2020;
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
@@ -920,14 +922,10 @@ class DateValues {
          */ // --> done
  
         let bSuccess = false;
-        const controller = new AbortController();
-        const timeout = setTimeout(() => {
-            controller.abort();
-        }, 10000);
 
         try {
 
-            const response = await fetch('http://localhost:8080/api/TimeRequester', { signal: controller.signal });
+            const response = await fetch('http://localhost:8080/api/TimeRequester');
             if (!response.ok) {
                 throw new Error(`HTTP Error: ${response.status}`);
             }
@@ -945,7 +943,7 @@ class DateValues {
             // bSuccess = true;
             bSuccess = false;
 
-            console.log(this.getTimeStamp() + "[timeTheDay] Response from DLL: " + strJsonThoiGian);
+            console.log("[timeTheDay] Response from DLL: " + strJsonThoiGian);
 
             DateValues.#LeapYear = DateValues.isLeapYear(this.#hereDigiYear);
             this.#hwkNo = DateValues.getWeekNumber(this.#hereDigiYear, this.#hmtIdx, this.#hdtIdx, this.#hdyIdx);
@@ -955,8 +953,8 @@ class DateValues {
         } catch (error) {
 
             // This catches the "Failed to fetch" error gracefully
-            console.error(this.getTimeStamp() + 'Network error or CORS issue occurred:', error);
-            console.log(this.getTimeStamp() + 'Use the day of current_year as a replacement ...');
+            console.error('Network error or CORS issue occurred:', error);
+            console.log('Use the day of current_year as a replacement ...');
 
         } finally {
 
@@ -968,7 +966,7 @@ class DateValues {
 
             if (bUpdateGUI == true && this.callbackUpdateGUI) {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
-                console.log(this.getTimeStamp() + 'function callback is called; to render the calendar');
+                console.log('function callback is called; to render the calendar');
             }
 
         }
