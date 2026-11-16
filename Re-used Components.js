@@ -1794,7 +1794,7 @@ class Life {
 
     calculateAge() { // Time Duration Of Birth
 
-        if (!this.#tdob || typeof this.#tdob === 'string') {
+        if (!this.#tdob || typeof this.#tdob !== 'string') {
             return [Life.ERROR, 'Please enter a birth date'];
         }
 
