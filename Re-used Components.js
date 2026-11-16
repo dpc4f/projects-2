@@ -1780,10 +1780,10 @@ class Life {
     static ERROR = -1;
 
     /***
-     * [TLA]
+     * [TLA, Three Letter Acronym]
      * tdob <-- [umswtcc] Time Duration Of Birth
-     
-    */
+     *
+     */
     #tdob;
 
     constructor(timeDurationOfBirth) {
