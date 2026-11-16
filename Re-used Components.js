@@ -1467,7 +1467,8 @@ class CulaUnit {
     #boolLeapYear = true;
     static DIGI_YEAR_OF_FIRST_UNYT = 2024;
 
-    static DAYS_IN_A_YEAR = 365.25;
+    static WAN_YEAR_IN_DAYS = 365.25;
+    static ERROR = Number.MIN_SAFE_INTEGER;
 
     static DATE_FORMAT_STRINGS = [
         // **month **{ date in month } year **{ week number } **{{ day in week } **{ shift in day }}
@@ -1656,7 +1657,7 @@ Object.freeze(UnytValues.MONTH_NAMES_TLA);
 Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.SLOGAN);
 Object.freeze(UnytValues.DIGI_YEAR_OF_FIRST_UNYT);
-Object.freeze(UnytValues.DAYS_IN_A_YEAR);
+Object.freeze(UnytValues.WAN_YEAR_IN_DAYS);
 
 const NGÀY_NHÌ = Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS;
 
@@ -1810,7 +1811,7 @@ class Life {
         }
 
         let dayDiff = Math.floor((HereTime.getTime() - ConvertedBirthDate.getTime()) / (1000 * 60 * 60 * 24));
-        let yearsOld = (dayDiff / CulaUnit.DAYS_IN_A_YEAR).toFixed(2);
+        let yearsOld = (dayDiff / CulaUnit.WAN_YEAR_IN_DAYS).toFixed(2);
         let residuce = (yearsOld * 100) % 100;
         let roundingYearsOld = ((yearsOld * 100) - residuce) / 100; // Nov 27 1982
 
