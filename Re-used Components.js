@@ -1840,9 +1840,9 @@ class Life {
         return [dayDiff, yearsOld, residuce, roundingYearsOld];
     }
 
-    exchange2AnimalByLunar(subtractalAmount) {
+    exchange2AnimalByLunar(subductalAmount) {
         let [, y] = CulaUnit.revertElteMonthYear(this.#tdob);
-        this.#birthDigiYear = y - subtractalAmount;
+        this.#birthDigiYear = y - subductalAmount;
 
         let tempo = Math.abs(DateValues.Constants.CURRENT_YEAR - this.#birthDigiYear) % DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
         let result = Life.ANIMAL_NAMES[tempo];
