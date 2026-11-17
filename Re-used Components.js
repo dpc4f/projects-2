@@ -116,7 +116,7 @@ class TimeValues {
      * [; nr] check how to use async / await appropriately
      * 
      * 
-     */
+     */ // --> done
 
     async timeTheRecentMoment(bUpdateGUI = false) {
 
