@@ -320,6 +320,11 @@
             color: brown;
         }
 
+        /*** 
+         * [; nr] 
+         * use this list, { do; cam; vang; luc; lam; cham; tim; xam } && den
+         *
+         */
         .body-1 {
             color: grey;
         }
@@ -1148,7 +1153,7 @@
                             // let li = document.createElement('li');
                             // li.classList.add('left-li');
                             let colour = Math.floor(idx / 4);
-                            if (idx == 31) // the last one is brain 
+                            if (idx == 31) // last one is the brain which is the most important
                                 colour = 8;
                             htmlContent += `<li id='${idx}' class='left-li body-${colour+1}'>${label}</li>`;
                         }
