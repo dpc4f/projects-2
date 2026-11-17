@@ -1782,9 +1782,19 @@ class Life {
     /***
      * [TLA, Three Letter Acronym]
      * tdob <-- [umswtcc] Time Duration Of Birth
+     * 
+     * tdob is an Elte array; will have update(s) ...
      *
      */
     #tdob;
+    #birthDigiYear; // Gregorian value
+
+    static ANIMAL_NAMES = [
+        "Mouse / Rat / Capybara", "Ox / Bull / Buffalo / Cow / Bison",
+        "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Dragon / { Ant, Bee } / Peacock", "Snake Clan / Centi-pede Family",
+        "Horse / Sea-{ horse, dragon } / Western-dragon", "Goat --> Maggot", "¬{ Monkey / Ape / Kong }",
+        "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck / Ki-ki", "Pig / Boar in ð Wilderness"
+    ];
 
     constructor(timeDurationOfBirth) {
         this.#tdob = timeDurationOfBirth;
@@ -1812,6 +1822,7 @@ class Life {
 
         const birthMonthName = UnytValues.MONTH_NAMES[m];     
         const birthYear = UnytValues.revertElteYear(arr[2], m < 2);
+        this.#birthDigiYear = birthYear;
         const convertedBirthDateString = `${birthMonthName} ${arr[1]} ${birthYear}`;
 
         const HereTime = new Date();
@@ -1824,13 +1835,25 @@ class Life {
         let dayDiff = Math.floor((HereTime.getTime() - ConvertedBirthDate.getTime()) / (1000 * 60 * 60 * 24));
         let yearsOld = (dayDiff / CulaUnit.WAN_YEAR_IN_DAYS).toFixed(2);
         let residuce = (yearsOld * 100) % 100;
-        let roundingYearsOld = ((yearsOld * 100) - residuce) / 100; // Nov 27 1982
+        let roundingYearsOld = ((yearsOld * 100) - residuce) / 100;
 
         return [dayDiff, yearsOld, residuce, roundingYearsOld];
+    }
+
+    exchange2AnimalByLunar(subtractalAmount) {
+        let tmp = Math.abs(DateValues.Constants.CURRENT_YEAR - this.#birthDigiYear) % DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+        let ret = Life.ANIMAL_NAMES[tmp - subtractalAmount];
+        
+        if (this.#birthDigiYear < DateValues.Constants.CURRENT_YEAR) {
+            ret = Life.ANIMAL_NAMES[12 - tmp];
+        }
+
+        return ret;
     }
 }
 
 Object.freeze(Life.ERROR);
+Object.freeze(Life.ANIMAL_NAMES);
 
 const Unit60PlusPlus = Life; // <-- need-less going back to C / C++
 const DDAi = DoubleIteration;
@@ -1950,29 +1973,13 @@ class VoCuc { // Vô Cực
 
     }
 
-    static ANIMAL_NAMES = [
-        "Mouse / Rat / Capybara", "Ox / Bull / Buffalo / Cow / Bison",
-        "Tiger / Leopard", "Rabbit / Rapoo ð Electric Mouse", "Dragon / { Ant, Bee } / Peacock", "Snake Clan / Centi-pede Family",
-        "Horse / Sea-{ horse, dragon } / Western-dragon", "Goat --> Maggot", "¬{ Monkey / Ape / Kong }",
-        "Rooster / Chicken / Hen", "Dodge / Deer / Reindeer / Duck / Ki-ki", "Pig / Boar in ð Wilderness"
-    ];
-    
-    static exchange2AnimalByLunar(birthYear) {
-        let tmp = Math.abs(DateValues.Constants.CURRENT_YEAR - birthYear) % 12;
-        
-        if (birthYear < DateValues.Constants.CURRENT_YEAR)
-            return VoCuc.ANIMAL_NAMES[12 - tmp];
-        else
-            return VoCuc.ANIMAL_NAMES[tmp];
-    }
-
     getLastElteYearOfVoCuc() {
         return DateValues.Constants.CURRENT_YEAR_STRING + '+' + (this.#digiYear + 23 - DateValues.CURRENT_YEAR);
     }
 
 }
 
-Object.freeze(VoCuc.ANIMAL_NAMES);
+
 Object.freeze(VoCuc.NĂM_ELTE_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
 Object.freeze(VoCuc.THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC);
 

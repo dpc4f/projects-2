@@ -213,7 +213,8 @@
                 return;
             }
 
-            document.getElementById('animal').value = VoCuc.exchange2AnimalByLunar(bFromDavid ? birthYear - 4 : birthYear);
+            let life = new Life(elteDOB);
+            document.getElementById('animal').value = life.exchange2AnimalByLunar(bFromDavid ? 4 : 0);
         }
 
         function fromElte() {
