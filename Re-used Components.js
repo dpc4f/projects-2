@@ -1842,16 +1842,16 @@ class Life {
 
     exchange2AnimalByLunar(subtractalAmount) {
         let [, y] = CulaUnit.revertElteMonthYear(this.#tdob);
-        this.#birthDigiYear = y;
+        this.#birthDigiYear = y - subtractalAmount;
 
-        let tmp = Math.abs(DateValues.Constants.CURRENT_YEAR - this.#birthDigiYear) % DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
-        let ret = Life.ANIMAL_NAMES[tmp - subtractalAmount];
+        let tempo = Math.abs(DateValues.Constants.CURRENT_YEAR - this.#birthDigiYear) % DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+        let result = Life.ANIMAL_NAMES[tempo];
         
         if (this.#birthDigiYear < DateValues.Constants.CURRENT_YEAR) {
-            ret = Life.ANIMAL_NAMES[12 - (tmp - subtractalAmount)];
+            result = Life.ANIMAL_NAMES[DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR - tempo];
         }
 
-        return ret;
+        return result;
     }
 }
 
