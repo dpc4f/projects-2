@@ -1900,6 +1900,19 @@ class World {
 }
 
 
+/***
+ * 
+ * [3:1]
+ * 1 vòng lặp (Iteration) == 4 năm
+ * cặp vòng lặp == 8 năm
+ * 1 vô cực == 3 cặp lặp (24 năm)
+ * >>>> [a fact]
+ * @current_year; tính theo năm [lịch Gregorian]; tuổi của vũ trụ dc 13 tỉ .. :-))
+ * 
+ * 
+ * 
+ */
+
 
 
 /***
