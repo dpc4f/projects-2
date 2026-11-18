@@ -492,6 +492,7 @@ class DateValues {
 
     static USE_HERE_DAY = 0;
     // static #LeapYear = false;
+    static NGÀY_NHÌ = Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS;
 
     #cUnit;
 
@@ -1658,8 +1659,6 @@ Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.SLOGAN);
 Object.freeze(UnytValues.DIGI_YEAR_OF_FIRST_UNYT);
 Object.freeze(UnytValues.WAN_YEAR_IN_DAYS);
-
-const NGÀY_NHÌ = Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS;
 
 
 class DoubleIteration {
