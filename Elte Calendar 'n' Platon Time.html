@@ -701,12 +701,11 @@
         }
 
         function changeDate(bHereDay = false) {
-            if (!dateVal) 
-                return;
+            if (!dateVal) return;
 
-            if (bHereDay == true)
+            if (bHereDay == true) {
                 updateToHereDate();
-            else {
+            } else {
                 let elteDateStr = document.getElementById('dateTextbox').value;
                 
                 dateVal.fromElteDate(elteDateStr);
