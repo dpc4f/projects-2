@@ -492,7 +492,7 @@ class DateValues {
 
     static USE_HERE_DAY = 0;
     // static #LeapYear = false;
-    static NGÀY_NHÌ = Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS;
+    static NGÀY_NHÌ = 2; //Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS
 
     #cUnit;
 
