@@ -1522,7 +1522,13 @@ class CulaUnit {
         let valuesStr = '';
 
         switch (formLength) {
-            case CulaUnit.FULL_FORM_DATE:
+            case CulaUnit.FULL_FORM_DATE: 
+                
+                /***
+                 * [; nr] think of a way to enhance the following method
+                 * 
+                 */
+
                 valuesStr = DateValues.Helpers.getDateFullForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
