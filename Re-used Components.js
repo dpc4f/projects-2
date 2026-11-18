@@ -1840,7 +1840,7 @@ class Life {
         return [dayDiff, yearsOld, residuce, roundingYearsOld];
     }
 
-    exchange2AnimalByLunar(subductalAmount) {
+    exchange2AnimalByLunar(subductalAmount = 0) {
         let [, y] = CulaUnit.revertElteMonthYear(this.#tdob);
         this.#birthDigiYear = y - subductalAmount;
 
