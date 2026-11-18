@@ -488,7 +488,7 @@ class DateValues {
 
     static CURRENT_YEAR = 2020;
     static CURRENT_MONTH = 'Cô Độc Mình Ên';
-    static CURRENT_DAY = 'Đang Ngồi Thư Viện';
+    static CURRENT_DAY = 'Đang Ngồi Thư Viện'; // today
 
     static USE_HERE_DAY = 0;
     // static #LeapYear = false;
@@ -516,9 +516,15 @@ class DateValues {
              * 
              */ // --> done
 
-            this.#cUnit = new CulaUnit(yr > 0 ? yr : DateValues.CURRENT_YEAR);
-            
-            if (DateValues.isValidGregorian(this, yr, mt, dt) == false) return;
+            if (DateValues.isValidGregorianMonth(mt) == false) return;
+            this.#mtIdx = mt;
+                        
+            if (CulaUnit.isValidGregorianYear(yr) == false) return;
+            this.#digitalYear = yr;
+            this.#cUnit = new CulaUnit(this.#digitalYear);
+
+            if (this.isValidGregorianSoleDate(dt) == false) return;
+            this.#dtIdx = dt;
 
             this.#setDigiYear = yr; // yr > -1
             this.#smtIdx = mt;
@@ -572,13 +578,11 @@ class DateValues {
         }, duration); 
     }
 
-    static isValidGregorianSoleDate(dateVal, paramMonthIdx, paramSoleDateIdx) {
+    isValidGregorianSoleDate(paramSoleDateIdx) {
         let ret = true;
         
         // if (paramYear < 1) ret = false;
         // if (paramMonthIdx < 0 || paramMonthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) ret = false;
-        
-        let elteMonthIdx = DateValues.convertToElteMonthIdx(paramMonthIdx);
         
         /***
          * [; nr] refine this code segment
@@ -586,14 +590,12 @@ class DateValues {
          * 
          */ // --> done
         
-        let dayCount = dateVal.#cUnit.DayCountInElteMonths[elteMonthIdx];
-        if (paramSoleDateIdx < 1 || paramSoleDateIdx > dayCount) ret = false;
+        let dayCount = this.#cUnit.DayCountInElteMonths[this.#mtIdx];
+        if (paramSoleDateIdx < 1 || paramSoleDateIdx > dayCount) {
+            ret = false;
+        }
 
         return ret;
-    }
-
-    static isValidGregorianYear(paramYear) {
-        return paramYear > 0;
     }
 
     static isValidGregorianMonth(paramMonth) {
@@ -1588,6 +1590,10 @@ class CulaUnit {
         let str = d > 0 ? '+'+d.toString() : d.toString();
 
         return [DateValues.getElteMonth(month), (d == 0 ? c_y_str : c_y_str+str)];
+    }
+
+    static isValidGregorianYear(paramYear) {
+        return paramYear >= 0;
     }
 
     get DigiYear() {
