@@ -1540,15 +1540,16 @@ class CulaUnit {
                 valuesStr = dateVal.Helpers.getDateFullForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
-            case CulaUnit.MID_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateMidForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
-                break;
+            // case CulaUnit.MID_FORM_DATE:
+            //     valuesStr = DateValues.Helpers.getDateMidForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+            //     break;
 
-            case CulaUnit.SHORT_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateShortForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
-                break;
+            // case CulaUnit.SHORT_FORM_DATE:
+            //     valuesStr = DateValues.Helpers.getDateShortForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+            //     break;
 
             default:
+                valuesStr = 'Palm 15 current_year';
                 break;
         }
     
