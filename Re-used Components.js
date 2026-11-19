@@ -623,11 +623,11 @@ class DateValues {
 
         let bAddOneYear = m < 2 ? true : false;
         let y = Iteration.revertElteYear(arr[2], bAddOneYear);
-        if (DateValues.isValidGregorianYear(y) == false) return;
+        if (CulaUnit.isValidGregorianYear(y) == false) return;
         this.#cUnit = new CulaUnit(y);
 
         if (DateValues.isValidGregorianMonth(m) == false) return;
-        if (DateValues.isValidGregorianSoleDate(this, m, d) == false) return;
+        if (this.isValidGregorianSoleDate(d) == false) return;
 
         this.#setDigiYear = y;
         this.#smtIdx = m;
