@@ -1540,11 +1540,11 @@ class CulaUnit {
                 break;
 
             case CulaUnit.MID_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateMidForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+                valuesStr = dateVal.Helpers.getDateMidForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             case CulaUnit.SHORT_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateShortForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+                valuesStr = dateVal.Helpers.getDateShortForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             default:
