@@ -1359,26 +1359,14 @@ DateValues.Helpers = class {
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
 
-    static isValidNumeric(month, soleDate, year, day) {
-        let ret = true;
+    getDateMidForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
         
-        if (typeof month !== 'number') ret = false;
-        if (typeof soleDate !== 'number') ret = false;
-        if (typeof year !== 'number') ret = false;
-        if (typeof day !== 'number') ret = false;
-
-        return ret;
-    }
-
-    static getDateMidForm(dateVal, bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
-        if (!dateVal) return STR_LEN_ZERO;
+        if (this.#dateValues instanceof DateValues == false) return STR_LEN_ZERO;
         
-        let month = dateVal.MonthIndex;
-        let soleDate = dateVal.SoleDateIndex;
-        let year = dateVal.DigitalYear;
-        let day = dateVal.ElteDayIdx;
-
-        if (DateValues.Helpers.isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR_STRING;
+        let month = this.#dateValues.MonthIndex;
+        let soleDate = this.#dateValues.SoleDateIndex;
+        let year = this.#dateValues.DigitalYear;
+        let day = this.#dateValues.ElteDayIdx;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.MID_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
@@ -1391,15 +1379,14 @@ DateValues.Helpers = class {
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
 
-    static getDateShortForm(dateVal, bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
-        if (!dateVal) return STR_LEN_ZERO;
+    getDateShortForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
         
-        let month = dateVal.MonthIndex;
-        let soleDate = dateVal.SoleDateIndex;
-        let year = dateVal.DigitalYear;
-        let day = dateVal.ElteDayIdx;
-
-        if (DateValues.Helpers.isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR_STRING;
+        if (this.#dateValues instanceof DateValues == false) return STR_LEN_ZERO;
+        
+        let month = this.#dateValues.MonthIndex;
+        let soleDate = this.#dateValues.SoleDateIndex;
+        let year = this.#dateValues.DigitalYear;
+        let day = this.#dateValues.ElteDayIdx;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month, Iteration.SHORT_FORM_DATE) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
@@ -1412,6 +1399,17 @@ DateValues.Helpers = class {
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
     }
 
+    
+    static isValidNumeric(month, soleDate, year, day) {
+        let ret = true;
+        
+        if (typeof month !== 'number') ret = false;
+        if (typeof soleDate !== 'number') ret = false;
+        if (typeof year !== 'number') ret = false;
+        if (typeof day !== 'number') ret = false;
+
+        return ret;
+    }
 }
 
 function fullscreenZoom(isZoomFull = true) {
