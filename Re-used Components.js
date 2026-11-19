@@ -502,13 +502,14 @@ class DateValues {
         if (yr < 0) return; // invalid parameters
         
         this.Heredate = new Date();
-        this.callbackUpdateGUI = callbackUpdateGUI; 
+        this.callbackUpdateGUI = callbackUpdateGUI;
+        this.useDefaultValues();
+        this.#helpers = new DateValues.Helpers(this);
 
         if (yr == DateValues.USE_HERE_DAY) { // == 0
 
             this.#cUnit = new CulaUnit();
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
-            this.#helpers = new DateValues.Helpers(this);
 
         } else {
             /* use Set Date Values */
@@ -537,7 +538,6 @@ class DateValues {
             // --> new function implemented
 
             this.useSetValues();
-            this.#helpers = new DateValues.Helpers(this);
     
             if (this.callbackUpdateGUI) {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
@@ -1340,6 +1340,7 @@ DateValues.Helpers = class {
     }
     
      getDateFullForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
+        
         if (this.#dateValues instanceof DateValues == false) return STR_LEN_ZERO;
 
         let month = this.#dateValues.MonthIndex;

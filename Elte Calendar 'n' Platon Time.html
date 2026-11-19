@@ -554,10 +554,11 @@
         }
 
         function updateToHereDate() {
-            if (!dateVal)
-                dateVal = new DateValues(renderCalendar);
-            else
-                dateVal.timeTheDay(true);
+            
+            if (!dateVal) dateVal = new DateValues(renderCalendar);
+
+            dateVal.timeTheDay(true);
+            
         }
 
         function initializeToDateValues(dateVal) {
