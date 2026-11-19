@@ -495,6 +495,7 @@ class DateValues {
     static NGÀY_NHÌ = 2; //Iteration.STANDARD_FORM_OF_DATE_FORMAT_STRINGS
 
     #cUnit;
+    #helpers;
 
     constructor(callbackUpdateGUI = null, yr = DateValues.USE_HERE_DAY, mt = -1, dt = -1) {
 
@@ -506,6 +507,7 @@ class DateValues {
         if (yr == DateValues.USE_HERE_DAY) { // == 0
 
             this.#cUnit = new CulaUnit();
+            this.#helpers = new DateValues.Helpers();
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
 
         } else {
@@ -522,6 +524,7 @@ class DateValues {
             if (CulaUnit.isValidGregorianYear(yr) == false) return;
             this.#digitalYear = yr;
             this.#cUnit = new CulaUnit(this.#digitalYear);
+            this.#helpers = new DateValues.Helpers();
 
             if (this.isValidGregorianSoleDate(dt) == false) return;
             this.#dtIdx = dt;
@@ -1110,6 +1113,10 @@ class DateValues {
         return this.#cUnit.BoolLeapYear;
     }
 
+    get Helpers() {
+        return this.#helpers;
+    }
+
     /*** 
      * to correct the name of the get year function
      * don't accept string as input parameter
@@ -1326,20 +1333,19 @@ Object.freeze(DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR);
 
 DateValues.Helpers = class {
     
-    /***
-     * [; nr] revise this method
-     * 
-     */ // --> done
+    #dateValues;
 
-    static getDateFullForm(dateVal, bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
-        if (!dateVal) return STR_LEN_ZERO;
+    constructor(dateValues) {
+        this.#dateValues = dateValues;
+    }
+    
+     getDateFullForm(bMonth = false, bSoleDate = false, bDayIndex = false, bShiftInADay = false, bWeekNo = false) {
+        if (this.#dateValues instanceof DateValues == false) return STR_LEN_ZERO;
 
-        let month = dateVal.MonthIndex;
-        let soleDate = dateVal.SoleDateIndex;
-        let year = dateVal.DigitalYear;
-        let day = dateVal.ElteDayIdx;
-
-        if (DateValues.Helpers.isValidNumeric(month, soleDate, year, day) == false) return DateValues.Constants.CURRENT_YEAR_STRING;
+        let month = this.#dateValues.MonthIndex;
+        let soleDate = this.#dateValues.SoleDateIndex;
+        let year = this.#dateValues.DigitalYear;
+        let day = this.#dateValues.ElteDayIdx;
 
         let elteMonth = bMonth ? DateValues.getElteMonth(month) : '';
         let elteSoleDate = bSoleDate ? soleDate : '';
@@ -1531,7 +1537,7 @@ class CulaUnit {
                  * 
                  */
 
-                valuesStr = DateValues.Helpers.getDateFullForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+                valuesStr = dateVal.Helpers.getDateFullForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             case CulaUnit.MID_FORM_DATE:
