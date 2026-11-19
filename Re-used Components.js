@@ -507,8 +507,8 @@ class DateValues {
         if (yr == DateValues.USE_HERE_DAY) { // == 0
 
             this.#cUnit = new CulaUnit();
-            this.#helpers = new DateValues.Helpers(this);
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
+            this.#helpers = new DateValues.Helpers(this);
 
         } else {
             /* use Set Date Values */
@@ -524,7 +524,6 @@ class DateValues {
             if (CulaUnit.isValidGregorianYear(yr) == false) return;
             this.#digitalYear = yr;
             this.#cUnit = new CulaUnit(this.#digitalYear);
-            this.#helpers = new DateValues.Helpers(this);
 
             if (this.isValidGregorianSoleDate(dt) == false) return;
             this.#dtIdx = dt;
@@ -538,6 +537,7 @@ class DateValues {
             // --> new function implemented
 
             this.useSetValues();
+            this.#helpers = new DateValues.Helpers(this);
     
             if (this.callbackUpdateGUI) {
                 this.callbackUpdateGUI(this); // to render the calendar when the day's values change
