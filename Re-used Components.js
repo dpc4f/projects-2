@@ -1534,17 +1534,17 @@ class CulaUnit {
                 /***
                  * [; nr] think of a way to enhance the following method
                  * 
-                 */
+                 */ // --> done
 
                 valuesStr = dateVal.Helpers.getDateFullForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             case CulaUnit.MID_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateMidForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateMidForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             case CulaUnit.SHORT_FORM_DATE:
-                valuesStr = DateValues.Helpers.getDateShortForm(dateVal, bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
+                valuesStr = DateValues.Helpers.getDateShortForm(bMonth, bDateInMonth, bDayIndex, bShiftInADay, bWeekNumber);
                 break;
 
             default:
