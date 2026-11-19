@@ -1693,11 +1693,13 @@ class DoubleIteration {
      */
 
     static WICKTORY_RATIO = .66666666667;
+    static DDAi_IN_YEARS = 8;
 
 
 }
 
 Object.freeze(DoubleIteration.WICKTORY_RATIO);
+Object.freeze(DDAi.DDAi_IN_YEARS);
 
 
 class Unit60 {
