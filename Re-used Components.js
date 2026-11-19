@@ -507,7 +507,7 @@ class DateValues {
         if (yr == DateValues.USE_HERE_DAY) { // == 0
 
             this.#cUnit = new CulaUnit();
-            this.#helpers = new DateValues.Helpers();
+            this.#helpers = new DateValues.Helpers(this);
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
 
         } else {
@@ -524,7 +524,7 @@ class DateValues {
             if (CulaUnit.isValidGregorianYear(yr) == false) return;
             this.#digitalYear = yr;
             this.#cUnit = new CulaUnit(this.#digitalYear);
-            this.#helpers = new DateValues.Helpers();
+            this.#helpers = new DateValues.Helpers(this);
 
             if (this.isValidGregorianSoleDate(dt) == false) return;
             this.#dtIdx = dt;
