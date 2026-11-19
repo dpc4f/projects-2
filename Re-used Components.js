@@ -1581,7 +1581,7 @@ class CulaUnit {
         
         let m = DateValues.getElteFromElteMonth(arr[0]);
         if (m === -1 || arr.length < 3) {
-            console.log('Please use the format "M1 27 current_year+6"');
+            console.log('Please use the format "Duo 17 current_year+6"');
             return;
         }
 
