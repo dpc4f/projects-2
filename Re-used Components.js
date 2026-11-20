@@ -1987,7 +1987,7 @@ class VoCuc { // Vô Cực
      */
 
     static NĂM_ELTE_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN = DateValues.CURRENT_YEAR + 6; // 2026
-    static THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC = '丙午'; // Bính Ngọ
+    static FIRST_CANCHI_YEAR_OF_THE_FIRST_VOCUC = '丙午'; // Bính Ngọ
 
     #digiYear; // first year of the VoCuc
 
@@ -2005,7 +2005,7 @@ class VoCuc { // Vô Cực
 
 
 Object.freeze(VoCuc.NĂM_ELTE_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
-Object.freeze(VoCuc.THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC);
+Object.freeze(VoCuc.FIRST_CANCHI_YEAR_OF_THE_FIRST_VOCUC);
 
 
 
