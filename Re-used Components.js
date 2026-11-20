@@ -1701,7 +1701,7 @@ class DoubleIteration {
 }
 
 Object.freeze(DoubleIteration.WICKTORY_RATIO);
-Object.freeze(DDAi.DDAi_IN_YEARS);
+Object.freeze(DoubleIteration.DDAi_IN_YEARS);
 
 
 class Unit60 {
