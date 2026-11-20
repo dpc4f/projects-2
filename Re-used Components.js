@@ -38,6 +38,8 @@ const STR_LEN_ZERO = '';
 
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+let bFullScreen = true;
+
 
 
 class TimeValues {
@@ -2006,7 +2008,7 @@ Object.freeze(VoCuc.NĂM_ELTE_ĐẦU_TIÊN_CỦA_VÔ_CỰC_ĐẦU_TIÊN);
 Object.freeze(VoCuc.THE_FIRST_CANCHI_YEAR_OF_FIRST_VOCUC);
 
 
-let bFullScreen = true;
+
 function toggleFullscreen() {
     fullscreenZoom(bFullScreen);
     bFullScreen = !bFullScreen;
