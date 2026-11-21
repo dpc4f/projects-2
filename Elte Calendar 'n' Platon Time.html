@@ -509,7 +509,7 @@
          * [; nr] add a clock @the place of Dacet time-zone
          * 
          * 
-         * */
+         * */ // --> done [no-op]
 
           
         let tVal = null;
@@ -523,7 +523,7 @@
         // initial render
         initializePlatonTime();
 
-        function updateTimeToCurrentMoment() {
+        function updateTimeToHereMoment() {
             if (tVal) {
                 tVal.CallBack = updatePlatonTime;
                 tVal.timeTheRecentMoment();
@@ -531,7 +531,7 @@
         }
 
         function updateToHereTime() {
-            tVal = new TimeValues(updatePlatonTIme);
+            tVal = new TimeValues(updatePlatonTime);
             tVal.timeTheRecentMoment();
         }
 
@@ -558,7 +558,7 @@
             if (!dateVal) dateVal = new DateValues(renderCalendar);
 
             dateVal.timeTheDay(true);
-            
+
         }
 
         function initializeToDateValues(dateVal) {
@@ -807,8 +807,8 @@
             renderDateTimeVarieties();
         }
 
-        window.addEventListener('blur', updateTimeToCurrentMoment);
-        window.addEventListener('focus', updateTimeToCurrentMoment);
+        window.addEventListener('blur', updateTimeToHereMoment);
+        window.addEventListener('focus', updateTimeToHereMoment);
 
         /*** 4 debugging purpose */
         // in ra nam Elte cuoi cung cua Vocuc thu 2
