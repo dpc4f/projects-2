@@ -322,20 +322,19 @@
 
         /*** 
          * [; nr] 
-         * use this list, { do; cam; vang; luc; lam; cham; tim; xam } && den
+         * use this list, [order matters] { do; cam; vang; luc; lam; cham; tim; xam } && den
          *
          */
         .body-1 {
-            color: grey;
+            color: red;
         }
 
         .body-2 {
-            color: yellow;
+            color: orange;
         }
 
         .body-3 {
-            color: blue;
-
+            color: yellow;
         }
 
         .body-4 {
@@ -343,19 +342,19 @@
         }
 
         .body-5 {
-            color: purple;
+            color: blue;
         }
 
         .body-6 {
-            color: goldenrod;
+            color: indigo;
         }
 
         .body-7 {
-            color: red;
+            color: violet;
         }
 
         .body-8 {
-            color: honeydew;
+            color: grey;
         }
 
         .body-9 {
@@ -833,10 +832,14 @@
         let width, height, cx, cy;
 
         const DVATTIMSAKARA = [ '[order matters; reversed]',
-                                'tóc', 'lông', 'móng', 'răng', 'da', 'thịt', 'gân', 'xương', 'tủy', 'thận','tim', 'gan', 'hoành cách mô', 
-                                'lá lách', 'phổi', 'ruột', 'màng ruột', 'bụng', 'phân', 'mật', 'đàm', 'mủ', 'máu', 'mồ hôi',
-                                'mỡ', 'nước mắt', 'mỡ da', 'nước miếng', 'nước mủ', 'chất nhờn ở khớp', 'nước tiểu' /* 'N' */, 
-                                'não trong đầu' 
+                                'tóc', 'lông', 'móng', 'răng', 
+                                'da', 'thịt', 'gân', 'xương', 
+                                'tủy', 'thận','tim', 'gan', 
+                                'hoành cách mô', 'lá lách', 'phổi', 'ruột', 
+                                'màng ruột', 'bụng', 'phân', 'mật', 
+                                'đàm', 'mủ', 'máu', 'mồ hôi',
+                                'mỡ', 'nước mắt', 'mỡ da', 'nước miếng', 
+                                'nước mủ', 'chất nhờn ở khớp', 'nước tiểu' /* 'N' */, 'Não Trong Đầu' 
                             ];
 
         class NodeParticle {
@@ -1158,8 +1161,8 @@
                             // let li = document.createElement('li');
                             // li.classList.add('left-li');
                             let colour = Math.floor(idx / 4);
-                            if (idx == 31) // last one is the brain which is the most important
-                                colour = 8;
+                            // if (idx == 31) // last one is the brain which is the most important
+                            //     colour = 8;
                             htmlContent += `<li id='${idx}' class='left-li body-${colour+1}'>${label}</li>`;
                         }
 
