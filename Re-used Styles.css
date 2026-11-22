@@ -31,3 +31,7 @@
       filter: blur(17px);
       transform: translateY(60px) scale(.3) rotate(30deg);
 }
+
+.center {
+      text-align: center;
+}
