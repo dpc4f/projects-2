@@ -1880,7 +1880,7 @@ Object.freeze(Life.ERROR);
 Object.freeze(Life.ANIMAL_NAMES);
 
 const Unit60PlusPlus = Life; // <-- need-less going back to C / C++
-const DDAi = DoubleIteration;
+const DDAi = DoubleIteration; // <-- /đi ai/
 
 
 class World {
