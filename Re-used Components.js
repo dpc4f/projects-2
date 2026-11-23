@@ -648,7 +648,7 @@ class DateValues {
         let ret = -1;
         let bInvalid = monthIdx < 0 || monthIdx >= DateValues.Constants.ONE_YEAR_IN_MONTHS;
         
-        if (bInvalid == false) {
+        if (!bInvalid) { // nếu ko bất thường
             ret = monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
         }
 
