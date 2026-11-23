@@ -1757,7 +1757,8 @@ class MahaUnit {
      * supreme is about height of a { person / thing OR vision }'s
      * 
      * 
-     * 
+     * [NOV 23 current_year+6; dropped KT]
+     * 2174 + 75 == 2249 <-- year of TRâU's; drop KT of KT's
      * 
      * 
      * 
