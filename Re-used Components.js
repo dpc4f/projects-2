@@ -587,7 +587,7 @@ class DateValues {
         let ret = true;
         
         // if (paramYear < 1) ret = false;
-        // if (paramMonthIdx < 0 || paramMonthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) ret = false;
+        // if (paramMonthIdx < 0 || paramMonthIdx >= DateValues.Constants.ONE_YEAR_IN_MONTHS) ret = false;
         
         /***
          * [; nr] refine this code segment
@@ -604,7 +604,7 @@ class DateValues {
     }
 
     static isValidGregorianMonth(paramMonth) {
-        return 0 <= paramMonth && paramMonth < DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+        return 0 <= paramMonth && paramMonth < DateValues.Constants.ONE_YEAR_IN_MONTHS;
     }
 
     /***
@@ -646,7 +646,7 @@ class DateValues {
 
     static convertToElteMonthIdx(monthIdx) { // monthIdx = 0..11 <-- valid
         let ret = -1;
-        let bInvalid = monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+        let bInvalid = monthIdx < 0 || monthIdx >= DateValues.Constants.ONE_YEAR_IN_MONTHS;
         
         if (bInvalid == false) {
             ret = monthIdx < 2 ? monthIdx + 10 : monthIdx - 2;
@@ -1071,7 +1071,7 @@ class DateValues {
          * 
          * */ // --> done
 
-        if (monthIdx < 0 || monthIdx >= DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
+        if (monthIdx < 0 || monthIdx >= DateValues.Constants.ONE_YEAR_IN_MONTHS) {
             console.log('Invalid month index provided');
             return;
         }
@@ -1325,11 +1325,11 @@ DateValues.Constants = class {
         return 'current_year';
     }
 
-    static NUMBER_OF_MONTHS_IN_A_YEAR = 12;
+    static ONE_YEAR_IN_MONTHS = 12;
 
 }
 
-Object.freeze(DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR);
+Object.freeze(DateValues.Constants.ONE_YEAR_IN_MONTHS);
 
 
 
@@ -1592,7 +1592,7 @@ class CulaUnit {
         return [m, y];
     }
 
-    static convertToElteMonthYear(year, month = DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR) {
+    static convertToElteMonthYear(year, month = DateValues.Constants.ONE_YEAR_IN_MONTHS) {
         let d = year - DateValues.Constants.CURRENT_YEAR - (month < 2 ? 1 : 0);
         let c_y_str = DateValues.Constants.CURRENT_YEAR_STRING;
         let str = d > 0 ? '+'+d.toString() : d.toString();
@@ -1650,7 +1650,7 @@ class CulaUnit {
     static revertElteMonthIdx(monthStr) {
         const idx = DateValues.getElteFromElteMonth(monthStr);
 
-        return (idx + 2) % DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+        return (idx + 2) % DateValues.Constants.ONE_YEAR_IN_MONTHS;
     }
 
     get DayCountInElteMonths() {
@@ -1695,13 +1695,13 @@ class DoubleIteration {
      */
 
     static WICKTORY_RATIO = .66666666667;
-    static DDAi_IN_YEARS = 8;
+    static WAN_DDAi_IN_YEARS = 8;
 
 
 }
 
 Object.freeze(DoubleIteration.WICKTORY_RATIO);
-Object.freeze(DoubleIteration.DDAi_IN_YEARS);
+Object.freeze(DoubleIteration.WAN_DDAi_IN_YEARS);
 
 
 class Unit60 {
@@ -1866,11 +1866,11 @@ class Life {
         let [, y] = CulaUnit.revertElteMonthYear(this.#tdob);
         this.#birthDigiYear = y - subductalAmount;
 
-        let tempo = Math.abs(DateValues.Constants.CURRENT_YEAR - this.#birthDigiYear) % DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR;
+        let tempo = Math.abs(DateValues.Constants.CURRENT_YEAR - this.#birthDigiYear) % DateValues.Constants.ONE_YEAR_IN_MONTHS;
         let result = Life.ANIMAL_NAMES[tempo];
         
         if (this.#birthDigiYear < DateValues.Constants.CURRENT_YEAR) {
-            result = Life.ANIMAL_NAMES[DateValues.Constants.NUMBER_OF_MONTHS_IN_A_YEAR - tempo];
+            result = Life.ANIMAL_NAMES[DateValues.Constants.ONE_YEAR_IN_MONTHS - tempo];
         }
 
         return result;
