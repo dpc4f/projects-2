@@ -369,8 +369,8 @@
         <div class="hidden">[1 ~ 8][9 ~ 2] 1096 --> 8026</div>
     </div>
         <div class="beloved old-db-record">
-        <div type="text" class="名前" text-rendered>姚安娜 (Yao Siwei, Giang Zialo)</div>
-        <div type="text" id="DOB-8" class="dob fromConverted" text-rendered>Jan 14 1999</div>
+        <div type="text" class="名前 old-db-record" text-rendered>姚安娜 (Yao Siwei, Giang Zialo)</div>
+        <div type="text" id="DOB-8" class="dob fromConverted old-db-record" text-rendered>Jan 14 1999</div>
         <div type="text" id="ANI-8" class="colourAnimal old-db-record"></div>
     </div>
     <div class="note">[gender] woman, F; man, M; etc.</div>
@@ -448,7 +448,7 @@
             document.getElementById('ANI-7').innerHTML = aLife.exchange2AnimalByLunar()
                 // + ` / <span class='bear'>Bear</span>`
                 // + ` / <span class='lioness'>Lioness</span>`
-                + 
+                + ` / <span class='quail'>Quail</span>`
                 + ` / <span class='colourAnimal'>Lion</span>`; /* specially 4, Yifei Liu */
             
             aLife = new Life(document.getElementById('DOB-8').innerText);
