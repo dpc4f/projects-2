@@ -430,9 +430,7 @@
              */ // --> done
 
             let aLife = new Life(document.getElementById('DOB-2').innerText);
-            document.getElementById('ANI-2').innerHTML = aLife.exchange2AnimalByLunar() 
-                + ` / <span class='elephale'>Whale clan</span>` 
-                + ` / <span class='diec-phi'>Chim Diệc</span>`; /* specially 4, péo Phi */
+            document.getElementById('ANI-2').innerHTML = aLife.exchange2AnimalByLunar();
 
             aLife = new Life(document.getElementById('DOB-3').innerText);
             document.getElementById('ANI-3').innerHTML = aLife.exchange2AnimalByLunar();
@@ -450,11 +448,11 @@
             document.getElementById('ANI-7').innerHTML = aLife.exchange2AnimalByLunar()
                 // + ` / <span class='bear'>Bear</span>`
                 // + ` / <span class='lioness'>Lioness</span>`
-                + ` / <span class='colourAnimal'>Lion</span>`; /* specially 4, Yifei Liu */;
+                + 
+                + ` / <span class='colourAnimal'>Lion</span>`; /* specially 4, Yifei Liu */
             
             aLife = new Life(document.getElementById('DOB-8').innerText);
-            document.getElementById('ANI-8').innerHTML = aLife.exchange2AnimalByLunar() 
-                + ` / <span class='quail'>Quail</span>`;
+            document.getElementById('ANI-8').innerHTML = aLife.exchange2AnimalByLunar();
 
             periodicalUpdateDateTime_TimeStamp();
             modifyOldDBRecordToAdhereToBackgroundColour();
