@@ -895,10 +895,11 @@ class DateValues {
 
         let date = null;
 
-        if (dateStr !== '' && dateStr !== undefined && dateStr !== null)
+        if (dateStr !== '' && dateStr !== undefined && dateStr !== null) {
             date = new Date(dateStr);
-        else
+        } else {
             date = new Date();
+        }
 
         if (isNaN(date.getTime())) {
             alert("Invalid date format. Please use a format like 'Dec 13 2011'.");
@@ -914,10 +915,11 @@ class DateValues {
         let elteMonth = bFromDavid == false
             ? DateValues.#getElteMonthThroughElte(DateValues.convertToElteMonthIdx(month)) : DateValues.#getElteMonthThroughElte(month);
 
-        if (bFromDavid == true) 
-            year -= 2;
-        else if (month < 2) // month is Jan OR Feb
+        if (bFromDavid == true) {
+            year -= 4;
+        } else if (month < 2) { // month is Jan OR Feb
             year--;
+        }
         
         if (year > DateValues.Constants.CURRENT_YEAR)
             elteYear = 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
