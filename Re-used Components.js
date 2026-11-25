@@ -1358,7 +1358,7 @@ DateValues.Helpers = class {
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'current_year' : 'current_year+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
         let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(day) : '';
-        let shift = bShiftInADay ? DateValues.getShiftOfTheday(hr, mi) : '';
+        let shift = bShiftInADay ? this.#dateValues.getShiftOfTheday(hr, mi) : '';
         let weekNo = bWeekNo ? DateValues.getWeekNumber(dateVal, year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
@@ -1380,7 +1380,7 @@ DateValues.Helpers = class {
         let elteYear = year == DateValues.Constants.CURRENT_YEAR
                         ? 'cur_yea' : 'cur_yea+' + (year - DateValues.Constants.CURRENT_YEAR).toString();
         let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(day, Iteration.MID_FORM_DATE) : '';
-        let shift = bShiftInADay ? DateValues.getShiftOfTheday(hr, mi, MID_FORM_SHIFT) : '';
+        let shift = bShiftInADay ? this.#dateValues.getShiftOfTheday(hr, mi, MID_FORM_SHIFT) : '';
         let weekNo = bWeekNo ? DateValues.getWeekNumber(dateVal, year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
@@ -1402,7 +1402,7 @@ DateValues.Helpers = class {
         let elteYear = year == DateValues.Constants.CURRENT_YEAR 
                         ? 'O' : ((bMonth == false ? 'i+' : '+') + (year - DateValues.Constants.CURRENT_YEAR).toString());
         let dayIndex = bDayIndex ? DateValues.whichDayIsHereday(day, Iteration.SHORT_FORM_DATE) : '';
-        let shift = bShiftInADay ? DateValues.getShiftOfTheday(hr, mi, SHORT_FORM_SHIFT) : '';
+        let shift = bShiftInADay ? this.#dateValues.getShiftOfTheday(hr, mi, SHORT_FORM_SHIFT) : '';
         let weekNo = bWeekNo? DateValues.getWeekNumber(dateVal, year, month, soleDate, day) : ''; //
 
         return `${elteMonth} ${elteSoleDate} ${elteYear} ${weekNo} ${dayIndex} ${shift}`;
