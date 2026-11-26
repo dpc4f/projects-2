@@ -555,12 +555,12 @@
             document.getElementById('dmitry').textContent = `${timeVal.formatTime(20, true)}`; // -4
         }
 
-        function updateToHereDate() {
-            
-            if (!dateVal) dateVal = new DateValues(renderCalendar);
+        function updateToHereDate() {      
+            if (!dateVal) {
+                dateVal = new DateValues(renderCalendar);
+            }
 
             dateVal.timeTheDay(true);
-
         }
 
         function initializeToDateValues(dateVal) {
@@ -738,7 +738,7 @@
                 }
             }, duration);
 
-            infor.innerText = UnytValues.getDateValuesTimeStamp(dateVal, UnytValues.FULL_FORM_DATE, 0); // first time
+            infor.innerText = UnytValues.getDateValuesTimeStamp(dateVal, UnytValues.FULL_FORM_DATE, index); // first time
         }
 
         function formatElteDateString() { // leave this method here 'cause of a historic reason
@@ -819,7 +819,7 @@
 
     </script>
 
-    <div class="hidden invisible">Lau Dai be'l Anna</div>
+    <div class="hidden invisible">Lau Dai { be'l Anna --> pe'o Phi }</div>
     <div class="hidden">Hài Mộng Hy</div>
     <div class="hidden">cứ theo lệ thường thoai; nếu chọn 2 trong 3 thì, {{ 27; 28 } && -{ 26 }} .! :-))</div>
 </body>
