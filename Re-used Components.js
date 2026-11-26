@@ -1509,6 +1509,7 @@ class CulaUnit {
     static FULL_FORM_DATE = 0;
     static MID_FORM_DATE = 1;
     static SHORT_FORM_DATE = 2;
+    static DATE_FORM_COUNT = 3;
 
     static STANDARD_FORM_OF_DATE_FORMAT_STRINGS = 2;
 
@@ -1682,12 +1683,14 @@ Object.freeze(UnytValues.DATE_FORMAT_COUNT);
 Object.freeze(UnytValues.FULL_FORM_DATE);
 Object.freeze(UnytValues.MID_FORM_DATE);
 Object.freeze(UnytValues.SHORT_FORM_DATE);
+Object.freeze(UnytValues.DATE_FORM_COUNT);
 Object.freeze(UnytValues.MONTH_NAMES);
 Object.freeze(UnytValues.MONTH_NAMES_TLA);
 Object.freeze(UnytValues.STANDARD_FORM_OF_DATE_FORMAT_STRINGS);
 Object.freeze(UnytValues.SLOGAN);
 Object.freeze(UnytValues.DIGI_YEAR_OF_FIRST_UNYT);
 Object.freeze(UnytValues.WAN_YEAR_IN_DAYS);
+
 
 
 class DoubleIteration {
