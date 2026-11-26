@@ -15,7 +15,7 @@
             width: 50%;
             margin: auto;
             margin-top: 17px;
-            filter: contrast(155%) brightness(95%);
+            filter: contrast(114%) brightness(95%);
         }
 
         img {
@@ -142,6 +142,7 @@
 
         .名前 {
             font-size: 22px;
+            color: darkviolet;
         }
 
         .colourAnimal {
@@ -164,7 +165,7 @@
 
         .infor {
             width: auto;
-            margin: 2px;
+            margin: 7px;
             font: italic 16px/1.5 "Tahoma", serif;
             text-align: right;
             color: blue;
@@ -195,11 +196,13 @@
         .note, .note-2, .note-3 {
             font-size: 17px;
             color: darkgreen;
+            margin: 10px;
         }
 
         .note-2 {
             font-size: 13px;
             color: blue;
+            margin: 10px;
         }
 
         .note-3 {
@@ -209,7 +212,7 @@
         .defined, .defined-2 {
             font-size: 14px;
             color: rgb(4, 15, 160);
-            margin: 4px;
+            margin: 8px;
         }
 
         .infor-2 {
@@ -291,7 +294,7 @@
     </style>
 </head>
 
-<body id="bodyTage" style="background-image: URL('a brick - 2.png'); background-color: rgb(199, 131, 112); background-blend-mode: lighten;">
+<body id="bodyTage" style="background-image: URL('a brick - 2.png'); background-color: rgb(8, 105, 105); background-blend-mode: lighten;">
     <h1>
         Gorgeous Women && Favourite Animals
     </h1>
@@ -339,11 +342,6 @@
         <div type="text" class="名前" text-rendered></div>
         <div type="text" id="DOB-3" class="dob" text-rendered></div>
         <div type="text" id="ANI-3" class="colourAnimal invisible"></div>
-    </div>
-    <div class="relative">
-        <div type="text" class="名前">Fan Bingbing</div>
-        <div type="text" id="DOB-4" class="dob" text-rendered>Sept 16 1980</div>
-        <div type="text" id="ANI-4" class="colourAnimal"></div>
     </div>
     <div class="beloved old-db-record">
         <div type="text" class="名前" text-rendered>
@@ -562,7 +560,7 @@
             let i = 0;
 
             for (; i < theSameBkgrdColourDivs.length; ++i)
-                theSameBkgrdColourDivs[i].style.cssText = "color: rgb(8, 28, 30) !important;";
+                theSameBkgrdColourDivs[i].style.cssText = "color: rgb(8, 105, 105) !important;";
         }
 
 
