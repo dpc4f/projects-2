@@ -510,8 +510,7 @@ class DateValues {
 
         if (yr == DateValues.USE_HERE_DAY) { // == 0
 
-            let elteYear = Iteration.convertToElteYear(DateValues.getYearNumberOnly(this.Heredate), this.Heredate.getMonth());
-            this.#cUnit = new CulaUnit(elteYear);
+            this.#cUnit = new CulaUnit(DateValues.getYearNumberOnly(this.Heredate));
             this.timeTheDay(callbackUpdateGUI ? true : false); // use Here Date Values
 
         } else {
@@ -527,12 +526,10 @@ class DateValues {
                         
             if (CulaUnit.isValidGregorianYear(yr) == false) return;
             this.#digitalYear = yr;
-            
+            this.#cUnit = new CulaUnit(this.#digitalYear);
+
             if (this.isValidGregorianSoleDate(dt) == false) return;
             this.#dtIdx = dt;
-
-            let elteYear = Iteration.convertToElteYear(this.#digitalYear, this.#mtIdx);
-            this.#cUnit = new CulaUnit(elteYear);
 
             this.#setDigiYear = yr; // yr > -1
             this.#smtIdx = mt;
@@ -936,6 +933,7 @@ class DateValues {
         return elteDOB;
 
     }
+
 
     static getElteMonth(monthIdx, form = Iteration.FULL_FORM_DATE) { // get Elte month from Gregorian month index
         /***  
@@ -1525,6 +1523,7 @@ class CulaUnit {
         if (this.CurrentPos > 0) this.#boolLeapYear = false;
     }
 
+    
     static getDateValuesTimeStamp(dateVal, formLength = CulaUnit.FULL_FORM_DATE, index = CulaUnit.STANDARD_FORM_OF_DATE_FORMAT_STRINGS) {
         
         /***
