@@ -723,10 +723,9 @@
             const infor = document.getElementById("dateWithoutTime");
             let form = UnytValues.SHORT_FORM_DATE;
             // dateValue.getDuration4SwitchingDateForms(); // temporarily increase to a big amount to test updating GUI when tomorrow comes
-            let index = 0;
-            
-            let duration = 1000; // 10 seconds 4 testing purpose
-            // console.log(duration); // 4 testing purpose
+            let index = 0;      
+            let duration = 7000; // 7 seconds to test the timestamp displayed
+
             setInterval(() => {
                 infor.innerText = UnytValues.getDateValuesTimeStamp(dateVal, form, index);
                 index++;
