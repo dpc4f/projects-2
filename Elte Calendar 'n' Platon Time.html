@@ -530,7 +530,7 @@
          * [; nr] check if in the first time Platon Time is displayed dubbedly 
          * 
          * 
-         */
+         */ // --> done
 
         function updateToHereTime() {
             tVal = new TimeValues(updatePlatonTime);
@@ -721,9 +721,9 @@
 
         function renderDateTimeVarieties() {
             const infor = document.getElementById("dateWithoutTime");
-            let form = UnytValues.FULL_FORM_DATE;
+            let form = UnytValues.SHORT_FORM_DATE;
             // dateValue.getDuration4SwitchingDateForms(); // temporarily increase to a big amount to test updating GUI when tomorrow comes
-            let index = 1;
+            let index = 0;
             
             let duration = 10000; // 10 seconds 4 testing purpose
             // console.log(duration); // 4 testing purpose
@@ -738,7 +738,7 @@
                 }
             }, duration);
 
-            infor.innerText = UnytValues.getDateValuesTimeStamp(dateVal, UnytValues.FULL_FORM_DATE, index); // first time
+            infor.innerText = UnytValues.getDateValuesTimeStamp(dateVal, UnytValues.FULL_FORM_DATE, index++); // first time
         }
 
         function formatElteDateString() { // leave this method here 'cause of a historic reason
