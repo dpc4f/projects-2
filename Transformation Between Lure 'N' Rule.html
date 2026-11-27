@@ -307,10 +307,10 @@
 <body allowfullscreen class="main-bckgrd-colo">
     <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
     <div id="wordings" class="morph-container word">
-        <div class="letter-L"></div>
-        <div class="u">u</div>
-        <div class="letter-r"></div>
-        <div class="e">e</div>
+        <div class="letter-L change-grad"></div>
+        <div class="u change-grad">u</div>
+        <div class="letter-r change-grad"></div>
+        <div class="e change-grad">e</div>
     </div>
 
     <script>
@@ -339,11 +339,19 @@
         }
 
         function changeGradient() {
-            const ele = docment.getElementbyId('wordings');
+            const ele = document.getElementsByClassName('change-grad');
             let degree = playTheDice(360);
-            ele.style.background = `linear-gradient(${ degree }deg, #e5ff00, #03f1f1, #00f5ac)`;
+            document.body.style.background = `linear-gradient(${ degree }deg, #00f2af, #00d5ac, #00f5aa)`;
+            // `linear-gradient(${ degree }deg, #00f5af, #00f5ac, #00f5aa)`;
+            
+            // let i = 0;
+            // for (; i < ele.length; ++i) {
+            //     ele[i].style.background = `linear-gradient(${ degree }deg, #00f5af, #00f5ac, #00f5aa)`;
+            // }
         }
 
+        changeGradient();
+        
         setInterval(createParticle, 120);
         setInterval(changeGradient, 1000);
 
