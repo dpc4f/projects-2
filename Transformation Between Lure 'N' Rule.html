@@ -306,7 +306,7 @@
 
 <body allowfullscreen class="main-bckgrd-colo">
     <button id="full-screen-btn" class="main-bckgrd-colo" onclick="toggleFullscreen()"></button>
-    <div class="morph-container word">
+    <div id="wordings" class="morph-container word">
         <div class="letter-L"></div>
         <div class="u">u</div>
         <div class="letter-r"></div>
@@ -331,7 +331,22 @@
             }, 197000);
         }
 
+        function playTheDice(modulo) {
+            let now = new Date();
+            let mSec = now.getMilliseconds();
+            
+            return (mSec * 23)  % modulo;
+        }
+
+        function changeGradient() {
+            const ele = docment.getElementbyId('wordings');
+            let degree = playTheDice(360);
+            ele.style.background = `linear-gradient(${ degree }deg, #e5ff00, #03f1f1, #00f5ac)`;
+        }
+
         setInterval(createParticle, 120);
+        setInterval(changeGradient, 1000);
+
     </script>
 
     <script src='Re-used Components.js'></script>
