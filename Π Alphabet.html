@@ -150,6 +150,7 @@
         const dw = 'D́ d́';
         const container = document.getElementById('alphabet');
         const Lều = 'M̀ m̀';
+        const letterCcWithAHat = 'Ĉ ĉ'; 
 
         for (let i = 0; i < letters.length; i++) {
             const div = document.createElement('div');
@@ -167,6 +168,11 @@
                 let dwElement = document.createElement('div');
                 dwElement.className = 'mini-creature';
                 dwElement.innerHTML = Lều;
+                div.appendChild(dwElement);
+            } else if (i == 0) {
+                let dwElement = document.createElement('div');
+                dwElement.className = 'mini-creature';
+                dwElement.innerHTML = letterCcWithAHat;
                 div.appendChild(dwElement);
             }
 
